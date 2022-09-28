@@ -1,6 +1,7 @@
 import 'package:calender_picker/date_picker_widget.dart';
 import 'package:fitness_app/constants/constants.dart';
 import 'package:fitness_app/screens/my_activity/open_activity.dart';
+import 'package:fitness_app/screens/my_activity/water_tracker.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/line_chart_widget.dart';
 import 'package:flutter/material.dart';
@@ -286,140 +287,149 @@ class _MyActivityState extends State<MyActivity> {
             const SizedBox(
               height: 10,
             ),
-            Container(
-              height: 25.h,
-              width: MediaQuery.of(context).size.width * 2,
-              margin: const EdgeInsets.all(12),
+            GestureDetector(
+              onTap: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                        WaterTracker()));
+                },
               child: Container(
-                height: 15.h,
+                height: 25.h,
                 width: MediaQuery.of(context).size.width * 2,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.0),
-                  gradient: const LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.topLeft,
-                    colors: [
-                      Colors.white70,
-                      Colors.white70,
+                margin: const EdgeInsets.all(12),
+                child: Container(
+                  height: 15.h,
+                  width: MediaQuery.of(context).size.width * 2,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.0),
+                    gradient: const LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.topLeft,
+                      colors: [
+                        Colors.white70,
+                        Colors.white70,
+                      ],
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const [
+                            Text(
+                              'Water Tracker',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  '0 ',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  '/8 Cups',
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              // height: 8.h,
+                              // width: MediaQuery.of(context).size.width * 0.2,
+                              // margin: const EdgeInsets.symmetric(vertical: 5),
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: SleekCircularSlider(
+                                initialValue: 30,
+                                max: 100,
+                                appearance: CircularSliderAppearance(
+                                  // infoProperties: InfoProperties(),
+                                  angleRange: 360,
+                                  size: MediaQuery.of(context).size.width * 0.15,
+                                  customWidths: CustomSliderWidths(
+                                      progressBarWidth: 6.0, trackWidth: 3.0),
+                                  customColors: CustomSliderColors(
+                                    hideShadow: true,
+                                    progressBarColor: Colors.blue,
+                                    dotColor: Colors.transparent,
+                                    trackColor: Colors.white,
+                                    // trackColor: const Color(0xff404040),
+                                    progressBarColors: [
+                                      Colors.blue,
+                                      Colors.blue,
+                                    ],
+                                  ),
+                                ),
+                                innerWidget: (re) {
+                                  return Center(
+                                    child: Icon(
+                                      Icons.hourglass_bottom,
+                                      color: Colors.blue,
+                                      size: 22,
+                                    ),
+                                  );
+                                },
+                                onChange: (e) {
+                                  // setState(() {
+                                  //   vaule = e;
+                                  // });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: 40,
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25.0),
+                            color: Colors.blue),
+                        child: Center(
+                          child: Text(
+                            'DRINK',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w800),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
-                          Text(
-                            'Water Tracker',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: const [
-                              Text(
-                                '0 ',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                '/8 Cups',
-                                style: TextStyle(
-                                  color: Colors.black54,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            // height: 8.h,
-                            // width: MediaQuery.of(context).size.width * 0.2,
-                            // margin: const EdgeInsets.symmetric(vertical: 5),
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: SleekCircularSlider(
-                              initialValue: 30,
-                              max: 100,
-                              appearance: CircularSliderAppearance(
-                                // infoProperties: InfoProperties(),
-                                angleRange: 360,
-                                size: MediaQuery.of(context).size.width * 0.15,
-                                customWidths: CustomSliderWidths(
-                                    progressBarWidth: 6.0, trackWidth: 3.0),
-                                customColors: CustomSliderColors(
-                                  hideShadow: true,
-                                  progressBarColor: Colors.blue,
-                                  dotColor: Colors.transparent,
-                                  trackColor: Colors.white,
-                                  // trackColor: const Color(0xff404040),
-                                  progressBarColors: [
-                                    Colors.blue,
-                                    Colors.blue,
-                                  ],
-                                ),
-                              ),
-                              innerWidget: (re) {
-                                return Center(
-                                  child: Icon(
-                                    Icons.hourglass_bottom,
-                                    color: Colors.blue,
-                                    size: 22,
-                                  ),
-                                );
-                              },
-                              onChange: (e) {
-                                // setState(() {
-                                //   vaule = e;
-                                // });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25.0),
-                          color: Colors.blue),
-                      child: Center(
-                        child: Text(
-                          'DRINK',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w800),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.0),
-                image: DecorationImage(
-                  image: AssetImage(
-                      "assets/images/${constants.standard[3].image}"),
-                  fit: BoxFit.cover,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  image: DecorationImage(
+                    image: AssetImage(
+                        "assets/images/${constants.standard[3].image}"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),

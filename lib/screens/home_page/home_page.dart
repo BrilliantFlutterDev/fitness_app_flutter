@@ -1,11 +1,11 @@
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/constants/constants.dart';
+import 'package:fitness_app/screens/home_page/custom_training.dart';
 import 'package:fitness_app/screens/home_page/open_home_page/open_home_page.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-
 import '../plan_screen/plan_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,7 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<String> statusList = ['Rename', 'Delete'];
 
   late String statusValueChoose;
 
@@ -228,163 +227,218 @@ class _HomePageState extends State<HomePage> {
                   }),
             ),
             ColorRemover(
-              child: ListView.builder(
-                  // shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: constants.standard.length,
-                  itemBuilder: (ctx, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (ctx) => const OpenHomePage(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        height: 10.h,
-                        width: MediaQuery.of(context).size.width * 2,
-                        margin: const EdgeInsets.all(12),
+              child: Center(
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => CustomTraining()
+                        ));
+                  },
+                  child: Column(
+                    //mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.25, bottom: 13),
                         child: Container(
-                          height: 10.h,
-                          width: MediaQuery.of(context).size.width * 2,
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12.0),
-                            gradient: const LinearGradient(
-                              begin: Alignment.topRight,
-                              end: Alignment.topLeft,
-                              colors: [
-                                Color(0xff1c1b20),
-                                Colors.white70,
-                              ],
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    height: 8.h,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.2,
-                                    margin:
-                                        const EdgeInsets.symmetric(vertical: 5),
-                                    decoration: new BoxDecoration(
-                                      color: kColorPrimary,
-                                      // image: new DecorationImage(
-                                      //     image: '', fit: BoxFit.cover),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Center(
-                                      child: const Icon(
-                                        Icons.timer,
-                                        color: Colors.black,
-                                        size: 35,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        constants.standard[index].name,
-                                        style: const TextStyle(
-                                            fontSize: 20.0,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        '1 Exercise',
-                                        style: const TextStyle(
-                                          fontSize: 20.0,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                  width: 60,
-                                  height: 20,
-                                  child: Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 5),
-                                      child: DropdownButton(
-                                        isExpanded: true,
-                                        underline: const SizedBox(),
-                                        dropdownColor: Colors.white,
-                                        icon: const Icon(
-                                          Icons.menu,
-                                          color: kColorPrimary,
-                                          size: 22,
-                                        ),
-                                        iconSize: 20,
-                                        style: const TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.black,
-                                        ),
-                                        onChanged: (valueItem) {},
-                                        items: statusList.map((valueItem) {
-                                          return DropdownMenuItem(
-                                            child: Text(valueItem),
-                                            value: valueItem,
-                                            onTap: () {
-                                              setState(() {});
-                                            },
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  )),
-                              // IconButton(
-                              //   icon: const Icon(
-                              //     Icons.menu,
-                              //     color: kColorPrimary,
-                              //   ),
-                              //   onPressed: () {
-                              //     setState(() {
-                              //       Container(
-                              //         height: 102,
-                              //         width: 35,
-                              //         child: DropdownButton<String>(
-                              //             items: statusList.map((String val) {
-                              //               return DropdownMenuItem<String>(
-                              //                 value: val,
-                              //                 child: Text(val),
-                              //               );
-                              //             }).toList(),
-                              //             hint: Text('dadsa'),
-                              //             onChanged: (val) {
-                              //               setState(() {});
-                              //             }),
-                              //       );
-                              //     });
-                              //   },
-                              // ),
-                            ],
-                          ),
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12.0),
-                          image: DecorationImage(
-                            image: AssetImage(
-                                "assets/images/${constants.standard[index].image}"),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  // color: Colors.white,
+                                  // width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(100),
+                                color: kColorPrimary,
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    spreadRadius: 1,
+                                    blurRadius: 8,
+                                    offset: Offset(0, 3),
+                                  )
+                                ]),
+                            child: const Center(
+                                child: Text(
+                                  '+',
+                                  style: TextStyle(color: Colors.white, fontSize: 35),
+                                ))),
                       ),
-                    );
-                  }),
+                      Text(
+                        'Add exercise',
+                        style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top:5, left: MediaQuery.of(context).size.width*0.1, right: MediaQuery.of(context).size.width*0.1),
+                        child: Text(
+                          'Customize your own training plans based on your preferences',
+                          style: TextStyle(color: Colors.white, fontSize: 13),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
+            // ColorRemover(
+            //   child: ListView.builder(
+            //       // shrinkWrap: true,
+            //       physics: const BouncingScrollPhysics(),
+            //       itemCount: constants.standard.length,
+            //       itemBuilder: (ctx, index) {
+            //         return GestureDetector(
+            //           onTap: () {
+            //             Navigator.of(context).push(
+            //               MaterialPageRoute(
+            //                 builder: (ctx) => const OpenHomePage(),
+            //               ),
+            //             );
+            //           },
+            //           child: Container(
+            //             height: 10.h,
+            //             width: MediaQuery.of(context).size.width * 2,
+            //             margin: const EdgeInsets.all(12),
+            //             child: Container(
+            //               height: 10.h,
+            //               width: MediaQuery.of(context).size.width * 2,
+            //               padding: const EdgeInsets.symmetric(horizontal: 10),
+            //               decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(12.0),
+            //                 gradient: const LinearGradient(
+            //                   begin: Alignment.topRight,
+            //                   end: Alignment.topLeft,
+            //                   colors: [
+            //                     Color(0xff1c1b20),
+            //                     Colors.white70,
+            //                   ],
+            //                 ),
+            //               ),
+            //               child: Row(
+            //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                 children: [
+            //                   Row(
+            //                     children: [
+            //                       Container(
+            //                         height: 8.h,
+            //                         width:
+            //                             MediaQuery.of(context).size.width * 0.2,
+            //                         margin:
+            //                             const EdgeInsets.symmetric(vertical: 5),
+            //                         decoration: new BoxDecoration(
+            //                           color: kColorPrimary,
+            //                           // image: new DecorationImage(
+            //                           //     image: '', fit: BoxFit.cover),
+            //                           shape: BoxShape.circle,
+            //                         ),
+            //                         child: Center(
+            //                           child: const Icon(
+            //                             Icons.timer,
+            //                             color: Colors.black,
+            //                             size: 35,
+            //                           ),
+            //                         ),
+            //                       ),
+            //                       const SizedBox(
+            //                         width: 15,
+            //                       ),
+            //                       Column(
+            //                         crossAxisAlignment:
+            //                             CrossAxisAlignment.start,
+            //                         mainAxisAlignment: MainAxisAlignment.center,
+            //                         children: [
+            //                           Text(
+            //                             constants.standard[index].name,
+            //                             style: const TextStyle(
+            //                                 fontSize: 20.0,
+            //                                 color: Colors.black,
+            //                                 fontWeight: FontWeight.bold),
+            //                           ),
+            //                           Text(
+            //                             '1 Exercise',
+            //                             style: const TextStyle(
+            //                               fontSize: 20.0,
+            //                               color: Colors.black,
+            //                             ),
+            //                           ),
+            //                         ],
+            //                       ),
+            //                     ],
+            //                   ),
+            //                   Container(
+            //                       width: 60,
+            //                       height: 20,
+            //                       child: Center(
+            //                         child: Padding(
+            //                           padding: const EdgeInsets.symmetric(
+            //                               horizontal: 5),
+            //                           child: DropdownButton(
+            //                             isExpanded: true,
+            //                             underline: const SizedBox(),
+            //                             dropdownColor: Colors.white,
+            //                             icon: const Icon(
+            //                               Icons.menu,
+            //                               color: kColorPrimary,
+            //                               size: 22,
+            //                             ),
+            //                             iconSize: 20,
+            //                             style: const TextStyle(
+            //                               fontSize: 15,
+            //                               color: Colors.black,
+            //                             ),
+            //                             onChanged: (valueItem) {},
+            //                             items: statusList.map((valueItem) {
+            //                               return DropdownMenuItem(
+            //                                 child: Text(valueItem),
+            //                                 value: valueItem,
+            //                                 onTap: () {
+            //                                   setState(() {});
+            //                                 },
+            //                               );
+            //                             }).toList(),
+            //                           ),
+            //                         ),
+            //                       )),
+            //                   // IconButton(
+            //                   //   icon: const Icon(
+            //                   //     Icons.menu,
+            //                   //     color: kColorPrimary,
+            //                   //   ),
+            //                   //   onPressed: () {
+            //                   //     setState(() {
+            //                   //       Container(
+            //                   //         height: 102,
+            //                   //         width: 35,
+            //                   //         child: DropdownButton<String>(
+            //                   //             items: statusList.map((String val) {
+            //                   //               return DropdownMenuItem<String>(
+            //                   //                 value: val,
+            //                   //                 child: Text(val),
+            //                   //               );
+            //                   //             }).toList(),
+            //                   //             hint: Text('dadsa'),
+            //                   //             onChanged: (val) {
+            //                   //               setState(() {});
+            //                   //             }),
+            //                   //       );
+            //                   //     });
+            //                   //   },
+            //                   // ),
+            //                 ],
+            //               ),
+            //             ),
+            //             decoration: BoxDecoration(
+            //               borderRadius: BorderRadius.circular(12.0),
+            //               image: DecorationImage(
+            //                 image: AssetImage(
+            //                     "assets/images/${constants.standard[index].image}"),
+            //                 fit: BoxFit.cover,
+            //               ),
+            //             ),
+            //           ),
+            //         );
+            //       }),
+            // ),
           ]),
         ),
         // body:
