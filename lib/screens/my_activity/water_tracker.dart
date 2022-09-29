@@ -334,26 +334,26 @@ class _WaterTrackerState extends State<WaterTracker>{
                                   ],
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Align(
-                                  alignment: Alignment.topRight,
-                                  child: IconButton(
-                                    icon: Icon(
-                                      isPlaying ? Icons.pause : Icons.play_arrow,
-                                      color: Colors.white,
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        isPlaying = !isPlaying;
-                                        if (isPlaying) {
-                                          refreshState();
-                                        }
-                                      });
-                                    },
-                                  ),
-                                ),
-                              )
+                              // Padding(
+                              //   padding: const EdgeInsets.all(8.0),
+                              //   child: Align(
+                              //     alignment: Alignment.topRight,
+                              //     child: IconButton(
+                              //       icon: Icon(
+                              //         isPlaying ? Icons.pause : Icons.play_arrow,
+                              //         color: Colors.white,
+                              //       ),
+                              //       onPressed: () {
+                              //         setState(() {
+                              //           isPlaying = !isPlaying;
+                              //           if (isPlaying) {
+                              //             refreshState();
+                              //           }
+                              //         });
+                              //       },
+                              //     ),
+                              //   ),
+                              // )
                             ],
                           ),
                         ),
