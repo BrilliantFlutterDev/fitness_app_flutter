@@ -1,4 +1,5 @@
 import 'package:fitness_app/screens/account_screen/account_screen.dart';
+import 'package:fitness_app/screens/account_screen/account_screen1.dart';
 import 'package:fitness_app/screens/chat_screen/chat_screen.dart';
 import 'package:fitness_app/screens/home_page/home_page.dart';
 import 'package:fitness_app/screens/my_activity/my_activity.dart';
@@ -17,7 +18,8 @@ class CusBottomBarState extends State<CusBottomBar> {
     HomePage(),
     MyActivity(),
     // const ChatScreen(),
-    const AccountScreen(),
+    // const AccountScreen(),
+    AccountScreen1(),
   ];
 
   @override

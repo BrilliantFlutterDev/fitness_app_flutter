@@ -25,15 +25,14 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
     return Scaffold(
       body: SafeArea(
         child: ColorRemover(
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
+            // physics: const BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Stack(
                   children: [
                     Container(
-                      height: MediaQuery.of(context).size.height,
+                      height: MediaQuery.of(context).size.height*0.9,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/images/5.png"),
@@ -52,7 +51,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                           ],
                         ),
                       ),
-                      height: MediaQuery.of(context).size.height,
+                      height: MediaQuery.of(context).size.height*0.9,
                       width: MediaQuery.of(context).size.width,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -60,8 +59,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                         child: Column(
                           children: [
                             SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.15),
+                                height: MediaQuery.of(context).size.height * 0.08),
                             // Row(
                             //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             //   children: [
@@ -124,26 +122,31 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                             //   ),
                             // ),
 
-                            Align(
-                              alignment: Alignment.center,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
-                                  Text(
-                                    "CHOOSE YOUR PLAN",
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                      fontSize: 30,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const [
+                                Text(
+                                  "CHOOSE YOUR PLAN",
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                ],
-                              ),
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  "Lose weight with the plan that suits you best",
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
                             ),
                             SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.08),
+                                height: MediaQuery.of(context).size.height * 0.09),
 
                             GestureDetector(
                               onTap: () {
@@ -155,7 +158,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                               child: Container(
                                 margin: const EdgeInsets.all(12),
                                 child: Container(
-                                  height: 10.h,
+                                  height: 12.h,
                                   alignment: Alignment.bottomLeft,
                                   padding: const EdgeInsets.only(left: 12.0),
                                   child: Column(
@@ -214,9 +217,9 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                 setState(() {});
                               },
                               child: Container(
-                                margin: const EdgeInsets.all(12),
+                                margin: EdgeInsets.only(left: 12, right: 12),
                                 child: Container(
-                                  height: 10.h,
+                                  height: 12.h,
                                   alignment: Alignment.bottomLeft,
                                   padding: const EdgeInsets.only(left: 12.0),
                                   child: Column(
@@ -277,7 +280,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                               child: Container(
                                 margin: const EdgeInsets.all(12),
                                 child: Container(
-                                  height: 10.h,
+                                  height: 12.h,
                                   alignment: Alignment.bottomLeft,
                                   padding: const EdgeInsets.only(left: 12.0),
                                   child: Column(
@@ -327,7 +330,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                               ),
                             ),
 
-                            const SizedBox(height: 50),
+                            SizedBox(height: MediaQuery.of(context).size.height*0.11),
                             InkWell(
                               onTap: () {
                                 Navigator.push(
@@ -373,7 +376,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                 ),
               ],
             ),
-          ),
+
         ),
       ),
     );

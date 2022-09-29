@@ -121,108 +121,159 @@ class _HomePageState extends State<HomePage> {
           child: TabBarView(children: [
             ColorRemover(
               child: ListView.builder(
-                  // shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  physics: const AlwaysScrollableScrollPhysics(),
                   itemCount: constants.dailyExercises.length,
                   itemBuilder: (ctx, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (ctx) => const OpenHomePage(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        height: 10.h,
-                        width: MediaQuery.of(context).size.width * 2,
-                        margin: const EdgeInsets.all(12),
-                        child: Container(
-                          height: 10.h,
-                          width: MediaQuery.of(context).size.width * 2,
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12.0),
-                            gradient: LinearGradient(
-                              begin: Alignment.topRight,
-                              end: Alignment.topLeft,
-                              colors: [
-                                Color(0xff1c1b20),
-                                Colors.transparent,
-                              ],
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                constants.dailyExercises[index].name,
-                                style: const TextStyle(
-                                    fontSize: 25.0,
-                                    fontWeight: FontWeight.bold),
+                    return Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (ctx) => const OpenHomePage(),
                               ),
-                              Container(
-                                height: 8.h,
-                                width: MediaQuery.of(context).size.width * 0.2,
-                                margin: const EdgeInsets.symmetric(vertical: 5),
-                                child: SleekCircularSlider(
-                                  initialValue: 30,
-                                  max: 100,
-                                  appearance: CircularSliderAppearance(
-                                    // infoProperties: InfoProperties(),
-                                    angleRange: 360,
-                                    size:
-                                        MediaQuery.of(context).size.width * 0.2,
-                                    customWidths: CustomSliderWidths(
-                                        progressBarWidth: 6.0, trackWidth: 3.0),
-                                    customColors: CustomSliderColors(
-                                      hideShadow: true,
-                                      progressBarColor: const Color(0xff1ce5c1),
-                                      dotColor: Colors.transparent,
-                                      trackColor: Colors.white70,
-                                      // trackColor: const Color(0xff404040),
-                                      progressBarColors: [
-                                        const Color(0xff1ce5c1),
-                                        const Color(0xff1ce5c1),
-                                      ],
+                            );
+                          },
+                          child: Container(
+                            height: 10.h,
+                            width: MediaQuery.of(context).size.width * 2,
+                            margin: EdgeInsets.only(left: 12, right: 12,top: 12),
+                            child: Container(
+                              height: 10.h,
+                              width: MediaQuery.of(context).size.width * 2,
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                gradient: LinearGradient(
+                                  begin: Alignment.topRight,
+                                  end: Alignment.topLeft,
+                                  colors: [
+                                    Color(0xff1c1b20),
+                                    Colors.transparent,
+                                  ],
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    constants.dailyExercises[index].name,
+                                    style: const TextStyle(
+                                        fontSize: 25.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Container(
+                                    height: 8.h,
+                                    width: MediaQuery.of(context).size.width * 0.2,
+                                    margin: const EdgeInsets.symmetric(vertical: 5),
+                                    child: SleekCircularSlider(
+                                      initialValue: 30,
+                                      max: 100,
+                                      appearance: CircularSliderAppearance(
+                                        // infoProperties: InfoProperties(),
+                                        angleRange: 360,
+                                        size:
+                                            MediaQuery.of(context).size.width * 0.2,
+                                        customWidths: CustomSliderWidths(
+                                            progressBarWidth: 6.0, trackWidth: 3.0),
+                                        customColors: CustomSliderColors(
+                                          hideShadow: true,
+                                          progressBarColor: const Color(0xff1ce5c1),
+                                          dotColor: Colors.transparent,
+                                          trackColor: Colors.white70,
+                                          // trackColor: const Color(0xff404040),
+                                          progressBarColors: [
+                                            const Color(0xff1ce5c1),
+                                            const Color(0xff1ce5c1),
+                                          ],
+                                        ),
+                                      ),
+                                      innerWidget: (re) {
+                                        return Center(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: const [
+                                              Text(
+                                                "10%",
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                      onChange: (e) {
+                                        // setState(() {
+                                        //   vaule = e;
+                                        // });
+                                      },
                                     ),
                                   ),
-                                  innerWidget: (re) {
-                                    return Center(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: const [
-                                          Text(
-                                            "10%",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: Colors.grey,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                  onChange: (e) {
-                                    // setState(() {
-                                    //   vaule = e;
-                                    // });
-                                  },
-                                ),
+                                ],
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12.0),
+                              image: DecorationImage(
+                                image: AssetImage(
+                                    "assets/images/${constants.dailyExercises[index].image}"),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        constants.dailyExercises.length-1==index? Padding(
+                          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.15, right: MediaQuery.of(context).size.width*0.15,top: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 13,
+                                    backgroundColor: Colors.grey.shade300,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(1.0),
+                                      child: Icon(Icons.change_circle_outlined, color: Color(0xff1ce5c1)),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 5),
+                                    child: Text(
+                                      "Change Plan",
+                                      style: TextStyle(fontSize: 10, color: Color(0xff1ce5c1)),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 13,
+                                    backgroundColor: Colors.grey.shade300,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(1.0),
+                                      child: Icon(Icons.refresh, color: Color(0xff1ce5c1)),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 5),
+                                    child: Text(
+                                      "Restart",
+                                      style: TextStyle(fontSize: 10, color: Color(0xff1ce5c1)),
+                                    ),
+                                  )
+                                ],
                               ),
                             ],
                           ),
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12.0),
-                          image: DecorationImage(
-                            image: AssetImage(
-                                "assets/images/${constants.dailyExercises[index].image}"),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
+                        ):SizedBox(),
+                      ],
                     );
                   }),
             ),
