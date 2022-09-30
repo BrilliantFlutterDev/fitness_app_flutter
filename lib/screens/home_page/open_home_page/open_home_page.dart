@@ -9,7 +9,7 @@ class OpenHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Constants constants = Constants();
+    ExerciseConstants constants = ExerciseConstants();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
@@ -115,7 +115,7 @@ class OpenHomePage extends StatelessWidget {
                               return GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (ctx) => const OpenActivity()));
+                                      builder: (ctx) =>  OpenActivity(title: constants.beginers[index].name,)));
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.all(12),
@@ -179,7 +179,7 @@ class OpenHomePage extends StatelessWidget {
                               return GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (ctx) => const OpenActivity()));
+                                      builder: (ctx) =>  OpenActivity(title: constants.beginers[index].name,)));
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.all(12),
@@ -243,7 +243,7 @@ class OpenHomePage extends StatelessWidget {
                               return GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (ctx) => const OpenActivity()));
+                                      builder: (ctx) =>  OpenActivity(title: constants.beginers[index].name,)));
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.all(12),

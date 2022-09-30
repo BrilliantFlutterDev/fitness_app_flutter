@@ -8,7 +8,7 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Constants constants = Constants();
+    ExerciseConstants constants = ExerciseConstants();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Chat"),

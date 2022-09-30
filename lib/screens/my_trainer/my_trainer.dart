@@ -7,7 +7,7 @@ class MyTrainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Constants constants = Constants();
+    ExerciseConstants constants = ExerciseConstants();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
