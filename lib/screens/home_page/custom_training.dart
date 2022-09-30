@@ -18,7 +18,7 @@ class _CustomTrainingState extends State<CustomTraining> {
 
   @override
   Widget build(BuildContext context) {
-    Constants constants = Constants();
+    ExerciseConstants constants = ExerciseConstants();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff1c1b20),

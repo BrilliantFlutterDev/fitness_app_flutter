@@ -5,11 +5,12 @@ import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
 
 class OpenActivity extends StatelessWidget {
-  const OpenActivity({Key? key}) : super(key: key);
+  const OpenActivity({Key? key, required this.title}) : super(key: key);
+  final String title;
 
   @override
   Widget build(BuildContext context) {
-    Constants constants = Constants();
+    ExerciseConstants constants = ExerciseConstants();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
@@ -24,19 +25,19 @@ class OpenActivity extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                children: const [
+                children:  [
                   Text(
-                    "Strecho Workout",
+                    title,
                     style: TextStyle(
                       fontSize: 20.0,
                     ),
                   ),
-                  Spacer(),
-                  Icon(
+                  const Spacer(),
+                  const Icon(
                     Icons.control_point_duplicate_outlined,
                     color: Color(0xff1ce5c1),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 12.0,
                   ),
                 ],
@@ -122,7 +123,7 @@ class OpenActivity extends StatelessWidget {
                       ColorRemover(
                         child: ListView.builder(
                             physics: const BouncingScrollPhysics(),
-                            itemCount: constants.workouts.length,
+                            itemCount: constants.dailyExercises.length,
                             itemBuilder: (ctx, index) {
                               return GestureDetector(
                                 onTap: () {
@@ -142,7 +143,7 @@ class OpenActivity extends StatelessWidget {
                                             width: 90,
                                             fit: BoxFit.cover,
                                             image: AssetImage(
-                                                "assets/images/${constants.workouts[index].image}")),
+                                                "assets/images/${constants.dailyExercises[index].image}")),
                                       ),
                                       const SizedBox(
                                         width: 18.0,
@@ -152,7 +153,7 @@ class OpenActivity extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            constants.workouts[index].name,
+                                            constants.dailyExercises[index].name,
                                             style: const TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,
@@ -162,8 +163,9 @@ class OpenActivity extends StatelessWidget {
                                             height: 6.0,
                                           ),
                                           Text(
-                                            constants
-                                                .workouts[index].lastMessage,
+                                            "${constants
+                                                .dailyExercises[index].time} mins | ${constants
+                                                .dailyExercises[index].raps} Raps",
                                             style: const TextStyle(
                                               fontSize: 12,
                                             ),

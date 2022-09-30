@@ -27,7 +27,7 @@ class _MyActivityState extends State<MyActivity> {
 
   @override
   Widget build(BuildContext context) {
-    Constants constants = Constants();
+    ExerciseConstants constants = ExerciseConstants();
     return Scaffold(
       //  backgroundColor: const Color(0xff1c1b20),
       appBar: AppBar(
