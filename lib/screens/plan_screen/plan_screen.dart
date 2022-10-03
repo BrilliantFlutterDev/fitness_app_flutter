@@ -52,7 +52,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                           ],
                         ),
                       ),
-                      height: MediaQuery.of(context).size.height*0.9,
+                      height: MediaQuery.of(context).size.height*0.95,
                       width: MediaQuery.of(context).size.width,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
