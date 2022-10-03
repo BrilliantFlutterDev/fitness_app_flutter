@@ -22,6 +22,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   late String statusValueChoose;
+  late HomeBloc _homeBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _homeBloc = BlocProvider.of<HomeBloc>(context);
+    _homeBloc.add(RefreshScreenEvent());
+  }
 
   @override
   Widget build(BuildContext context) {

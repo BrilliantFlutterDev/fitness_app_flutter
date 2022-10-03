@@ -26,20 +26,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
      if (event is GetLocalCartCombinationDetails) {
     yield LoadingState();
 
-    try {
-    var data = await dbHelper.queryAllCartProductCombination();
-    // print(data);
-    // RequestUserCartProductsCombinations
-    // requestUserCartProductsCombinations =
-    // RequestUserCartProductsCombinations.fromJson(data);
-    //
-    // yield CartCombinationDetailsLocalDBState(
-    // requestUserCartProductsCombinations:
-    // requestUserCartProductsCombinations);
-    } catch (e) {
-    yield ErrorState(error: 'No data found!');
-    print(e.toString());
-    }
+    String timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
+    // UserProductClickLocalDB userProductClickLocalDB =
+    // UserProductClickLocalDB(
+    //     productID: event.id, uniqueNumber: timeStamp);
+    // print(
+    //     '>>>>>>>>>Saving data to UserClick to Local DB ${userProductClickLocalDB.productID}');
+    // await dbHelper
+    //     .insertProductUserClick(userProductClickLocalDB.toJson());
+    yield ProductClickAddedToLocalDBState();
     }
      else if(event is RefreshScreenEvent){
        yield RefreshScreenState();
