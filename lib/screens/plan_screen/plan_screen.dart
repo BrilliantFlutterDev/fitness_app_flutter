@@ -22,6 +22,14 @@ class SelectPlanScreen extends StatefulWidget {
 
 class _SelectPlanScreenState extends State<SelectPlanScreen> {
   final List<bool> _selectedPlan = <bool>[true, false, false];
+  late HomeBloc _homeBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _homeBloc = BlocProvider.of<HomeBloc>(context);
+
+  }
 ///ToDo: Git Comment
   int x=1;
   @override
@@ -173,7 +181,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                 _selectedPlan[2] = false;
                                 _selectedPlan[1] = false;
                                 _selectedPlan[0] = true;
-                                setState(() {});
+                                _homeBloc.add(RefreshScreenEvent());
                               },
                               child: Container(
                                 margin: const EdgeInsets.all(12),
@@ -234,7 +242,8 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                 _selectedPlan[0] = false;
                                 _selectedPlan[2] = false;
                                 _selectedPlan[1] = true;
-                                setState(() {});
+
+                                _homeBloc.add(RefreshScreenEvent());
                               },
                               child: Container(
                                 margin: EdgeInsets.only(left: 12, right: 12),
@@ -295,7 +304,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                 _selectedPlan[0] = false;
                                 _selectedPlan[1] = false;
                                 _selectedPlan[2] = true;
-                                setState(() {});
+                                _homeBloc.add(RefreshScreenEvent());
                               },
                               child: Container(
                                 margin: const EdgeInsets.all(12),

@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
-    _homeBloc.add(RefreshScreenEvent());
+    _homeBloc.add(InsertAllExercisesInLocalDBEvent());
   }
 
   @override
