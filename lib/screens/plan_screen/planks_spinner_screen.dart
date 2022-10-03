@@ -1,10 +1,13 @@
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/forget_password/forget_password.dart';
+import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/register_screen/register_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/cus_bottom_bar.dart';
 import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vertical_picker/vertical_picker.dart';
 
@@ -22,6 +25,22 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
   List<String> pushUpsRanges = ['0-30s', '30-60s', '60-120s', 'Over 120s'];
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    return BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
+      if (state is LoadingState) {
+      } else if (state is ErrorState) {
+        Fluttertoast.showToast(
+            msg: state.error,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.grey.shade400,
+            textColor: Colors.white,
+            fontSize: 12.0);
+      } else if (state is RefreshScreenState) {
+
+      }
+    }, builder: (context, state) {
     return Scaffold(
       body: SafeArea(
         child: ColorRemover(
@@ -213,6 +232,6 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
           ),
         ),
       ),
-    );
+    );});
   }
 }
