@@ -3,12 +3,12 @@ part of 'home_bloc.dart';
 abstract class HomeEvent {}
 
 
-class GetLocalCartDetails extends HomeEvent {
-  GetLocalCartDetails();
+class GetAllExerciseEvent extends HomeEvent {
+  GetAllExerciseEvent();
 }
 
-class GetLocalCartCombinationDetails extends HomeEvent {
-  GetLocalCartCombinationDetails();
+class InsertAllExercisesInLocalDBEvent extends HomeEvent {
+  InsertAllExercisesInLocalDBEvent();
 }
 class RefreshScreenEvent extends HomeEvent {
   RefreshScreenEvent();

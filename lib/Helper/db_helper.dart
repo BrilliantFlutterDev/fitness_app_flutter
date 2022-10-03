@@ -55,13 +55,6 @@ class DatabaseHelper {
 
   // SQL code to create the database table
   Future _onCreate(Database db, int version) async {
-    // await db.execute('''
-    //       CREATE TABLE $tableUserProductClick (
-    //         $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
-    //         $productID INTEGER,
-    //         $uniqueNumber TEXT
-    //       )
-    //       ''');
 
     await db.execute('''
           CREATE TABLE $tableExercises (
@@ -74,9 +67,8 @@ class DatabaseHelper {
             $type TEXT,
             $kneeIssue TEXT,
             $planLevel TEXT,
-            $planLevel TEXT,
-            $inPushUpCat BOOL,
-            $inPlankCat BOOL,
+            $inPushUpCat TEXT,
+            $inPlankCat TEXT,
             $completeStatus TEXT
           )
           ''');
@@ -110,10 +102,10 @@ class DatabaseHelper {
   //   return await db.insert(tableCartProductsCombination, row);
   // }
 
-  // Future<List<Map<String, dynamic>>> queryAllCartProduct() async {
-  //   Database db = await instance.database;
-  //   return await db.query(tableCartProducts);
-  // }
+  Future<List<Map<String, dynamic>>> queryAllExercise() async {
+    Database db = await instance.database;
+    return await db.query(tableExercises);
+  }
 
   // Future<List<Map<String, dynamic>>> queryAllCartProductCombination() async {
   //   Database db = await instance.database;
