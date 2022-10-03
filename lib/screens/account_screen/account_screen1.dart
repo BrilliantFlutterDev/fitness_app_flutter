@@ -1,7 +1,10 @@
+import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/screens/term_and_condition/term_and_condition.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AccountScreen1 extends StatefulWidget {
   @override
@@ -16,6 +19,22 @@ class _AccountScreen1State extends State<AccountScreen1> {
 
   @override
   Widget build(BuildContext context){
+    var screenSize = MediaQuery.of(context).size;
+    return BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
+      if (state is LoadingState) {
+      } else if (state is ErrorState) {
+        Fluttertoast.showToast(
+            msg: state.error,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.grey.shade400,
+            textColor: Colors.white,
+            fontSize: 12.0);
+      } else if (state is RefreshScreenState) {
+
+      }
+    }, builder: (context, state) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xff1c1b20),
@@ -592,6 +611,6 @@ class _AccountScreen1State extends State<AccountScreen1> {
           ),
         )
       ),
-    );
+    );});
   }
 }

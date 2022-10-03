@@ -1,6 +1,9 @@
+import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
@@ -38,6 +41,22 @@ class _WaterTrackerState extends State<WaterTracker>{
 
   @override
   Widget build(BuildContext context){
+    var screenSize = MediaQuery.of(context).size;
+    return BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
+      if (state is LoadingState) {
+      } else if (state is ErrorState) {
+        Fluttertoast.showToast(
+            msg: state.error,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.grey.shade400,
+            textColor: Colors.white,
+            fontSize: 12.0);
+      } else if (state is RefreshScreenState) {
+
+      }
+    }, builder: (context, state) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff1c1b20),
@@ -365,7 +384,7 @@ class _WaterTrackerState extends State<WaterTracker>{
             ],
           )
       ),
-    );
+    );});
   }
 
   BarChartGroupData makeGroupData(
