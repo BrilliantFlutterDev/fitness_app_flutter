@@ -22,6 +22,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   late String statusValueChoose;
+  late HomeBloc _homeBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _homeBloc = BlocProvider.of<HomeBloc>(context);
+    _homeBloc.add(InsertAllExercisesInLocalDBEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -250,43 +258,55 @@ class _HomePageState extends State<HomePage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Column(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 13,
-                                    backgroundColor: Colors.grey.shade300,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(1.0),
-                                      child: Icon(Icons.change_circle_outlined, color: Color(0xff1ce5c1)),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                          const SelectPlanScreen()));
+                                },
+                                child: Column(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 13,
+                                      backgroundColor: Colors.grey,
+                                      child: Icon(
+                                              Icons.change_circle_outlined, color: Color(0xff1ce5c1)
+                                          ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 5),
-                                    child: Text(
+                                    SizedBox(height: MediaQuery.of(context).size.height*0.015,),
+                                    Text(
                                       "Change Plan",
                                       style: TextStyle(fontSize: 10, color: Color(0xff1ce5c1)),
-                                    ),
-                                  )
-                                ],
+                                    )
+                                  ],
+                                ),
                               ),
-                              Column(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 13,
-                                    backgroundColor: Colors.grey.shade300,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(1.0),
-                                      child: Icon(Icons.refresh, color: Color(0xff1ce5c1)),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 5),
-                                    child: Text(
+                              InkWell(
+                                onTap: () {
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (BuildContext context) =>
+                                  //         const SelectPlanScreen()));
+                                },
+                                child: Column(
+                                  children: [
+                                     CircleAvatar(
+                                       radius: 12,
+                                       backgroundColor: Colors.grey,
+                                       child: Icon(
+                                            Icons.refresh, color: Color(0xff1ce5c1)
+                                       ),
+                                     ),
+                                    SizedBox(height: MediaQuery.of(context).size.height*0.015,),
+                                    Text(
                                       "Restart",
                                       style: TextStyle(fontSize: 10, color: Color(0xff1ce5c1)),
-                                    ),
-                                  )
-                                ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ],
                           ),

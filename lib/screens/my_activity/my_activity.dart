@@ -1,10 +1,13 @@
 import 'package:calender_picker/date_picker_widget.dart';
 import 'package:fitness_app/constants/constants.dart';
+import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/my_activity/open_activity.dart';
 import 'package:fitness_app/screens/my_activity/water_tracker.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/line_chart_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -28,6 +31,22 @@ class _MyActivityState extends State<MyActivity> {
   @override
   Widget build(BuildContext context) {
     ExerciseConstants constants = ExerciseConstants();
+    var screenSize = MediaQuery.of(context).size;
+    return BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
+      if (state is LoadingState) {
+      } else if (state is ErrorState) {
+        Fluttertoast.showToast(
+            msg: state.error,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.grey.shade400,
+            textColor: Colors.white,
+            fontSize: 12.0);
+      } else if (state is RefreshScreenState) {
+
+      }
+    }, builder: (context, state) {
     return Scaffold(
       //  backgroundColor: const Color(0xff1c1b20),
       appBar: AppBar(
@@ -168,7 +187,7 @@ class _MyActivityState extends State<MyActivity> {
                 borderRadius: BorderRadius.circular(12.0),
                 image: DecorationImage(
                   image: AssetImage(
-                      "assets/images/${constants.standard[0].image}"),
+                      "assets/images/${constants.dailyExercises[0].image}"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -279,7 +298,7 @@ class _MyActivityState extends State<MyActivity> {
                 borderRadius: BorderRadius.circular(12.0),
                 image: DecorationImage(
                   image: AssetImage(
-                      "assets/images/${constants.standard[2].image}"),
+                      "assets/images/${constants.dailyExercises[0].image}"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -427,7 +446,7 @@ class _MyActivityState extends State<MyActivity> {
                   borderRadius: BorderRadius.circular(12.0),
                   image: DecorationImage(
                     image: AssetImage(
-                        "assets/images/${constants.standard[3].image}"),
+                        "assets/images/${constants.dailyExercises[3].image}"),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -611,7 +630,7 @@ class _MyActivityState extends State<MyActivity> {
                 borderRadius: BorderRadius.circular(12.0),
                 image: DecorationImage(
                   image: AssetImage(
-                      "assets/images/${constants.standard[2].image}"),
+                      "assets/images/${constants.dailyExercises[2].image}"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -685,7 +704,7 @@ class _MyActivityState extends State<MyActivity> {
         ),
       ),
       // body:
-    );
+    );});
   }
 
   different({DateTime? first, DateTime? last}) async {

@@ -1,10 +1,13 @@
 import 'package:fitness_app/screens/forget_password/forget_password.dart';
+import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/plan_screen/push_ups_spinner_screen.dart';
 import 'package:fitness_app/screens/register_screen/register_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/cus_bottom_bar.dart';
 import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constants.dart';
@@ -19,10 +22,32 @@ class SelectPlanScreen extends StatefulWidget {
 
 class _SelectPlanScreenState extends State<SelectPlanScreen> {
   final List<bool> _selectedPlan = <bool>[true, false, false];
-///ToDo: Git Comment
-  int x=1;
+  late HomeBloc _homeBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _homeBloc = BlocProvider.of<HomeBloc>(context);
+
+  }
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    return BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
+      if (state is LoadingState) {
+      } else if (state is ErrorState) {
+        Fluttertoast.showToast(
+            msg: state.error,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.grey.shade400,
+            textColor: Colors.white,
+            fontSize: 12.0);
+      } else if (state is RefreshScreenState) {
+
+      }
+    }, builder: (context, state) {
     return Scaffold(
       body: SafeArea(
         child: ColorRemover(
@@ -52,7 +77,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                           ],
                         ),
                       ),
-                      height: MediaQuery.of(context).size.height*0.95,
+                      height: MediaQuery.of(context).size.height*0.93,
                       width: MediaQuery.of(context).size.width,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -154,7 +179,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                 _selectedPlan[2] = false;
                                 _selectedPlan[1] = false;
                                 _selectedPlan[0] = true;
-                                setState(() {});
+                                _homeBloc.add(RefreshScreenEvent());
                               },
                               child: Container(
                                 margin: const EdgeInsets.all(12),
@@ -215,7 +240,8 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                 _selectedPlan[0] = false;
                                 _selectedPlan[2] = false;
                                 _selectedPlan[1] = true;
-                                setState(() {});
+
+                                _homeBloc.add(RefreshScreenEvent());
                               },
                               child: Container(
                                 margin: EdgeInsets.only(left: 12, right: 12),
@@ -276,7 +302,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                 _selectedPlan[0] = false;
                                 _selectedPlan[1] = false;
                                 _selectedPlan[2] = true;
-                                setState(() {});
+                                _homeBloc.add(RefreshScreenEvent());
                               },
                               child: Container(
                                 margin: const EdgeInsets.all(12),
@@ -380,6 +406,6 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
 
         ),
       ),
-    );
+    );});
   }
 }

@@ -12,6 +12,10 @@ class ErrorState extends HomeState {
   final String error;
   ErrorState({required this.error});
 }
+class GetAllExerciseState extends HomeState {
+  final RequestExerciseData exerciseData;
+  GetAllExerciseState({required this.exerciseData});
+}
 
 
 // class CartCombinationDetailsLocalDBState extends HomeState {

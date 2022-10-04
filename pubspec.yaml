@@ -47,10 +47,10 @@ dependencies:
   equatable: ^2.0.3
 
   sqflite: ^2.0.3
-  bloc: ^8.1.0
-  flutter_bloc: ^8.1.1
-  provider: ^6.0.3
   path_provider: ^2.0.11
+  provider: ^6.0.1
+  flutter_bloc: ^7.3.3
+  bloc: ^7.2.1
   flutter_secure_storage: ^6.0.0
   fluttertoast: ^8.0.9
 

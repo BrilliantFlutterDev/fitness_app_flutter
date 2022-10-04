@@ -7,7 +7,7 @@ class GymModel {
   final String type;
   final String kneeIssue;
   final String planLevel;
-  final bool inPushUpCat;
-  final bool inPlankCat;
+  final String inPushUpCat;
+  final String inPlankCat;
   GymModel({ required this.image, required this.name,required this.time,required  this.raps,required  this.type,required  this.kneeIssue,required  this.planLevel,required  this.inPushUpCat,required  this.inPlankCat,required this.dayTitle});
 }
