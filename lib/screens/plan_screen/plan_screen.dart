@@ -30,8 +30,6 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
     _homeBloc = BlocProvider.of<HomeBloc>(context);
 
   }
-///ToDo: Git Comment
-  int x=1;
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;

@@ -187,7 +187,7 @@ class _MyActivityState extends State<MyActivity> {
                 borderRadius: BorderRadius.circular(12.0),
                 image: DecorationImage(
                   image: AssetImage(
-                      "assets/images/${constants.standard[0].image}"),
+                      "assets/images/${constants.dailyExercises[0].image}"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -298,7 +298,7 @@ class _MyActivityState extends State<MyActivity> {
                 borderRadius: BorderRadius.circular(12.0),
                 image: DecorationImage(
                   image: AssetImage(
-                      "assets/images/${constants.standard[2].image}"),
+                      "assets/images/${constants.dailyExercises[0].image}"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -446,7 +446,7 @@ class _MyActivityState extends State<MyActivity> {
                   borderRadius: BorderRadius.circular(12.0),
                   image: DecorationImage(
                     image: AssetImage(
-                        "assets/images/${constants.standard[3].image}"),
+                        "assets/images/${constants.dailyExercises[3].image}"),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -630,7 +630,7 @@ class _MyActivityState extends State<MyActivity> {
                 borderRadius: BorderRadius.circular(12.0),
                 image: DecorationImage(
                   image: AssetImage(
-                      "assets/images/${constants.standard[2].image}"),
+                      "assets/images/${constants.dailyExercises[2].image}"),
                   fit: BoxFit.cover,
                 ),
               ),
