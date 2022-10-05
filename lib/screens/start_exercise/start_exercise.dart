@@ -94,6 +94,16 @@ class _StartExerciseState extends State<StartExercise> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Text(
+                            "READY TO GO!",
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: Color(0xff1ce5c1)),
+                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height*0.05),
+                        Text(
+                          "Wheel Stretch",
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
+                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height*0.04),
                         SleekCircularSlider(
                           initialValue: vaule,
                           max: 100,

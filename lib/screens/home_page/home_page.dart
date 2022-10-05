@@ -3,6 +3,8 @@ import 'package:fitness_app/constants/constants.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/home_page/custom_training.dart';
 import 'package:fitness_app/screens/home_page/open_home_page/open_home_page.dart';
+import 'package:fitness_app/screens/rest_screen/dayrest_screen.dart';
+import 'package:fitness_app/screens/rest_screen/rest_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,6 +81,12 @@ class _HomePageState extends State<HomePage> {
               ),
               onPressed: () {
                 // do something
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                        const DayRestScreen())
+                );
               },
             ),
             Container(

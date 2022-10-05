@@ -1,3 +1,4 @@
+import 'package:fitness_app/screens/my_activity/open_activity.dart';
 import 'package:fitness_app/screens/start_exercise/start_exercise.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/my_button.dart';
@@ -22,25 +23,30 @@ class SelectExercise extends StatelessWidget {
                 icon: const Icon(
                   Icons.skip_previous,
                   color: Colors.white,
-                  size: 40,
+                  size: 30,
                 ),
               ),
-              SizedBox(
-                width: 200,
-                child: MyButton(
-                  name: "Start Now",
-                  whenpress: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (ctx) => const StartExercise()));
-                  },
-                ),
+              Text(
+                "1/7",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               IconButton(
                 onPressed: () {},
                 icon: const Icon(
                   Icons.skip_next,
                   color: Colors.white,
-                  size: 40,
+                  size: 30,
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width*0.4,
+                child: MyButton(
+                  name: "Close",
+                  whenpress: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (
+                            ctx) => const OpenActivity(title: 'Close',)));
+                  },
                 ),
               ),
             ],
@@ -53,7 +59,7 @@ class SelectExercise extends StatelessWidget {
               Navigator.of(context).pop();
             },
           ),
-          title: const Text("Exercise"),
+          title: const Text("Exercise Detail"),
         ),
         body: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -64,25 +70,6 @@ class SelectExercise extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   height: 20.h,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (ctx) => const StartExercise()));
-                        },
-                        child: const CircleAvatar(
-                          maxRadius: 30,
-                          backgroundColor: Color(0xff1ce5c1),
-                          child: Icon(
-                            Icons.play_arrow,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
                     image: const DecorationImage(
@@ -91,6 +78,27 @@ class SelectExercise extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
+                  height: 18.0,
+                ),
+                Text(
+                  "MOUNTAIN CLIMBER",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                ),
+                SizedBox(
+                  height: 18.0,
+                ),
+                Row(
+                  children: [
+                    Text(
+                        "Duration"
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.4),
+                    Icon(Icons.remove,),
+
+                    Icon(Icons.add),
+                  ],
+                ),
+                SizedBox(
                   height: 18.0,
                 ),
                 const Text(
