@@ -1,6 +1,7 @@
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/constants/constants.dart';
+import 'package:fitness_app/screens/my_activity/edit_plan.dart';
 import 'package:fitness_app/screens/select_exercise/select_exercise.dart';
 import 'package:fitness_app/screens/start_exercise/start_exercise.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
@@ -118,274 +119,322 @@ class _OpenActivityState extends State<OpenActivity> {
                       isScrollControlled: true,
                       context: context,
                         builder: (context) {
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 18, left: 18, right: 18),
-                            child: Container(
-                              height: MediaQuery.of(context).size.height*0.7,
-                              child: Wrap(
-                                children: [
-                                  ListTile(
-                                    title: Text(
+                          return StatefulBuilder(
+                          builder: (BuildContext context, StateSetter setState /*You can rename this!*/) {
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 18, left: 18, right: 18),
+                              child: Container(
+                                height: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.7,
+                                child: Wrap(
+                                  children: [
+                                    ListTile(
+                                      title: Text(
                                         "Workout Settings",
-                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: Colors.white),
-                                    ),
-                                    subtitle: Text(
-                                      "Choose workout based on your condition",
-                                      style: TextStyle(fontSize: 13, color: Colors.white),
-                                    ),
-                                  ),
-                                  // ListTile(
-                                  //   title: Text(
-                                  //     "Choose workout based on your condition",
-                                  //     style: TextStyle(fontSize: 13, color: Colors.white),
-                                  //   ),
-                                  // ),
-                                  // ListTile(
-                                  //   leading: Icon(Icons.edit),
-                                  //   title: Text('Edit'),
-                                  // ),
-                                  // ListTile(
-                                  //   leading: Icon(Icons.share),
-                                  //   title: Text('Share'),
-                                  // ),
-                                  // ListTile(
-                                  //   leading: Icon(Icons.copy),
-                                  //   title: Text('Copy Link'),
-                                  // ),
-
-
-                                  Container(
-                                    height: MediaQuery.of(context).size.height*0.38,
-                                    width: MediaQuery.of(context).size.width,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 10),
-                                      child: Column(
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              _selectedPlan[2] = false;
-                                              _selectedPlan[1] = false;
-                                              _selectedPlan[0] = true;
-                                              setState(() {});
-                                            },
-                                            child: Container(
-                                              margin: const EdgeInsets.all(12),
-                                              child: Container(
-                                                height: 9.h,
-                                                alignment: Alignment.bottomLeft,
-                                                padding: const EdgeInsets.only(left: 20.0),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      'I\'M FINE',
-                                                      style: TextStyle(
-                                                          fontWeight: FontWeight.bold,
-                                                          fontSize: 20.0,
-                                                          color: _selectedPlan[0] == false
-                                                              ? Colors.white
-                                                              : Colors.black),
-                                                    ),
-                                                    Text(
-                                                      'All workout are OK for me',
-                                                      style: TextStyle(
-                                                          fontSize: 15.0,
-                                                          color: _selectedPlan[0] == false
-                                                              ? Colors.white
-                                                              : Colors.black),
-                                                    ),
-                                                  ],
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(35.0),
-                                                  // image: DecorationImage(
-                                                  //   image: AssetImage(
-                                                  //       "assets/images/${constants.standard[index].image}"),
-                                                  //   fit: BoxFit.cover,
-                                                  // ),
-                                                  gradient: LinearGradient(
-                                                    // begin: Alignment.bottomCenter,
-                                                    // end: Alignment.topCenter,
-                                                    colors: [
-                                                      _selectedPlan[0] == false
-                                                          ? const Color(0xff1c1b20)
-                                                          : Colors.white60,
-                                                      _selectedPlan[0] == false
-                                                          ? Colors.transparent
-                                                          : Colors.white,
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(height: 5),
-                                          GestureDetector(
-                                            onTap: () {
-                                              _selectedPlan[0] = false;
-                                              _selectedPlan[2] = false;
-                                              _selectedPlan[1] = true;
-                                              setState(() {});
-                                            },
-                                            child: Container(
-                                              margin: const EdgeInsets.only(left: 12, right: 12),
-                                              child: Container(
-                                                height: 9.h,
-                                                alignment: Alignment.bottomLeft,
-                                                padding: const EdgeInsets.only(left: 20.0),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      'NO JUMPING',
-                                                      style: TextStyle(
-                                                          fontWeight: FontWeight.bold,
-                                                          fontSize: 20.0,
-                                                          color: _selectedPlan[1] == false
-                                                              ? Colors.white
-                                                              : Colors.black),
-                                                    ),
-                                                    Text(
-                                                      'No noise, apartment friendly',
-                                                      style: TextStyle(
-                                                          fontSize: 15.0,
-                                                          color: _selectedPlan[1] == false
-                                                              ? Colors.white
-                                                              : Colors.black),
-                                                    ),
-                                                  ],
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(35.0),
-                                                  // image: DecorationImage(
-                                                  //   image: AssetImage(
-                                                  //       "assets/images/${constants.standard[index].image}"),
-                                                  //   fit: BoxFit.cover,
-                                                  // ),
-                                                  gradient: LinearGradient(
-                                                    // begin: Alignment.b,
-                                                    // end: Alignment.topCenter,
-                                                    colors: [
-                                                      _selectedPlan[1] == false
-                                                          ? const Color(0xff1c1b20)
-                                                          : Colors.white60,
-                                                      _selectedPlan[1] == false
-                                                          ? Colors.transparent
-                                                          : Colors.white,
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(height: 5),
-                                          GestureDetector(
-                                            onTap: () {
-                                              _selectedPlan[0] = false;
-                                              _selectedPlan[1] = false;
-                                              _selectedPlan[2] = true;
-                                              setState(() {});
-                                            },
-                                            child: Container(
-                                              margin: const EdgeInsets.all(12),
-                                              child: Container(
-                                                height: 9.h,
-                                                alignment: Alignment.bottomLeft,
-                                                padding: const EdgeInsets.only(left: 20.0),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      'LOW IMPACT',
-                                                      style: TextStyle(
-                                                          fontWeight: FontWeight.bold,
-                                                          fontSize: 20.0,
-                                                          color: _selectedPlan[2] == false
-                                                              ? Colors.white
-                                                              : Colors.black),
-                                                    ),
-                                                    Text(
-                                                      'Friendly to overweight people',
-                                                      style: TextStyle(
-                                                          fontSize: 15.0,
-                                                          color: _selectedPlan[2] == false
-                                                              ? Colors.white
-                                                              : Colors.black),
-                                                    ),
-                                                  ],
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(35.0),
-                                                  // image: DecorationImage(
-                                                  //   image: AssetImage(
-                                                  //       "assets/images/${constants.standard[index].image}"),
-                                                  //   fit: BoxFit.cover,
-                                                  // ),
-                                                  gradient: LinearGradient(
-                                                    // begin: Alignment.bottomCenter,
-                                                    // end: Alignment.topCenter,
-                                                    colors: [
-                                                      _selectedPlan[2] == false
-                                                          ? const Color(0xff1c1b20)
-                                                          : Colors.white60,
-                                                      _selectedPlan[2] == false
-                                                          ? Colors.transparent
-                                                          : Colors.white,
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 17,
+                                            color: Colors.white),
+                                      ),
+                                      subtitle: Text(
+                                        "Choose workout based on your condition",
+                                        style: TextStyle(
+                                            fontSize: 13, color: Colors.white),
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Container(height: 1, color: Colors.white),
-                                  ),
-                                  ListTile(
-                                    leading: Icon(Icons.restaurant),
-                                    title: Text('Training rest'),
-                                    trailing: Text("10 sec", style: TextStyle(color: Colors.blue)),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10, top: 10),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(builder: (ctx) => const StartExercise()));
-                                      },
+                                    Container(
+                                      height: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height * 0.38,
+                                      width: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .width,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 10),
+                                        child: Column(
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  _selectedPlan[2] = false;
+                                                  _selectedPlan[1] = false;
+                                                  _selectedPlan[0] = true;
+                                                });
+                                              },
+                                              child: Container(
+                                                margin: const EdgeInsets.all(
+                                                    12),
+                                                child: Container(
+                                                  height: 9.h,
+                                                  alignment: Alignment
+                                                      .bottomLeft,
+                                                  padding: const EdgeInsets
+                                                      .only(left: 20.0),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                    mainAxisAlignment: MainAxisAlignment
+                                                        .center,
+                                                    children: [
+                                                      Text(
+                                                        'I\'M FINE',
+                                                        style: TextStyle(
+                                                            fontWeight: FontWeight
+                                                                .bold,
+                                                            fontSize: 20.0,
+                                                            color: _selectedPlan[0] ==
+                                                                false
+                                                                ? Colors.white
+                                                                : Colors.black),
+                                                      ),
+                                                      Text(
+                                                        'All workout are OK for me',
+                                                        style: TextStyle(
+                                                            fontSize: 15.0,
+                                                            color: _selectedPlan[0] ==
+                                                                false
+                                                                ? Colors.white
+                                                                : Colors.black),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius
+                                                        .circular(35.0),
+                                                    // image: DecorationImage(
+                                                    //   image: AssetImage(
+                                                    //       "assets/images/${constants.standard[index].image}"),
+                                                    //   fit: BoxFit.cover,
+                                                    // ),
+                                                    gradient: LinearGradient(
+                                                      // begin: Alignment.bottomCenter,
+                                                      // end: Alignment.topCenter,
+                                                      colors: [
+                                                        _selectedPlan[0] ==
+                                                            false
+                                                            ? const Color(
+                                                            0xff1c1b20)
+                                                            : Colors.white60,
+                                                        _selectedPlan[0] ==
+                                                            false
+                                                            ? Colors.transparent
+                                                            : Colors.white,
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  _selectedPlan[0] = false;
+                                                  _selectedPlan[2] = false;
+                                                  _selectedPlan[1] = true;
+                                                });
+                                              },
+                                              child: Container(
+                                                margin: const EdgeInsets.only(
+                                                    left: 12, right: 12),
+                                                child: Container(
+                                                  height: 9.h,
+                                                  alignment: Alignment
+                                                      .bottomLeft,
+                                                  padding: const EdgeInsets
+                                                      .only(left: 20.0),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                    mainAxisAlignment: MainAxisAlignment
+                                                        .center,
+                                                    children: [
+                                                      Text(
+                                                        'NO JUMPING',
+                                                        style: TextStyle(
+                                                            fontWeight: FontWeight
+                                                                .bold,
+                                                            fontSize: 20.0,
+                                                            color: _selectedPlan[1] ==
+                                                                false
+                                                                ? Colors.white
+                                                                : Colors.black),
+                                                      ),
+                                                      Text(
+                                                        'No noise, apartment friendly',
+                                                        style: TextStyle(
+                                                            fontSize: 15.0,
+                                                            color: _selectedPlan[1] ==
+                                                                false
+                                                                ? Colors.white
+                                                                : Colors.black),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius
+                                                        .circular(35.0),
+                                                    // image: DecorationImage(
+                                                    //   image: AssetImage(
+                                                    //       "assets/images/${constants.standard[index].image}"),
+                                                    //   fit: BoxFit.cover,
+                                                    // ),
+                                                    gradient: LinearGradient(
+                                                      // begin: Alignment.b,
+                                                      // end: Alignment.topCenter,
+                                                      colors: [
+                                                        _selectedPlan[1] ==
+                                                            false
+                                                            ? const Color(
+                                                            0xff1c1b20)
+                                                            : Colors.white60,
+                                                        _selectedPlan[1] ==
+                                                            false
+                                                            ? Colors.transparent
+                                                            : Colors.white,
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  _selectedPlan[0] = false;
+                                                  _selectedPlan[1] = false;
+                                                  _selectedPlan[2] = true;
+                                                });
+                                              },
+                                              child: Container(
+                                                margin: const EdgeInsets.all(
+                                                    12),
+                                                child: Container(
+                                                  height: 9.h,
+                                                  alignment: Alignment
+                                                      .bottomLeft,
+                                                  padding: const EdgeInsets
+                                                      .only(left: 20.0),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                    mainAxisAlignment: MainAxisAlignment
+                                                        .center,
+                                                    children: [
+                                                      Text(
+                                                        'LOW IMPACT',
+                                                        style: TextStyle(
+                                                            fontWeight: FontWeight
+                                                                .bold,
+                                                            fontSize: 20.0,
+                                                            color: _selectedPlan[2] ==
+                                                                false
+                                                                ? Colors.white
+                                                                : Colors.black),
+                                                      ),
+                                                      Text(
+                                                        'Friendly to overweight people',
+                                                        style: TextStyle(
+                                                            fontSize: 15.0,
+                                                            color: _selectedPlan[2] ==
+                                                                false
+                                                                ? Colors.white
+                                                                : Colors.black),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius
+                                                        .circular(35.0),
+                                                    // image: DecorationImage(
+                                                    //   image: AssetImage(
+                                                    //       "assets/images/${constants.standard[index].image}"),
+                                                    //   fit: BoxFit.cover,
+                                                    // ),
+                                                    gradient: LinearGradient(
+                                                      // begin: Alignment.bottomCenter,
+                                                      // end: Alignment.topCenter,
+                                                      colors: [
+                                                        _selectedPlan[2] ==
+                                                            false
+                                                            ? const Color(
+                                                            0xff1c1b20)
+                                                            : Colors.white60,
+                                                        _selectedPlan[2] ==
+                                                            false
+                                                            ? Colors.transparent
+                                                            : Colors.white,
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
                                       child: Container(
-                                        height: MediaQuery.of(context).size.height*0.08,
-                                        width: MediaQuery.of(context).size.width*0.85,
+                                          height: 1, color: Colors.white),
+                                    ),
+                                    ListTile(
+                                      leading: Icon(Icons.restaurant),
+                                      title: Text('Training rest'),
+                                      trailing: Text("10 sec",
+                                          style: TextStyle(color: Colors.blue)),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10, top: 10),
+                                      child: InkWell(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(builder: (
+                                                  ctx) => const StartExercise()));
+                                        },
+                                        child: Container(
+                                          height: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height * 0.08,
+                                          width: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .width * 0.85,
 
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(50),
-                                          color: Colors.blue,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "Done",
-                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize:20, color: Colors.white),
-                                            //Icons.play_arrow,
-                                            //color: Colors.white,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                                50),
+                                            color: Colors.blue,
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "Done",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20,
+                                                  color: Colors.white),
+                                              //Icons.play_arrow,
+                                              //color: Colors.white,
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          });
                         },
                     );
                   },
@@ -544,7 +593,17 @@ class _OpenActivityState extends State<OpenActivity> {
                         "Edit  ",
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.grey),
                       ),
-                      Icon(Icons.edit_outlined, color: Colors.grey,),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) => EditPlan()
+                                  ));
+                        },
+                          child: Icon(
+                            Icons.edit_outlined, color: Colors.grey,)
+                      ),
                     ],
                   ),
                   SizedBox(height: 10),

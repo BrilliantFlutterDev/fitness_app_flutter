@@ -1,3 +1,4 @@
+import 'package:fitness_app/constants/constants.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
@@ -29,6 +30,8 @@ class WaterTracker extends StatefulWidget {
 }
 
 class _WaterTrackerState extends State<WaterTracker>{
+
+  ExerciseConstants constants = ExerciseConstants();
 
   bool status = false;
   double value = 0;
@@ -78,16 +81,24 @@ class _WaterTrackerState extends State<WaterTracker>{
                   width: MediaQuery.of(context).size.width * 2,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.topLeft,
-                      colors: [
-                        Colors.white10.withOpacity(0.4),
-                        Colors.white10.withOpacity(0.4),
-                      ],
+                    borderRadius: BorderRadius.circular(8.0),
+                    image: DecorationImage(
+                      image: AssetImage(
+                          "assets/images/${constants.dailyExercises[2].image}"),
+                      fit: BoxFit.cover,
                     ),
                   ),
+                  // BoxDecoration(
+                  //   borderRadius: BorderRadius.circular(12.0),
+                  //   gradient: LinearGradient(
+                  //     begin: Alignment.topRight,
+                  //     end: Alignment.topLeft,
+                  //     colors: [
+                  //       Colors.white10.withOpacity(0.4),
+                  //       Colors.white10.withOpacity(0.4),
+                  //     ],
+                  //   ),
+                  // ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -274,16 +285,24 @@ class _WaterTrackerState extends State<WaterTracker>{
                   width: MediaQuery.of(context).size.width * 2,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.topLeft,
-                      colors: [
-                        Colors.white10.withOpacity(0.4),
-                        Colors.white10.withOpacity(0.4),
-                      ],
+                    borderRadius: BorderRadius.circular(8.0),
+                    image: DecorationImage(
+                      image: AssetImage(
+                          "assets/images/${constants.dailyExercises[2].image}"),
+                      fit: BoxFit.cover,
                     ),
                   ),
+                  // BoxDecoration(
+                  //   borderRadius: BorderRadius.circular(12.0),
+                  //   gradient: LinearGradient(
+                  //     begin: Alignment.topRight,
+                  //     end: Alignment.topLeft,
+                  //     colors: [
+                  //       Colors.white10.withOpacity(0.4),
+                  //       Colors.white10.withOpacity(0.4),
+                  //     ],
+                  //   ),
+                  // ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
