@@ -1,8 +1,12 @@
+
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../Utils/xyz.dart';
+
 
 class ReminderScreen extends StatefulWidget {
   const ReminderScreen({Key? key}) : super(key: key);
@@ -16,6 +20,13 @@ class _ReminderScreenState extends State<ReminderScreen>{
   String _valueChanged1 = '';
   String _valueToValidate1 = '';
   String _valueSaved1 = '';
+  late HomeBloc _homeBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _homeBloc = BlocProvider.of<HomeBloc>(context);
+  }
 
   @override
   Widget build(BuildContext context){
@@ -31,37 +42,48 @@ class _ReminderScreenState extends State<ReminderScreen>{
             textColor: Colors.white,
             fontSize: 12.0);
       } else if (state is RefreshScreenState) {
+        print("Refresh State>>>>>>>>>>>>");
 
       }
     }, builder: (context, state) {
       return Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            DateTimePicker(
-              type: DateTimePickerType.dateTimeSeparate,
-              dateMask: 'd MMM, yyyy',
-              // controller: _controller1,
-              //initialValue: _initialValue,
-              firstDate: DateTime(2000),
-              lastDate: DateTime(2100),
-              icon: Icon(Icons.event),
-              dateLabelText: 'Date',
-              timeLabelText: "Hour",
-              //use24HourFormat: false,
-              //locale: Locale('pt', 'BR'),
-              selectableDayPredicate: (date) {
-                if (date.weekday == 6 || date.weekday == 7) {
-                  return false;
-                }
-                return true;
-              },
-              onChanged: (val) => setState(() => _valueChanged1 = val),
-              validator: (val) {
-                setState(() => _valueToValidate1 = val ?? '');
-                return null;
-              },
-              onSaved: (val) => setState(() => _valueSaved1 = val ?? ''),
+            print(">>>>>>>>>>>>>Pressed");
+            showDialog(
+              context: context,
+              builder: (_) =>  Dialog(
+                child: DateTimePicker(
+                  type: DateTimePickerType.dateTimeSeparate,
+                  dateMask: 'd MMM, yyyy',
+                  // controller: _controller1,
+                  //initialValue: _initialValue,
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime(2100),
+                  icon: Icon(Icons.event),
+                  dateLabelText: 'Date',
+                  timeLabelText: "Hour",
+                  use24HourFormat: false,
+                  locale: Locale('pt', 'BR'),
+                  selectableDayPredicate: (date) {
+                    if (date.weekday == 6 || date.weekday == 7) {
+                      return false;
+                    }
+                    return true;
+                  },
+                  onChanged: (val) {},
+                  validator: (val) {
+                    {}
+                    return null;
+                  },
+                  onSaved: (val) {},
+                ),
+              ),
             );
+
+
+           // _homeBloc.add(RefreshScreenEvent());
+
           },
           child: Icon(Icons.add, color: Colors.white),
         ),
