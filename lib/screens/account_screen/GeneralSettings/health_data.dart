@@ -5,16 +5,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/foundation.dart';
 
+enum Gender {Male, Female}
+
 class HealthData extends StatefulWidget {
   @override
   State<HealthData> createState() => _HealthDataState();
 }
 
-enum Gender {Male, Female}
-
 class _HealthDataState extends State<HealthData> {
 
-  ValueNotifier<Gender> _selectedItem = new ValueNotifier<Gender>(Gender.Male);
+  //ValueNotifier<Gender> _selectedItem = new ValueNotifier<Gender>(Gender.Male);
+  Gender? _selectedItem = Gender.Male;
 
   @override
   Widget build(BuildContext context){
@@ -49,33 +50,60 @@ class _HealthDataState extends State<HealthData> {
                     showDialog(
                       context: context,
                       builder: (_) =>  Dialog(
-                        child: Center(
-                          child: PopupMenuButton<Gender>(
-                            itemBuilder: (BuildContext context) {
-                              return List<PopupMenuEntry<Gender>>.generate(
-                                Gender.values.length,
-                                    (int index) {
-                                  return PopupMenuItem(
-                                    value: Gender.values[index],
-                                    child: AnimatedBuilder(
-                                      child: Text(Gender.values[index].toString()),
-                                      animation: _selectedItem,
-                                      builder: (BuildContext context, Widget? child) {
-                                        return RadioListTile<Gender>(
-                                          value: Gender.values[index],
-                                          groupValue: _selectedItem.value,
-                                          title: child,
-                                          onChanged: (Gender? value) {
-                                            _selectedItem.value = value!;
-                                          },
-                                        );
-                                      },
-                                    ),
-                                  );
+
+                        child: Container(
+                          height:  MediaQuery.of(context).size.height*0.17,
+                          child: Column(
+                            children: [
+                              RadioListTile(
+                                title: const Text("Male"),
+                                value: Gender.Male,
+                                groupValue: _selectedItem,
+                                onChanged: (Gender? value) {
+                                setState(() {
+                                  _selectedItem = value;
+                                  });
                                 },
-                              );
-                            },
-                          ),
+                              ),
+                              RadioListTile(
+                                title: const Text("Female"),
+                                value: Gender.Female,
+                                groupValue: _selectedItem,
+                                onChanged: (Gender? value) {
+                                setState(() {
+                                  _selectedItem = value;
+                                  });
+                                },
+                              ),
+                            ],
+                          )
+                          // PopupMenuButton<Gender>(
+                          //   itemBuilder: (BuildContext context) {
+                          //     return List<PopupMenuEntry<Gender>>.generate(
+                          //       Gender.values.length,
+                          //           (int index) {
+                          //         return PopupMenuItem(
+                          //           value: Gender.values[index],
+                          //           child: AnimatedBuilder(
+                          //             child: Text(Gender.values[index].toString()),
+                          //             animation: _selectedItem,
+                          //             builder: (BuildContext context, Widget? child) {
+                          //               return RadioListTile<Gender>(
+                          //                 value: Gender.values[index],
+                          //                 groupValue: _selectedItem.value,
+                          //                 title: child,
+                          //                 onChanged: (Gender? value) {
+                          //                   _selectedItem.value = value!;
+                          //                 },
+                          //               );
+                          //             },
+                          //           ),
+                          //         );
+                          //       },
+                          //     );
+                          //   },
+                          // ),
+
                         ),
                       )
                     );
@@ -98,6 +126,7 @@ class _HealthDataState extends State<HealthData> {
                         ],
                       )
                     ),
+
                   ),
                 ),
                 Padding(
@@ -107,6 +136,7 @@ class _HealthDataState extends State<HealthData> {
                     color: Colors.white10,
                   ),
                 ),
+
                 Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

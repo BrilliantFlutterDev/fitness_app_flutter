@@ -4,18 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+enum Weight {lbs, kg}
+enum Height {cm, inch}
+
 class MetricImperialUnits extends StatefulWidget {
   @override
   State<MetricImperialUnits> createState() => _MetricImperialUnitsState();
 }
 
-enum Weight {lbs, kg}
-enum Height {cm, inch}
-
 class _MetricImperialUnitsState extends State<MetricImperialUnits> {
 
-  ValueNotifier<Weight> _selectedItem1 = new ValueNotifier<Weight>(Weight.lbs);
-  ValueNotifier<Height> _selectedItem2 = new ValueNotifier<Height>(Height.cm);
+  // ValueNotifier<Weight> _selectedItem1 = new ValueNotifier<Weight>(Weight.lbs);
+  // ValueNotifier<Height> _selectedItem2 = new ValueNotifier<Height>(Height.cm);
+
+  Weight? _selectedItem1 = Weight.lbs;
+  Height? _selectedItem2 = Height.cm;
 
   @override
   Widget build(BuildContext context){
@@ -48,34 +51,70 @@ class _MetricImperialUnitsState extends State<MetricImperialUnits> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Center(
-                        child: PopupMenuButton<Weight>(
-                          itemBuilder: (BuildContext context) {
-                            return List<PopupMenuEntry<Weight>>.generate(
-                              Weight.values.length,
-                                  (int index) {
-                                return PopupMenuItem(
-                                  value: Weight.values[index],
-                                  child: AnimatedBuilder(
-                                    child: Text(Weight.values[index].toString()),
-                                    animation: _selectedItem1,
-                                    builder: (BuildContext context, Widget? child) {
-                                      return RadioListTile<Weight>(
-                                        value: Weight.values[index],
-                                        groupValue: _selectedItem1.value,
-                                        title: child,
-                                        onChanged: (Weight? value) {
-                                          _selectedItem1.value = value!;
-                                        },
-                                      );
-                                    },
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        ),
+                      showDialog(
+                          context: context,
+                          builder: (_) =>  Dialog(
+                            child: Container(
+                                height: MediaQuery.of(context).size.height*0.21,
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 10),
+                                    Text(
+                                      "Weight",
+                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                    ),
+                                    RadioListTile(
+                                      title: const Text("lbs"),
+                                      value: Weight.lbs,
+                                      groupValue: _selectedItem1,
+                                      onChanged: (Weight? value) {
+                                        setState(() {
+                                          _selectedItem1 = value;
+                                        });
+                                      },
+                                    ),
+                                    RadioListTile(
+                                      title: const Text("kg"),
+                                      value: Weight.kg,
+                                      groupValue: _selectedItem1,
+                                      onChanged: (Weight? value) {
+                                        setState(() {
+                                          _selectedItem1 = value;
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                )
+                              // PopupMenuButton<Gender>(
+                              //   itemBuilder: (BuildContext context) {
+                              //     return List<PopupMenuEntry<Gender>>.generate(
+                              //       Gender.values.length,
+                              //           (int index) {
+                              //         return PopupMenuItem(
+                              //           value: Gender.values[index],
+                              //           child: AnimatedBuilder(
+                              //             child: Text(Gender.values[index].toString()),
+                              //             animation: _selectedItem,
+                              //             builder: (BuildContext context, Widget? child) {
+                              //               return RadioListTile<Gender>(
+                              //                 value: Gender.values[index],
+                              //                 groupValue: _selectedItem.value,
+                              //                 title: child,
+                              //                 onChanged: (Gender? value) {
+                              //                   _selectedItem.value = value!;
+                              //                 },
+                              //               );
+                              //             },
+                              //           ),
+                              //         );
+                              //       },
+                              //     );
+                              //   },
+                              // ),
+                            ),
+                          )
                       );
+
                     },
                     child: Padding(
                       padding: EdgeInsets.only(top: 10),
@@ -84,7 +123,7 @@ class _MetricImperialUnitsState extends State<MetricImperialUnits> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Weight Unit",
+                                "Weight",
                                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                               ),
                               Text(
@@ -105,49 +144,89 @@ class _MetricImperialUnitsState extends State<MetricImperialUnits> {
                   ),
                   InkWell(
                     onTap: () {
-                      Center(
-                        child: PopupMenuButton<Height>(
-                          itemBuilder: (BuildContext context) {
-                            return List<PopupMenuEntry<Height>>.generate(
-                              Height.values.length,
-                                  (int index) {
-                                return PopupMenuItem(
-                                  value: Height.values[index],
-                                  child: AnimatedBuilder(
-                                    child: Text(Height.values[index].toString()),
-                                    animation: _selectedItem2,
-                                    builder: (BuildContext context, Widget? child) {
-                                      return RadioListTile<Height>(
-                                        value: Height.values[index],
-                                        groupValue: _selectedItem2.value,
-                                        title: child,
-                                        onChanged: (Height? value) {
-                                          _selectedItem2.value = value!;
-                                        },
-                                      );
-                                    },
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      );
-                    },
-                    child: Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Height Unit",
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      showDialog(
+                          context: context,
+                          builder: (_) =>  Dialog(
+                            child: Container(
+                                height: MediaQuery.of(context).size.height*0.21,
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 10),
+                                    Text(
+                                      "Height",
+                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                    ),
+
+                                    RadioListTile(
+                                      title: const Text("cm"),
+                                      value: Height.cm,
+                                      groupValue: _selectedItem2,
+                                      onChanged: (Height? value) {
+                                        setState(() {
+                                          _selectedItem2 = value;
+                                        });
+                                      },
+                                    ),
+                                    RadioListTile(
+                                      title: const Text("inch"),
+                                      value: Height.inch,
+                                      groupValue: _selectedItem2,
+                                      onChanged: (Height? value) {
+                                        setState(() {
+                                          _selectedItem2 = value;
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                )
+                              // PopupMenuButton<Gender>(
+                              //   itemBuilder: (BuildContext context) {
+                              //     return List<PopupMenuEntry<Gender>>.generate(
+                              //       Gender.values.length,
+                              //           (int index) {
+                              //         return PopupMenuItem(
+                              //           value: Gender.values[index],
+                              //           child: AnimatedBuilder(
+                              //             child: Text(Gender.values[index].toString()),
+                              //             animation: _selectedItem,
+                              //             builder: (BuildContext context, Widget? child) {
+                              //               return RadioListTile<Gender>(
+                              //                 value: Gender.values[index],
+                              //                 groupValue: _selectedItem.value,
+                              //                 title: child,
+                              //                 onChanged: (Gender? value) {
+                              //                   _selectedItem.value = value!;
+                              //                 },
+                              //               );
+                              //             },
+                              //           ),
+                              //         );
+                              //       },
+                              //     );
+                              //   },
+                              // ),
                             ),
-                            Text(
-                              "in",
-                              style: TextStyle(color: Colors.grey),
-                            )
-                          ],
-                        )
+                          )
+                      );
+
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Height",
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              Text(
+                                "cm",
+                                style: TextStyle(color: Colors.grey),
+                              )
+                            ],
+                          )
+                      ),
                     ),
                   ),
                 ],

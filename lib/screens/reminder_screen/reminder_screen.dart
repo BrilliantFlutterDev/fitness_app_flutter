@@ -55,12 +55,15 @@ class _ReminderScreenState extends State<ReminderScreen>{
               builder: (_) =>  Dialog(
                 child: DateTimePicker(
                   type: DateTimePickerType.dateTimeSeparate,
-                  dateMask: 'd MMM, yyyy',
+                  //dateMask: 'd MMM, yyyy',
+
                   // controller: _controller1,
                   //initialValue: _initialValue,
                   firstDate: DateTime(2000),
                   lastDate: DateTime(2100),
-                  icon: Icon(Icons.event),
+
+                  //icon: Icon(Icons.event),
+
                   dateLabelText: 'Date',
                   timeLabelText: "Hour",
                   use24HourFormat: false,
@@ -80,7 +83,6 @@ class _ReminderScreenState extends State<ReminderScreen>{
                 ),
               ),
             );
-
 
            // _homeBloc.add(RefreshScreenEvent());
 
