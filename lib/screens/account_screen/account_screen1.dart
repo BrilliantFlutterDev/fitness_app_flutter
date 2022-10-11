@@ -1,5 +1,6 @@
 import 'package:fitness_app/screens/account_screen/GeneralSettings/health_data.dart';
 import 'package:fitness_app/screens/account_screen/GeneralSettings/metric_imperial_units.dart';
+import 'package:fitness_app/screens/account_screen/Workout/training_rest_popup.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/reminder_screen/reminder_screen.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fitness_app/constants/constants.dart';
+
+import '../rest_screen/rest_screen.dart';
+import 'Workout/countdown_time_popup.dart';
 
 class AccountScreen1 extends StatefulWidget {
   @override
@@ -118,7 +122,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                 //   ),
                 // ),
                 Container(
-                    height: MediaQuery.of(context).size.height*0.31,
+                    height: MediaQuery.of(context).size.height*0.32,
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.all(10),
                     decoration:
@@ -148,24 +152,24 @@ class _AccountScreen1State extends State<AccountScreen1> {
                         children: [
                           Text(
                             "WORKOUT",
-                            style: TextStyle(fontSize: 17, color: Color(0xff1ce5c1)),
+                            style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Color(0xff1ce5c1)),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: 20,bottom: 10),
+                            padding: EdgeInsets.only(top: 18,bottom: 10),
                             child: Row(
                               children: [
                                 Icon(
-                                    Icons.ads_click, color: Colors.white
+                                    Icons.ads_click, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
                                 ),
                                 SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                 Text(
                                   "Remove ads",
-                                  style: TextStyle(fontSize: 17, color: Colors.white),
+                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
                                 ),
-                                SizedBox(width: MediaQuery.of(context).size.width*0.15),
+                                SizedBox(width: MediaQuery.of(context).size.width*0.17),
                                 Text(
                                   "3950.00",
-                                  style: TextStyle(fontSize: 16, color: Colors.grey, decoration: TextDecoration.lineThrough),
+                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.043, color: Colors.grey, decoration: TextDecoration.lineThrough),
                                 ),
                                 Container(
                                   alignment: Alignment.center,
@@ -190,74 +194,94 @@ class _AccountScreen1State extends State<AccountScreen1> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 10,bottom: 10),
-                            child: Row(
-                              children: [
-                                Icon(
-                                    Icons.alarm, color: Colors.white
+                          InkWell(
+                            onTap: (){
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (ctx) => ReminderScreen(),
                                 ),
-                                SizedBox(width: MediaQuery.of(context).size.width*0.035),
-                                Text(
-                                  "Reminder",
-                                  style: TextStyle(fontSize: 17, color: Colors.white),
-                                ),
-                                SizedBox(width: MediaQuery.of(context).size.width*0.51),
-                                // Text(
-                                //   "19:00",
-                                //   style: TextStyle(fontSize: 16, color: Color(0xff1ce5c1)),
-                                // ),
-                                InkWell(
-                                    onTap: (){
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (ctx) => ReminderScreen(),
-                                        ),
-                                      );
-                                    },
-                                    child: Icon(Icons.add,color: Color(0xff1ce5c1))
-                                )
-                              ],
+                              );
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 10,bottom: 10),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                      Icons.alarm, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                  ),
+                                  SizedBox(width: MediaQuery.of(context).size.width*0.036),
+                                  Text(
+                                    "Reminder",
+                                    style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
+                                  ),
+                                  SizedBox(width: MediaQuery.of(context).size.width*0.54),
+                                  // Text(
+                                  //   "19:00",
+                                  //   style: TextStyle(fontSize: 16, color: Color(0xff1ce5c1)),
+                                  // ),
+                                  Icon(Icons.add,color: Color(0xff1ce5c1), size: MediaQuery.of(context).size.width*0.065)
+                                ],
+                              ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 10,bottom: 10),
-                            child: Row(
-                              children: [
-                                Icon(
-                                    Icons.timer, color: Colors.white
+                          InkWell(
+                            onTap: (){
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (ctx) => CountdownPopup(),
                                 ),
-                                SizedBox(width: MediaQuery.of(context).size.width*0.035),
-                                Text(
-                                  "Countdown time",
-                                  style: TextStyle(fontSize: 17, color: Colors.white),
-                                ),
-                                SizedBox(width: MediaQuery.of(context).size.width*0.3),
-                                Text(
-                                  "10 sec",
-                                  style: TextStyle(fontSize: 16, color: Color(0xff1ce5c1)),
-                                ),
-                              ],
+                              );
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 10,bottom: 10),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                      Icons.timer, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                  ),
+                                  SizedBox(width: MediaQuery.of(context).size.width*0.035),
+                                  Text(
+                                    "Countdown time",
+                                    style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
+                                  ),
+                                  SizedBox(width: MediaQuery.of(context).size.width*0.285),
+                                  Text(
+                                    "10 sec",
+                                    style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.043, color: Color(0xff1ce5c1)),
+                                  ),
+                                  Icon(Icons.arrow_drop_down, color: Color(0xff1ce5c1), size: MediaQuery.of(context).size.width*0.065)
+                                ],
+                              ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 10,bottom: 10),
-                            child: Row(
-                              children: [
-                                Icon(
-                                    Icons.restaurant, color: Colors.white
+                          InkWell(
+                            onTap: (){
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (ctx) => TrainingRestPopup(),
                                 ),
-                                SizedBox(width: MediaQuery.of(context).size.width*0.035),
-                                Text(
-                                  "Training rest",
-                                  style: TextStyle(fontSize: 17, color: Colors.white),
-                                ),
-                                SizedBox(width: MediaQuery.of(context).size.width*0.39),
-                                Text(
-                                  "10 sec",
-                                  style: TextStyle(fontSize: 16, color: Color(0xff1ce5c1)),
-                                ),
-                              ],
+                              );
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 10,bottom: 10),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                      Icons.restaurant, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                  ),
+                                  SizedBox(width: MediaQuery.of(context).size.width*0.035),
+                                  Text(
+                                    "Training rest",
+                                    style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
+                                  ),
+                                  SizedBox(width: MediaQuery.of(context).size.width*0.37),
+                                  Text(
+                                    "10 sec",
+                                    style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.043, color: Color(0xff1ce5c1)),
+                                  ),
+                                  Icon(Icons.arrow_drop_down, color: Color(0xff1ce5c1), size: MediaQuery.of(context).size.width*0.065)
+                                ],
+                              ),
                             ),
                           ),
                           // Padding(
@@ -280,7 +304,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                     )
                 ),
                 Container(
-                    height: MediaQuery.of(context).size.height*0.2,
+                    height: MediaQuery.of(context).size.height*0.21,
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.all(10),
                     decoration:
@@ -310,21 +334,21 @@ class _AccountScreen1State extends State<AccountScreen1> {
                         children: [
                           Text(
                             "WATER TRACKER SETTINGS",
-                            style: TextStyle(fontSize: 17, color: Color(0xff1ce5c1)),
+                            style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Color(0xff1ce5c1)),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: 20,bottom: 10),
+                            padding: EdgeInsets.only(top: 18,bottom: 10),
                             child: Row(
                               children: [
                                 Icon(
-                                    Icons.water_drop, color: Colors.white
+                                    Icons.water_drop, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
                                 ),
                                 SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                 Text(
                                   "Turn on water tracker",
-                                  style: TextStyle(fontSize: 17, color: Colors.white),
+                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
                                 ),
-                                SizedBox(width: MediaQuery.of(context).size.width*0.2),
+                                SizedBox(width: MediaQuery.of(context).size.width*0.23),
                                 FlutterSwitch(
                                   width: 50,
                                   height: 25,
@@ -347,7 +371,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             child: Row(
                               children: [
                                 Icon(
-                                    Icons.water_drop, color: Colors.white
+                                    Icons.water_drop, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
                                 ),
                                 SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                 Column(
@@ -355,15 +379,15 @@ class _AccountScreen1State extends State<AccountScreen1> {
                                   children: [
                                     Text(
                                       "Drink notification",
-                                      style: TextStyle(fontSize: 17, color: Colors.white),
+                                      style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
                                     ),
                                     Text(
                                       "Remind me to drink",
-                                      style: TextStyle(fontSize: 13, color: Colors.white10),
+                                      style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.04, color: Colors.white10),
                                     ),
                                   ],
                                 ),
-                                SizedBox(width: MediaQuery.of(context).size.width*0.29),
+                                SizedBox(width: MediaQuery.of(context).size.width*0.31),
                                 FlutterSwitch(
                                   width: 50,
                                   height: 25,
@@ -386,7 +410,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                     )
                 ),
                 Container(
-                    height: MediaQuery.of(context).size.height*0.23,
+                    height: MediaQuery.of(context).size.height*0.25,
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.all(10),
                     decoration:
@@ -416,7 +440,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                         children: [
                           Text(
                             "GENERAL SETTINGS",
-                            style: TextStyle(fontSize: 17, color: Color(0xff1ce5c1)),
+                            style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Color(0xff1ce5c1)),
                           ),
                           // Padding(
                           //   padding: EdgeInsets.only(top: 20,bottom: 10),
@@ -449,7 +473,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                           //   ),
                           // ),
                           Padding(
-                            padding: EdgeInsets.only(top: 10,bottom: 10),
+                            padding: EdgeInsets.only(top: 18,bottom: 10),
                             child: InkWell(
                               onTap: (){
                                 Navigator.of(context).push(
@@ -461,12 +485,12 @@ class _AccountScreen1State extends State<AccountScreen1> {
                               child: Row(
                                 children: [
                                   Icon(
-                                      Icons.health_and_safety, color: Colors.white
+                                      Icons.health_and_safety, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
                                   ),
                                   SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                   Text(
                                     "Health data",
-                                    style: TextStyle(fontSize: 17, color: Colors.white),
+                                    style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
                                   ),
                                 ],
                               ),
@@ -485,12 +509,12 @@ class _AccountScreen1State extends State<AccountScreen1> {
                               child: Row(
                                 children: [
                                   Icon(
-                                      Icons.health_and_safety, color: Colors.white
+                                      Icons.health_and_safety, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
                                   ),
                                   SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                   Text(
                                     "Metric & imerial units",
-                                    style: TextStyle(fontSize: 17, color: Colors.white),
+                                    style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
                                   ),
                                 ],
                               ),
@@ -525,12 +549,12 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             child: Row(
                               children: [
                                 Icon(
-                                    Icons.refresh, color: Colors.white
+                                    Icons.refresh, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
                                 ),
                                 SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                 Text(
                                   "Restart progress",
-                                  style: TextStyle(fontSize: 17, color: Colors.white),
+                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
                                 ),
                               ],
                             ),
@@ -555,7 +579,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                     )
                 ),
                 Container(
-                    height: MediaQuery.of(context).size.height*0.42,
+                    height: MediaQuery.of(context).size.height*0.43,
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.all(10),
                     decoration:
@@ -585,19 +609,19 @@ class _AccountScreen1State extends State<AccountScreen1> {
                         children: [
                           Text(
                             "SUPPORT US",
-                            style: TextStyle(fontSize: 17, color: Color(0xff1ce5c1)),
+                            style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Color(0xff1ce5c1)),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: 20,bottom: 10),
+                            padding: EdgeInsets.only(top: 18,bottom: 10),
                             child: Row(
                               children: [
                                 Icon(
-                                    Icons.share, color: Colors.white
+                                    Icons.share, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
                                 ),
                                 SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                 Text(
                                   "Share with friends",
-                                  style: TextStyle(fontSize: 17, color: Colors.white),
+                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
                                 ),
                               ],
                             ),
@@ -607,12 +631,12 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             child: Row(
                               children: [
                                 Icon(
-                                    Icons.star_rate_outlined, color: Colors.white
+                                    Icons.star_rate_outlined, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
                                 ),
                                 SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                 Text(
                                   "Rate us",
-                                  style: TextStyle(fontSize: 17, color: Colors.white),
+                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
                                 ),
                               ],
                             ),
@@ -622,12 +646,12 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             child: Row(
                               children: [
                                 Icon(
-                                    Icons.edit, color: Colors.white
+                                    Icons.edit, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
                                 ),
                                 SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                 Text(
                                   "Common questions",
-                                  style: TextStyle(fontSize: 17, color: Colors.white),
+                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
                                 ),
                               ],
                             ),
@@ -637,12 +661,12 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             child: Row(
                               children: [
                                 Icon(
-                                    Icons.edit, color: Colors.white
+                                    Icons.edit, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
                                 ),
                                 SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                 Text(
                                   "Feedback",
-                                  style: TextStyle(fontSize: 17, color: Colors.white),
+                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
                                 ),
                               ],
                             ),
@@ -660,12 +684,12 @@ class _AccountScreen1State extends State<AccountScreen1> {
                               child: Row(
                                 children: [
                                   Icon(
-                                      Icons.remove_red_eye_outlined, color: Colors.white
+                                      Icons.remove_red_eye_outlined, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
                                   ),
                                   SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                   Text(
                                     "Privacy policy",
-                                    style: TextStyle(fontSize: 17, color: Colors.white),
+                                    style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
                                   ),
                                 ],
                               ),
@@ -676,7 +700,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             child: Center(
                               child: Text(
                                 "Version 1.0.46A",
-                                style: TextStyle(fontSize: 13, color: Colors.grey),
+                                style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.042, color: Colors.grey),
                               ),
                             ),
                           ),
