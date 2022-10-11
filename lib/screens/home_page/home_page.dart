@@ -3,6 +3,8 @@ import 'package:fitness_app/constants/constants.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/home_page/custom_training.dart';
 import 'package:fitness_app/screens/home_page/open_home_page/open_home_page.dart';
+import 'package:fitness_app/screens/rest_screen/dayrest_screen.dart';
+import 'package:fitness_app/screens/rest_screen/rest_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,6 +81,12 @@ class _HomePageState extends State<HomePage> {
               ),
               onPressed: () {
                 // do something
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                        const DayRestScreen())
+                );
               },
             ),
             Container(
@@ -258,43 +266,55 @@ class _HomePageState extends State<HomePage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Column(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 13,
-                                    backgroundColor: Colors.grey.shade300,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(1.0),
-                                      child: Icon(Icons.change_circle_outlined, color: Color(0xff1ce5c1)),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                          const SelectPlanScreen()));
+                                },
+                                child: Column(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 13,
+                                      backgroundColor: Colors.grey,
+                                      child: Icon(
+                                              Icons.change_circle_outlined, color: Color(0xff1ce5c1)
+                                          ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 5),
-                                    child: Text(
+                                    SizedBox(height: MediaQuery.of(context).size.height*0.015,),
+                                    Text(
                                       "Change Plan",
                                       style: TextStyle(fontSize: 10, color: Color(0xff1ce5c1)),
-                                    ),
-                                  )
-                                ],
+                                    )
+                                  ],
+                                ),
                               ),
-                              Column(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 13,
-                                    backgroundColor: Colors.grey.shade300,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(1.0),
-                                      child: Icon(Icons.refresh, color: Color(0xff1ce5c1)),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 5),
-                                    child: Text(
+                              InkWell(
+                                onTap: () {
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (BuildContext context) =>
+                                  //         const SelectPlanScreen()));
+                                },
+                                child: Column(
+                                  children: [
+                                     CircleAvatar(
+                                       radius: 12,
+                                       backgroundColor: Colors.grey,
+                                       child: Icon(
+                                            Icons.refresh, color: Color(0xff1ce5c1)
+                                       ),
+                                     ),
+                                    SizedBox(height: MediaQuery.of(context).size.height*0.015,),
+                                    Text(
                                       "Restart",
                                       style: TextStyle(fontSize: 10, color: Color(0xff1ce5c1)),
-                                    ),
-                                  )
-                                ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ],
                           ),
