@@ -25,6 +25,7 @@ class _OpenActivityState extends State<OpenActivity> {
   late HomeBloc _homeBloc;
    RequestExerciseData? exerciseData;
 
+
   final List<bool> _selectedPlan = <bool>[true, false, false];
 
   @override
@@ -452,7 +453,26 @@ class _OpenActivityState extends State<OpenActivity> {
                         color: Colors.white,
                       ),
                     ),
+                    const Spacer(),
+                    const Icon(
+                      Icons.control_point_duplicate_outlined,
+                      color: Color(0xff1ce5c1),
+                    ),
+                    const SizedBox(
+                      width: 12.0,
+                    ),
+                  ],
+                ),
+                // const SizedBox(
+                //   height: .0,
+                // ),
+                const Text(
+                  "90 hours | Amenda Johnson",
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.grey,
                   ),
+
                 ),
               ),
               //SizedBox(width: MediaQuery.of(context).size.width*0.08),
@@ -478,6 +498,13 @@ class _OpenActivityState extends State<OpenActivity> {
                     ),
                   ),
                 ),
+              ],
+            ),
+            flexibleSpace: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/Strecho Workout.jpg'),
+                    fit: BoxFit.cover),
               ),
             ],
           ),
@@ -622,6 +649,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                         builder: (ctx) =>
                                             const SelectExercise()));
                                   },
+
                                   child: Row(
                                     children: [
                                       ClipRRect(
@@ -655,15 +683,40 @@ class _OpenActivityState extends State<OpenActivity> {
                                             "${exerciseData!.exerciseList![index].time} mins | ${exerciseData!.exerciseList![index].raps} Raps",
                                             style: const TextStyle(
                                               fontSize: 12,
+
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    // child:
+                                    //  ListTile(
+                                    //   onTap: () {},
+                                    //   title: Text(
+                                    //     constants.workouts[index].name,
+                                    //     style: const TextStyle(
+                                    //       fontSize: 20,
+                                    //       fontWeight: FontWeight.bold,
+                                    //     ),
+                                    //   ),
+                                    //   subtitle: Text(
+                                    //     constants.workouts[index].lastMessage,
+                                    //     style: const TextStyle(
+                                    //       fontSize: 12,
+                                    //     ),
+                                    //   ),
+                                    //   leading: Image(
+                                    //       height: 150,
+                                    //       width: 120,
+                                    //       fit: BoxFit.cover,
+                                    //       image: AssetImage(
+                                    //           "assets/images/${constants.workouts[index].image}")),
+                                    // ),
                                   ),
                                 ):const SizedBox();
                               }),
                         ),
+
                         // ColorRemover(
                         //   child: ListView.builder(
                         //       physics: const BouncingScrollPhysics(),
@@ -729,7 +782,9 @@ class _OpenActivityState extends State<OpenActivity> {
           ),
         ),
       ),
+
     );
     });
+
   }
 }
