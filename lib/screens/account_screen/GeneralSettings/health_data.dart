@@ -50,6 +50,7 @@ class _HealthDataState extends State<HealthData> {
                     showDialog(
                       context: context,
                       builder: (_) =>  Dialog(
+
                         child: Container(
                           height:  MediaQuery.of(context).size.height*0.17,
                           child: Column(
@@ -102,6 +103,7 @@ class _HealthDataState extends State<HealthData> {
                           //     );
                           //   },
                           // ),
+
                         ),
                       )
                     );
@@ -124,6 +126,7 @@ class _HealthDataState extends State<HealthData> {
                         ],
                       )
                     ),
+
                   ),
                 ),
                 Padding(
@@ -133,6 +136,7 @@ class _HealthDataState extends State<HealthData> {
                     color: Colors.white10,
                   ),
                 ),
+
                 Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
