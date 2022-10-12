@@ -278,7 +278,7 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     CircleAvatar(
                                       radius: 13,
-                                      backgroundColor: Colors.grey,
+                                      backgroundColor: Colors.black,
                                       child: Icon(
                                               Icons.change_circle_outlined, color: Color(0xff1ce5c1)
                                           ),
@@ -303,7 +303,7 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                      CircleAvatar(
                                        radius: 12,
-                                       backgroundColor: Colors.grey,
+                                       backgroundColor: Colors.black,
                                        child: Icon(
                                             Icons.refresh, color: Color(0xff1ce5c1)
                                        ),

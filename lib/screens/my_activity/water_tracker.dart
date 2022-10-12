@@ -65,38 +65,36 @@ class _WaterTrackerState extends State<WaterTracker>{
         backgroundColor: const Color(0xff1c1b20),
         title: const Text("WATER TRACKER"),
       ),
-      body: ColorRemover(
-          child: ListView(
-            physics: const BouncingScrollPhysics(),
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 35.h,
-                width: MediaQuery.of(context).size.width * 2,
-                margin: const EdgeInsets.all(12),
-                child: Container(
-                  height: 15.h,
-                  width: MediaQuery.of(context).size.width * 2,
+      body: SingleChildScrollView(
+        child: ColorRemover(
+            //physics: const BouncingScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.all(10),
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    image: DecorationImage(
-                      image: AssetImage(
-                          "assets/images/${constants.dailyExercises[2].image}"),
-                      fit: BoxFit.cover,
+                    borderRadius: BorderRadius.circular(12.0),
+                    gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.topLeft,
+                      colors: [
+                        Colors.black.withOpacity(0.8),
+                        Colors.black.withOpacity(0.8),
+                      ],
                     ),
                   ),
                   // BoxDecoration(
-                  //   borderRadius: BorderRadius.circular(12.0),
-                  //   gradient: LinearGradient(
-                  //     begin: Alignment.topRight,
-                  //     end: Alignment.topLeft,
-                  //     colors: [
-                  //       Colors.white10.withOpacity(0.4),
-                  //       Colors.white10.withOpacity(0.4),
-                  //     ],
+                  //   borderRadius: BorderRadius.circular(8.0),
+                  //   image: DecorationImage(
+                  //     image: AssetImage(
+                  //         "assets/images/${constants.dailyExercises[2].image}"),
+                  //     fit: BoxFit.cover,
                   //   ),
                   // ),
                   child: Column(
@@ -106,7 +104,7 @@ class _WaterTrackerState extends State<WaterTracker>{
                         padding: EdgeInsets.only(top: 10),
                         child: Text(
                             "Today",
-                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17, color: Colors.black),
+                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17, color: Colors.white),
                         ),
                       ),
                       Padding(
@@ -154,13 +152,13 @@ class _WaterTrackerState extends State<WaterTracker>{
                                       progressBarWidth: 6.0, trackWidth: 5.0),
                                   customColors: CustomSliderColors(
                                     hideShadow: true,
-                                    progressBarColor: Colors.blue,
+                                    progressBarColor: Color(0xff1ce5c1),
                                     dotColor: Colors.transparent,
                                     trackColor: Colors.white,
                                     // trackColor: const Color(0xff404040),
                                     progressBarColors: [
-                                      Colors.blue,
-                                      Colors.blue,
+                                      Color(0xff1ce5c1),
+                                      Color(0xff1ce5c1),
                                     ],
                                   ),
                                 ),
@@ -171,22 +169,16 @@ class _WaterTrackerState extends State<WaterTracker>{
                                       children: [
                                         Icon(
                                           Icons.water_drop_outlined,
-                                          color: Colors.blue,
+                                          color: Color(0xff1ce5c1),
                                           size: 22,
                                         ),
                                         Text(
                                           '0 ',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold),
+                                          style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
                                         ),
                                         Text(
                                           '/8 Cups',
-                                          style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 15,
-                                          ),
+                                          style: TextStyle(color: Colors.white, fontSize: 15),
                                         ),
                                       ],
                                     ),
@@ -230,68 +222,77 @@ class _WaterTrackerState extends State<WaterTracker>{
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           height: 1,
-                          color: Colors.black38,
+                          color: Colors.white,
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Drink notification",
-                                style: TextStyle(fontSize: 17, color: Colors.black),
-                              ),
-                              Text(
-                                "Remind me to drink",
-                                style: TextStyle(fontSize: 13, color: Colors.black38),
-                              ),
-                            ],
-                          ),
-                          FlutterSwitch(
-                            width: 50,
-                            height: 25,
-                            toggleSize: 10,
-                            value: status,
-                            borderRadius: 30,
-                            padding: 8.0,
-                            showOnOff: false,
-                            onToggle: (val) {
-                              setState(() {
-                                status = val;
-                              });
-                            },
-                          ),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Drink notification",
+                                  style: TextStyle(fontSize: 17, color: Colors.white),
+                                ),
+                                Text(
+                                  "Remind me to drink",
+                                  style: TextStyle(fontSize: 13, color: Colors.white),
+                                ),
+                              ],
+                            ),
+                            FlutterSwitch(
+                              width: 50,
+                              height: 25,
+                              toggleSize: 10,
+                              value: status,
+                              borderRadius: 30,
+                              padding: 8.0,
+                              showOnOff: false,
+                              onToggle: (val) {
+                                setState(() {
+                                  status = val;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 8, bottom: 4,left: 15),
-                child: Text(
-                    "September 2022",
-                    style: TextStyle(color: Colors.white),
+                Padding(
+                  padding: EdgeInsets.only(top: 8, bottom: 4,left: 15),
+                  child: Text(
+                      "September 2022",
+                      style: TextStyle(color: Colors.white),
+                  ),
                 ),
-              ),
-              Container(
-                height: 35.h,
-                width: MediaQuery.of(context).size.width * 2,
-                margin: const EdgeInsets.all(12),
-                child: Container(
-                  height: 15.h,
-                  width: MediaQuery.of(context).size.width * 2,
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.all(10),
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
-                    image: DecorationImage(
-                      image: AssetImage(
-                          "assets/images/${constants.dailyExercises[2].image}"),
-                      fit: BoxFit.cover,
+                    gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.topLeft,
+                      colors: [
+                        Colors.black.withOpacity(0.8),
+                        Colors.black.withOpacity(0.8),
+                      ],
                     ),
                   ),
+                  // BoxDecoration(
+                  //   borderRadius: BorderRadius.circular(8.0),
+                  //   image: DecorationImage(
+                  //     image: AssetImage(
+                  //         "assets/images/${constants.dailyExercises[2].image}"),
+                  //     fit: BoxFit.cover,
+                  //   ),
+                  // ),
                   // BoxDecoration(
                   //   borderRadius: BorderRadius.circular(12.0),
                   //   gradient: LinearGradient(
@@ -316,11 +317,11 @@ class _WaterTrackerState extends State<WaterTracker>{
                               children: [
                                 Text(
                                   "Sep 18 - Sep 24",
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17, color: Colors.black),
+                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17, color: Colors.white),
                                 ),
                                 Text(
                                   "2022",
-                                  style: TextStyle(fontSize: 13, color: Colors.black38),
+                                  style: TextStyle(fontSize: 13, color: Colors.white),
                                 ),
                               ],
                             ),
@@ -329,11 +330,11 @@ class _WaterTrackerState extends State<WaterTracker>{
                               children: [
                                 Text(
                                   "0.5",
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 23, color: Colors.black),
+                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 23, color: Colors.white),
                                 ),
                                 Text(
                                   "Average(Cups)",
-                                  style: TextStyle(fontSize: 13, color: Colors.black38),
+                                  style: TextStyle(fontSize: 13, color: Colors.white),
                                 ),
                               ],
                             ),
@@ -399,9 +400,9 @@ class _WaterTrackerState extends State<WaterTracker>{
                     ],
                   ),
                 ),
-              ),
-            ],
-          )
+              ],
+            )
+        ),
       ),
     );});
   }
@@ -419,10 +420,10 @@ class _WaterTrackerState extends State<WaterTracker>{
       barRods: [
         BarChartRodData(
           y: isTouched ? y + 1 : y,
-          colors: isTouched ? [Colors.yellow] : [barColor],
+          colors: isTouched ? [Color(0xff1ce5c1)] : [barColor],
           width: width,
           borderSide: isTouched
-              ? BorderSide(color: Colors.yellow, width: 1)
+              ? BorderSide(color: Color(0xff1ce5c1), width: 1)
               : const BorderSide(color: Colors.white, width: 0),
           backDrawRodData: BackgroundBarChartRodData(
             show: true,

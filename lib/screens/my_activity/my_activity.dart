@@ -1,8 +1,10 @@
 import 'package:calender_picker/date_picker_widget.dart';
 import 'package:fitness_app/constants/constants.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
+import 'package:fitness_app/screens/my_activity/history.dart';
 import 'package:fitness_app/screens/my_activity/open_activity.dart';
 import 'package:fitness_app/screens/my_activity/water_tracker.dart';
+import 'package:fitness_app/screens/my_activity/weight_popup.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/line_chart_widget.dart';
 import 'package:flutter/material.dart';
@@ -230,21 +232,30 @@ class _MyActivityState extends State<MyActivity> {
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold),
                           ),
-                          Container(
-                            height: 40,
-                            width: MediaQuery.of(context).size.width * 0.3,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12.0),
-                                color: kColorPrimary),
-                            child: Center(
-                              child: Text(
-                                'History',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500),
+                          InkWell(
+                            onTap: (){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          HistoryScreen()));
+                            },
+                            child: Container(
+                              height: 40,
+                              width: MediaQuery.of(context).size.width * 0.3,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  color: kColorPrimary),
+                              child: Center(
+                                child: Text(
+                                  'History',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500),
+                                ),
                               ),
                             ),
                           ),
@@ -315,11 +326,11 @@ class _MyActivityState extends State<MyActivity> {
                         WaterTracker()));
                 },
               child: Container(
-                height: 25.h,
+                //height: 25.h,
                 width: MediaQuery.of(context).size.width * 2,
                 margin: const EdgeInsets.all(12),
                 child: Container(
-                  height: 15.h,
+                  //height: 15.h,
                   width: MediaQuery.of(context).size.width * 2,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
@@ -346,7 +357,7 @@ class _MyActivityState extends State<MyActivity> {
                               'Water Tracker',
                               style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 22,
+                                  fontSize: 19,
                                   fontWeight: FontWeight.bold),
                             ),
                           ],
@@ -364,14 +375,14 @@ class _MyActivityState extends State<MyActivity> {
                                   '0 ',
                                   style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 30,
+                                      fontSize: 25,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   '/8 Cups',
                                   style: TextStyle(
                                     color: Colors.black54,
-                                    fontSize: 20,
+                                    fontSize: 16,
                                   ),
                                 ),
                               ],
@@ -407,7 +418,7 @@ class _MyActivityState extends State<MyActivity> {
                                     child: Icon(
                                       Icons.hourglass_bottom,
                                       color: Colors.blue,
-                                      size: 22,
+                                      size: 20,
                                     ),
                                   );
                                 },
@@ -490,17 +501,30 @@ class _MyActivityState extends State<MyActivity> {
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold),
                           ),
-                          Container(
-                            height: 35,
-                            width: 35,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(7.0),
-                                color: kColorPrimary),
-                            child: Center(
-                              child: Icon(
-                                Icons.add,
-                                size: 30,
-                                color: Colors.white,
+                          InkWell(
+                            onTap: (){
+                              showDialog(
+                                  context: context,
+                                  builder: (_) => Dialog(
+                                    child: Container(
+                                        height: MediaQuery.of(context).size.height*0.45,
+                                        child: WeightPopup(),
+                                    ),
+                                  )
+                              );//CountdownPopup(),
+                            },
+                            child: Container(
+                              height: 35,
+                              width: 35,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(7.0),
+                                  color: kColorPrimary),
+                              child: Center(
+                                child: Icon(
+                                  Icons.add,
+                                  size: 30,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),

@@ -52,356 +52,358 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
       body: SafeArea(
         child: ColorRemover(
             // physics: const BouncingScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Stack(
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height*0.9,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/images/5.png"),
-                          fit: BoxFit.cover,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Stack(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height*0.9,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("assets/images/5.png"),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          colors: [
-                            Color(0xff1c1b20),
-                            Colors.transparent,
-                          ],
+                      Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                            colors: [
+                              Color(0xff1c1b20),
+                              Colors.transparent,
+                            ],
+                          ),
                         ),
-                      ),
-                      height: MediaQuery.of(context).size.height*0.93,
-                      width: MediaQuery.of(context).size.width,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 0),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.08),
-                            // Row(
-                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //   children: [
-                            //     const Text(
-                            //       "Sign in",
-                            //       style: TextStyle(
-                            //         fontSize: 18,
-                            //         color: Colors.white,
-                            //         fontWeight: FontWeight.bold,
-                            //       ),
-                            //     ),
-                            //     InkWell(
-                            //       onTap: () {
-                            //         // Navigator.of(context).pop();
-                            //         Navigator.of(context).push(
-                            //             MaterialPageRoute(
-                            //                 builder: (ctx) =>
-                            //                     const Register()));
-                            //       },
-                            //       child: Row(
-                            //         children: const [
-                            //           Text(
-                            //             "+ ",
-                            //             style: TextStyle(
-                            //               fontSize: 18,
-                            //               color: kFirstColor,
-                            //               fontWeight: FontWeight.bold,
-                            //             ),
-                            //           ),
-                            //           Text(
-                            //             "Register",
-                            //             style: TextStyle(
-                            //               fontSize: 18,
-                            //               color: Colors.white,
-                            //               fontWeight: FontWeight.bold,
-                            //             ),
-                            //           ),
-                            //         ],
-                            //       ),
-                            //     )
-                            //   ],
-                            // ),
-                            // RichText(
-                            //   text: TextSpan(
-                            //     text: 'Sign in\t',
-                            //     style: const TextStyle(
-                            //       fontFamily: "Bebas",
-                            //       fontSize: 20,
-                            //     ),
-                            //     children: <InlineSpan>[
-                            //       WidgetSpan(
-                            //           alignment: PlaceholderAlignment.baseline,
-                            //           baseline: TextBaseline.alphabetic,
-                            //           child: SizedBox(width: 33.w)),
-                            //       const TextSpan(
-                            //         text: 'ELEMENT',
-                            //         style: TextStyle(color: kFirstColor),
-                            //       )
-                            //     ],
-                            //   ),
-                            // ),
+                        height: MediaQuery.of(context).size.height*0.93,
+                        width: MediaQuery.of(context).size.width,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 0),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.08),
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              //   children: [
+                              //     const Text(
+                              //       "Sign in",
+                              //       style: TextStyle(
+                              //         fontSize: 18,
+                              //         color: Colors.white,
+                              //         fontWeight: FontWeight.bold,
+                              //       ),
+                              //     ),
+                              //     InkWell(
+                              //       onTap: () {
+                              //         // Navigator.of(context).pop();
+                              //         Navigator.of(context).push(
+                              //             MaterialPageRoute(
+                              //                 builder: (ctx) =>
+                              //                     const Register()));
+                              //       },
+                              //       child: Row(
+                              //         children: const [
+                              //           Text(
+                              //             "+ ",
+                              //             style: TextStyle(
+                              //               fontSize: 18,
+                              //               color: kFirstColor,
+                              //               fontWeight: FontWeight.bold,
+                              //             ),
+                              //           ),
+                              //           Text(
+                              //             "Register",
+                              //             style: TextStyle(
+                              //               fontSize: 18,
+                              //               color: Colors.white,
+                              //               fontWeight: FontWeight.bold,
+                              //             ),
+                              //           ),
+                              //         ],
+                              //       ),
+                              //     )
+                              //   ],
+                              // ),
+                              // RichText(
+                              //   text: TextSpan(
+                              //     text: 'Sign in\t',
+                              //     style: const TextStyle(
+                              //       fontFamily: "Bebas",
+                              //       fontSize: 20,
+                              //     ),
+                              //     children: <InlineSpan>[
+                              //       WidgetSpan(
+                              //           alignment: PlaceholderAlignment.baseline,
+                              //           baseline: TextBaseline.alphabetic,
+                              //           child: SizedBox(width: 33.w)),
+                              //       const TextSpan(
+                              //         text: 'ELEMENT',
+                              //         style: TextStyle(color: kFirstColor),
+                              //       )
+                              //     ],
+                              //   ),
+                              // ),
 
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: const [
-                                Text(
-                                  "CHOOSE YOUR PLAN",
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(height: 5),
-                                Text(
-                                  "Lose weight with the plan that suits you best",
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.09),
-
-                            GestureDetector(
-                              onTap: () {
-                                _selectedPlan[2] = false;
-                                _selectedPlan[1] = false;
-                                _selectedPlan[0] = true;
-                                _homeBloc.add(RefreshScreenEvent());
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.all(12),
-                                child: Container(
-                                  height: 12.h,
-                                  alignment: Alignment.bottomLeft,
-                                  padding: const EdgeInsets.only(left: 12.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'BEGINNER',
-                                        style: TextStyle(
-                                            fontSize: 30.0,
-                                            color: _selectedPlan[0] == false
-                                                ? Colors.white
-                                                : Colors.black),
-                                      ),
-                                      Text(
-                                        '5-10 min a day',
-                                        style: TextStyle(
-                                            fontSize: 15.0,
-                                            color: _selectedPlan[0] == false
-                                                ? Colors.white
-                                                : Colors.black),
-                                      ),
-                                    ],
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    // image: DecorationImage(
-                                    //   image: AssetImage(
-                                    //       "assets/images/${constants.standard[index].image}"),
-                                    //   fit: BoxFit.cover,
-                                    // ),
-                                    gradient: LinearGradient(
-                                      // begin: Alignment.bottomCenter,
-                                      // end: Alignment.topCenter,
-                                      colors: [
-                                        _selectedPlan[0] == false
-                                            ? const Color(0xff1c1b20)
-                                            : Colors.white60,
-                                        _selectedPlan[0] == false
-                                            ? Colors.transparent
-                                            : Colors.white,
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            const SizedBox(height: 5),
-                            GestureDetector(
-                              onTap: () {
-                                _selectedPlan[0] = false;
-                                _selectedPlan[2] = false;
-                                _selectedPlan[1] = true;
-
-                                _homeBloc.add(RefreshScreenEvent());
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(left: 12, right: 12),
-                                child: Container(
-                                  height: 12.h,
-                                  alignment: Alignment.bottomLeft,
-                                  padding: const EdgeInsets.only(left: 12.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'INTERMEDIATE',
-                                        style: TextStyle(
-                                            fontSize: 30.0,
-                                            color: _selectedPlan[1] == false
-                                                ? Colors.white
-                                                : Colors.black),
-                                      ),
-                                      Text(
-                                        '10-20 min a day',
-                                        style: TextStyle(
-                                            fontSize: 15.0,
-                                            color: _selectedPlan[1] == false
-                                                ? Colors.white
-                                                : Colors.black),
-                                      ),
-                                    ],
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    // image: DecorationImage(
-                                    //   image: AssetImage(
-                                    //       "assets/images/${constants.standard[index].image}"),
-                                    //   fit: BoxFit.cover,
-                                    // ),
-                                    gradient: LinearGradient(
-                                      // begin: Alignment.b,
-                                      // end: Alignment.topCenter,
-                                      colors: [
-                                        _selectedPlan[1] == false
-                                            ? const Color(0xff1c1b20)
-                                            : Colors.white60,
-                                        _selectedPlan[1] == false
-                                            ? Colors.transparent
-                                            : Colors.white,
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            const SizedBox(height: 5),
-                            GestureDetector(
-                              onTap: () {
-                                _selectedPlan[0] = false;
-                                _selectedPlan[1] = false;
-                                _selectedPlan[2] = true;
-                                _homeBloc.add(RefreshScreenEvent());
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.all(12),
-                                child: Container(
-                                  height: 12.h,
-                                  alignment: Alignment.bottomLeft,
-                                  padding: const EdgeInsets.only(left: 12.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'ADVANCED',
-                                        style: TextStyle(
-                                            fontSize: 30.0,
-                                            color: _selectedPlan[2] == false
-                                                ? Colors.white
-                                                : Colors.black),
-                                      ),
-                                      Text(
-                                        '15-30 min a day',
-                                        style: TextStyle(
-                                            fontSize: 15.0,
-                                            color: _selectedPlan[2] == false
-                                                ? Colors.white
-                                                : Colors.black),
-                                      ),
-                                    ],
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    // image: DecorationImage(
-                                    //   image: AssetImage(
-                                    //       "assets/images/${constants.standard[index].image}"),
-                                    //   fit: BoxFit.cover,
-                                    // ),
-                                    gradient: LinearGradient(
-                                      // begin: Alignment.bottomCenter,
-                                      // end: Alignment.topCenter,
-                                      colors: [
-                                        _selectedPlan[2] == false
-                                            ? const Color(0xff1c1b20)
-                                            : Colors.white60,
-                                        _selectedPlan[2] == false
-                                            ? Colors.transparent
-                                            : Colors.white,
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            SizedBox(height: MediaQuery.of(context).size.height*0.11),
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            const PushUpsSpinnerScreen()));
-                              },
-                              child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.6,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.08,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          // color: Colors.white,
-                                          // width: 2.0,
-                                          ),
-                                      borderRadius: BorderRadius.circular(100),
-                                      color: kColorPrimary,
-                                      boxShadow: const [
-                                        BoxShadow(
-                                          color: Colors.black26,
-                                          spreadRadius: 1,
-                                          blurRadius: 8,
-                                          offset: Offset(0, 3),
-                                        )
-                                      ]),
-                                  child: const Center(
-                                      child: Text(
-                                    'NEXT',
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: const [
+                                  Text(
+                                    "CHOOSE YOUR PLAN",
+                                    maxLines: 1,
                                     style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold),
-                                  ))),
-                            ),
-                          ],
+                                      fontSize: 25,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 5),
+                                  Text(
+                                    "Lose weight with the plan that suits you best",
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.09),
+
+                              GestureDetector(
+                                onTap: () {
+                                  _selectedPlan[2] = false;
+                                  _selectedPlan[1] = false;
+                                  _selectedPlan[0] = true;
+                                  _homeBloc.add(RefreshScreenEvent());
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.all(12),
+                                  child: Container(
+                                    height: 12.h,
+                                    alignment: Alignment.bottomLeft,
+                                    padding: const EdgeInsets.only(left: 12.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'BEGINNER',
+                                          style: TextStyle(
+                                              fontSize: 30.0,
+                                              color: _selectedPlan[0] == false
+                                                  ? Colors.white
+                                                  : Colors.black),
+                                        ),
+                                        Text(
+                                          '5-10 min a day',
+                                          style: TextStyle(
+                                              fontSize: 15.0,
+                                              color: _selectedPlan[0] == false
+                                                  ? Colors.white
+                                                  : Colors.black),
+                                        ),
+                                      ],
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      // image: DecorationImage(
+                                      //   image: AssetImage(
+                                      //       "assets/images/${constants.standard[index].image}"),
+                                      //   fit: BoxFit.cover,
+                                      // ),
+                                      gradient: LinearGradient(
+                                        // begin: Alignment.bottomCenter,
+                                        // end: Alignment.topCenter,
+                                        colors: [
+                                          _selectedPlan[0] == false
+                                              ? const Color(0xff1c1b20)
+                                              : Colors.white60,
+                                          _selectedPlan[0] == false
+                                              ? Colors.transparent
+                                              : Colors.white,
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              const SizedBox(height: 5),
+                              GestureDetector(
+                                onTap: () {
+                                  _selectedPlan[0] = false;
+                                  _selectedPlan[2] = false;
+                                  _selectedPlan[1] = true;
+
+                                  _homeBloc.add(RefreshScreenEvent());
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(left: 12, right: 12),
+                                  child: Container(
+                                    height: 12.h,
+                                    alignment: Alignment.bottomLeft,
+                                    padding: const EdgeInsets.only(left: 12.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'INTERMEDIATE',
+                                          style: TextStyle(
+                                              fontSize: 30.0,
+                                              color: _selectedPlan[1] == false
+                                                  ? Colors.white
+                                                  : Colors.black),
+                                        ),
+                                        Text(
+                                          '10-20 min a day',
+                                          style: TextStyle(
+                                              fontSize: 15.0,
+                                              color: _selectedPlan[1] == false
+                                                  ? Colors.white
+                                                  : Colors.black),
+                                        ),
+                                      ],
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      // image: DecorationImage(
+                                      //   image: AssetImage(
+                                      //       "assets/images/${constants.standard[index].image}"),
+                                      //   fit: BoxFit.cover,
+                                      // ),
+                                      gradient: LinearGradient(
+                                        // begin: Alignment.b,
+                                        // end: Alignment.topCenter,
+                                        colors: [
+                                          _selectedPlan[1] == false
+                                              ? const Color(0xff1c1b20)
+                                              : Colors.white60,
+                                          _selectedPlan[1] == false
+                                              ? Colors.transparent
+                                              : Colors.white,
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              const SizedBox(height: 5),
+                              GestureDetector(
+                                onTap: () {
+                                  _selectedPlan[0] = false;
+                                  _selectedPlan[1] = false;
+                                  _selectedPlan[2] = true;
+                                  _homeBloc.add(RefreshScreenEvent());
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.all(12),
+                                  child: Container(
+                                    height: 12.h,
+                                    alignment: Alignment.bottomLeft,
+                                    padding: const EdgeInsets.only(left: 12.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'ADVANCED',
+                                          style: TextStyle(
+                                              fontSize: 30.0,
+                                              color: _selectedPlan[2] == false
+                                                  ? Colors.white
+                                                  : Colors.black),
+                                        ),
+                                        Text(
+                                          '15-30 min a day',
+                                          style: TextStyle(
+                                              fontSize: 15.0,
+                                              color: _selectedPlan[2] == false
+                                                  ? Colors.white
+                                                  : Colors.black),
+                                        ),
+                                      ],
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      // image: DecorationImage(
+                                      //   image: AssetImage(
+                                      //       "assets/images/${constants.standard[index].image}"),
+                                      //   fit: BoxFit.cover,
+                                      // ),
+                                      gradient: LinearGradient(
+                                        // begin: Alignment.bottomCenter,
+                                        // end: Alignment.topCenter,
+                                        colors: [
+                                          _selectedPlan[2] == false
+                                              ? const Color(0xff1c1b20)
+                                              : Colors.white60,
+                                          _selectedPlan[2] == false
+                                              ? Colors.transparent
+                                              : Colors.white,
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              SizedBox(height: MediaQuery.of(context).size.height*0.11),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              const PushUpsSpinnerScreen()));
+                                },
+                                child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.6,
+                                    height:
+                                        MediaQuery.of(context).size.height * 0.08,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            // color: Colors.white,
+                                            // width: 2.0,
+                                            ),
+                                        borderRadius: BorderRadius.circular(100),
+                                        color: kColorPrimary,
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color: Colors.black26,
+                                            spreadRadius: 1,
+                                            blurRadius: 8,
+                                            offset: Offset(0, 3),
+                                          )
+                                        ]),
+                                    child: const Center(
+                                        child: Text(
+                                      'NEXT',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold),
+                                    ))),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
 
         ),

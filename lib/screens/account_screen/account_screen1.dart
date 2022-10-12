@@ -122,7 +122,6 @@ class _AccountScreen1State extends State<AccountScreen1> {
                 //   ),
                 // ),
                 Container(
-                    height: MediaQuery.of(context).size.height*0.32,
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.all(10),
                     decoration:
@@ -226,11 +225,15 @@ class _AccountScreen1State extends State<AccountScreen1> {
                           ),
                           InkWell(
                             onTap: (){
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (ctx) => CountdownPopup(),
-                                ),
-                              );
+                              showDialog(
+                                      context: context,
+                                      builder: (_) => Dialog(
+                                        child: Container(
+                                            height: MediaQuery.of(context).size.height*0.4,
+                                          child: CountdownPopup()
+                                        ),
+                                  )
+                                );//CountdownPopup(),
                             },
                             child: Padding(
                               padding: EdgeInsets.only(top: 10,bottom: 10),
@@ -256,11 +259,15 @@ class _AccountScreen1State extends State<AccountScreen1> {
                           ),
                           InkWell(
                             onTap: (){
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (ctx) => TrainingRestPopup(),
-                                ),
-                              );
+                              showDialog(
+                                  context: context,
+                                  builder: (_) => Dialog(
+                                    child: Container(
+                                        height: MediaQuery.of(context).size.height*0.4,
+                                        child: TrainingRestPopup()
+                                    ),
+                                  )
+                              );//CountdownPopup(),
                             },
                             child: Padding(
                               padding: EdgeInsets.only(top: 10,bottom: 10),
@@ -304,7 +311,6 @@ class _AccountScreen1State extends State<AccountScreen1> {
                     )
                 ),
                 Container(
-                    height: MediaQuery.of(context).size.height*0.21,
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.all(10),
                     decoration:
@@ -410,7 +416,6 @@ class _AccountScreen1State extends State<AccountScreen1> {
                     )
                 ),
                 Container(
-                    height: MediaQuery.of(context).size.height*0.25,
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.all(10),
                     decoration:
@@ -579,7 +584,6 @@ class _AccountScreen1State extends State<AccountScreen1> {
                     )
                 ),
                 Container(
-                    height: MediaQuery.of(context).size.height*0.43,
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.all(10),
                     decoration:
