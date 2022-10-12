@@ -1,8 +1,12 @@
+
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../Utils/xyz.dart';
+
 
 class ReminderScreen extends StatefulWidget {
   const ReminderScreen({Key? key}) : super(key: key);
@@ -52,11 +56,14 @@ class _ReminderScreenState extends State<ReminderScreen>{
                 child: DateTimePicker(
                   type: DateTimePickerType.dateTimeSeparate,
                   //dateMask: 'd MMM, yyyy',
+
                   // controller: _controller1,
                   //initialValue: _initialValue,
                   firstDate: DateTime(2000),
                   lastDate: DateTime(2100),
+
                   //icon: Icon(Icons.event),
+
                   dateLabelText: 'Date',
                   timeLabelText: "Hour",
                   use24HourFormat: false,
@@ -76,7 +83,9 @@ class _ReminderScreenState extends State<ReminderScreen>{
                 ),
               ),
             );
+
            // _homeBloc.add(RefreshScreenEvent());
+
           },
           child: Icon(Icons.add, color: Colors.white),
         ),
