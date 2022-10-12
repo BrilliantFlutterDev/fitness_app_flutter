@@ -12,15 +12,12 @@ class CountdownPopup extends StatefulWidget{
 
 class _CountdownPopupState extends State<CountdownPopup> {
 
+  int _counter = 10;
   @override
   Widget build(BuildContext context){
     return Scaffold(
       body: ColorRemover(
         child: Center(
-          child: Container(
-            // color: kThirdColor,
-            height: MediaQuery.of(context).size.height*0.35,
-            width: MediaQuery.of(context).size.width*0.85,
             child: Padding(
               padding: EdgeInsets.only(left: 25, right: 35),
               child: Column(
@@ -31,7 +28,7 @@ class _CountdownPopupState extends State<CountdownPopup> {
                     padding: EdgeInsets.only(top: 25),
                     child: Text(
                       "Countdown time (10 ~ 15 sec)",
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                   ),
                   Row(
@@ -39,25 +36,45 @@ class _CountdownPopupState extends State<CountdownPopup> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
-                        child: Icon(Icons.arrow_back_ios, color: Colors.grey, size: 15),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              if(_counter == 10 || _counter <= 10){
+                                _counter = 10;
+                              }else{
+                                _counter -= 5;
+                              }
+                            });
+                          },
+                          child: Icon(Icons.arrow_back_ios, color: Colors.grey, size: 15)),
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width*0.05),
                       Column(
                         children: [
                           Text(
-                              "10",
-                              style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height*0.075),
+                            '$_counter',
+                            style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.height*0.075),
                           ),
                           Text(
                             "sec",
-                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width*0.05),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 15),
-                        child: Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 15),
+                        child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                if(_counter == 15 || _counter>=15){
+                                  _counter = 15;
+                                }else{
+                                  _counter += 5;
+                                }
+                              });
+                            },
+                            child: Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 15)),
                       ),
                     ],
                   ),
@@ -67,16 +84,16 @@ class _CountdownPopupState extends State<CountdownPopup> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         InkWell(
-                        onTap: (){
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (ctx) => AccountScreen1(),
+                          onTap: (){
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (ctx) => AccountScreen1(),
                               ),
                             );
-                        },
+                          },
                           child: Text(
                             "CANCEL",
-                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width*0.1),
@@ -90,8 +107,7 @@ class _CountdownPopupState extends State<CountdownPopup> {
                 ],
               ),
             ),
-          ),
-        ),
+        )
       ),
     );
   }

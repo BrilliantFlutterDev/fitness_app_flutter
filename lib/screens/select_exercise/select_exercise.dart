@@ -94,7 +94,9 @@ class SelectExercise extends StatelessWidget {
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width*0.4),
                     Icon(Icons.remove,),
-
+                    Text(
+                        "10:00"
+                    ),
                     Icon(Icons.add),
                   ],
                 ),
