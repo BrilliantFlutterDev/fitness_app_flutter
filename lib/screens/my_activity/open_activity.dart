@@ -1,6 +1,7 @@
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/constants/constants.dart';
+import 'package:fitness_app/screens/account_screen/Workout/training_rest_popup.dart';
 import 'package:fitness_app/screens/my_activity/edit_plan.dart';
 import 'package:fitness_app/screens/select_exercise/select_exercise.dart';
 import 'package:fitness_app/screens/start_exercise/start_exercise.dart';
@@ -125,10 +126,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                   padding: const EdgeInsets.only(
                                       top: 18, left: 18, right: 18),
                                   child: Container(
-                                    height: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * 0.7,
+                                    //height: MediaQuery.of(context).size.height * 0.7,
                                     child: Wrap(
                                       children: [
                                         ListTile(
@@ -183,7 +181,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                                             .center,
                                                         children: [
                                                           Text(
-                                                            'I\'M FINE',
+                                                            'I\'m fine',
                                                             style: TextStyle(
                                                                 fontWeight: FontWeight
                                                                     .bold,
@@ -256,7 +254,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                                             .center,
                                                         children: [
                                                           Text(
-                                                            'NO JUMPING',
+                                                            'No jumping',
                                                             style: TextStyle(
                                                                 fontWeight: FontWeight
                                                                     .bold,
@@ -329,7 +327,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                                             .center,
                                                         children: [
                                                           Text(
-                                                            'LOW IMPACT',
+                                                            'Low impact',
                                                             style: TextStyle(
                                                                 fontWeight: FontWeight
                                                                     .bold,
@@ -386,15 +384,43 @@ class _OpenActivityState extends State<OpenActivity> {
                                           child: Container(
                                               height: 1, color: Colors.white),
                                         ),
-                                        ListTile(
-                                          leading: Icon(Icons.restaurant),
-                                          title: Text('Training rest'),
-                                          trailing: Text("10 sec",
-                                              style: TextStyle(color: Colors.blue)),
+                                        InkWell(
+                                          onTap: (){
+                                            showDialog(
+                                                context: context,
+                                                builder: (_) => Dialog(
+                                                  child: Container(
+                                                      height: MediaQuery.of(context).size.height*0.4,
+                                                      child: TrainingRestPopup()
+                                                  ),
+                                                )
+                                            );//CountdownPopup(),
+                                          },
+                                          child: Padding(
+                                            padding: EdgeInsets.only(top: 10,bottom: 10),
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.restaurant, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                                ),
+                                                SizedBox(width: MediaQuery.of(context).size.width*0.035),
+                                                Text(
+                                                  "Training rest",
+                                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
+                                                ),
+                                                SizedBox(width: MediaQuery.of(context).size.width*0.35),
+                                                Text(
+                                                  "10 sec",
+                                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.043, color: Color(0xff1ce5c1)),
+                                                ),
+                                                Icon(Icons.arrow_drop_down, color: Color(0xff1ce5c1), size: MediaQuery.of(context).size.width*0.065)
+                                              ],
+                                            ),
+                                          ),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(
-                                              left: 10, top: 10),
+                                              left: 10, top: 10, bottom: 10),
                                           child: InkWell(
                                             onTap: () {
                                               Navigator.of(context).push(
@@ -414,7 +440,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                               decoration: BoxDecoration(
                                                 borderRadius: BorderRadius.circular(
                                                     50),
-                                                color: Colors.blue,
+                                                color: Color(0xff1ce5c1),
                                               ),
                                               child: Center(
                                                 child: Text(
@@ -552,7 +578,7 @@ class _OpenActivityState extends State<OpenActivity> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "59.7",
+                                "≈59.7",
                                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                               ),
                               Text(

@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
         //  backgroundColor: const Color(0xff1c1b20),
         appBar: AppBar(
           backgroundColor: const Color(0xff1c1b20),
-          title: const Text("Fit Fitness"),
+          title: const Text("FIT FITNESS"),
           actions: <Widget>[
             IconButton(
               icon: const Icon(
