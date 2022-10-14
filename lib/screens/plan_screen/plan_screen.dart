@@ -7,6 +7,7 @@ import 'package:fitness_app/widgets/cus_bottom_bar.dart';
 import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 
@@ -23,15 +24,20 @@ class SelectPlanScreen extends StatefulWidget {
 class _SelectPlanScreenState extends State<SelectPlanScreen> {
   final List<bool> _selectedPlan = <bool>[true, false, false];
   late HomeBloc _homeBloc;
+  FlutterSecureStorage storage = const FlutterSecureStorage();
 
   @override
   void initState() {
     super.initState();
+    addUserData();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
-
   }
 
-  int x=1;
+  void addUserData() async {
+    await storage.write(key: 'selectedPlan', value: '1');
+  }
+
+  int x = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +53,11 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
             backgroundColor: Colors.grey.shade400,
             textColor: Colors.white,
             fontSize: 12.0);
-      } else if (state is RefreshScreenState) {
-
-      }
+      } else if (state is RefreshScreenState) {}
     }, builder: (context, state) {
-    return Scaffold(
-      body: SafeArea(
-        child: ColorRemover(
+      return Scaffold(
+        body: SafeArea(
+          child: ColorRemover(
             // physics: const BouncingScrollPhysics(),
             child: SingleChildScrollView(
               child: Column(
@@ -62,7 +66,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                   Stack(
                     children: [
                       Container(
-                        height: MediaQuery.of(context).size.height*0.9,
+                        height: MediaQuery.of(context).size.height * 0.9,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage("assets/images/5.png"),
@@ -81,7 +85,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                             ],
                           ),
                         ),
-                        height: MediaQuery.of(context).size.height*0.93,
+                        height: MediaQuery.of(context).size.height * 0.93,
                         width: MediaQuery.of(context).size.width,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -89,7 +93,8 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                           child: Column(
                             children: [
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.08),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.08),
                               // Row(
                               //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               //   children: [
@@ -176,13 +181,16 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                 ],
                               ),
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.09),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.09),
 
                               GestureDetector(
-                                onTap: () {
+                                onTap: () async {
                                   _selectedPlan[2] = false;
                                   _selectedPlan[1] = false;
                                   _selectedPlan[0] = true;
+                                  await storage.write(
+                                      key: 'selectedPlan', value: '1');
                                   _homeBloc.add(RefreshScreenEvent());
                                 },
                                 child: Container(
@@ -194,7 +202,8 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           'BEGINNER',
@@ -240,11 +249,12 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
 
                               const SizedBox(height: 5),
                               GestureDetector(
-                                onTap: () {
+                                onTap: () async {
                                   _selectedPlan[0] = false;
                                   _selectedPlan[2] = false;
                                   _selectedPlan[1] = true;
-
+                                  await storage.write(
+                                      key: 'selectedPlan', value: '2');
                                   _homeBloc.add(RefreshScreenEvent());
                                 },
                                 child: Container(
@@ -256,7 +266,8 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           'INTERMEDIATE',
@@ -302,10 +313,12 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
 
                               const SizedBox(height: 5),
                               GestureDetector(
-                                onTap: () {
+                                onTap: () async {
                                   _selectedPlan[0] = false;
                                   _selectedPlan[1] = false;
                                   _selectedPlan[2] = true;
+                                  await storage.write(
+                                      key: 'selectedPlan', value: '3');
                                   _homeBloc.add(RefreshScreenEvent());
                                 },
                                 child: Container(
@@ -317,7 +330,8 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           'ADVANCED',
@@ -361,7 +375,9 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                 ),
                               ),
 
-                              SizedBox(height: MediaQuery.of(context).size.height*0.11),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.11),
                               InkWell(
                                 onTap: () {
                                   Navigator.push(
@@ -373,14 +389,15 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                 child: Container(
                                     width:
                                         MediaQuery.of(context).size.width * 0.6,
-                                    height:
-                                        MediaQuery.of(context).size.height * 0.08,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.08,
                                     decoration: BoxDecoration(
                                         border: Border.all(
                                             // color: Colors.white,
                                             // width: 2.0,
                                             ),
-                                        borderRadius: BorderRadius.circular(100),
+                                        borderRadius:
+                                            BorderRadius.circular(100),
                                         color: kColorPrimary,
                                         boxShadow: const [
                                           BoxShadow(
@@ -408,9 +425,9 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                 ],
               ),
             ),
-
+          ),
         ),
-      ),
-    );});
+      );
+    });
   }
 }

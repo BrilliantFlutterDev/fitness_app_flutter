@@ -1,16 +1,16 @@
 import 'dart:async';
 
-
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/plan_screen/plan_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../Utils/app_global.dart';
 import '../../Utils/common_functions.dart';
 import '../../Utils/modal_progress_hud.dart';
-
+import '../../widgets/cus_bottom_bar.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -23,13 +23,12 @@ class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
+  FlutterSecureStorage storage = const FlutterSecureStorage();
 
-  late HomeBloc _homeBloc;
   @override
   void initState() {
     super.initState();
     checkUserData();
-    _homeBloc = BlocProvider.of<HomeBloc>(context);
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 2000));
     _animation = CurvedAnimation(
@@ -48,11 +47,10 @@ class _SplashScreenState extends State<SplashScreen>
     _animationController.forward();
 
     Timer(const Duration(seconds: 3), () {
-      if (AppGlobal.rememberMe == 'true') {
-        // _homeBloc.add(LoginUser(
-        //     username: AppGlobal.rememberMeEmail,
-        //     password: AppGlobal.rememberMePassword,
-        //     rememberMe: 'Y'));
+      if (AppGlobal.dataStoreFromConstantToLDB == 'true') {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => const CusBottomBar()),
+            (Route<dynamic> route) => false);
       } else {
         Navigator.pushReplacement(
             context,
@@ -63,8 +61,28 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void checkUserData() async {
-    var temp = await getUserData();
-    AppGlobal.rememberMe = temp.toString();
+    AppGlobal.dataStoreFromConstantToLDB =
+        (await storage.read(key: 'dataStoreFromConstantToLDB'));
+    if (AppGlobal.dataStoreFromConstantToLDB == 'true') {
+      AppGlobal.selectedPlan = (await storage.read(key: 'selectedPlan'));
+      AppGlobal.selectedPushUpOption =
+          (await storage.read(key: 'selectedPushUpOption'));
+      AppGlobal.selectedPlankOption =
+          (await storage.read(key: 'selectedPlankOption'));
+      AppGlobal.selectedKneeIssueOption =
+          (await storage.read(key: 'selectedKneeIssueOption'));
+      var tempDate = await storage.read(key: 'startDate');
+      DateTime startDate = DateTime.parse(tempDate!);
+      final todayDate = DateTime.now();
+      AppGlobal.currentDay = daysBetween(startDate, todayDate);
+      print('>>>>>>>>>Current Day : ${AppGlobal.currentDay}');
+    }
+  }
+
+  int daysBetween(DateTime from, DateTime to) {
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
+    return (to.difference(from).inHours / 24).round();
   }
 
   @override
@@ -98,7 +116,6 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                   Column(
                     children: [
-
                       const SizedBox(
                         height: 20,
                       ),
@@ -109,7 +126,10 @@ class _SplashScreenState extends State<SplashScreen>
                       ),
                     ],
                   ),
-                  const Text('Fit Fitness',style: TextStyle(color: Colors.white),)
+                  const Text(
+                    'Fit Fitness',
+                    style: TextStyle(color: Colors.white),
+                  )
                 ],
               ),
             ),

@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+import '../../Utils/app_global.dart';
 import '../../Utils/modal_progress_hud.dart';
 import '../my_activity/open_activity.dart';
 import '../plan_screen/plan_screen.dart';
@@ -32,7 +33,11 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
-    _homeBloc.add(InsertAllExercisesInLocalDBEvent());
+    if (AppGlobal.dataStoreFromConstantToLDB != 'true') {
+      _homeBloc.add(InsertAllExercisesInLocalDBEvent());
+    } else {
+      _homeBloc.add(GetAllDaysEvent());
+    }
   }
 
   @override
@@ -121,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     innerWidget: (re) {
-                      return Center(
+                      return const Center(
                         child: Icon(
                           Icons.hourglass_bottom,
                           color: Colors.blue,
@@ -264,11 +269,11 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                             );
                                           },
-                                          onChange: (e) {
-                                            // setState(() {
-                                            //   vaule = e;
-                                            // });
-                                          },
+                                          // onChange: (e) {
+                                          //   // setState(() {
+                                          //   //   vaule = e;
+                                          //   // });
+                                          // },
                                         ),
                                       ),
                                     ],

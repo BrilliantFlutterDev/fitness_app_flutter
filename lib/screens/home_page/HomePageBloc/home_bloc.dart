@@ -60,6 +60,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             noOfGlassWaterDrank: dayConstants.days[i].noOfGlassWaterDrank);
         await dbHelper.insertDays(dayModelLocalDB.toJson());
       }
+
+      await storage.write(key: 'dataStoreFromConstantToLDB', value: 'true');
+      final date = DateTime.now();
+      print('>>>>>>>Date: $date');
+      await storage.write(key: 'startDate', value: date.toString());
       // UserProductClickLocalDB userProductClickLocalDB =
       // UserProductClickLocalDB(
       //     productID: event.id, uniqueNumber: timeStamp);
