@@ -128,9 +128,29 @@ class DatabaseHelper {
     return await db.query(tableExercises);
   }
 
+  Future<List<Map<String, dynamic>>> queryAllExerciseOfDay(
+      String findDay) async {
+    Database db = await instance.database;
+    return await db
+        .query(tableExercises, where: '$dayTitle = ?', whereArgs: [findDay]);
+  }
+
   Future<List<Map<String, dynamic>>> queryAllDay() async {
     Database db = await instance.database;
     return await db.query(tableDay);
+  }
+
+  Future<List<Map<String, dynamic>>> queryASpecificDay(String findDay) async {
+    Database db = await instance.database;
+    return await db
+        .query(tableDay, where: '$dayTitle = ?', whereArgs: [findDay]);
+  }
+
+  Future<int> updateADay(Map<String, dynamic> row) async {
+    Database db = await instance.database;
+    String day = row[dayTitle];
+    return await db
+        .update(tableDay, row, where: '$dayTitle = ?', whereArgs: [day]);
   }
 
   // Future<List<Map<String, dynamic>>> queryAllCartProductCombination() async {

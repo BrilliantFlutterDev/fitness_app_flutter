@@ -2,7 +2,7 @@ import 'package:fitness_app/screens/account_screen/account_screen.dart';
 import 'package:fitness_app/screens/account_screen/account_screen1.dart';
 import 'package:fitness_app/screens/chat_screen/chat_screen.dart';
 import 'package:fitness_app/screens/home_page/home_page.dart';
-import 'package:fitness_app/screens/my_activity/my_activity.dart';
+import 'package:fitness_app/screens/my_activity/my_reports.dart';
 import 'package:flutter/material.dart';
 
 class CusBottomBar extends StatefulWidget {
@@ -16,7 +16,7 @@ class CusBottomBarState extends State<CusBottomBar> {
   int selectedIndex = 0;
   final List<Widget> widgetOptions = [
     HomePage(),
-    MyActivity(),
+    MyReports(),
     // const ChatScreen(),
     // const AccountScreen(),
     AccountScreen1(),

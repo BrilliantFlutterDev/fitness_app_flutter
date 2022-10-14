@@ -75,6 +75,12 @@ class _SplashScreenState extends State<SplashScreen>
       DateTime startDate = DateTime.parse(tempDate!);
       final todayDate = DateTime.now();
       AppGlobal.currentDay = daysBetween(startDate, todayDate);
+      if (AppGlobal.currentDay > 30) {
+        await storage.write(key: 'startDate', value: todayDate.toString());
+        tempDate = await storage.read(key: 'startDate');
+        startDate = DateTime.parse(tempDate!);
+        AppGlobal.currentDay = daysBetween(startDate, todayDate);
+      }
       print('>>>>>>>>>Current Day : ${AppGlobal.currentDay}');
     }
   }

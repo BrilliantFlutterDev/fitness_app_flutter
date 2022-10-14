@@ -1,7 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 
@@ -14,19 +11,19 @@ import '../../../Helper/DBModels/day_model.dart';
 import '../../../Helper/db_helper.dart';
 import '../../../constants/constants.dart';
 
-part 'home_event.dart';
-part 'home_state.dart';
+part 'my_activity_event.dart';
+part 'my_activity_state.dart';
 
-class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc() : super(ProductInitial());
+class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
+  MyActivityBloc() : super(MyActivityInitial());
   final dbHelper = DatabaseHelper.instance;
   ExerciseConstants constants = ExerciseConstants();
   Constants dayConstants = Constants();
   FlutterSecureStorage storage = const FlutterSecureStorage();
 
   @override
-  Stream<HomeState> mapEventToState(
-    HomeEvent event,
+  Stream<MyActivityState> mapEventToState(
+    MyActivityEvent event,
   ) async* {
     if (event is InsertAllExercisesInLocalDBEvent) {
       yield LoadingState();
@@ -106,6 +103,33 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         RequestDayData dayData = RequestDayData.fromJson(data);
 
         yield GetAllDaysState(dayData: dayData);
+      } catch (e) {
+        yield ErrorState(error: 'No Days found!');
+      }
+    } else if (event is GetASpecificDaysEvent) {
+      yield LoadingState();
+
+      try {
+        var data = await dbHelper.queryASpecificDay(event.day);
+        RequestDayData dayData = RequestDayData.fromJson(data);
+
+        yield GetAllDaysState(dayData: dayData);
+      } catch (e) {
+        yield ErrorState(error: 'No Days found!');
+      }
+    } else if (event is WaterGlassIncrementDecrementEvent) {
+      try {
+        if (event.isIncrementing == true) {
+          event.dayData.exerciseList![0].noOfGlassWaterDrank =
+              event.dayData.exerciseList![0].noOfGlassWaterDrank + 1;
+        } else {
+          event.dayData.exerciseList![0].noOfGlassWaterDrank =
+              event.dayData.exerciseList![0].noOfGlassWaterDrank - 1;
+        }
+        var data =
+            await dbHelper.updateADay(event.dayData.exerciseList![0].toJson());
+
+        yield GetAllDaysState(dayData: event.dayData);
       } catch (e) {
         yield ErrorState(error: 'No Days found!');
       }
