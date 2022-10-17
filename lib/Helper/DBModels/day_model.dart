@@ -25,7 +25,7 @@ class DayModelLocalDB {
   late final String kneeIssue;
   late final String planLevel;
   late final String completeStatus;
-  late final int noOfGlassWaterDrank;
+  late int noOfGlassWaterDrank;
   late final int completedPercentage;
   DayModelLocalDB({
     required this.image,

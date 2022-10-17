@@ -12,8 +12,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+import '../../Utils/app_global.dart';
 import '../../Utils/modal_progress_hud.dart';
 import '../my_activity/open_activity.dart';
+import '../my_activity/water_tracker.dart';
 import '../plan_screen/plan_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,7 +34,11 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
-    _homeBloc.add(InsertAllExercisesInLocalDBEvent());
+    if (AppGlobal.dataStoreFromConstantToLDB != 'true') {
+      _homeBloc.add(InsertAllExercisesInLocalDBEvent());
+    } else {
+      _homeBloc.add(GetAllDaysEvent());
+    }
   }
 
   @override
@@ -94,46 +100,50 @@ class _HomePageState extends State<HomePage> {
                                 const DayRestScreen()));
                   },
                 ),
-                Container(
-                  // height: 8.h,
-                  // width: MediaQuery.of(context).size.width * 0.2,
-                  // margin: const EdgeInsets.symmetric(vertical: 5),
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: SleekCircularSlider(
-                    initialValue: 30,
-                    max: 100,
-                    appearance: CircularSliderAppearance(
-                      // infoProperties: InfoProperties(),
-                      angleRange: 360,
-                      size: MediaQuery.of(context).size.width * 0.15,
-                      customWidths: CustomSliderWidths(
-                          progressBarWidth: 3.0, trackWidth: 3.0),
-                      customColors: CustomSliderColors(
-                        hideShadow: true,
-                        progressBarColor: Colors.blue,
-                        dotColor: Colors.transparent,
-                        // trackColor: Colors.white70,
-                        trackColor: const Color(0xff404040),
-                        progressBarColors: [
-                          Colors.blue,
-                          Colors.blue,
-                        ],
-                      ),
-                    ),
-                    innerWidget: (re) {
-                      return Center(
-                        child: Icon(
-                          Icons.hourglass_bottom,
-                          color: Colors.blue,
-                          size: 18,
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                const WaterTracker()));
+                  },
+                  child: Container(
+                    // height: 8.h,
+                    // width: MediaQuery.of(context).size.width * 0.2,
+                    // margin: const EdgeInsets.symmetric(vertical: 5),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: SleekCircularSlider(
+                      initialValue: 30,
+                      max: 100,
+                      appearance: CircularSliderAppearance(
+                        // infoProperties: InfoProperties(),
+                        angleRange: 360,
+                        size: MediaQuery.of(context).size.width * 0.15,
+                        customWidths: CustomSliderWidths(
+                            progressBarWidth: 3.0, trackWidth: 3.0),
+                        customColors: CustomSliderColors(
+                          hideShadow: true,
+                          progressBarColor: Colors.blue,
+                          dotColor: Colors.transparent,
+                          // trackColor: Colors.white70,
+                          trackColor: const Color(0xff404040),
+                          progressBarColors: [
+                            Colors.blue,
+                            Colors.blue,
+                          ],
                         ),
-                      );
-                    },
-                    onChange: (e) {
-                      // setState(() {
-                      //   vaule = e;
-                      // });
-                    },
+                      ),
+                      innerWidget: (re) {
+                        return const Center(
+                          child: Icon(
+                            Icons.hourglass_bottom,
+                            color: Colors.blue,
+                            size: 18,
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],
@@ -182,7 +192,7 @@ class _HomePageState extends State<HomePage> {
                               child: Container(
                                 height: 10.h,
                                 width: MediaQuery.of(context).size.width * 2,
-                                margin: EdgeInsets.only(
+                                margin: const EdgeInsets.only(
                                     left: 12, right: 12, top: 12),
                                 child: Container(
                                   height: 10.h,
@@ -191,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                                       horizontal: 10),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(12.0),
-                                    gradient: LinearGradient(
+                                    gradient: const LinearGradient(
                                       begin: Alignment.topRight,
                                       end: Alignment.topLeft,
                                       colors: [
@@ -264,11 +274,11 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                             );
                                           },
-                                          onChange: (e) {
-                                            // setState(() {
-                                            //   vaule = e;
-                                            // });
-                                          },
+                                          // onChange: (e) {
+                                          //   // setState(() {
+                                          //   //   vaule = e;
+                                          //   // });
+                                          // },
                                         ),
                                       ),
                                     ],
@@ -309,7 +319,7 @@ class _HomePageState extends State<HomePage> {
                                           },
                                           child: Column(
                                             children: [
-                                              CircleAvatar(
+                                              const CircleAvatar(
                                                 radius: 13,
                                                 backgroundColor: Colors.black,
                                                 child: Icon(
@@ -323,7 +333,7 @@ class _HomePageState extends State<HomePage> {
                                                         .height *
                                                     0.015,
                                               ),
-                                              Text(
+                                              const Text(
                                                 "Change Plan",
                                                 style: TextStyle(
                                                     fontSize: 10,
@@ -342,7 +352,7 @@ class _HomePageState extends State<HomePage> {
                                           },
                                           child: Column(
                                             children: [
-                                              CircleAvatar(
+                                              const CircleAvatar(
                                                 radius: 12,
                                                 backgroundColor: Colors.black,
                                                 child: Icon(Icons.refresh,
@@ -354,7 +364,7 @@ class _HomePageState extends State<HomePage> {
                                                         .height *
                                                     0.015,
                                               ),
-                                              Text(
+                                              const Text(
                                                 "Restart",
                                                 style: TextStyle(
                                                     fontSize: 10,

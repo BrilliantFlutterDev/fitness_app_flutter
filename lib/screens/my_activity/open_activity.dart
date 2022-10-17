@@ -31,7 +31,7 @@ class _OpenActivityState extends State<OpenActivity> {
   void initState() {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
-    _homeBloc.add(GetAllExerciseEvent());
+    _homeBloc.add(GetAllExerciseOfDayEvent(day: widget.title));
   }
 
   @override
@@ -598,40 +598,48 @@ class _OpenActivityState extends State<OpenActivity> {
                     ),
                     SizedBox(height: 10),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Exercises  ",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 17),
+                        Row(
+                          children: [
+                            Text(
+                              "Exercises  ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 17),
+                            ),
+                            Text(
+                              "(${exerciseData!.exerciseList!.length})",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Colors.grey),
+                            ),
+                          ],
                         ),
-                        Text(
-                          "(7)",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: Colors.grey),
+                        Row(
+                          children: [
+                            Text(
+                              "Edit  ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Colors.grey),
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              EditPlan()));
+                                },
+                                child: Icon(
+                                  Icons.edit_outlined,
+                                  color: Colors.grey,
+                                  size: 20,
+                                )),
+                          ],
                         ),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.45),
-                        Text(
-                          "Edit  ",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: Colors.grey),
-                        ),
-                        InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          EditPlan()));
-                            },
-                            child: Icon(
-                              Icons.edit_outlined,
-                              color: Colors.grey,
-                            )),
                       ],
                     ),
                     const SizedBox(height: 15),

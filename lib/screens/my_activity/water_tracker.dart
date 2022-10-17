@@ -1,5 +1,5 @@
 import 'package:fitness_app/constants/constants.dart';
-import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
+import 'package:fitness_app/screens/my_activity/MyActivityBloc/my_activity_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,8 +12,11 @@ import 'dart:async';
 import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 
-class WaterTracker extends StatefulWidget {
+import '../../Helper/DBModels/day_model.dart';
+import '../../Utils/app_global.dart';
+import '../../Utils/modal_progress_hud.dart';
 
+class WaterTracker extends StatefulWidget {
   final List<Color> availableColors = const [
     Colors.purpleAccent,
     Colors.yellow,
@@ -23,14 +26,13 @@ class WaterTracker extends StatefulWidget {
     Colors.redAccent,
   ];
 
-  WaterTracker({Key? key}) : super(key: key);
+  const WaterTracker({Key? key}) : super(key: key);
 
   @override
   State<WaterTracker> createState() => _WaterTrackerState();
 }
 
-class _WaterTrackerState extends State<WaterTracker>{
-
+class _WaterTrackerState extends State<WaterTracker> {
   ExerciseConstants constants = ExerciseConstants();
 
   bool status = false;
@@ -42,10 +44,23 @@ class _WaterTrackerState extends State<WaterTracker>{
   int touchedIndex = -1;
   bool isPlaying = false;
 
+  late MyActivityBloc _activityBloc;
+  RequestDayData? requestDayData;
+
   @override
-  Widget build(BuildContext context){
+  void initState() {
+    super.initState();
+    _activityBloc = BlocProvider.of<MyActivityBloc>(context);
+
+    _activityBloc
+        .add(GetASpecificDaysEvent(day: 'Day ${AppGlobal.currentDay + 1}'));
+  }
+
+  @override
+  Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    return BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
+    return BlocConsumer<MyActivityBloc, MyActivityState>(
+        listener: (context, state) {
       if (state is LoadingState) {
       } else if (state is ErrorState) {
         Fluttertoast.showToast(
@@ -57,18 +72,22 @@ class _WaterTrackerState extends State<WaterTracker>{
             textColor: Colors.white,
             fontSize: 12.0);
       } else if (state is RefreshScreenState) {
-
+      } else if (state is GetAllDaysState) {
+        requestDayData = state.dayData;
+        value = requestDayData!.exerciseList![0].noOfGlassWaterDrank * 12.5;
       }
     }, builder: (context, state) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xff1c1b20),
-        title: const Text("WATER TRACKER"),
-      ),
-      body: SingleChildScrollView(
-        child: ColorRemover(
-            //physics: const BouncingScrollPhysics(),
-            child: Column(
+      return ModalProgressHUD(
+        inAsyncCall: state is LoadingState,
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: const Color(0xff1c1b20),
+            title: const Text("WATER TRACKER"),
+          ),
+          body: SingleChildScrollView(
+            child: ColorRemover(
+                //physics: const BouncingScrollPhysics(),
+                child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
@@ -103,12 +122,17 @@ class _WaterTrackerState extends State<WaterTracker>{
                       Padding(
                         padding: EdgeInsets.only(top: 10),
                         child: Text(
-                            "Today",
-                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17, color: Colors.white),
+                          "Today",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                              color: Colors.white),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.085, right: MediaQuery.of(context).size.width*0.085),
+                        padding: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width * 0.085,
+                            right: MediaQuery.of(context).size.width * 0.085),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -120,18 +144,19 @@ class _WaterTrackerState extends State<WaterTracker>{
                                   borderRadius: BorderRadius.circular(100)),
                               child: MaterialButton(
                                 onPressed: () {
-                                  setState(() {
-                                    if(value == 0||value<0){
-                                      value = 0;
-                                    }else{
-                                      value = value-12.5;
-                                    }
-                                  });
+                                  if (value == 0 || value < 0) {
+                                    value = 0;
+                                  } else {
+                                    _activityBloc.add(
+                                        WaterGlassIncrementDecrementEvent(
+                                            dayData: requestDayData!,
+                                            isIncrementing: false));
+                                  }
                                 },
-                                child: Text(
+                                child: const Text(
                                   '-',
-                                  style:
-                                  TextStyle(color: Colors.black, fontSize: 25),
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 25),
                                 ),
                               ),
                             ),
@@ -142,7 +167,7 @@ class _WaterTrackerState extends State<WaterTracker>{
                               // margin: const EdgeInsets.symmetric(vertical: 5),
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               child: SleekCircularSlider(
-                                initialValue: value>100?100:value,
+                                initialValue: value > 100 ? 100 : value,
                                 max: 100,
                                 appearance: CircularSliderAppearance(
                                   // infoProperties: InfoProperties(),
@@ -165,7 +190,8 @@ class _WaterTrackerState extends State<WaterTracker>{
                                 innerWidget: (re) {
                                   return Center(
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Icon(
                                           Icons.water_drop_outlined,
@@ -173,26 +199,35 @@ class _WaterTrackerState extends State<WaterTracker>{
                                           size: 22,
                                         ),
                                         Text(
-                                          '0 ',
-                                          style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+                                          requestDayData != null
+                                              ? requestDayData!.exerciseList![0]
+                                                  .noOfGlassWaterDrank
+                                                  .toString()
+                                              : '0',
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                        Text(
-                                          '/8 Cups',
-                                          style: TextStyle(color: Colors.white, fontSize: 15),
+                                        const Text(
+                                          ' /8 Cups',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15),
                                         ),
                                       ],
                                     ),
                                   );
                                 },
-                                onChange: (e) {
-                                   setState(() {
-                                     if(value == 100 || value>100){
-                                       value = 100;
-                                     }else{
-                                       value = value+12.5;
-                                     }
-                                   });
-                                },
+                                // onChange: (e) {
+                                //   setState(() {
+                                //     if (value == 100 || value > 100) {
+                                //       value = 100;
+                                //     } else {
+                                //       value = value + 12.5;
+                                //     }
+                                //   });
+                                // },
                               ),
                             ),
                             Container(
@@ -203,14 +238,20 @@ class _WaterTrackerState extends State<WaterTracker>{
                                   borderRadius: BorderRadius.circular(100)),
                               child: MaterialButton(
                                 onPressed: () {
-                                  setState(() {
-                                    value = value+12.5;
-                                  });
+                                  if (value == 100 || value > 100) {
+                                    value = 100;
+                                  } else {
+                                    // value = value + 12.5;
+                                    _activityBloc.add(
+                                        WaterGlassIncrementDecrementEvent(
+                                            dayData: requestDayData!,
+                                            isIncrementing: true));
+                                  }
                                 },
-                                child: Text(
+                                child: const Text(
                                   '+',
-                                  style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 20),
                                 ),
                               ),
                             ),
@@ -218,7 +259,7 @@ class _WaterTrackerState extends State<WaterTracker>{
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 20,bottom: 15),
+                        padding: const EdgeInsets.only(top: 20, bottom: 15),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           height: 1,
@@ -235,11 +276,13 @@ class _WaterTrackerState extends State<WaterTracker>{
                               children: [
                                 Text(
                                   "Drink notification",
-                                  style: TextStyle(fontSize: 17, color: Colors.white),
+                                  style: TextStyle(
+                                      fontSize: 17, color: Colors.white),
                                 ),
                                 Text(
                                   "Remind me to drink",
-                                  style: TextStyle(fontSize: 13, color: Colors.white),
+                                  style: TextStyle(
+                                      fontSize: 13, color: Colors.white),
                                 ),
                               ],
                             ),
@@ -252,9 +295,8 @@ class _WaterTrackerState extends State<WaterTracker>{
                               padding: 8.0,
                               showOnOff: false,
                               onToggle: (val) {
-                                setState(() {
-                                  status = val;
-                                });
+                                status = val;
+                                _activityBloc.add(RefreshScreenEvent());
                               },
                             ),
                           ],
@@ -264,10 +306,10 @@ class _WaterTrackerState extends State<WaterTracker>{
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 8, bottom: 4,left: 15),
+                  padding: EdgeInsets.only(top: 8, bottom: 4, left: 15),
                   child: Text(
-                      "September 2022",
-                      style: TextStyle(color: Colors.white),
+                    "September 2022",
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
                 Container(
@@ -317,11 +359,15 @@ class _WaterTrackerState extends State<WaterTracker>{
                               children: [
                                 Text(
                                   "Sep 18 - Sep 24",
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17, color: Colors.white),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17,
+                                      color: Colors.white),
                                 ),
                                 Text(
                                   "2022",
-                                  style: TextStyle(fontSize: 13, color: Colors.white),
+                                  style: TextStyle(
+                                      fontSize: 13, color: Colors.white),
                                 ),
                               ],
                             ),
@@ -330,11 +376,15 @@ class _WaterTrackerState extends State<WaterTracker>{
                               children: [
                                 Text(
                                   "0.5",
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 23, color: Colors.white),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 23,
+                                      color: Colors.white),
                                 ),
                                 Text(
                                   "Average(Cups)",
-                                  style: TextStyle(fontSize: 13, color: Colors.white),
+                                  style: TextStyle(
+                                      fontSize: 13, color: Colors.white),
                                 ),
                               ],
                             ),
@@ -344,14 +394,18 @@ class _WaterTrackerState extends State<WaterTracker>{
                       AspectRatio(
                         aspectRatio: 1.6,
                         child: Card(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18)),
                           color: Colors.transparent,
                           child: Stack(
                             children: <Widget>[
                               Padding(
-                                padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height*0.01),
+                                padding: EdgeInsets.only(
+                                    bottom: MediaQuery.of(context).size.height *
+                                        0.01),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
@@ -360,9 +414,12 @@ class _WaterTrackerState extends State<WaterTracker>{
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
                                         child: BarChart(
-                                          isPlaying ? randomData() : mainBarData(),
+                                          isPlaying
+                                              ? randomData()
+                                              : mainBarData(),
                                           swapAnimationDuration: animDuration,
                                         ),
                                       ),
@@ -401,20 +458,21 @@ class _WaterTrackerState extends State<WaterTracker>{
                   ),
                 ),
               ],
-            )
+            )),
+          ),
         ),
-      ),
-    );});
+      );
+    });
   }
 
   BarChartGroupData makeGroupData(
-      int x,
-      double y, {
-        bool isTouched = false,
-        Color barColor = Colors.blue,
-        double width = 12,
-        List<int> showTooltips = const [],
-      }) {
+    int x,
+    double y, {
+    bool isTouched = false,
+    Color barColor = Colors.blue,
+    double width = 12,
+    List<int> showTooltips = const [],
+  }) {
     return BarChartGroupData(
       x: x,
       barRods: [
@@ -437,25 +495,25 @@ class _WaterTrackerState extends State<WaterTracker>{
   }
 
   List<BarChartGroupData> showingGroups() => List.generate(7, (i) {
-    switch (i) {
-      case 0:
-        return makeGroupData(0, 1, isTouched: i == touchedIndex);
-      case 1:
-        return makeGroupData(1, 5.5, isTouched: i == touchedIndex);
-      case 2:
-        return makeGroupData(2, 7, isTouched: i == touchedIndex);
-      case 3:
-        return makeGroupData(3, 2, isTouched: i == touchedIndex);
-      case 4:
-        return makeGroupData(4, 0, isTouched: i == touchedIndex);
-      case 5:
-        return makeGroupData(5, 6, isTouched: i == touchedIndex);
-      case 6:
-        return makeGroupData(6, 8, isTouched: i == touchedIndex);
-      default:
-        return throw Error();
-    }
-  });
+        switch (i) {
+          case 0:
+            return makeGroupData(0, 1, isTouched: i == touchedIndex);
+          case 1:
+            return makeGroupData(1, 5.5, isTouched: i == touchedIndex);
+          case 2:
+            return makeGroupData(2, 7, isTouched: i == touchedIndex);
+          case 3:
+            return makeGroupData(3, 2, isTouched: i == touchedIndex);
+          case 4:
+            return makeGroupData(4, 0, isTouched: i == touchedIndex);
+          case 5:
+            return makeGroupData(5, 6, isTouched: i == touchedIndex);
+          case 6:
+            return makeGroupData(6, 8, isTouched: i == touchedIndex);
+          default:
+            return throw Error();
+        }
+      });
 
   BarChartData mainBarData() {
     return BarChartData(
@@ -583,22 +641,21 @@ class _WaterTrackerState extends State<WaterTracker>{
         enabled: false,
       ),
       titlesData: FlTitlesData(
-        show: true,
-        bottomTitles: SideTitles(
-          showTitles: true,
-          getTitles: getTitles,
-          reservedSize: 38,
-        ),
-        leftTitles: SideTitles(
-          showTitles: false,
-        ),
-        topTitles: SideTitles(
-          showTitles: false,
-        ),
-        rightTitles: SideTitles(
-          showTitles: false,
-        )
-      ),
+          show: true,
+          bottomTitles: SideTitles(
+            showTitles: true,
+            getTitles: getTitles,
+            reservedSize: 38,
+          ),
+          leftTitles: SideTitles(
+            showTitles: false,
+          ),
+          topTitles: SideTitles(
+            showTitles: false,
+          ),
+          rightTitles: SideTitles(
+            showTitles: false,
+          )),
       borderData: FlBorderData(
         show: false,
       ),
@@ -607,31 +664,31 @@ class _WaterTrackerState extends State<WaterTracker>{
           case 0:
             return makeGroupData(0, Random().nextInt(15).toDouble() + 6,
                 barColor: widget.availableColors[
-                Random().nextInt(widget.availableColors.length)]);
+                    Random().nextInt(widget.availableColors.length)]);
           case 1:
             return makeGroupData(1, Random().nextInt(15).toDouble() + 6,
                 barColor: widget.availableColors[
-                Random().nextInt(widget.availableColors.length)]);
+                    Random().nextInt(widget.availableColors.length)]);
           case 2:
             return makeGroupData(2, Random().nextInt(15).toDouble() + 6,
                 barColor: widget.availableColors[
-                Random().nextInt(widget.availableColors.length)]);
+                    Random().nextInt(widget.availableColors.length)]);
           case 3:
             return makeGroupData(3, Random().nextInt(15).toDouble() + 6,
                 barColor: widget.availableColors[
-                Random().nextInt(widget.availableColors.length)]);
+                    Random().nextInt(widget.availableColors.length)]);
           case 4:
             return makeGroupData(4, Random().nextInt(15).toDouble() + 6,
                 barColor: widget.availableColors[
-                Random().nextInt(widget.availableColors.length)]);
+                    Random().nextInt(widget.availableColors.length)]);
           case 5:
             return makeGroupData(5, Random().nextInt(15).toDouble() + 6,
                 barColor: widget.availableColors[
-                Random().nextInt(widget.availableColors.length)]);
+                    Random().nextInt(widget.availableColors.length)]);
           case 6:
             return makeGroupData(6, Random().nextInt(15).toDouble() + 6,
                 barColor: widget.availableColors[
-                Random().nextInt(widget.availableColors.length)]);
+                    Random().nextInt(widget.availableColors.length)]);
           default:
             return throw Error();
         }
