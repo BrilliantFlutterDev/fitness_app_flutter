@@ -21,21 +21,23 @@ class RequestExerciseData {
 }
 
 class ExerciseModelLocalDB {
+  late final int? columnsId;
   late final String name;
   late final String image;
   late final String dayTitle;
   late final String time;
-  late final int raps;
+  late int raps;
   late final String type;
   late final String kneeIssue;
   late final String planLevel;
   late final String inPushUpCat;
   late final String inPlankCat;
-  late final String completeStatus;
-  ExerciseModelLocalDB( { required this.image, required this.name,required this.time,required  this.raps,required  this.type,required  this.kneeIssue,required  this.planLevel,required  this.inPushUpCat,required  this.inPlankCat,required this.dayTitle,required this.completeStatus,});
+  late  String completeStatus;
+  ExerciseModelLocalDB( {this.columnsId, required this.image, required this.name,required this.time,required  this.raps,required  this.type,required  this.kneeIssue,required  this.planLevel,required  this.inPushUpCat,required  this.inPlankCat,required this.dayTitle,required this.completeStatus,});
 
 
   ExerciseModelLocalDB.fromJson(Map<String, dynamic> json) {
+    columnsId=json['id'];
     dayTitle=json['dayTitle'];
     image = json['image'];
     name = json['name'];
@@ -51,7 +53,7 @@ class ExerciseModelLocalDB {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-
+    data['id'] = columnsId;
     data['dayTitle'] = dayTitle;
     data['image'] = image;
     data['name'] = name;

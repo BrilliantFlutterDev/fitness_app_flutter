@@ -115,7 +115,7 @@ class OpenHomePage extends StatelessWidget {
                               return GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (ctx) =>  OpenActivity(title: constants.beginers[index].name,)));
+                                      builder: (ctx) =>  OpenActivity()));
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.all(12),
@@ -179,7 +179,7 @@ class OpenHomePage extends StatelessWidget {
                               return GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (ctx) =>  OpenActivity(title: constants.beginers[index].name,)));
+                                      builder: (ctx) =>  OpenActivity()));
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.all(12),
@@ -243,7 +243,7 @@ class OpenHomePage extends StatelessWidget {
                               return GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (ctx) =>  OpenActivity(title: constants.beginers[index].name,)));
+                                      builder: (ctx) =>  OpenActivity()));
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.all(12),

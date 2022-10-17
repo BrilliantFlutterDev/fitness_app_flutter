@@ -1,6 +1,6 @@
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
+import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/constants/colors.dart';
-import 'package:fitness_app/constants/constants.dart';
 import 'package:fitness_app/screens/my_activity/edit_plan.dart';
 import 'package:fitness_app/screens/select_exercise/select_exercise.dart';
 import 'package:fitness_app/screens/start_exercise/start_exercise.dart';
@@ -10,12 +10,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../Helper/DBModels/day_model.dart';
 import '../../Utils/modal_progress_hud.dart';
 import '../home_page/HomePageBloc/home_bloc.dart';
 
 class OpenActivity extends StatefulWidget {
-  const OpenActivity({Key? key, required this.title}) : super(key: key);
-  final String title;
+
+  OpenActivity({Key? key,this.dayModelLocalDB}) : super(key: key);
+
+  DayModelLocalDB? dayModelLocalDB;
 
   @override
   State<OpenActivity> createState() => _OpenActivityState();
@@ -31,12 +34,12 @@ class _OpenActivityState extends State<OpenActivity> {
   void initState() {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
-    _homeBloc.add(GetAllExerciseOfDayEvent(day: widget.title));
+    _homeBloc.add(GetAllExerciseOfDayEvent(day: widget.dayModelLocalDB!.name));
   }
 
   @override
   Widget build(BuildContext context) {
-    ExerciseConstants constants = ExerciseConstants();
+
     var screenSize = MediaQuery.of(context).size;
     return BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
       if (state is LoadingState) {
@@ -73,8 +76,8 @@ class _OpenActivityState extends State<OpenActivity> {
                   Row(
                     children: [
                       Text(
-                        widget.title,
-                        style: TextStyle(
+                        widget.dayModelLocalDB!.name,
+                        style: const TextStyle(
                           fontSize: 20.0,
                         ),
                       ),
@@ -413,7 +416,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                           Navigator.of(context).push(
                                               MaterialPageRoute(
                                                   builder: (ctx) =>
-                                                  const StartExercise()));
+                                                   StartExercise(exerciseData: exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)));
                                         },
                                         child: Container(
                                           height: MediaQuery.of(context)
@@ -471,7 +474,7 @@ class _OpenActivityState extends State<OpenActivity> {
                 InkWell(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (ctx) => const StartExercise()));
+                        builder: (ctx) =>  StartExercise(exerciseData: exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)));
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.075,
@@ -480,7 +483,7 @@ class _OpenActivityState extends State<OpenActivity> {
                       borderRadius: BorderRadius.circular(50),
                       color: const Color(0xff1ce5c1),
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         "GO!",
                         style: TextStyle(
@@ -555,8 +558,8 @@ class _OpenActivityState extends State<OpenActivity> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Beginner",
-                                style: TextStyle(
+                                AppGlobal.selectedPlan=='1'?'Beginner':AppGlobal.selectedPlan=='2'?'Intermediate':AppGlobal.selectedPlan=='3'?'Advance':'',
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 17),
                               ),
                               Text(
@@ -608,7 +611,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                   fontWeight: FontWeight.bold, fontSize: 17),
                             ),
                             Text(
-                              "(${exerciseData!.exerciseList!.length})",
+                              "(${exerciseData!=null?exerciseData!.exerciseList!.length:'0'})",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,
@@ -655,13 +658,15 @@ class _OpenActivityState extends State<OpenActivity> {
                             itemBuilder: (ctx, index) {
                               return exerciseData!
                                   .exerciseList![index].dayTitle ==
-                                  widget.title
+                                  widget.dayModelLocalDB!.name
                                   ? GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(
                                       MaterialPageRoute(
                                           builder: (ctx) =>
-                                          const SelectExercise()));
+                                           SelectExercise(exerciseModelLocalDB: exerciseData!
+                                               .exerciseList![index],)));
+
                                 },
                                 child: Column(
                                   children: [
@@ -698,7 +703,8 @@ class _OpenActivityState extends State<OpenActivity> {
                                               height: 6.0,
                                             ),
                                             Text(
-                                              "${exerciseData!.exerciseList![index].time} mins | ${exerciseData!.exerciseList![index].raps} Raps",
+                                              exerciseData!.exerciseList![index].type!='rap'?"${exerciseData!.exerciseList![index].time} mins":
+                                              "${exerciseData!.exerciseList![index].raps} Raps",
                                               style: const TextStyle(
                                                 fontSize: 12,
                                               ),
@@ -707,7 +713,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
                                   ],

@@ -32,6 +32,7 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
       ExerciseModelLocalDB exerciseModelLocalDB;
       for (int i = 0; i < constants.dailyExercises.length; i++) {
         exerciseModelLocalDB = ExerciseModelLocalDB(
+
             image: constants.dailyExercises[i].image,
             name: constants.dailyExercises[i].name,
             time: constants.dailyExercises[i].time,
@@ -55,7 +56,7 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
             kneeIssue: dayConstants.days[i].kneeIssue,
             planLevel: dayConstants.days[i].planLevel,
             completeStatus: dayConstants.days[i].completeStatus,
-            noOfGlassWaterDrank: dayConstants.days[i].noOfGlassWaterDrank);
+            noOfGlassWaterDrank: dayConstants.days[i].noOfGlassWaterDrank, exerciseNumInProgress:  dayConstants.days[i].exerciseNumInProgress);
         await dbHelper.insertDays(dayModelLocalDB.toJson());
       }
 
@@ -117,7 +118,8 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
       } catch (e) {
         yield ErrorState(error: 'No Days found!');
       }
-    } else if (event is WaterGlassIncrementDecrementEvent) {
+    }
+    else if (event is WaterGlassIncrementDecrementEvent) {
       try {
         if (event.isIncrementing == true) {
           event.dayData.exerciseList![0].noOfGlassWaterDrank =
