@@ -1,6 +1,7 @@
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/constants/constants.dart';
+import 'package:fitness_app/screens/account_screen/Workout/training_rest_popup.dart';
 import 'package:fitness_app/screens/my_activity/edit_plan.dart';
 import 'package:fitness_app/screens/select_exercise/select_exercise.dart';
 import 'package:fitness_app/screens/start_exercise/start_exercise.dart';
@@ -120,74 +121,74 @@ class _OpenActivityState extends State<OpenActivity> {
                         isScrollControlled: true,
                         context: context,
                         builder: (context) {
-                          return StatefulBuilder(builder: (BuildContext context,
-                              StateSetter setState /*You can rename this!*/) {
-                            return Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 18, left: 18, right: 18),
-                              child: Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.7,
-                                child: Wrap(
-                                  children: [
-                                    ListTile(
-                                      title: Text(
-                                        "Workout Settings",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 17,
-                                            color: Colors.white),
-                                      ),
-                                      subtitle: Text(
-                                        "Choose workout based on your condition",
-                                        style: TextStyle(
-                                            fontSize: 13, color: Colors.white),
-                                      ),
-                                    ),
-                                    Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.38,
-                                      width: MediaQuery.of(context).size.width,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 10),
-                                        child: Column(
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  _selectedPlan[2] = false;
-                                                  _selectedPlan[1] = false;
-                                                  _selectedPlan[0] = true;
-                                                });
-                                              },
-                                              child: Container(
-                                                margin:
-                                                    const EdgeInsets.all(12),
-                                                child: Container(
-                                                  height: 9.h,
-                                                  alignment:
-                                                      Alignment.bottomLeft,
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 20.0),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
+                          return StatefulBuilder(
+                              builder: (BuildContext context, StateSetter setState /*You can rename this!*/) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 18, left: 18, right: 18),
+                                  child: Container(
+                                    //height: MediaQuery.of(context).size.height * 0.7,
+                                    child: Wrap(
+                                      children: [
+                                        ListTile(
+                                          title: Text(
+                                            "Workout Settings",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 17,
+                                                color: Colors.white),
+                                          ),
+                                          subtitle: Text(
+                                            "Choose workout based on your condition",
+                                            style: TextStyle(
+                                                fontSize: 13, color: Colors.white),
+                                          ),
+                                        ),
+                                        Container(
+                                          height: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height * 0.38,
+                                          width: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .width,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 10),
+                                            child: Column(
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      _selectedPlan[2] = false;
+                                                      _selectedPlan[1] = false;
+                                                      _selectedPlan[0] = true;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    margin: const EdgeInsets.all(
+                                                        12),
+                                                    child: Container(
+                                                      height: 9.h,
+                                                      alignment: Alignment
+                                                          .bottomLeft,
+                                                      padding: const EdgeInsets
+                                                          .only(left: 20.0),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                        mainAxisAlignment: MainAxisAlignment
                                                             .center,
-                                                    children: [
-                                                      Text(
-                                                        'I\'M FINE',
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 20.0,
-                                                            color: _selectedPlan[
-                                                                        0] ==
+                                                        children: [
+                                                          Text(
+                                                            'I\'m fine',
+                                                            style: TextStyle(
+                                                                fontWeight: FontWeight
+                                                                    .bold,
+                                                                fontSize: 20.0,
+                                                                color: _selectedPlan[0] ==
+
                                                                     false
                                                                 ? Colors.white
                                                                 : Colors.black),
@@ -258,15 +259,15 @@ class _OpenActivityState extends State<OpenActivity> {
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
                                                             .center,
-                                                    children: [
-                                                      Text(
-                                                        'NO JUMPING',
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 20.0,
-                                                            color: _selectedPlan[
-                                                                        1] ==
+                                                        children: [
+                                                          Text(
+                                                            'No jumping',
+                                                            style: TextStyle(
+                                                                fontWeight: FontWeight
+                                                                    .bold,
+                                                                fontSize: 20.0,
+                                                                color: _selectedPlan[1] ==
+
                                                                     false
                                                                 ? Colors.white
                                                                 : Colors.black),
@@ -337,15 +338,16 @@ class _OpenActivityState extends State<OpenActivity> {
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
                                                             .center,
-                                                    children: [
-                                                      Text(
-                                                        'LOW IMPACT',
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 20.0,
-                                                            color: _selectedPlan[
-                                                                        2] ==
+
+                                                        children: [
+                                                          Text(
+                                                            'Low impact',
+                                                            style: TextStyle(
+                                                                fontWeight: FontWeight
+                                                                    .bold,
+                                                                fontSize: 20.0,
+                                                                color: _selectedPlan[2] ==
+
                                                                     false
                                                                 ? Colors.white
                                                                 : Colors.black),
@@ -392,52 +394,78 @@ class _OpenActivityState extends State<OpenActivity> {
                                             ),
                                           ],
                                         ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: Container(
-                                          height: 1, color: Colors.white),
-                                    ),
-                                    ListTile(
-                                      leading: Icon(Icons.restaurant),
-                                      title: Text('Training rest'),
-                                      trailing: Text("10 sec",
-                                          style: TextStyle(color: Colors.blue)),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, top: 10),
-                                      child: InkWell(
-                                        onTap: () {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (ctx) =>
-                                                      const StartExercise()));
-                                        },
-                                        child: Container(
-                                          height: MediaQuery.of(context)
+                                        InkWell(
+                                          onTap: (){
+                                            showDialog(
+                                                context: context,
+                                                builder: (_) => Dialog(
+                                                  child: Container(
+                                                      height: MediaQuery.of(context).size.height*0.4,
+                                                      child: TrainingRestPopup()
+                                                  ),
+                                                )
+                                            );//CountdownPopup(),
+                                          },
+                                          child: Padding(
+                                            padding: EdgeInsets.only(top: 10,bottom: 10),
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.restaurant, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                                ),
+                                                SizedBox(width: MediaQuery.of(context).size.width*0.035),
+                                                Text(
+                                                  "Training rest",
+                                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
+                                                ),
+                                                SizedBox(width: MediaQuery.of(context).size.width*0.35),
+                                                Text(
+                                                  "10 sec",
+                                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.043, color: Color(0xff1ce5c1)),
+                                                ),
+                                                Icon(Icons.arrow_drop_down, color: Color(0xff1ce5c1), size: MediaQuery.of(context).size.width*0.065)
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, top: 10, bottom: 10),
+                                          child: InkWell(
+                                            onTap: () {
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(builder: (
+                                                      ctx) => const StartExercise()));
+                                            },
+                                            child: Container(
+                                              height: MediaQuery
+                                                  .of(context)
+
                                                   .size
                                                   .height *
                                               0.08,
                                           width: MediaQuery.of(context)
                                                   .size
-                                                  .width *
-                                              0.85,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                            color: Colors.blue,
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              "Done",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20,
-                                                  color: Colors.white),
-                                              //Icons.play_arrow,
-                                              //color: Colors.white,
+
+                                                  .width * 0.85,
+
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(
+                                                    50),
+                                                color: Color(0xff1ce5c1),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  "Done",
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 20,
+                                                      color: Colors.white),
+                                                  //Icons.play_arrow,
+                                                  //color: Colors.white,
+                                                ),
+                                              ),
+
                                             ),
                                           ),
                                         ),
@@ -569,9 +597,9 @@ class _OpenActivityState extends State<OpenActivity> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "59.7",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
+                                "≈59.7",
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+
                               ),
                               Text(
                                 "Kcal",
