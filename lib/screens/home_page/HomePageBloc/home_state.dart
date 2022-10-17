@@ -6,17 +6,25 @@ abstract class HomeState {}
 class ProductInitial extends HomeState {}
 
 class LoadingState extends HomeState {}
+
 class RefreshScreenState extends HomeState {}
+
+class DataStoredState extends HomeState {}
 
 class ErrorState extends HomeState {
   final String error;
   ErrorState({required this.error});
 }
+
 class GetAllExerciseState extends HomeState {
   final RequestExerciseData exerciseData;
   GetAllExerciseState({required this.exerciseData});
 }
 
+class GetAllDaysState extends HomeState {
+  final RequestDayData dayData;
+  GetAllDaysState({required this.dayData});
+}
 
 // class CartCombinationDetailsLocalDBState extends HomeState {
 //   final RequestUserCartProductsCombinations requestUserCartProductsCombinations;
@@ -37,4 +45,3 @@ class InternetErrorState extends HomeState {
   final String error;
   InternetErrorState({required this.error});
 }
-

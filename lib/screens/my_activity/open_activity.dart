@@ -32,8 +32,9 @@ class _OpenActivityState extends State<OpenActivity> {
   void initState() {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
-    _homeBloc.add(GetAllExerciseEvent());
+    _homeBloc.add(GetAllExerciseOfDayEvent(day: widget.title));
   }
+
   @override
   Widget build(BuildContext context) {
     ExerciseConstants constants = ExerciseConstants();
@@ -50,12 +51,11 @@ class _OpenActivityState extends State<OpenActivity> {
             textColor: Colors.white,
             fontSize: 12.0);
       } else if (state is RefreshScreenState) {
-
-      }else if (state is GetAllExerciseState) {
+      } else if (state is GetAllExerciseState) {
         exerciseData = state.exerciseData;
       }
     }, builder: (context, state) {
-      return  ModalProgressHUD(
+      return ModalProgressHUD(
         inAsyncCall: state is LoadingState,
         color: kColorPrimary,
         child: SafeArea(
@@ -72,7 +72,7 @@ class _OpenActivityState extends State<OpenActivity> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    children:  [
+                    children: [
                       Text(
                         widget.title,
                         style: TextStyle(
@@ -113,7 +113,8 @@ class _OpenActivityState extends State<OpenActivity> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.1),
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.1),
                   child: InkWell(
                     onTap: () {
                       showModalBottomSheet(
@@ -187,70 +188,76 @@ class _OpenActivityState extends State<OpenActivity> {
                                                                     .bold,
                                                                 fontSize: 20.0,
                                                                 color: _selectedPlan[0] ==
+
                                                                     false
-                                                                    ? Colors.white
-                                                                    : Colors.black),
-                                                          ),
-                                                          Text(
-                                                            'All workout are OK for me',
-                                                            style: TextStyle(
-                                                                fontSize: 15.0,
-                                                                color: _selectedPlan[0] ==
-                                                                    false
-                                                                    ? Colors.white
-                                                                    : Colors.black),
-                                                          ),
-                                                        ],
+                                                                ? Colors.white
+                                                                : Colors.black),
                                                       ),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius
-                                                            .circular(35.0),
-                                                        // image: DecorationImage(
-                                                        //   image: AssetImage(
-                                                        //       "assets/images/${constants.standard[index].image}"),
-                                                        //   fit: BoxFit.cover,
-                                                        // ),
-                                                        gradient: LinearGradient(
-                                                          // begin: Alignment.bottomCenter,
-                                                          // end: Alignment.topCenter,
-                                                          colors: [
-                                                            _selectedPlan[0] ==
+                                                      Text(
+                                                        'All workout are OK for me',
+                                                        style: TextStyle(
+                                                            fontSize: 15.0,
+                                                            color: _selectedPlan[
+                                                                        0] ==
+                                                                    false
+                                                                ? Colors.white
+                                                                : Colors.black),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            35.0),
+                                                    // image: DecorationImage(
+                                                    //   image: AssetImage(
+                                                    //       "assets/images/${constants.standard[index].image}"),
+                                                    //   fit: BoxFit.cover,
+                                                    // ),
+                                                    gradient: LinearGradient(
+                                                      // begin: Alignment.bottomCenter,
+                                                      // end: Alignment.topCenter,
+                                                      colors: [
+                                                        _selectedPlan[0] ==
                                                                 false
-                                                                ? const Color(
+                                                            ? const Color(
                                                                 0xff1c1b20)
-                                                                : Colors.white60,
-                                                            _selectedPlan[0] ==
+                                                            : Colors.white60,
+                                                        _selectedPlan[0] ==
                                                                 false
-                                                                ? Colors.transparent
-                                                                : Colors.white,
-                                                          ],
-                                                        ),
-                                                      ),
+                                                            ? Colors.transparent
+                                                            : Colors.white,
+                                                      ],
                                                     ),
                                                   ),
                                                 ),
-                                                const SizedBox(height: 5),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      _selectedPlan[0] = false;
-                                                      _selectedPlan[2] = false;
-                                                      _selectedPlan[1] = true;
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    margin: const EdgeInsets.only(
-                                                        left: 12, right: 12),
-                                                    child: Container(
-                                                      height: 9.h,
-                                                      alignment: Alignment
-                                                          .bottomLeft,
-                                                      padding: const EdgeInsets
-                                                          .only(left: 20.0),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
-                                                        mainAxisAlignment: MainAxisAlignment
+                                              ),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  _selectedPlan[0] = false;
+                                                  _selectedPlan[2] = false;
+                                                  _selectedPlan[1] = true;
+                                                });
+                                              },
+                                              child: Container(
+                                                margin: const EdgeInsets.only(
+                                                    left: 12, right: 12),
+                                                child: Container(
+                                                  height: 9.h,
+                                                  alignment:
+                                                      Alignment.bottomLeft,
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 20.0),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
                                                             .center,
                                                         children: [
                                                           Text(
@@ -260,71 +267,78 @@ class _OpenActivityState extends State<OpenActivity> {
                                                                     .bold,
                                                                 fontSize: 20.0,
                                                                 color: _selectedPlan[1] ==
+
                                                                     false
-                                                                    ? Colors.white
-                                                                    : Colors.black),
-                                                          ),
-                                                          Text(
-                                                            'No noise, apartment friendly',
-                                                            style: TextStyle(
-                                                                fontSize: 15.0,
-                                                                color: _selectedPlan[1] ==
-                                                                    false
-                                                                    ? Colors.white
-                                                                    : Colors.black),
-                                                          ),
-                                                        ],
+                                                                ? Colors.white
+                                                                : Colors.black),
                                                       ),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius
-                                                            .circular(35.0),
-                                                        // image: DecorationImage(
-                                                        //   image: AssetImage(
-                                                        //       "assets/images/${constants.standard[index].image}"),
-                                                        //   fit: BoxFit.cover,
-                                                        // ),
-                                                        gradient: LinearGradient(
-                                                          // begin: Alignment.b,
-                                                          // end: Alignment.topCenter,
-                                                          colors: [
-                                                            _selectedPlan[1] ==
+                                                      Text(
+                                                        'No noise, apartment friendly',
+                                                        style: TextStyle(
+                                                            fontSize: 15.0,
+                                                            color: _selectedPlan[
+                                                                        1] ==
+                                                                    false
+                                                                ? Colors.white
+                                                                : Colors.black),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            35.0),
+                                                    // image: DecorationImage(
+                                                    //   image: AssetImage(
+                                                    //       "assets/images/${constants.standard[index].image}"),
+                                                    //   fit: BoxFit.cover,
+                                                    // ),
+                                                    gradient: LinearGradient(
+                                                      // begin: Alignment.b,
+                                                      // end: Alignment.topCenter,
+                                                      colors: [
+                                                        _selectedPlan[1] ==
                                                                 false
-                                                                ? const Color(
+                                                            ? const Color(
                                                                 0xff1c1b20)
-                                                                : Colors.white60,
-                                                            _selectedPlan[1] ==
+                                                            : Colors.white60,
+                                                        _selectedPlan[1] ==
                                                                 false
-                                                                ? Colors.transparent
-                                                                : Colors.white,
-                                                          ],
-                                                        ),
-                                                      ),
+                                                            ? Colors.transparent
+                                                            : Colors.white,
+                                                      ],
                                                     ),
                                                   ),
                                                 ),
-                                                const SizedBox(height: 5),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      _selectedPlan[0] = false;
-                                                      _selectedPlan[1] = false;
-                                                      _selectedPlan[2] = true;
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    margin: const EdgeInsets.all(
-                                                        12),
-                                                    child: Container(
-                                                      height: 9.h,
-                                                      alignment: Alignment
-                                                          .bottomLeft,
-                                                      padding: const EdgeInsets
-                                                          .only(left: 20.0),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
-                                                        mainAxisAlignment: MainAxisAlignment
+                                              ),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  _selectedPlan[0] = false;
+                                                  _selectedPlan[1] = false;
+                                                  _selectedPlan[2] = true;
+                                                });
+                                              },
+                                              child: Container(
+                                                margin:
+                                                    const EdgeInsets.all(12),
+                                                child: Container(
+                                                  height: 9.h,
+                                                  alignment:
+                                                      Alignment.bottomLeft,
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 20.0),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
                                                             .center,
+
                                                         children: [
                                                           Text(
                                                             'Low impact',
@@ -333,56 +347,52 @@ class _OpenActivityState extends State<OpenActivity> {
                                                                     .bold,
                                                                 fontSize: 20.0,
                                                                 color: _selectedPlan[2] ==
+
                                                                     false
-                                                                    ? Colors.white
-                                                                    : Colors.black),
-                                                          ),
-                                                          Text(
-                                                            'Friendly to overweight people',
-                                                            style: TextStyle(
-                                                                fontSize: 15.0,
-                                                                color: _selectedPlan[2] ==
-                                                                    false
-                                                                    ? Colors.white
-                                                                    : Colors.black),
-                                                          ),
-                                                        ],
+                                                                ? Colors.white
+                                                                : Colors.black),
                                                       ),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius
-                                                            .circular(35.0),
-                                                        // image: DecorationImage(
-                                                        //   image: AssetImage(
-                                                        //       "assets/images/${constants.standard[index].image}"),
-                                                        //   fit: BoxFit.cover,
-                                                        // ),
-                                                        gradient: LinearGradient(
-                                                          // begin: Alignment.bottomCenter,
-                                                          // end: Alignment.topCenter,
-                                                          colors: [
-                                                            _selectedPlan[2] ==
+                                                      Text(
+                                                        'Friendly to overweight people',
+                                                        style: TextStyle(
+                                                            fontSize: 15.0,
+                                                            color: _selectedPlan[
+                                                                        2] ==
+                                                                    false
+                                                                ? Colors.white
+                                                                : Colors.black),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            35.0),
+                                                    // image: DecorationImage(
+                                                    //   image: AssetImage(
+                                                    //       "assets/images/${constants.standard[index].image}"),
+                                                    //   fit: BoxFit.cover,
+                                                    // ),
+                                                    gradient: LinearGradient(
+                                                      // begin: Alignment.bottomCenter,
+                                                      // end: Alignment.topCenter,
+                                                      colors: [
+                                                        _selectedPlan[2] ==
                                                                 false
-                                                                ? const Color(
+                                                            ? const Color(
                                                                 0xff1c1b20)
-                                                                : Colors.white60,
-                                                            _selectedPlan[2] ==
+                                                            : Colors.white60,
+                                                        _selectedPlan[2] ==
                                                                 false
-                                                                ? Colors.transparent
-                                                                : Colors.white,
-                                                          ],
-                                                        ),
-                                                      ),
+                                                            ? Colors.transparent
+                                                            : Colors.white,
+                                                      ],
                                                     ),
                                                   ),
                                                 ),
-                                              ],
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Container(
-                                              height: 1, color: Colors.white),
+                                          ],
                                         ),
                                         InkWell(
                                           onTap: (){
@@ -430,11 +440,13 @@ class _OpenActivityState extends State<OpenActivity> {
                                             child: Container(
                                               height: MediaQuery
                                                   .of(context)
+
                                                   .size
-                                                  .height * 0.08,
-                                              width: MediaQuery
-                                                  .of(context)
+                                                  .height *
+                                              0.08,
+                                          width: MediaQuery.of(context)
                                                   .size
+
                                                   .width * 0.85,
 
                                               decoration: BoxDecoration(
@@ -453,21 +465,23 @@ class _OpenActivityState extends State<OpenActivity> {
                                                   //color: Colors.white,
                                                 ),
                                               ),
+
                                             ),
                                           ),
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              });
+                                  ],
+                                ),
+                              ),
+                            );
+                          });
                         },
                       );
                     },
                     child: Container(
-                      height: MediaQuery.of(context).size.height*0.075,
-                      width: MediaQuery.of(context).size.width*0.15,
-
+                      height: MediaQuery.of(context).size.height * 0.075,
+                      width: MediaQuery.of(context).size.width * 0.15,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
                         color: Colors.blue,
@@ -484,13 +498,12 @@ class _OpenActivityState extends State<OpenActivity> {
                 //SizedBox(width: MediaQuery.of(context).size.width*0.08),
                 InkWell(
                   onTap: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (ctx) => const StartExercise()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (ctx) => const StartExercise()));
                   },
                   child: Container(
-                    height: MediaQuery.of(context).size.height*0.075,
-                    width: MediaQuery.of(context).size.width*0.65,
-
+                    height: MediaQuery.of(context).size.height * 0.075,
+                    width: MediaQuery.of(context).size.width * 0.65,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
                       color: const Color(0xff1ce5c1),
@@ -498,7 +511,10 @@ class _OpenActivityState extends State<OpenActivity> {
                     child: Center(
                       child: Text(
                         "GO!",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize:20, color: Colors.white),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.white),
                         //Icons.play_arrow,
                         //color: Colors.white,
                       ),
@@ -553,11 +569,13 @@ class _OpenActivityState extends State<OpenActivity> {
                     // ),
                     Text(
                       "Instruction",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                     ),
                     SizedBox(height: 10),
                     Padding(
-                      padding: EdgeInsets.only(right: MediaQuery.of(context).size.width*0.15),
+                      padding: EdgeInsets.only(
+                          right: MediaQuery.of(context).size.width * 0.15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -566,7 +584,8 @@ class _OpenActivityState extends State<OpenActivity> {
                             children: [
                               Text(
                                 "Beginner",
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 17),
                               ),
                               Text(
                                 "Level",
@@ -580,6 +599,7 @@ class _OpenActivityState extends State<OpenActivity> {
                               Text(
                                 "≈59.7",
                                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+
                               ),
                               Text(
                                 "Kcal",
@@ -592,7 +612,8 @@ class _OpenActivityState extends State<OpenActivity> {
                             children: [
                               Text(
                                 "4 mins",
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 17),
                               ),
                               Text(
                                 "Duration",
@@ -605,89 +626,122 @@ class _OpenActivityState extends State<OpenActivity> {
                     ),
                     SizedBox(height: 10),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Exercises  ",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                        Row(
+                          children: [
+                            Text(
+                              "Exercises  ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 17),
+                            ),
+                            Text(
+                              "(${exerciseData!.exerciseList!.length})",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Colors.grey),
+                            ),
+                          ],
                         ),
-                        Text(
-                          "(7)",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.grey),
-                        ),
-                        SizedBox(width: MediaQuery.of(context).size.width*0.45),
-                        Text(
-                          "Edit  ",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.grey),
-                        ),
-                        InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) => EditPlan()
-                                  ));
-                            },
-                            child: Icon(
-                              Icons.edit_outlined, color: Colors.grey,)
+                        Row(
+                          children: [
+                            Text(
+                              "Edit  ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Colors.grey),
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              EditPlan()));
+                                },
+                                child: Icon(
+                                  Icons.edit_outlined,
+                                  color: Colors.grey,
+                                  size: 20,
+                                )),
+                          ],
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 15),
                     Expanded(
                       child: //ColorRemover(
-                      //child: TabBarView(children: [
-                      ColorRemover(
+                          //child: TabBarView(children: [
+                          ColorRemover(
                         child: ListView.builder(
                             physics: const BouncingScrollPhysics(),
-                            itemCount: exerciseData!=null?exerciseData!.exerciseList!.length:0,
+                            itemCount: exerciseData != null
+                                ? exerciseData!.exerciseList!.length
+                                : 0,
                             itemBuilder: (ctx, index) {
-                              return exerciseData!.exerciseList![index].dayTitle==widget.title?
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (ctx) =>
-                                      const SelectExercise()));
-                                },
-                                child: Row(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius:
-                                      BorderRadius.circular(8.0),
-                                      child: Image(
-                                          height: 80,
-                                          width: 90,
-                                          fit: BoxFit.cover,
-                                          image: AssetImage(
-                                              "assets/images/${exerciseData!.exerciseList![index].image}")),
-                                    ),
-                                    const SizedBox(
-                                      width: 18.0,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          exerciseData!.exerciseList![index].name,
-                                          style: const TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
+                              return exerciseData!
+                                          .exerciseList![index].dayTitle ==
+                                      widget.title
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (ctx) =>
+                                                    const SelectExercise()));
+                                      },
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                                child: Image(
+                                                    height: 80,
+                                                    width: 90,
+                                                    fit: BoxFit.cover,
+                                                    image: AssetImage(
+                                                        "assets/images/${exerciseData!.exerciseList![index].image}")),
+                                              ),
+                                              const SizedBox(
+                                                width: 18.0,
+                                              ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    exerciseData!
+                                                        .exerciseList![index]
+                                                        .name,
+                                                    style: const TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 6.0,
+                                                  ),
+                                                  Text(
+                                                    "${exerciseData!.exerciseList![index].time} mins | ${exerciseData!.exerciseList![index].raps} Raps",
+                                                    style: const TextStyle(
+                                                      fontSize: 12,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          height: 6.0,
-                                        ),
-                                        Text(
-                                          "${exerciseData!.exerciseList![index].time} mins | ${exerciseData!.exerciseList![index].raps} Raps",
-                                          style: const TextStyle(
-                                            fontSize: 12,
+                                          SizedBox(
+                                            height: 10,
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ):const SizedBox();
+                                        ],
+                                      ),
+                                    )
+                                  : const SizedBox();
                             }),
                       ),
                       // ColorRemover(

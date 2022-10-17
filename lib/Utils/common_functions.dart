@@ -1,7 +1,4 @@
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-
 
 dynamic getUserData() async {
   FlutterSecureStorage storage = FlutterSecureStorage();
@@ -19,5 +16,3 @@ dynamic getUserData() async {
     return null;
   }
 }
-
-
