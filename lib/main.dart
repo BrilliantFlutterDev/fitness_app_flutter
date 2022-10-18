@@ -1,3 +1,4 @@
+import 'package:fitness_app/screens/account_screen/Workout/notification_service.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/home_page/splash_screen.dart';
 import 'package:fitness_app/screens/my_activity/MyActivityBloc/my_activity_bloc.dart';
@@ -7,7 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService().init();
+  await NotificationService().requestIOSPermissions();
   runApp(const MyApp());
 }
 
