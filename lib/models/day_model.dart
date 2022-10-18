@@ -6,6 +6,7 @@ class DayModel {
   final String completeStatus;
   final int noOfGlassWaterDrank;
   final int completedPercentage;
+  final int exerciseNumInProgress;
   DayModel({
     required this.image,
     required this.name,
@@ -14,5 +15,6 @@ class DayModel {
     required this.planLevel,
     required this.completeStatus,
     required this.noOfGlassWaterDrank,
+    required this.exerciseNumInProgress,
   });
 }

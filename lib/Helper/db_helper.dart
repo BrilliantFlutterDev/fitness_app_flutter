@@ -33,6 +33,7 @@ class DatabaseHelper {
   // static const completeStatus = 'completeStatus';
   static const completeExercisePercentage = 'completeExercisePercentage';
   static const noOfGlassWaterDrank = 'noOfGlassWaterDrank';
+  static const exerciseNumInProgress = 'exerciseNumInProgress';
 
   // make this a singleton class
   DatabaseHelper._privateConstructor();
@@ -85,7 +86,8 @@ class DatabaseHelper {
             $planLevel TEXT,
             $completeStatus TEXT,
             $completeExercisePercentage INTEGER,
-            $noOfGlassWaterDrank INTEGER
+            $noOfGlassWaterDrank INTEGER,
+            $exerciseNumInProgress INTEGER
           )
           ''');
   }
@@ -149,8 +151,16 @@ class DatabaseHelper {
   Future<int> updateADay(Map<String, dynamic> row) async {
     Database db = await instance.database;
     String day = row[dayTitle];
+    print('>>>>>>>>>Day Updating: $day');
     return await db
         .update(tableDay, row, where: '$dayTitle = ?', whereArgs: [day]);
+  }
+  Future<int> updateAExercise(Map<String, dynamic> row) async {
+    Database db = await instance.database;
+    int id = row[columnId];
+    print('>>>>>>>>>>>>Column ID: $id');
+    return await db
+        .update(tableExercises, row, where: '$columnId = ?', whereArgs: [id]);
   }
 
   // Future<List<Map<String, dynamic>>> queryAllCartProductCombination() async {

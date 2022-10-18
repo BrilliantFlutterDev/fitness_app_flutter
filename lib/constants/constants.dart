@@ -799,7 +799,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Weight Gain Programs.jpg",
         name: "Day 2",
@@ -807,7 +807,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Muscle Building Programs.jpg",
         name: "Day 3",
@@ -815,7 +815,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Chest Workouts.jpg",
         name: "Day 4",
@@ -823,7 +823,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Weight Loss Programs.jpeg",
         name: "Day 5",
@@ -831,7 +831,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Weight Gain Programs.jpg",
         name: "Day 6",
@@ -839,7 +839,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Muscle Building Programs.jpg",
         name: "Day 7",
@@ -847,7 +847,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Chest Workouts.jpg",
         name: "Day 8",
@@ -855,7 +855,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Weight Loss Programs.jpeg",
         name: "Day 9",
@@ -863,7 +863,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Weight Gain Programs.jpg",
         name: "Day 10",
@@ -871,7 +871,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Weight Loss Programs.jpeg",
         name: "Day 11",
@@ -879,7 +879,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Weight Gain Programs.jpg",
         name: "Day 12",
@@ -887,7 +887,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Muscle Building Programs.jpg",
         name: "Day 13",
@@ -895,7 +895,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Chest Workouts.jpg",
         name: "Day 14",
@@ -903,7 +903,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Weight Loss Programs.jpeg",
         name: "Day 15",
@@ -911,7 +911,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Weight Gain Programs.jpg",
         name: "Day 16",
@@ -919,7 +919,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Muscle Building Programs.jpg",
         name: "Day 17",
@@ -927,7 +927,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Chest Workouts.jpg",
         name: "Day 18",
@@ -935,7 +935,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Weight Loss Programs.jpeg",
         name: "Day 19",
@@ -943,7 +943,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Weight Gain Programs.jpg",
         name: "Day 20",
@@ -951,7 +951,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Weight Loss Programs.jpeg",
         name: "Day 21",
@@ -959,7 +959,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Weight Gain Programs.jpg",
         name: "Day 22",
@@ -967,7 +967,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Muscle Building Programs.jpg",
         name: "Day 23",
@@ -975,7 +975,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Chest Workouts.jpg",
         name: "Day 24",
@@ -983,7 +983,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Weight Loss Programs.jpeg",
         name: "Day 25",
@@ -991,7 +991,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Weight Gain Programs.jpg",
         name: "Day 26",
@@ -999,7 +999,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Muscle Building Programs.jpg",
         name: "Day 27",
@@ -1007,7 +1007,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Chest Workouts.jpg",
         name: "Day 28",
@@ -1015,7 +1015,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Weight Loss Programs.jpeg",
         name: "Day 29",
@@ -1023,7 +1023,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
     DayModel(
         image: "Weight Gain Programs.jpg",
         name: "Day 30",
@@ -1031,7 +1031,7 @@ class Constants {
         completeStatus: '0',
         planLevel: '',
         noOfGlassWaterDrank: 0,
-        kneeIssue: ''),
+        kneeIssue: '', exerciseNumInProgress: 0),
   ];
   // List<GymModel> standard = [
   //   GymModel(image: "Chest Workouts.jpg", name: "STRAIGHT-ARM PLANK"),

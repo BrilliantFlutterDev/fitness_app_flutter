@@ -58,7 +58,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             kneeIssue: dayConstants.days[i].kneeIssue,
             planLevel: dayConstants.days[i].planLevel,
             completeStatus: dayConstants.days[i].completeStatus,
-            noOfGlassWaterDrank: dayConstants.days[i].noOfGlassWaterDrank);
+            noOfGlassWaterDrank: dayConstants.days[i].noOfGlassWaterDrank,
+            exerciseNumInProgress:  dayConstants.days[i].exerciseNumInProgress);
         await dbHelper.insertDays(dayModelLocalDB.toJson());
       }
 
@@ -106,6 +107,53 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         RequestDayData dayData = RequestDayData.fromJson(data);
 
         yield GetAllDaysState(dayData: dayData);
+      } catch (e) {
+        yield ErrorState(error: 'No Days found!');
+      }
+    }
+    else if (event is RapsTimeIncrementDecrementEvent) {
+      try {
+        if (event.isIncrementing == true) {
+          event.exerciseModelLocalDB.raps =
+              event.exerciseModelLocalDB.raps + 1;
+        } else {
+          event.exerciseModelLocalDB.raps =
+              event.exerciseModelLocalDB.raps - 1;
+        }
+        var data =
+        await dbHelper.updateAExercise(event.exerciseModelLocalDB.toJson());
+
+        yield UpdateAllExerciseState(exerciseModelLocalDB: event.exerciseModelLocalDB);
+      } catch (e) {
+        yield ErrorState(error: 'No Exercise found!');
+      }
+    }
+    else if (event is ChangeExerciseStatusToDoneEvent) {
+      try {
+        event.exerciseModelLocalDB.completeStatus = '1';
+
+        var data =
+        await dbHelper.updateAExercise(event.exerciseModelLocalDB.toJson());
+
+        yield UpdateAllExerciseState(exerciseModelLocalDB: event.exerciseModelLocalDB);
+      } catch (e) {
+        yield ErrorState(error: 'No Exercise found!');
+      }
+    }
+    else if (event is UpdateDayProgressEvent) {
+      try {
+
+          event.dayModelLocalDB.completedPercentage =
+             event.progress;
+          print('>>>>>>>>>Day Updating');
+          print(event.progress);
+
+
+
+        var data =
+        await dbHelper.updateADay(event.dayModelLocalDB.toJson());
+
+        yield UpdateDayProgressState(dayModelLocalDB: event.dayModelLocalDB);
       } catch (e) {
         yield ErrorState(error: 'No Days found!');
       }

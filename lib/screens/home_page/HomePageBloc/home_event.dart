@@ -11,6 +11,27 @@ class GetAllExerciseOfDayEvent extends HomeEvent {
   GetAllExerciseOfDayEvent({required this.day});
 }
 
+class RapsTimeIncrementDecrementEvent extends HomeEvent {
+  late final ExerciseModelLocalDB exerciseModelLocalDB;
+  final bool isIncrementing;
+  RapsTimeIncrementDecrementEvent(
+      {required this.exerciseModelLocalDB, required this.isIncrementing});
+}
+class ChangeExerciseStatusToDoneEvent extends HomeEvent {
+  late final ExerciseModelLocalDB exerciseModelLocalDB;
+
+  ChangeExerciseStatusToDoneEvent(
+      {required this.exerciseModelLocalDB,});
+}
+
+class UpdateDayProgressEvent extends HomeEvent {
+  final DayModelLocalDB dayModelLocalDB;
+  final  int progress;
+  UpdateDayProgressEvent(
+      {required this.dayModelLocalDB,required this.progress,});
+}
+
+
 class GetAllDaysEvent extends HomeEvent {
   GetAllDaysEvent();
 }

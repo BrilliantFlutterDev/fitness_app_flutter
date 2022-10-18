@@ -185,8 +185,9 @@ class _HomePageState extends State<HomePage> {
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (ctx) => OpenActivity(
-                                          title: requestDayData!
-                                              .exerciseList![index].name,
+                                          dayModelLocalDB: requestDayData!
+                                        .exerciseList![index],
+
                                         )));
                               },
                               child: Container(
