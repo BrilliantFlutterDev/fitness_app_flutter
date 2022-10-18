@@ -438,6 +438,7 @@ class _HomePageState extends State<HomePage> {
                                 right: MediaQuery.of(context).size.width * 0.1),
                             child: Text(
                               'Customize your own training plans based on your preferences',
+                              textAlign: TextAlign.center,
                               style:
                                   TextStyle(color: Colors.white, fontSize: 13),
                             ),

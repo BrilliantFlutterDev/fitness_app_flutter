@@ -140,6 +140,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         yield ErrorState(error: 'No Exercise found!');
       }
     }
+    else if (event is DeleteExerciseInADayEvent) {
+      try {
+        event.exerciseData.exerciseList![event.index].dayTitle='';
+
+
+        var data =
+        await dbHelper.updateAExercise(event.exerciseData.exerciseList![event.index].toJson());
+        event.exerciseData.exerciseList!.removeAt(event.index);
+
+        yield GetAllExerciseState(exerciseData: event.exerciseData);
+      } catch (e) {
+        yield ErrorState(error: 'No Exercise found!');
+      }
+    }
     else if (event is UpdateDayProgressEvent) {
       try {
 
