@@ -119,7 +119,7 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                         CrossAxisAlignment.start,
                                     children: const [
                                       Text(
-                                        "DO YOU HAVE KNEE ISSUE?",
+                                        "DO YOU HAVE KNEE ISSUES?",
                                         maxLines: 2,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
@@ -144,7 +144,7 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.white70,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ],

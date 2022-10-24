@@ -1,6 +1,7 @@
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/constants/colors.dart';
+import 'package:fitness_app/screens/account_screen/Workout/training_rest_popup.dart';
 import 'package:fitness_app/screens/my_activity/edit_plan.dart';
 import 'package:fitness_app/screens/select_exercise/select_exercise.dart';
 import 'package:fitness_app/screens/start_exercise/start_exercise.dart';
@@ -148,9 +149,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                       ),
                                     ),
                                     Container(
-                                      height:
-                                      MediaQuery.of(context).size.height *
-                                          0.38,
+                                      // height: MediaQuery.of(context).size.height * 0.38,
                                       width: MediaQuery.of(context).size.width,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -184,7 +183,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                                         .center,
                                                     children: [
                                                       Text(
-                                                        'I\'M FINE',
+                                                        'I\'m fine',
                                                         style: TextStyle(
                                                             fontWeight:
                                                             FontWeight.bold,
@@ -263,7 +262,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                                         .center,
                                                     children: [
                                                       Text(
-                                                        'NO JUMPING',
+                                                        'No jumping',
                                                         style: TextStyle(
                                                             fontWeight:
                                                             FontWeight.bold,
@@ -342,7 +341,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                                         .center,
                                                     children: [
                                                       Text(
-                                                        'LOW IMPACT',
+                                                        'Low impact',
                                                         style: TextStyle(
                                                             fontWeight:
                                                             FontWeight.bold,
@@ -402,11 +401,50 @@ class _OpenActivityState extends State<OpenActivity> {
                                       child: Container(
                                           height: 1, color: Colors.white),
                                     ),
-                                    ListTile(
-                                      leading: Icon(Icons.restaurant),
-                                      title: Text('Training rest'),
-                                      trailing: Text("10 sec",
-                                          style: TextStyle(color: Colors.blue)),
+                                    InkWell(
+                                      onTap: (){
+                                        showDialog(
+                                            context: context,
+                                            builder: (_) => Dialog(
+                                              child: Container(
+                                                  height: MediaQuery.of(context).size.height*0.4,
+                                                  child: TrainingRestPopup()
+                                              ),
+                                            )
+                                        );//CountdownPopup(),
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsets.only(top: 10,bottom: 10),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.restaurant, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                                ),
+                                                SizedBox(width: MediaQuery.of(context).size.width*0.035),
+                                                Text(
+                                                  "Training rest",
+                                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  "10 sec",
+                                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.043, color: Colors.blue),
+                                                ),
+                                                Icon(
+                                                    Icons.arrow_drop_down, color: Colors.blue, size: MediaQuery.of(context).size.width*0.065
+                                                )
+                                              ],
+                                            ),
+
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
@@ -572,7 +610,7 @@ class _OpenActivityState extends State<OpenActivity> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
                               Text(
-                                "59.7",
+                                "≈59.7",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 17),
                               ),

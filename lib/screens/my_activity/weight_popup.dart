@@ -31,7 +31,11 @@ class _WeightPopupState extends State<WeightPopup> {
                 children: [
                   Column(
                     children: [
-                      Center(child: Text("October 2022")),
+                      Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 10, bottom:10),
+                              child: Text("October 2022"),
+                      )),
                       CalenderPicker(
                         dateTime,
                         daysCount: days,
@@ -45,36 +49,39 @@ class _WeightPopupState extends State<WeightPopup> {
                     ],
                   ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width*0.35,
-                          child: TextField()
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
+                  Padding(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.05, right: MediaQuery.of(context).size.width*0.1),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width*0.35,
+                            child: TextField()
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.black,
+                              ),
+                          ),
+                          child: Text(
+                            "LB",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
                             border: Border.all(
                               color: Colors.black,
                             ),
-                        ),
-                        child: Text(
-                          "LG",
-                          style: TextStyle(fontSize: 15),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black,
+                          ),
+                          child: Text(
+                              "KG",
+                              style: TextStyle(fontSize: 15),
                           ),
                         ),
-                        child: Text(
-                            "KG",
-                            style: TextStyle(fontSize: 15),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20, right: 35),
@@ -83,11 +90,7 @@ class _WeightPopupState extends State<WeightPopup> {
                       children: [
                         InkWell(
                           onTap: (){
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (ctx) => CusBottomBar(),
-                              ),
-                            );
+                            Navigator.pop(context);
                           },
                           child: Text(
                             "CANCEL",
@@ -97,11 +100,7 @@ class _WeightPopupState extends State<WeightPopup> {
                         SizedBox(width: MediaQuery.of(context).size.width*0.1),
                         InkWell(
                           onTap: (){
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (ctx) => CusBottomBar(),
-                              ),
-                            );
+                            Navigator.pop(context);
                           },
                           child: Text(
                             "SET",

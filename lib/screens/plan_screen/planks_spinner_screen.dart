@@ -144,8 +144,8 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.white70,
-                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        // fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                   ],
@@ -166,8 +166,8 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
                                         MediaQuery.of(context).size.height / 10,
 
                                     // margin for border
-                                    leftMargin: 70,
-                                    rightMargin: 70,
+                                    leftMargin: 20,
+                                    rightMargin: 30,
 
                                     // create list of text for items
                                     items: List.generate(

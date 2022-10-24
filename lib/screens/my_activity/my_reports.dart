@@ -73,7 +73,13 @@ class _MyReportsState extends State<MyReports> {
           //  backgroundColor: const Color(0xff1c1b20),
           appBar: AppBar(
             backgroundColor: const Color(0xff1c1b20),
-            title: const Text("My Reports"),
+            title: Padding(
+              padding: EdgeInsets.only(left: 15, top: 30),
+              child: Text(
+                "KEEP IT UP!",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              ),
+            ),
           ),
           body: ColorRemover(
             child: ListView(
@@ -128,7 +134,7 @@ class _MyReportsState extends State<MyReports> {
                               )),
                             ),
                             Text(
-                              'Workouts',
+                              'WORKOUTS',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w700),
@@ -263,24 +269,22 @@ class _MyReportsState extends State<MyReports> {
                                   //         builder: (BuildContext context) =>
                                   //             HistoryScreen()));
                                 },
-                                child: Container(
-                                  height: 40,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 10),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      color: kColorPrimary),
-                                  child: Center(
-                                    child: Text(
-                                      'History',
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'HISTORY',
                                       style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500),
+                                          color: Color(0xff1ce5c1),
+                                          fontSize: 15,
+                                          // fontWeight: FontWeight.w500
+                                      ),
                                     ),
-                                  ),
+                                    Icon(
+                                      Icons.arrow_forward_ios_rounded,
+                                      color: Color(0xff1c1b20),
+                                      size: 12,
+                                    )
+                                  ],
                                 ),
                               ),
 
@@ -378,7 +382,7 @@ class _MyReportsState extends State<MyReports> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: const [
                                 Text(
-                                  'Water Tracker',
+                                  "Water tracker",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 19,
@@ -521,7 +525,7 @@ class _MyReportsState extends State<MyReports> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Weights(lbs)',
+                                'Weight(lbs)',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 22,
@@ -533,10 +537,7 @@ class _MyReportsState extends State<MyReports> {
                                       context: context,
                                       builder: (_) => Dialog(
                                             child: Container(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.45,
+                                              height: MediaQuery.of(context).size.height * 0.4,
                                               child: WeightPopup(),
                                             ),
                                           )); //CountdownPopup(),
@@ -591,7 +592,7 @@ class _MyReportsState extends State<MyReports> {
                                   )),
                                 ),
                                 Text(
-                                  'Workouts',
+                                  'WORKOUTS',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w700),

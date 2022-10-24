@@ -145,7 +145,7 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.white70,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ],
@@ -166,8 +166,8 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
                                         MediaQuery.of(context).size.height / 10,
 
                                     // margin for border
-                                    leftMargin: 70,
-                                    rightMargin: 70,
+                                    leftMargin: 20,
+                                    rightMargin: 30,
 
                                     // create list of text for items
                                     items: List.generate(
