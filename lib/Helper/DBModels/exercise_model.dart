@@ -24,7 +24,7 @@ class ExerciseModelLocalDB {
   late final int? columnsId;
   late final String name;
   late final String image;
-  late final String dayTitle;
+  late String dayTitle;
   late final String time;
   late int raps;
   late final String type;

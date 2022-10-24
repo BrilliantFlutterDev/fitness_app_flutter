@@ -104,9 +104,9 @@ class _OpenActivityState extends State<OpenActivity> {
                 ],
               ),
               flexibleSpace: Container(
-                decoration: const BoxDecoration(
+                decoration:  BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('assets/images/Strecho Workout.jpg'),
+                      image: AssetImage('assets/images/${widget.dayModelLocalDB!.image}'),
                       fit: BoxFit.cover),
                 ),
               ),
@@ -570,7 +570,7 @@ class _OpenActivityState extends State<OpenActivity> {
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: const [
                               Text(
                                 "59.7",
                                 style: TextStyle(
@@ -584,7 +584,7 @@ class _OpenActivityState extends State<OpenActivity> {
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: const [
                               Text(
                                 "4 mins",
                                 style: TextStyle(
@@ -605,14 +605,14 @@ class _OpenActivityState extends State<OpenActivity> {
                       children: [
                         Row(
                           children: [
-                            Text(
+                            const Text(
                               "Exercises  ",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 17),
                             ),
                             Text(
                               "(${exerciseData!=null?exerciseData!.exerciseList!.length:'0'})",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,
                                   color: Colors.grey),
@@ -621,7 +621,7 @@ class _OpenActivityState extends State<OpenActivity> {
                         ),
                         Row(
                           children: [
-                            Text(
+                            const Text(
                               "Edit  ",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -634,9 +634,9 @@ class _OpenActivityState extends State<OpenActivity> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (BuildContext context) =>
-                                              EditPlan()));
+                                              EditPlan(dayModelLocalDB: widget.dayModelLocalDB,exerciseData: exerciseData,)));
                                 },
-                                child: Icon(
+                                child: const Icon(
                                   Icons.edit_outlined,
                                   color: Colors.grey,
                                   size: 20,

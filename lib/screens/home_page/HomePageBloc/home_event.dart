@@ -23,6 +23,14 @@ class ChangeExerciseStatusToDoneEvent extends HomeEvent {
   ChangeExerciseStatusToDoneEvent(
       {required this.exerciseModelLocalDB,});
 }
+class DeleteExerciseInADayEvent extends HomeEvent {
+  late final RequestExerciseData exerciseData;
+  late final int index;
+
+  DeleteExerciseInADayEvent(
+      {required this.exerciseData,required this.index});
+}
+
 
 class UpdateDayProgressEvent extends HomeEvent {
   final DayModelLocalDB dayModelLocalDB;
