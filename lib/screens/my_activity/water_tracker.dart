@@ -277,7 +277,7 @@ class _WaterTrackerState extends State<WaterTracker> {
                                 Text(
                                   "Drink notification",
                                   style: TextStyle(
-                                      fontSize: 17, color: Colors.white),
+                                      fontSize: 17, fontWeight: FontWeight.bold, color: Colors.white),
                                 ),
                                 Text(
                                   "Remind me to drink",

@@ -76,7 +76,7 @@ class _RestScreenState extends State<RestScreen> {
                               height: 6.0,
                             ),
                             const Text(
-                              "You going grate !!",
+                              "You doing great\!",
                               style:
                                   TextStyle(fontSize: 14, color: Colors.grey),
                             ),

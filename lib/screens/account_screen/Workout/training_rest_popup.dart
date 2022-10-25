@@ -85,11 +85,7 @@ class _TrainingRestPopupState extends State<TrainingRestPopup> {
                       children: [
                         InkWell(
                           onTap: (){
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (ctx) => AccountScreen1(),
-                              ),
-                            );
+                            Navigator.pop(context);
                           },
                           child: Text(
                             "CANCEL",

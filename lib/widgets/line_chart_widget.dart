@@ -15,7 +15,7 @@ class LineChartWidget extends StatelessWidget {
   Widget build(BuildContext context) => LineChart(
         LineChartData(
           minX: 0,
-          maxX: 11,
+          maxX: 12,
           minY: 0,
           maxY: 6,
           titlesData: LineTitles.getTitleData(),
@@ -48,7 +48,7 @@ class LineChartWidget extends StatelessWidget {
                 FlSpot(6.8, 2.5),
                 FlSpot(8, 4),
                 FlSpot(9.5, 3),
-                FlSpot(11, 4),
+                FlSpot(12, 4),
               ],
               isCurved: true,
               colors: gradientColors,
