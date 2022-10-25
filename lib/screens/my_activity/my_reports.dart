@@ -74,7 +74,7 @@ class _MyReportsState extends State<MyReports> {
           appBar: AppBar(
             backgroundColor: const Color(0xff1c1b20),
             title: Padding(
-              padding: EdgeInsets.only(left: 15, top: 30),
+              padding: EdgeInsets.only(left: 15, top: 35),
               child: Text(
                 "KEEP IT UP!",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
@@ -86,7 +86,7 @@ class _MyReportsState extends State<MyReports> {
               physics: const BouncingScrollPhysics(),
               children: [
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 Container(
                   height: 15.h,
