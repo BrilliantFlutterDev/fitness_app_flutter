@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/plan_screen/plan_screen.dart';
 import 'package:flutter/material.dart';
@@ -110,7 +111,7 @@ class _SplashScreenState extends State<SplashScreen>
       return ModalProgressHUD(
         inAsyncCall: state is LoadingState,
         child: Scaffold(
-          backgroundColor: Colors.black,
+          backgroundColor: kColorPrimary,
           body: Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
