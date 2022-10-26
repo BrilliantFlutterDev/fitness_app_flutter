@@ -1,5 +1,6 @@
 import 'package:calender_picker/date_picker_widget.dart';
 import 'package:fitness_app/constants/constants.dart';
+import 'package:fitness_app/screens/my_activity/bmi_popup.dart';
 import 'package:fitness_app/screens/my_activity/water_tracker.dart';
 import 'package:fitness_app/screens/my_activity/weight_popup.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
@@ -27,15 +28,15 @@ class MyReports extends StatefulWidget {
 
 class _MyReportsState extends State<MyReports> {
   DateTime dateTime = DateTime.now();
-
   int days = 10;
-
   ExerciseConstants constants = ExerciseConstants();
-
   double value = 0;
 
   late MyActivityBloc _activityBloc;
   RequestDayData? requestDayData;
+
+  String _message = 'Please enter your height and weight';
+  double? _bmi;
 
   @override
   void initState() {
@@ -72,9 +73,10 @@ class _MyReportsState extends State<MyReports> {
         child: Scaffold(
           //  backgroundColor: const Color(0xff1c1b20),
           appBar: AppBar(
+            toolbarHeight: MediaQuery.of(context).size.height*0.1,
             backgroundColor: const Color(0xff1c1b20),
             title: Padding(
-              padding: EdgeInsets.only(left: 15, top: 35),
+              padding: EdgeInsets.only(left: 15, top: 20),
               child: Text(
                 "KEEP IT UP!",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
@@ -85,9 +87,9 @@ class _MyReportsState extends State<MyReports> {
             child: ListView(
               physics: const BouncingScrollPhysics(),
               children: [
-                const SizedBox(
-                  height: 20,
-                ),
+                // const SizedBox(
+                //   height: 20,
+                // ),
                 Container(
                   height: 15.h,
                   width: MediaQuery.of(context).size.width * 2,
@@ -542,19 +544,10 @@ class _MyReportsState extends State<MyReports> {
                                             ),
                                           )); //CountdownPopup(),
                                 },
-                                child: Container(
-                                  height: 35,
-                                  width: 35,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(7.0),
-                                      color: kColorPrimary),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.add,
-                                      size: 30,
-                                      color: Colors.white,
-                                    ),
-                                  ),
+                                child: Icon(
+                                  Icons.add,
+                                  size: 30,
+                                  color: kColorPrimary,
                                 ),
                               ),
                             ],
@@ -691,6 +684,239 @@ class _MyReportsState extends State<MyReports> {
                       image: AssetImage(
                           "assets/images/${constants.dailyExercises[2].image}"),
                       fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  // height: 25.h,
+                  width: MediaQuery.of(context).size.width * 2,
+                  margin: const EdgeInsets.all(12),
+                  child: Container(
+                    // height: 15.h,
+                    width: MediaQuery.of(context).size.width * 2,
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.0),
+                      gradient: const LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.topLeft,
+                        colors: [
+                          Colors.black,
+                          Colors.black,
+                        ],
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'BMI',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) => Dialog(
+                                        child: Container(
+                                          height: MediaQuery.of(context).size.height * 0.4,
+                                          child: BMIPopup(),
+                                        ),
+                                      )); //CountdownPopup(),
+                                },
+                                child: Row(
+                                  children: [
+                                    Text("Edit"),
+                                    SizedBox(width: 5),
+                                    Icon(Icons.edit_outlined, size: 18, color: Colors.white),
+                                  ],
+                                ),
+                                // Container(
+                                //   height: 35,
+                                //   width: 35,
+                                //   decoration: BoxDecoration(
+                                //       borderRadius: BorderRadius.circular(7.0),
+                                //       color: kColorPrimary),
+                                //   child: Center(
+                                //     child: Icon(
+                                //       Icons.add,
+                                //       size: 30,
+                                //       color: Colors.white,
+                                //     ),
+                                //   ),
+                                // ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Text("BMI range and categories come from"),
+                              Text(" Wiki", style: TextStyle(color: kColorPrimary),),
+                              Text("."),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height*0.075,
+                              width: double.infinity,
+                              child: Column(
+                                children: [
+                                  Text(
+                                      _bmi == null ? 'No Result' : _bmi!.toStringAsFixed(2),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width: MediaQuery.of(context).size.width*0.05,
+                                        height: 10,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(12.0),
+                                          gradient: const LinearGradient(
+                                            begin: Alignment.topRight,
+                                            end: Alignment.topLeft,
+                                            colors: [
+                                              Colors.blueAccent,
+                                              Colors.lightBlue,
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 5),
+                                      Container(
+                                        width: MediaQuery.of(context).size.width*0.09,
+                                        height: 10,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(12.0),
+                                          gradient: const LinearGradient(
+                                            begin: Alignment.topRight,
+                                            end: Alignment.topLeft,
+                                            colors: [
+                                              Colors.blue,
+                                              Colors.lightBlueAccent,
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 5),
+                                      Container(
+                                        width: MediaQuery.of(context).size.width*0.18,
+                                        height: 10,
+                                        decoration: BoxDecoration(
+                                          color: Colors.blueAccent,
+                                          borderRadius: BorderRadius.circular(12.0),
+                                          gradient: const LinearGradient(
+                                            begin: Alignment.topRight,
+                                            end: Alignment.topLeft,
+                                            colors: [
+                                              Colors.cyan,
+                                              Colors.cyanAccent,
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 5),
+                                      Container(
+                                        width: MediaQuery.of(context).size.width*0.15,
+                                        height: 10,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(12.0),
+                                          gradient: const LinearGradient(
+                                            begin: Alignment.topRight,
+                                            end: Alignment.topLeft,
+                                            colors: [
+                                              Colors.amber,
+                                              Colors.yellow,
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 5),
+                                      Container(
+                                        width: MediaQuery.of(context).size.width*0.15,
+                                        height: 10,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(12.0),
+                                          gradient: const LinearGradient(
+                                            begin: Alignment.topRight,
+                                            end: Alignment.topLeft,
+                                            colors: [
+                                              Colors.orange,
+                                              Colors.orangeAccent,
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 5),
+                                      Container(
+                                        width: MediaQuery.of(context).size.width*0.15,
+                                        height: 10,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(12.0),
+                                          gradient: const LinearGradient(
+                                            begin: Alignment.topRight,
+                                            end: Alignment.topLeft,
+                                            colors: [
+                                              Colors.pink,
+                                              Colors.redAccent,
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 7),
+                                  Row(
+                                    children: [
+                                      Text("15", style: TextStyle(fontSize: 12)),
+                                      SizedBox(width: MediaQuery.of(context).size.width*0.005),
+                                      Text("16", style: TextStyle(fontSize: 12)),
+                                      SizedBox(width: MediaQuery.of(context).size.width*0.05),
+                                      Text("18.5", style: TextStyle(fontSize: 12)),
+                                      SizedBox(width: MediaQuery.of(context).size.width*0.135),
+                                      Text("25", style: TextStyle(fontSize: 12)),
+                                      SizedBox(width: MediaQuery.of(context).size.width*0.125),
+                                      Text("30", style: TextStyle(fontSize: 12)),
+                                      SizedBox(width: MediaQuery.of(context).size.width*0.125),
+                                      Text("35", style: TextStyle(fontSize: 12)),
+                                      SizedBox(width: MediaQuery.of(context).size.width*0.1),
+                                      Text("40", style: TextStyle(fontSize: 12)),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            // LineChartWidget()
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Text(
+                            _message,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

@@ -103,7 +103,7 @@ class _WeightPopupState extends State<WeightPopup> {
                             Navigator.pop(context);
                           },
                           child: Text(
-                            "SET",
+                            "SAVE",
                             style: TextStyle(color: Color(0xff1ce5c1), fontWeight: FontWeight.bold),
                           ),
                         ),
