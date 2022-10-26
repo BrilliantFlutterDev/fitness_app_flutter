@@ -37,7 +37,7 @@ dependencies:
   sleek_circular_slider: ^2.0.1
   sizer: ^2.0.15
   fl_chart: ^0.45.0
-  flutter_native_splash: ^2.0.5
+#  flutter_native_splash: ^2.0.5
   calender_picker: ^1.0.7
   vertical_picker: ^0.0.1
   get: ^4.6.1
