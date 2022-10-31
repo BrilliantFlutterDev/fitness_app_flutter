@@ -46,7 +46,7 @@ class _CountdownPopupState extends State<CountdownPopup> {
                               }
                             });
                           },
-                          child: Icon(Icons.arrow_back_ios, color: Colors.grey, size: 15)),
+                          child: Icon(Icons.arrow_back_ios, color: Colors.grey, size: 20)),
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width*0.05),
                       Column(
@@ -74,7 +74,7 @@ class _CountdownPopupState extends State<CountdownPopup> {
                                 }
                               });
                             },
-                            child: Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 15)),
+                            child: Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 20)),
                       ),
                     ],
                   ),
@@ -85,11 +85,7 @@ class _CountdownPopupState extends State<CountdownPopup> {
                       children: [
                         InkWell(
                           onTap: (){
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (ctx) => AccountScreen1(),
-                              ),
-                            );
+                            Navigator.pop(context);
                           },
                           child: Text(
                             "CANCEL",
