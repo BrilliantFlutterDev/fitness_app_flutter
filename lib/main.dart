@@ -1,3 +1,5 @@
+import 'package:fitness_app/constants.dart';
+import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/account_screen/Workout/notification_service.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/home_page/splash_screen.dart';
@@ -41,7 +43,9 @@ class MyApp extends StatelessWidget {
                 elevation: 0.0,
                 backgroundColor: Color(0xff1c1b20),
               ),
-              colorScheme: const ColorScheme.dark(),
+              colorScheme: ColorScheme.dark(
+                primary: Color(0xff03dac6),
+              ),
               iconTheme: const IconThemeData(color: Colors.white, opacity: 0.8),
             ),
             initialRoute: "/splashScreen",

@@ -2,7 +2,7 @@ class AppGlobal {
   static String rememberMe = 'false';
   static String rememberMeEmail = '';
   static String rememberMePassword = '';
-  static String? dataStoreFromConstantToLDB = 'false';
+  static String? dataStoreFromConstantToLDB = '';
   static String? selectedPlan = '';
   static String? selectedKneeIssueOption = '';
   static String? selectedPushUpOption = '';

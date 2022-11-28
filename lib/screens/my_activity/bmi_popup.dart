@@ -1,8 +1,13 @@
 import 'package:fitness_app/constants/colors.dart';
+import 'package:fitness_app/screens/my_activity/my_reports.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
 
+
 class BMIPopup extends StatefulWidget {
+
+  final Function(BMIUser) calBMI;
+  BMIPopup(this.calBMI);
 
   @override
   State<BMIPopup> createState() => _BMIPopupState();
@@ -11,37 +16,6 @@ class BMIPopup extends StatefulWidget {
 class _BMIPopupState extends State<BMIPopup> {
   final _heightController = TextEditingController();
   final _weightController = TextEditingController();
-
-  double? _bmi;
-  // the message at the beginning
-  String _message = 'Please enter your height and weight';
-
-  // This function is triggered when the user pressess the "Calculate" button
-  void _calculate() {
-    final double? height = double.tryParse(_heightController.value.text);
-    final double? weight = double.tryParse(_weightController.value.text);
-
-    // Check if the inputs are valid
-    if (height == null || height <= 0 || weight == null || weight <= 0) {
-      setState(() {
-        _message = "Your height and weigh must be positive numbers";
-      });
-      return;
-    }
-
-    setState(() {
-      _bmi = weight / (height * height);
-      if (_bmi! < 18.5) {
-        _message = "You are underweight";
-      } else if (_bmi! < 25) {
-        _message = 'You body is fine';
-      } else if (_bmi! < 30) {
-        _message = 'You are overweight';
-      } else {
-        _message = 'You are obese';
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +153,9 @@ class _BMIPopupState extends State<BMIPopup> {
                         SizedBox(width: MediaQuery.of(context).size.width*0.1),
                         InkWell(
                           onTap: (){
-                            _calculate();
+                            final user = BMIUser(double.parse(_heightController.value.text), double.parse(_weightController.value.text));
+                            widget.calBMI(user);
+                            // _calculate();
                             Navigator.pop(context);
                           },
                           child: Text(

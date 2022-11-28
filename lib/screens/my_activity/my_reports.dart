@@ -38,6 +38,32 @@ class _MyReportsState extends State<MyReports> {
   String _message = 'Please enter your height and weight';
   double? _bmi;
 
+  void _calculate(BMIUser user) {
+    // final double? height = double.tryParse(_heightController.value.text);
+    // final double? weight = double.tryParse(_weightController.value.text);
+
+    // Check if the inputs are valid
+    if (user.height == null || user.height <= 0 || user.weight == null || user.weight <= 0) {
+      setState(() {
+        _message = "Your height and weigh must be positive numbers";
+      });
+      return;
+    }
+
+    setState(() {
+      _bmi = user.weight / (user.height * user.height);
+      if (_bmi! < 18.5) {
+        _message = "You are underweight";
+      } else if (_bmi! < 25) {
+        _message = 'You body is fine';
+      } else if (_bmi! < 30) {
+        _message = 'You are overweight';
+      } else {
+        _message = 'You are obese';
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -733,7 +759,7 @@ class _MyReportsState extends State<MyReports> {
                                       builder: (_) => Dialog(
                                         child: Container(
                                           height: MediaQuery.of(context).size.height * 0.4,
-                                          child: BMIPopup(),
+                                          child: BMIPopup(_calculate),
                                         ),
                                       )); //CountdownPopup(),
                                 },
@@ -1021,4 +1047,12 @@ class _MyReportsState extends State<MyReports> {
       });
     }
   }
+}
+
+
+class BMIUser{
+  final double height;
+  final double weight;
+
+  BMIUser(this.height, this.weight);
 }
