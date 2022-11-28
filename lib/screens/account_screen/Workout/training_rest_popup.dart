@@ -46,7 +46,7 @@ class _TrainingRestPopupState extends State<TrainingRestPopup> {
                                 }
                               });
                             },
-                            child: Icon(Icons.arrow_back_ios, color: Colors.grey, size: 15)),
+                            child: Icon(Icons.arrow_back_ios, color: Colors.grey, size: 20)),
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width*0.05),
                       Column(
@@ -74,7 +74,7 @@ class _TrainingRestPopupState extends State<TrainingRestPopup> {
                                 }
                               });
                             },
-                            child: Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 15)),
+                            child: Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 20)),
                       ),
                     ],
                   ),
