@@ -56,7 +56,10 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
             kneeIssue: dayConstants.days[i].kneeIssue,
             planLevel: dayConstants.days[i].planLevel,
             completeStatus: dayConstants.days[i].completeStatus,
-            noOfGlassWaterDrank: dayConstants.days[i].noOfGlassWaterDrank, exerciseNumInProgress:  dayConstants.days[i].exerciseNumInProgress);
+            noOfGlassWaterDrank: dayConstants.days[i].noOfGlassWaterDrank,
+            exerciseNumInProgress:  dayConstants.days[i].exerciseNumInProgress,
+            isRest: dayConstants.days[i].isRest,
+        );
         await dbHelper.insertDays(dayModelLocalDB.toJson());
       }
 

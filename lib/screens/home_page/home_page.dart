@@ -35,9 +35,11 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     if (AppGlobal.dataStoreFromConstantToLDB != 'true') {
+      print('>>>>>>> Show Exercise');
       _homeBloc.add(InsertAllExercisesInLocalDBEvent());
     } else {
       _homeBloc.add(GetAllDaysEvent());
+      print('>>>>>>> Show Days');
     }
   }
 
@@ -93,11 +95,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                   onPressed: () {
                     // do something
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                const DayRestScreen()));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (BuildContext context) =>
+                    //             const DayRestScreen()
+                    //     ));
                   },
                 ),
                 InkWell(
@@ -179,207 +182,419 @@ class _HomePageState extends State<HomePage> {
                           ? requestDayData!.exerciseList!.length
                           : 0,
                       itemBuilder: (ctx, index) {
-                        return Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (ctx) => OpenActivity(
-                                          dayModelLocalDB: requestDayData!
-                                        .exerciseList![index],
-
-                                        )));
-                              },
-                              child: Container(
-                                height: 10.h,
-                                width: MediaQuery.of(context).size.width * 2,
-                                margin: const EdgeInsets.only(
-                                    left: 12, right: 12, top: 12),
+                        DayModelLocalDB exercise = requestDayData!.exerciseList![index];
+                        print('>>>>>>>> isRest: ${exercise.isRest} ');
+                        if (exercise.isRest == 1){
+                          return Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (ctx) => DayRestScreen()
+                                  ));
+                                },
                                 child: Container(
                                   height: 10.h,
                                   width: MediaQuery.of(context).size.width * 2,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    gradient: const LinearGradient(
-                                      begin: Alignment.topRight,
-                                      end: Alignment.topLeft,
-                                      colors: [
-                                        Color(0xff1c1b20),
-                                        Colors.transparent,
+                                  margin: const EdgeInsets.only(
+                                      left: 12, right: 12, top: 12),
+                                  child: Container(
+                                    height: 10.h,
+                                    width: MediaQuery.of(context).size.width * 2,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      gradient: const LinearGradient(
+                                        begin: Alignment.topRight,
+                                        end: Alignment.topLeft,
+                                        colors: [
+                                          Color(0xff1c1b20),
+                                          Colors.transparent,
+                                        ],
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          requestDayData!
+                                              .exerciseList![index].name,
+                                          style: const TextStyle(
+                                              fontSize: 25.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Container(
+                                          height: 8.h,
+                                            width: MediaQuery.of(context).size.width * 0.2,
+                                            margin: const EdgeInsets.symmetric(vertical: 5),
+                                          child: CircleAvatar(
+                                            radius: 15,
+                                            backgroundColor: Colors.transparent,
+                                            child: Icon(Icons.energy_savings_leaf_outlined, color: Colors.white, size: 30,),
+                                          ),
+                                        ),
+                                        // Container(
+                                        //   height: 8.h,
+                                        //   width:
+                                        //   MediaQuery.of(context).size.width *
+                                        //       0.2,
+                                        //   margin: const EdgeInsets.symmetric(
+                                        //       vertical: 5),
+                                        //   child: SleekCircularSlider(
+                                        //     initialValue: requestDayData!
+                                        //         .exerciseList![index]
+                                        //         .completedPercentage
+                                        //         .toDouble(),
+                                        //     max: 100,
+                                        //     appearance: CircularSliderAppearance(
+                                        //       // infoProperties: InfoProperties(),
+                                        //       angleRange: 360,
+                                        //       size: MediaQuery.of(context)
+                                        //           .size
+                                        //           .width *
+                                        //           0.2,
+                                        //       customWidths: CustomSliderWidths(
+                                        //           progressBarWidth: 6.0,
+                                        //           trackWidth: 3.0),
+                                        //       customColors: CustomSliderColors(
+                                        //         hideShadow: true,
+                                        //         progressBarColor:
+                                        //         const Color(0xff1ce5c1),
+                                        //         dotColor: Colors.transparent,
+                                        //         trackColor: Colors.white70,
+                                        //         // trackColor: const Color(0xff404040),
+                                        //         progressBarColors: [
+                                        //           const Color(0xff1ce5c1),
+                                        //           const Color(0xff1ce5c1),
+                                        //         ],
+                                        //       ),
+                                        //     ),
+                                        //     innerWidget: (re) {
+                                        //       return Center(
+                                        //         child: Column(
+                                        //           mainAxisAlignment:
+                                        //           MainAxisAlignment.center,
+                                        //           children: [
+                                        //             Text(
+                                        //               "${requestDayData!.exerciseList![index].completedPercentage}%",
+                                        //               style: const TextStyle(
+                                        //                 fontSize: 18,
+                                        //                 color: Colors.grey,
+                                        //               ),
+                                        //             ),
+                                        //           ],
+                                        //         ),
+                                        //       );
+                                        //     },
+                                        //     // onChange: (e) {
+                                        //     //   // setState(() {
+                                        //     //   //   vaule = e;
+                                        //     //   // });
+                                        //     // },
+                                        //   ),
+                                        // ),
                                       ],
                                     ),
                                   ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        requestDayData!
-                                            .exerciseList![index].name,
-                                        style: const TextStyle(
-                                            fontSize: 25.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Container(
-                                        height: 8.h,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.2,
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 5),
-                                        child: SleekCircularSlider(
-                                          initialValue: requestDayData!
-                                              .exerciseList![index]
-                                              .completedPercentage
-                                              .toDouble(),
-                                          max: 100,
-                                          appearance: CircularSliderAppearance(
-                                            // infoProperties: InfoProperties(),
-                                            angleRange: 360,
-                                            size: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.2,
-                                            customWidths: CustomSliderWidths(
-                                                progressBarWidth: 6.0,
-                                                trackWidth: 3.0),
-                                            customColors: CustomSliderColors(
-                                              hideShadow: true,
-                                              progressBarColor:
-                                                  const Color(0xff1ce5c1),
-                                              dotColor: Colors.transparent,
-                                              trackColor: Colors.white70,
-                                              // trackColor: const Color(0xff404040),
-                                              progressBarColors: [
-                                                const Color(0xff1ce5c1),
-                                                const Color(0xff1ce5c1),
-                                              ],
-                                            ),
-                                          ),
-                                          innerWidget: (re) {
-                                            return Center(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "${requestDayData!.exerciseList![index].completedPercentage}%",
-                                                    style: const TextStyle(
-                                                      fontSize: 18,
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                          // onChange: (e) {
-                                          //   // setState(() {
-                                          //   //   vaule = e;
-                                          //   // });
-                                          // },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/${requestDayData!.exerciseList![index].image}"),
-                                    fit: BoxFit.cover,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/${requestDayData!.exerciseList![index].image}"),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            constants.days.length - 1 == index
-                                ? Padding(
-                                    padding: EdgeInsets.only(
-                                        left:
-                                            MediaQuery.of(context).size.width *
-                                                0.15,
-                                        right:
-                                            MediaQuery.of(context).size.width *
-                                                0.15,
-                                        top: 10),
+                              constants.days.length - 1 == index
+                                  ? Padding(
+                                padding: EdgeInsets.only(
+                                    left:
+                                    MediaQuery.of(context).size.width *
+                                        0.15,
+                                    right:
+                                    MediaQuery.of(context).size.width *
+                                        0.15,
+                                    top: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (BuildContext
+                                                context) =>
+                                                const SelectPlanScreen()));
+                                      },
+                                      child: Column(
+                                        children: [
+                                          const CircleAvatar(
+                                            radius: 13,
+                                            backgroundColor: Colors.black,
+                                            child: Icon(
+                                                Icons
+                                                    .change_circle_outlined,
+                                                color: Color(0xff1ce5c1)),
+                                          ),
+                                          SizedBox(
+                                            height: MediaQuery.of(context)
+                                                .size
+                                                .height *
+                                                0.015,
+                                          ),
+                                          const Text(
+                                            "Change Plan",
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: Color(0xff1ce5c1)),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        // Navigator.push(
+                                        //     context,
+                                        //     MaterialPageRoute(
+                                        //         builder: (BuildContext context) =>
+                                        //         const SelectPlanScreen()));
+                                      },
+                                      child: Column(
+                                        children: [
+                                          const CircleAvatar(
+                                            radius: 12,
+                                            backgroundColor: Colors.black,
+                                            child: Icon(Icons.refresh,
+                                                color: Color(0xff1ce5c1)),
+                                          ),
+                                          SizedBox(
+                                            height: MediaQuery.of(context)
+                                                .size
+                                                .height *
+                                                0.015,
+                                          ),
+                                          const Text(
+                                            "Restart",
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: Color(0xff1ce5c1)),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                                  : SizedBox(),
+                            ],
+                          );
+                        }else{
+                          return Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (ctx) => OpenActivity(
+                                        dayModelLocalDB: requestDayData!
+                                            .exerciseList![index],
+
+                                      )));
+                                },
+                                child: Container(
+                                  height: 10.h,
+                                  width: MediaQuery.of(context).size.width * 2,
+                                  margin: const EdgeInsets.only(
+                                      left: 12, right: 12, top: 12),
+                                  child: Container(
+                                    height: 10.h,
+                                    width: MediaQuery.of(context).size.width * 2,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      gradient: const LinearGradient(
+                                        begin: Alignment.topRight,
+                                        end: Alignment.topLeft,
+                                        colors: [
+                                          Color(0xff1c1b20),
+                                          Colors.transparent,
+                                        ],
+                                      ),
+                                    ),
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
-                                        InkWell(
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (BuildContext
-                                                            context) =>
-                                                        const SelectPlanScreen()));
-                                          },
-                                          child: Column(
-                                            children: [
-                                              const CircleAvatar(
-                                                radius: 13,
-                                                backgroundColor: Colors.black,
-                                                child: Icon(
-                                                    Icons
-                                                        .change_circle_outlined,
-                                                    color: Color(0xff1ce5c1)),
-                                              ),
-                                              SizedBox(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.015,
-                                              ),
-                                              const Text(
-                                                "Change Plan",
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: Color(0xff1ce5c1)),
-                                              )
-                                            ],
-                                          ),
+                                        Text(
+                                          requestDayData!
+                                              .exerciseList![index].name,
+                                          style: const TextStyle(
+                                              fontSize: 25.0,
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                        InkWell(
-                                          onTap: () {
-                                            // Navigator.push(
-                                            //     context,
-                                            //     MaterialPageRoute(
-                                            //         builder: (BuildContext context) =>
-                                            //         const SelectPlanScreen()));
-                                          },
-                                          child: Column(
-                                            children: [
-                                              const CircleAvatar(
-                                                radius: 12,
-                                                backgroundColor: Colors.black,
-                                                child: Icon(Icons.refresh,
-                                                    color: Color(0xff1ce5c1)),
+                                        Container(
+                                          height: 8.h,
+                                          width:
+                                          MediaQuery.of(context).size.width *
+                                              0.2,
+                                          margin: const EdgeInsets.symmetric(
+                                              vertical: 5),
+                                          child: SleekCircularSlider(
+                                            initialValue: requestDayData!
+                                                .exerciseList![index]
+                                                .completedPercentage
+                                                .toDouble(),
+                                            max: 100,
+                                            appearance: CircularSliderAppearance(
+                                              // infoProperties: InfoProperties(),
+                                              angleRange: 360,
+                                              size: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                                  0.2,
+                                              customWidths: CustomSliderWidths(
+                                                  progressBarWidth: 6.0,
+                                                  trackWidth: 3.0),
+                                              customColors: CustomSliderColors(
+                                                hideShadow: true,
+                                                progressBarColor:
+                                                const Color(0xff1ce5c1),
+                                                dotColor: Colors.transparent,
+                                                trackColor: Colors.white70,
+                                                // trackColor: const Color(0xff404040),
+                                                progressBarColors: [
+                                                  const Color(0xff1ce5c1),
+                                                  const Color(0xff1ce5c1),
+                                                ],
                                               ),
-                                              SizedBox(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.015,
-                                              ),
-                                              const Text(
-                                                "Restart",
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: Color(0xff1ce5c1)),
-                                              )
-                                            ],
+                                            ),
+                                            innerWidget: (re) {
+                                              return Center(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      "${requestDayData!.exerciseList![index].completedPercentage}%",
+                                                      style: const TextStyle(
+                                                        fontSize: 18,
+                                                        color: Colors.grey,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                            // onChange: (e) {
+                                            //   // setState(() {
+                                            //   //   vaule = e;
+                                            //   // });
+                                            // },
                                           ),
                                         ),
                                       ],
                                     ),
-                                  )
-                                : SizedBox(),
-                          ],
-                        );
+                                  ),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/${requestDayData!.exerciseList![index].image}"),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              constants.days.length - 1 == index
+                                  ? Padding(
+                                padding: EdgeInsets.only(
+                                    left:
+                                    MediaQuery.of(context).size.width *
+                                        0.15,
+                                    right:
+                                    MediaQuery.of(context).size.width *
+                                        0.15,
+                                    top: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (BuildContext
+                                                context) =>
+                                                const SelectPlanScreen()));
+                                      },
+                                      child: Column(
+                                        children: [
+                                          const CircleAvatar(
+                                            radius: 13,
+                                            backgroundColor: Colors.black,
+                                            child: Icon(
+                                                Icons
+                                                    .change_circle_outlined,
+                                                color: Color(0xff1ce5c1)),
+                                          ),
+                                          SizedBox(
+                                            height: MediaQuery.of(context)
+                                                .size
+                                                .height *
+                                                0.015,
+                                          ),
+                                          const Text(
+                                            "Change Plan",
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: Color(0xff1ce5c1)),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        // Navigator.push(
+                                        //     context,
+                                        //     MaterialPageRoute(
+                                        //         builder: (BuildContext context) =>
+                                        //         const SelectPlanScreen()));
+                                      },
+                                      child: Column(
+                                        children: [
+                                          const CircleAvatar(
+                                            radius: 12,
+                                            backgroundColor: Colors.black,
+                                            child: Icon(Icons.refresh,
+                                                color: Color(0xff1ce5c1)),
+                                          ),
+                                          SizedBox(
+                                            height: MediaQuery.of(context)
+                                                .size
+                                                .height *
+                                                0.015,
+                                          ),
+                                          const Text(
+                                            "Restart",
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: Color(0xff1ce5c1)),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                                  : SizedBox(),
+                            ],
+                          );
+                        }
                       }),
                 ),
                 ColorRemover(

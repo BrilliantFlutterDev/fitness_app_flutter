@@ -7,6 +7,7 @@ class DayModel {
   final int noOfGlassWaterDrank;
   final int completedPercentage;
   final int exerciseNumInProgress;
+  final int isRest;
   DayModel({
     required this.image,
     required this.name,
@@ -16,5 +17,6 @@ class DayModel {
     required this.completeStatus,
     required this.noOfGlassWaterDrank,
     required this.exerciseNumInProgress,
+    this.isRest = 0,
   });
 }

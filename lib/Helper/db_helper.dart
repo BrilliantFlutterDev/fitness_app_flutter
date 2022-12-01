@@ -24,6 +24,7 @@ class DatabaseHelper {
   static const inPushUpCat = 'inPushUpCat';
   static const inPlankCat = 'inPlankCat';
   static const completeStatus = 'completeStatus';
+  static const isRest = 'isRest';
 
   ///Day variables
   // static const dayTitle = 'dayTitle';
@@ -87,7 +88,8 @@ class DatabaseHelper {
             $completeStatus TEXT,
             $completeExercisePercentage INTEGER,
             $noOfGlassWaterDrank INTEGER,
-            $exerciseNumInProgress INTEGER
+            $exerciseNumInProgress INTEGER,
+            $isRest INTEGER
           )
           ''');
   }
@@ -106,14 +108,14 @@ class DatabaseHelper {
   //
   Future<int> insertExercise(Map<String, dynamic> row) async {
     Database db = await instance.database;
-    print('>>>>>>>>stored data in DB');
+    print('>>>>>>>>stored exercise data in DB');
 
     return await db.insert(tableExercises, row);
   }
 
   Future<int> insertDays(Map<String, dynamic> row) async {
     Database db = await instance.database;
-    print('>>>>>>>>stored data in DB');
+    print('>>>>>>>>stored table data in DB');
 
     return await db.insert(tableDay, row);
   }

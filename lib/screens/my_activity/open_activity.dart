@@ -731,8 +731,8 @@ class _OpenActivityState extends State<OpenActivity> {
                                               exerciseData!
                                                   .exerciseList![index]
                                                   .name,
-                                              style: const TextStyle(
-                                                fontSize: 20,
+                                              style: TextStyle(
+                                                fontSize: MediaQuery.of(context).size.width*0.04,
                                                 fontWeight:
                                                 FontWeight.bold,
                                               ),

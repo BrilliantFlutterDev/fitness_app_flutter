@@ -28,6 +28,7 @@ class DayModelLocalDB {
   late int noOfGlassWaterDrank;
   late  int completedPercentage;
   late  int exerciseNumInProgress;
+  late int isRest;
   DayModelLocalDB({
     required this.image,
     required this.name,
@@ -36,7 +37,8 @@ class DayModelLocalDB {
     required this.planLevel,
     required this.completeStatus,
     required this.noOfGlassWaterDrank,
-    required this.exerciseNumInProgress
+    required this.exerciseNumInProgress,
+    required this.isRest
   });
 
   DayModelLocalDB.fromJson(Map<String, dynamic> json) {
@@ -48,6 +50,7 @@ class DayModelLocalDB {
     completedPercentage = json['completeExercisePercentage'];
     noOfGlassWaterDrank = json['noOfGlassWaterDrank'];
     exerciseNumInProgress = json['exerciseNumInProgress'];
+    isRest = json['isRest'];
   }
 
   Map<String, dynamic> toJson() {
@@ -61,6 +64,7 @@ class DayModelLocalDB {
     data['completeExercisePercentage'] = completedPercentage;
     data['noOfGlassWaterDrank'] = noOfGlassWaterDrank;
     data['exerciseNumInProgress'] = exerciseNumInProgress;
+    data['isRest'] = isRest;
 
     return data;
   }

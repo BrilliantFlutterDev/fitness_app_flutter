@@ -45,7 +45,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             inPushUpCat: constants.dailyExercises[i].inPushUpCat,
             inPlankCat: constants.dailyExercises[i].inPlankCat,
             dayTitle: constants.dailyExercises[i].dayTitle,
-            completeStatus: '0');
+            completeStatus: '0',);
         await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
       }
 
@@ -59,7 +59,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             planLevel: dayConstants.days[i].planLevel,
             completeStatus: dayConstants.days[i].completeStatus,
             noOfGlassWaterDrank: dayConstants.days[i].noOfGlassWaterDrank,
-            exerciseNumInProgress:  dayConstants.days[i].exerciseNumInProgress);
+            exerciseNumInProgress:  dayConstants.days[i].exerciseNumInProgress,
+            isRest: dayConstants.days[i].isRest
+        );
         await dbHelper.insertDays(dayModelLocalDB.toJson());
       }
 
