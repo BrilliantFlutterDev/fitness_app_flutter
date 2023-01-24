@@ -1,4 +1,5 @@
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
+import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/constants/constants.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import '../../Utils/app_global.dart';
@@ -19,16 +21,22 @@ import '../my_activity/water_tracker.dart';
 import '../plan_screen/plan_screen.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+
+  HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+
+  double value = 0;
+
   late String statusValueChoose;
   late HomeBloc _homeBloc;
   RequestDayData? requestDayData;
+  DayModelLocalDB? dayModelLocalDB;
+  RequestExerciseData? exerciseData;
 
   @override
   void initState() {
@@ -37,6 +45,7 @@ class _HomePageState extends State<HomePage> {
     if (AppGlobal.dataStoreFromConstantToLDB != 'true') {
       print('>>>>>>> Show Exercise');
       _homeBloc.add(InsertAllExercisesInLocalDBEvent());
+      AppGlobal.dataStoreFromConstantToLDB = 'true';
     } else {
       _homeBloc.add(GetAllDaysEvent());
       print('>>>>>>> Show Days');
@@ -63,6 +72,9 @@ class _HomePageState extends State<HomePage> {
         _homeBloc.add(GetAllDaysEvent());
       } else if (state is GetAllDaysState) {
         requestDayData = state.dayData;
+        value = requestDayData!.exerciseList![0].noOfGlassWaterDrank * 12.5;
+      } else if (state is UpdateDayProgressState) {
+        dayModelLocalDB = state.dayModelLocalDB;
       }
     }, builder: (context, state) {
       return DefaultTabController(
@@ -109,7 +121,11 @@ class _HomePageState extends State<HomePage> {
                         context,
                         MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                const WaterTracker()));
+                                const WaterTracker())).then((ma){
+                                  print("Value is updated");
+                                  _homeBloc.add(GetAllDaysEvent());
+                                  print(value);
+                    });
                   },
                   child: Container(
                     // height: 8.h,
@@ -117,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                     // margin: const EdgeInsets.symmetric(vertical: 5),
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: SleekCircularSlider(
-                      initialValue: 30,
+                      initialValue: value,
                       max: 100,
                       appearance: CircularSliderAppearance(
                         // infoProperties: InfoProperties(),
@@ -127,21 +143,21 @@ class _HomePageState extends State<HomePage> {
                             progressBarWidth: 3.0, trackWidth: 3.0),
                         customColors: CustomSliderColors(
                           hideShadow: true,
-                          progressBarColor: Colors.blue,
+                          progressBarColor: kColorPrimary,
                           dotColor: Colors.transparent,
                           // trackColor: Colors.white70,
                           trackColor: const Color(0xff404040),
                           progressBarColors: [
-                            Colors.blue,
-                            Colors.blue,
+                            kColorPrimary,
+                            kColorPrimary,
                           ],
                         ),
                       ),
                       innerWidget: (re) {
                         return const Center(
                           child: Icon(
-                            Icons.hourglass_bottom,
-                            color: Colors.blue,
+                            Icons.water_drop_outlined,
+                            color: kColorPrimary,
                             size: 18,
                           ),
                         );
@@ -150,10 +166,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ],
-              bottom: const TabBar(
+              bottom: TabBar(
                 tabs: [
                   Tab(
-                    text: ("PLAN NAME"),
+                    text: (AppGlobal.selectedPlan=='1'?'Beginner':AppGlobal.selectedPlan=='2'?'Intermediate':AppGlobal.selectedPlan=='3'?'Advance':'PLAN NAME'),
+                    // text: ("PLAN NAME"),
                   ),
                   Tab(
                     text: ("MY TRAINING"),
@@ -357,6 +374,7 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     InkWell(
                                       onTap: () {
+                                        // requestDayData!.exerciseList![index].completedPercentage.truncate();
                                         // Navigator.push(
                                         //     context,
                                         //     MaterialPageRoute(
@@ -444,10 +462,7 @@ class _HomePageState extends State<HomePage> {
                                           margin: const EdgeInsets.symmetric(
                                               vertical: 5),
                                           child: SleekCircularSlider(
-                                            initialValue: requestDayData!
-                                                .exerciseList![index]
-                                                .completedPercentage
-                                                .toDouble(),
+                                            initialValue: requestDayData!.exerciseList![index].completedPercentage.toDouble(),
                                             max: 100,
                                             appearance: CircularSliderAppearance(
                                               // infoProperties: InfoProperties(),
@@ -510,15 +525,12 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                               constants.days.length - 1 == index
-                                  ? Padding(
-                                padding: EdgeInsets.only(
-                                    left:
-                                    MediaQuery.of(context).size.width *
-                                        0.15,
-                                    right:
-                                    MediaQuery.of(context).size.width *
-                                        0.15,
-                                    top: 10),
+                                ? Padding(
+                                  padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.width * 0.15,
+                                    right: MediaQuery.of(context).size.width * 0.15,
+                                    top: 10
+                                  ),
                                 child: Row(
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceAround,
@@ -559,11 +571,8 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        // Navigator.push(
-                                        //     context,
-                                        //     MaterialPageRoute(
-                                        //         builder: (BuildContext context) =>
-                                        //         const SelectPlanScreen()));
+                                        _homeBloc.add(ChangeExerciseStatusToResetEvent());
+                                        _homeBloc.add(GetAllDaysEvent());
                                       },
                                       child: Column(
                                         children: [

@@ -1,3 +1,5 @@
+import 'package:fitness_app/Helper/DBModels/day_model.dart';
+import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 import 'package:fitness_app/screens/account_screen/account_screen.dart';
 import 'package:fitness_app/screens/account_screen/account_screen1.dart';
 import 'package:fitness_app/screens/chat_screen/chat_screen.dart';
@@ -13,6 +15,7 @@ class CusBottomBar extends StatefulWidget {
 }
 
 class CusBottomBarState extends State<CusBottomBar> {
+
   int selectedIndex = 0;
   final List<Widget> widgetOptions = [
     HomePage(),

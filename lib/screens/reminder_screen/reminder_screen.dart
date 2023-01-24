@@ -43,7 +43,7 @@ class _ReminderScreenState extends State<ReminderScreen>{
   Future<DateTime> _selectDate(BuildContext context) async {
     final date = await showDatePicker(
         context: context,
-        firstDate: DateTime(1900),
+        firstDate: selectedDate,
         initialDate: selectedDate,
         lastDate: DateTime(2100));
     if (date != null) {

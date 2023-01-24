@@ -29,6 +29,7 @@ class DayModelLocalDB {
   late  int completedPercentage;
   late  int exerciseNumInProgress;
   late int isRest;
+
   DayModelLocalDB({
     required this.image,
     required this.name,
@@ -38,7 +39,7 @@ class DayModelLocalDB {
     required this.completeStatus,
     required this.noOfGlassWaterDrank,
     required this.exerciseNumInProgress,
-    required this.isRest
+    required this.isRest,
   });
 
   DayModelLocalDB.fromJson(Map<String, dynamic> json) {

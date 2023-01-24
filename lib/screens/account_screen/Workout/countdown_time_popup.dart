@@ -93,9 +93,14 @@ class _CountdownPopupState extends State<CountdownPopup> {
                           ),
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width*0.1),
-                        Text(
-                          "SET",
-                          style: TextStyle(color: Color(0xff1ce5c1), fontWeight: FontWeight.bold),
+                        InkWell(
+                          onTap: (){
+                            Navigator.pop(context, _counter);
+                          },
+                          child: Text(
+                            "SET",
+                            style: TextStyle(color: Color(0xff1ce5c1), fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ],
                     ),

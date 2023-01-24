@@ -61,7 +61,15 @@ dependencies:
   flutter_bloc: ^7.3.3
   bloc: ^7.2.1
   flutter_secure_storage: ^6.0.0
+  shared_preferences: ^2.0.15
   fluttertoast: ^8.0.9
+  share_plus: ^6.0.1
+  in_app_review: ^2.0.6
+  enum_to_string: ^2.0.1
+
+  flutter_email_sender: ^5.2.0
+  device_info_plus: ^8.0.0
+  image_picker: ^0.8.6+1
 
 
 dev_dependencies:

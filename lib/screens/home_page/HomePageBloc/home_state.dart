@@ -20,6 +20,7 @@ class GetAllExerciseState extends HomeState {
   final RequestExerciseData exerciseData;
   GetAllExerciseState({required this.exerciseData});
 }
+
 class UpdateAllExerciseState extends HomeState {
   final ExerciseModelLocalDB exerciseModelLocalDB;
   UpdateAllExerciseState({required this.exerciseModelLocalDB});
@@ -29,6 +30,7 @@ class GetAllDaysState extends HomeState {
   final RequestDayData dayData;
   GetAllDaysState({required this.dayData});
 }
+
 class UpdateDayProgressState extends HomeState {
   final DayModelLocalDB dayModelLocalDB;
   UpdateDayProgressState({required this.dayModelLocalDB});

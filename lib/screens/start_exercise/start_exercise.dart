@@ -76,7 +76,6 @@ class _StartExerciseState extends State<StartExercise> {
 
       }else if (state is UpdateDayProgressState) {
         widget.dayModelLocalDB=state.dayModelLocalDB;
-
       }
     }, builder: (context, state) {
     return ModalProgressHUD(
@@ -123,7 +122,7 @@ class _StartExerciseState extends State<StartExercise> {
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
-                                    icon: const Icon(Icons.arrow_back_ios)),
+                                    icon: const Icon(Icons.arrow_back_sharp)),
                                 backgroundColor: Colors.transparent,
                                 actions: [
                                   IconButton(
@@ -258,10 +257,12 @@ class _StartExerciseState extends State<StartExercise> {
                       width: 150,
                       alignment: Alignment.center,
                       child: MyButton(name: widget.exerciseData!.exerciseList![index].type=='rap'?"Done":"Stop", whenpress: () {
-    if(index<widget.exerciseData!.exerciseList!.length) {
-      _homeBloc.add(ChangeExerciseStatusToDoneEvent(
-          exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
-    }
+                      if(index<widget.exerciseData!.exerciseList!.length) {
+                        _homeBloc.add(ChangeExerciseStatusToDoneEvent(
+                        exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
+                      } else if(index>widget.exerciseData!.exerciseList!.length) {
+                          Navigator.pop(context);
+                        }
                       }),
                     ),
                   ),

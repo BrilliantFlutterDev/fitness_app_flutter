@@ -251,125 +251,125 @@ class _MyReportsState extends State<MyReports> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  height: 25.h,
-                  width: MediaQuery.of(context).size.width * 2,
-                  margin: const EdgeInsets.all(12),
-                  child: Container(
-                    height: 15.h,
-                    width: MediaQuery.of(context).size.width * 2,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      gradient: const LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.topLeft,
-                        colors: [
-                          Colors.white70,
-                          Colors.white70,
-                        ],
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'This week',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (BuildContext context) =>
-                                  //             HistoryScreen()));
-                                },
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      'HISTORY',
-                                      style: TextStyle(
-                                          color: Color(0xff1ce5c1),
-                                          fontSize: 15,
-                                          // fontWeight: FontWeight.w500
-                                      ),
-                                    ),
-                                    Icon(
-                                      Icons.arrow_forward_ios_rounded,
-                                      color: Color(0xff1c1b20),
-                                      size: 12,
-                                    )
-                                  ],
-                                ),
-                              ),
-
-                              // InkWell(
-                              //   onTap: () {
-                              //     // setState(() {
-                              //     //   SfDateRangePicker(
-                              //     //     selectionMode: DateRangePickerSelectionMode.range,
-                              //     //     view: DateRangePickerView.month,
-                              //     //     onSelectionChanged: _onSelectionChanged,
-                              //     //   );
-                              //     // });
-                              //   },
-                              //   child: Container(
-                              //       decoration: BoxDecoration(
-                              //           color: const Color(0XFFEDF3FF),
-                              //           borderRadius: BorderRadius.circular(10)),
-                              //       child: const Padding(
-                              //         padding: EdgeInsets.all(8.0),
-                              //         child: Icon(
-                              //           Icons.calendar_today,
-                              //           color: Color(0XFF0342E9),
-                              //         ),
-                              //       )),
-                              // ),
-                            ],
-                          ),
-                        ),
-                        CalenderPicker(
-                          dateTime,
-                          daysCount: days,
-                          // ignore: avoid_print
-                          enableMultiSelection: true,
-                          // ignore: avoid_print
-                          multiSelectionListener: (value) => print(value),
-                          selectionColor: kColorPrimary,
-                          selectedTextColor: Colors.white,
-                        ),
-                        Text(
-                          '0 DAY IN ROW',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    image: DecorationImage(
-                      image: AssetImage(
-                          "assets/images/${constants.dailyExercises[0].image}"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
+                // Container(
+                //   height: 25.h,
+                //   width: MediaQuery.of(context).size.width * 2,
+                //   margin: const EdgeInsets.all(12),
+                //   child: Container(
+                //     height: 15.h,
+                //     width: MediaQuery.of(context).size.width * 2,
+                //     padding:
+                //         const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(12.0),
+                //       gradient: const LinearGradient(
+                //         begin: Alignment.topRight,
+                //         end: Alignment.topLeft,
+                //         colors: [
+                //           Colors.white70,
+                //           Colors.white70,
+                //         ],
+                //       ),
+                //     ),
+                //     child: Column(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: <Widget>[
+                //         Padding(
+                //           padding: const EdgeInsets.symmetric(horizontal: 10),
+                //           child: Row(
+                //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //             children: [
+                //               Text(
+                //                 'This week',
+                //                 style: TextStyle(
+                //                     color: Colors.black,
+                //                     fontSize: 20,
+                //                     fontWeight: FontWeight.bold),
+                //               ),
+                //               InkWell(
+                //                 onTap: () {
+                //                   // Navigator.push(
+                //                   //     context,
+                //                   //     MaterialPageRoute(
+                //                   //         builder: (BuildContext context) =>
+                //                   //             HistoryScreen()));
+                //                 },
+                //                 child: Row(
+                //                   children: [
+                //                     Text(
+                //                       'HISTORY',
+                //                       style: TextStyle(
+                //                           color: Color(0xff1ce5c1),
+                //                           fontSize: 15,
+                //                           // fontWeight: FontWeight.w500
+                //                       ),
+                //                     ),
+                //                     Icon(
+                //                       Icons.arrow_forward_ios_rounded,
+                //                       color: Color(0xff1c1b20),
+                //                       size: 12,
+                //                     )
+                //                   ],
+                //                 ),
+                //               ),
+                //
+                //               // InkWell(
+                //               //   onTap: () {
+                //               //     // setState(() {
+                //               //     //   SfDateRangePicker(
+                //               //     //     selectionMode: DateRangePickerSelectionMode.range,
+                //               //     //     view: DateRangePickerView.month,
+                //               //     //     onSelectionChanged: _onSelectionChanged,
+                //               //     //   );
+                //               //     // });
+                //               //   },
+                //               //   child: Container(
+                //               //       decoration: BoxDecoration(
+                //               //           color: const Color(0XFFEDF3FF),
+                //               //           borderRadius: BorderRadius.circular(10)),
+                //               //       child: const Padding(
+                //               //         padding: EdgeInsets.all(8.0),
+                //               //         child: Icon(
+                //               //           Icons.calendar_today,
+                //               //           color: Color(0XFF0342E9),
+                //               //         ),
+                //               //       )),
+                //               // ),
+                //             ],
+                //           ),
+                //         ),
+                //         CalenderPicker(
+                //           dateTime,
+                //           daysCount: days,
+                //           // ignore: avoid_print
+                //           enableMultiSelection: true,
+                //           // ignore: avoid_print
+                //           multiSelectionListener: (value) => print(value),
+                //           selectionColor: kColorPrimary,
+                //           selectedTextColor: Colors.white,
+                //         ),
+                //         Text(
+                //           '0 DAY IN ROW',
+                //           style: TextStyle(
+                //               color: Colors.black,
+                //               fontSize: 15,
+                //               fontWeight: FontWeight.bold),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(12.0),
+                //     image: DecorationImage(
+                //       image: AssetImage(
+                //           "assets/images/${constants.dailyExercises[0].image}"),
+                //       fit: BoxFit.cover,
+                //     ),
+                //   ),
+                // ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -521,198 +521,198 @@ class _MyReportsState extends State<MyReports> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  // height: 25.h,
-                  width: MediaQuery.of(context).size.width * 2,
-                  margin: const EdgeInsets.all(12),
-                  child: Container(
-                    // height: 15.h,
-                    width: MediaQuery.of(context).size.width * 2,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      gradient: const LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.topLeft,
-                        colors: [
-                          Colors.black54,
-                          Colors.black54,
-                        ],
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Weight(lbs)',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (_) => Dialog(
-                                            child: Container(
-                                              height: MediaQuery.of(context).size.height * 0.4,
-                                              child: WeightPopup(),
-                                            ),
-                                          )); //CountdownPopup(),
-                                },
-                                child: Icon(
-                                  Icons.add,
-                                  size: 30,
-                                  color: kColorPrimary,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 9.h,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.2,
-                                  margin:
-                                      const EdgeInsets.symmetric(vertical: 5),
-                                  decoration: new BoxDecoration(
-                                    color: kColorPrimary,
-                                    // image: new DecorationImage(
-                                    //     image: '', fit: BoxFit.cover),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Center(
-                                      child: Text(
-                                    '31',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                                ),
-                                Text(
-                                  'WORKOUTS',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700),
-                                )
-                              ],
-                            ),
-                            Container(
-                              height: 9.h,
-                              width: 1,
-                              color: Colors.white,
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 9.h,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.2,
-                                  margin:
-                                      const EdgeInsets.symmetric(vertical: 5),
-                                  decoration: new BoxDecoration(
-                                    color: kColorPrimary,
-                                    // image: new DecorationImage(
-                                    //     image: '', fit: BoxFit.cover),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Center(
-                                      child: Text(
-                                    '31.0',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 21,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                                ),
-                                Text(
-                                  'KCAL',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700),
-                                )
-                              ],
-                            ),
-                            Container(
-                              height: 9.h,
-                              width: 1,
-                              color: Colors.white,
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 9.h,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.2,
-                                  margin:
-                                      const EdgeInsets.symmetric(vertical: 5),
-                                  decoration: new BoxDecoration(
-                                    color: kColorPrimary,
-                                    // image: new DecorationImage(
-                                    //     image: '', fit: BoxFit.cover),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Center(
-                                      child: Text(
-                                    '01:00',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                                ),
-                                Text(
-                                  'TIME(MIN)',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                        const SizedBox(
-                            height: 300,
-                            width: double.infinity,
-                            child: LineChartWidget()),
-                      ],
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    image: DecorationImage(
-                      image: AssetImage(
-                          "assets/images/${constants.dailyExercises[2].image}"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
+                // Container(
+                //   // height: 25.h,
+                //   width: MediaQuery.of(context).size.width * 2,
+                //   margin: const EdgeInsets.all(12),
+                //   child: Container(
+                //     // height: 15.h,
+                //     width: MediaQuery.of(context).size.width * 2,
+                //     padding:
+                //         const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(12.0),
+                //       gradient: const LinearGradient(
+                //         begin: Alignment.topRight,
+                //         end: Alignment.topLeft,
+                //         colors: [
+                //           Colors.black54,
+                //           Colors.black54,
+                //         ],
+                //       ),
+                //     ),
+                //     child: Column(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: <Widget>[
+                //         Padding(
+                //           padding: const EdgeInsets.symmetric(horizontal: 10),
+                //           child: Row(
+                //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //             children: [
+                //               Text(
+                //                 'Weight(lbs)',
+                //                 style: TextStyle(
+                //                     color: Colors.white,
+                //                     fontSize: 22,
+                //                     fontWeight: FontWeight.bold),
+                //               ),
+                //               InkWell(
+                //                 onTap: () {
+                //                   showDialog(
+                //                       context: context,
+                //                       builder: (_) => Dialog(
+                //                             child: Container(
+                //                               height: MediaQuery.of(context).size.height * 0.4,
+                //                               child: WeightPopup(),
+                //                             ),
+                //                           )); //CountdownPopup(),
+                //                 },
+                //                 child: Icon(
+                //                   Icons.add,
+                //                   size: 30,
+                //                   color: kColorPrimary,
+                //                 ),
+                //               ),
+                //             ],
+                //           ),
+                //         ),
+                //         const SizedBox(
+                //           height: 30,
+                //         ),
+                //         Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           crossAxisAlignment: CrossAxisAlignment.center,
+                //           children: [
+                //             Column(
+                //               mainAxisAlignment: MainAxisAlignment.center,
+                //               children: [
+                //                 Container(
+                //                   height: 9.h,
+                //                   width:
+                //                       MediaQuery.of(context).size.width * 0.2,
+                //                   margin:
+                //                       const EdgeInsets.symmetric(vertical: 5),
+                //                   decoration: new BoxDecoration(
+                //                     color: kColorPrimary,
+                //                     // image: new DecorationImage(
+                //                     //     image: '', fit: BoxFit.cover),
+                //                     shape: BoxShape.circle,
+                //                   ),
+                //                   child: Center(
+                //                       child: Text(
+                //                     '31',
+                //                     style: TextStyle(
+                //                         color: Colors.white,
+                //                         fontSize: 22,
+                //                         fontWeight: FontWeight.bold),
+                //                   )),
+                //                 ),
+                //                 Text(
+                //                   'WORKOUTS',
+                //                   style: TextStyle(
+                //                       color: Colors.white,
+                //                       fontWeight: FontWeight.w700),
+                //                 )
+                //               ],
+                //             ),
+                //             Container(
+                //               height: 9.h,
+                //               width: 1,
+                //               color: Colors.white,
+                //             ),
+                //             Column(
+                //               mainAxisAlignment: MainAxisAlignment.center,
+                //               children: [
+                //                 Container(
+                //                   height: 9.h,
+                //                   width:
+                //                       MediaQuery.of(context).size.width * 0.2,
+                //                   margin:
+                //                       const EdgeInsets.symmetric(vertical: 5),
+                //                   decoration: new BoxDecoration(
+                //                     color: kColorPrimary,
+                //                     // image: new DecorationImage(
+                //                     //     image: '', fit: BoxFit.cover),
+                //                     shape: BoxShape.circle,
+                //                   ),
+                //                   child: Center(
+                //                       child: Text(
+                //                     '31.0',
+                //                     style: TextStyle(
+                //                         color: Colors.white,
+                //                         fontSize: 21,
+                //                         fontWeight: FontWeight.bold),
+                //                   )),
+                //                 ),
+                //                 Text(
+                //                   'KCAL',
+                //                   style: TextStyle(
+                //                       color: Colors.white,
+                //                       fontWeight: FontWeight.w700),
+                //                 )
+                //               ],
+                //             ),
+                //             Container(
+                //               height: 9.h,
+                //               width: 1,
+                //               color: Colors.white,
+                //             ),
+                //             Column(
+                //               mainAxisAlignment: MainAxisAlignment.center,
+                //               children: [
+                //                 Container(
+                //                   height: 9.h,
+                //                   width:
+                //                       MediaQuery.of(context).size.width * 0.2,
+                //                   margin:
+                //                       const EdgeInsets.symmetric(vertical: 5),
+                //                   decoration: new BoxDecoration(
+                //                     color: kColorPrimary,
+                //                     // image: new DecorationImage(
+                //                     //     image: '', fit: BoxFit.cover),
+                //                     shape: BoxShape.circle,
+                //                   ),
+                //                   child: Center(
+                //                       child: Text(
+                //                     '01:00',
+                //                     style: TextStyle(
+                //                         color: Colors.white,
+                //                         fontSize: 20,
+                //                         fontWeight: FontWeight.bold),
+                //                   )),
+                //                 ),
+                //                 Text(
+                //                   'TIME(MIN)',
+                //                   style: TextStyle(
+                //                       color: Colors.white,
+                //                       fontWeight: FontWeight.w700),
+                //                 )
+                //               ],
+                //             ),
+                //           ],
+                //         ),
+                //         const SizedBox(
+                //           height: 40,
+                //         ),
+                //         const SizedBox(
+                //             height: 300,
+                //             width: double.infinity,
+                //             child: LineChartWidget()),
+                //       ],
+                //     ),
+                //   ),
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(12.0),
+                //     image: DecorationImage(
+                //       image: AssetImage(
+                //           "assets/images/${constants.dailyExercises[2].image}"),
+                //       fit: BoxFit.cover,
+                //     ),
+                //   ),
+                // ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -792,13 +792,13 @@ class _MyReportsState extends State<MyReports> {
                           ),
                           Row(
                             children: [
-                              Text("BMI range and categories come from"),
-                              Text(" Wiki", style: TextStyle(color: kColorPrimary),),
+                              Text("BMI range and categories come from "),
+                              Text("Wiki", style: TextStyle(color: kColorPrimary, decoration: TextDecoration.underline,),),
                               Text("."),
                             ],
                           ),
                           const SizedBox(
-                            height: 20,
+                            height: 15,
                           ),
                           SizedBox(
                               height: MediaQuery.of(context).size.height*0.075,
@@ -808,7 +808,9 @@ class _MyReportsState extends State<MyReports> {
                                   Text(
                                       _bmi == null ? 'No Result' : _bmi!.toStringAsFixed(2),
                                       textAlign: TextAlign.center,
+                                      style: TextStyle(fontWeight: FontWeight.bold),
                                     ),
+                                  SizedBox(height: 5),
                                   Row(
                                     children: [
                                       Container(

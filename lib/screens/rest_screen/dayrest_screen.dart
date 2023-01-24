@@ -1,3 +1,4 @@
+import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/home_page/home_page.dart';
 import 'package:fitness_app/widgets/cus_bottom_bar.dart';
@@ -43,7 +44,8 @@ class _DayRestScreenState extends State<DayRestScreen>{
             Center(
               child: CircleAvatar(
                 radius: 70,
-                backgroundColor: Colors.grey,
+                backgroundColor: kColorPrimary,
+                // backgroundColor: Colors.grey,
                 child: Icon(Icons.energy_savings_leaf_outlined, color: Colors.white, size: 80,),
               ),
             ),

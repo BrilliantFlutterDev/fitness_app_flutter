@@ -1,5 +1,6 @@
 import 'package:fitness_app/constants.dart';
 import 'package:fitness_app/constants/colors.dart';
+import 'package:fitness_app/screens/account_screen/AccountScreenBloc/account_screen_bloc.dart';
 import 'package:fitness_app/screens/account_screen/Workout/notification_service.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/home_page/splash_screen.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
             ),
             BlocProvider<MyActivityBloc>(
               create: (context) => MyActivityBloc(),
+            ),
+            BlocProvider<AccountScreenBloc>(
+              create: (context) => AccountScreenBloc(),
             ),
           ],
           child: MaterialApp(

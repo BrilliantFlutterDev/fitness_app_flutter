@@ -142,6 +142,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         yield ErrorState(error: 'No Exercise found!');
       }
     }
+    else if (event is ChangeExerciseStatusToResetEvent) {
+      try {
+        // event.exerciseModelLocalDB.completeStatus = '0';
+
+        var data =
+        await dbHelper.resetExerciseStatus();
+        print("STATUS Updated with Value $data");
+
+        // yield UpdateAllExerciseState(exerciseModelLocalDB: event.exerciseModelLocalDB);
+      } catch (e) {
+        print("Exception $e");
+        yield ErrorState(error: 'No Exercise found!');
+      }
+    }
     else if (event is DeleteExerciseInADayEvent) {
       try {
         event.exerciseData.exerciseList![event.index].dayTitle='';

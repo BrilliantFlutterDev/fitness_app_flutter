@@ -109,8 +109,8 @@ class _EditPlanState extends State<EditPlan> {
                                         widget.exerciseData!
                                             .exerciseList![index]
                                             .name,
-                                        style: const TextStyle(
-                                          fontSize: 20,
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context).size.width*0.035,
                                           fontWeight:
                                           FontWeight.bold,
                                         ),
@@ -130,7 +130,7 @@ class _EditPlanState extends State<EditPlan> {
                                 ],
                               ),
                               SizedBox(
-                                  width: 60,
+                                  width: 50,
                                   height: 20,
                                   child: Center(
                                     child: Padding(

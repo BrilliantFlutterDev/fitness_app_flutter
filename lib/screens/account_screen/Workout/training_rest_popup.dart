@@ -1,10 +1,14 @@
+import 'package:fitness_app/Helper/DBModels/user_data_model.dart';
 import 'package:fitness_app/constants.dart';
+import 'package:fitness_app/screens/account_screen/AccountScreenBloc/account_screen_bloc.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../account_screen1.dart';
 
 class TrainingRestPopup extends StatefulWidget{
+
 
   @override
   State<TrainingRestPopup> createState() => _TrainingRestPopupState();
@@ -13,6 +17,14 @@ class TrainingRestPopup extends StatefulWidget{
 class _TrainingRestPopupState extends State<TrainingRestPopup> {
 
   int _counter = 10;
+  @override
+  void initState() {
+    super.initState();
+    _accountScreenBloc = BlocProvider.of<AccountScreenBloc>(context);
+  }
+
+  late AccountScreenBloc _accountScreenBloc;
+  RequestUserData? requestUserData;
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -93,9 +105,19 @@ class _TrainingRestPopupState extends State<TrainingRestPopup> {
                           ),
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width*0.1),
-                        Text(
-                          "SET",
-                          style: TextStyle(color: Color(0xff1ce5c1), fontWeight: FontWeight.bold),
+                        InkWell(
+                          onTap: (){
+                            _accountScreenBloc.add(
+                                InsertAllUserDataInLocalDBEvent(
+                                  trainingRest: _counter
+                                ),
+                            );
+                            Navigator.pop(context, _counter);
+                          },
+                          child: Text(
+                            "SET",
+                            style: TextStyle(color: Color(0xff1ce5c1), fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ],
                     ),
