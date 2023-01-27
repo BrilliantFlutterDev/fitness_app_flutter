@@ -113,14 +113,31 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         yield ErrorState(error: 'No Days found!');
       }
     }
-    else if (event is RapsTimeIncrementDecrementEvent) {
+    else if (event is RapsIncrementDecrementEvent) {
       try {
         if (event.isIncrementing == true) {
           event.exerciseModelLocalDB.raps =
               event.exerciseModelLocalDB.raps + 1;
-        } else {
+        } else if (event.isDecrementing == true) {
           event.exerciseModelLocalDB.raps =
               event.exerciseModelLocalDB.raps - 1;
+        }
+        var data =
+        await dbHelper.updateAExercise(event.exerciseModelLocalDB.toJson());
+
+        yield UpdateAllExerciseState(exerciseModelLocalDB: event.exerciseModelLocalDB);
+      } catch (e) {
+        yield ErrorState(error: 'No Exercise found!');
+      }
+    }
+    else if (event is TimeIncrementDecrementEvent) {
+      try {
+        if (event.isIncrementing == true) {
+          event.exerciseModelLocalDB.time =
+              event.exerciseModelLocalDB.time + 1;
+        } else if (event.isDecrementing == true) {
+          event.exerciseModelLocalDB.time =
+              event.exerciseModelLocalDB.time - 1;
         }
         var data =
         await dbHelper.updateAExercise(event.exerciseModelLocalDB.toJson());

@@ -1,13 +1,15 @@
 import 'package:calender_picker/date_picker_widget.dart';
 import 'package:fitness_app/constants/constants.dart';
+import 'package:fitness_app/screens/my_activity/WaterTracker/drink_acknowledge_screen.dart';
 import 'package:fitness_app/screens/my_activity/bmi_popup.dart';
-import 'package:fitness_app/screens/my_activity/water_tracker.dart';
+import 'package:fitness_app/screens/my_activity/WaterTracker/water_tracker.dart';
 import 'package:fitness_app/screens/my_activity/weight_popup.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/line_chart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -18,6 +20,7 @@ import '../../Utils/modal_progress_hud.dart';
 import '../../constants/colors.dart';
 
 import 'MyActivityBloc/my_activity_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyReports extends StatefulWidget {
   MyReports({Key? key}) : super(key: key);
@@ -38,7 +41,7 @@ class _MyReportsState extends State<MyReports> {
   String _message = 'Please enter your height and weight';
   double? _bmi;
 
-  void _calculate(BMIUser user) {
+  Future<void> _calculate(BMIUser user) async {
     // final double? height = double.tryParse(_heightController.value.text);
     // final double? weight = double.tryParse(_weightController.value.text);
 
@@ -62,11 +65,34 @@ class _MyReportsState extends State<MyReports> {
         _message = 'You are obese';
       }
     });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setDouble('bmi', _bmi!);
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('bmi_message', _message);
+    // _message = prefs.getString('bmi')!;
+  }
+
+  void saveBMI() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _bmi = prefs.getDouble('bmi')!;
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    _message = pref.getString('bmi_message')!;
+  }
+
+  final Uri _url = Uri.parse('https://en.wikipedia.org/wiki/Body_mass_index');
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
   }
 
   @override
+
   void initState() {
     super.initState();
+    saveBMI();
+
     _activityBloc = BlocProvider.of<MyActivityBloc>(context);
 
     _activityBloc
@@ -126,14 +152,14 @@ class _MyReportsState extends State<MyReports> {
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.0),
-                      gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.topLeft,
-                        colors: [
-                          kColorPrimary.withOpacity(0.4),
-                          kColorPrimary.withOpacity(0.4),
-                        ],
-                      ),
+                      // gradient: LinearGradient(
+                      //   begin: Alignment.topRight,
+                      //   end: Alignment.topLeft,
+                      //   colors: [
+                      //     kColorPrimary.withOpacity(0.4),
+                      //     kColorPrimary.withOpacity(0.4),
+                      //   ],
+                      // ),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -243,12 +269,13 @@ class _MyReportsState extends State<MyReports> {
                     ),
                   ),
                   decoration: BoxDecoration(
+                    color: Colors.black,
                     borderRadius: BorderRadius.circular(12.0),
-                    image: DecorationImage(
-                      image: AssetImage(
-                          "assets/images/${constants.dailyExercises[0].image}"),
-                      fit: BoxFit.cover,
-                    ),
+                    // image: DecorationImage(
+                    //   image: AssetImage(
+                    //       "assets/images/${constants.dailyExercises[0].image}"),
+                    //   fit: BoxFit.cover,
+                    // ),
                   ),
                 ),
                 // const SizedBox(
@@ -392,14 +419,14 @@ class _MyReportsState extends State<MyReports> {
                           horizontal: 5, vertical: 15),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12.0),
-                        gradient: const LinearGradient(
-                          begin: Alignment.topRight,
-                          end: Alignment.topLeft,
-                          colors: [
-                            Colors.white70,
-                            Colors.white70,
-                          ],
-                        ),
+                        // gradient: const LinearGradient(
+                        //   begin: Alignment.topRight,
+                        //   end: Alignment.topLeft,
+                        //   colors: [
+                        //     Colors.white70,
+                        //     Colors.white70,
+                        //   ],
+                        // ),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -412,7 +439,7 @@ class _MyReportsState extends State<MyReports> {
                                 Text(
                                   "Water tracker",
                                   style: TextStyle(
-                                      color: Colors.black,
+                                      color: Colors.white,
                                       fontSize: 19,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -434,14 +461,14 @@ class _MyReportsState extends State<MyReports> {
                                               .toString()
                                           : '0',
                                       style: const TextStyle(
-                                          color: Colors.black,
+                                          color: Colors.white,
                                           fontSize: 25,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     const Text(
                                       '  /8 Cups',
                                       style: TextStyle(
-                                        color: Colors.black54,
+                                        color: Colors.white,
                                         fontSize: 16,
                                       ),
                                     ),
@@ -466,21 +493,21 @@ class _MyReportsState extends State<MyReports> {
                                           trackWidth: 3.0),
                                       customColors: CustomSliderColors(
                                         hideShadow: true,
-                                        progressBarColor: Colors.blue,
+                                        progressBarColor: kColorPrimary,
                                         dotColor: Colors.transparent,
                                         trackColor: Colors.white,
                                         // trackColor: const Color(0xff404040),
                                         progressBarColors: [
-                                          Colors.blue,
-                                          Colors.blue,
+                                          kColorPrimary,
+                                          kColorPrimary,
                                         ],
                                       ),
                                     ),
                                     innerWidget: (re) {
                                       return const Center(
                                         child: Icon(
-                                          Icons.hourglass_bottom,
-                                          color: Colors.blue,
+                                          Icons.water_drop_outlined,
+                                          color: kColorPrimary,
                                           size: 20,
                                         ),
                                       );
@@ -490,21 +517,39 @@ class _MyReportsState extends State<MyReports> {
                               ],
                             ),
                           ),
-                          Container(
-                            height: 40,
-                            width: MediaQuery.of(context).size.width * 0.7,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25.0),
-                                color: Colors.blue),
-                            child: Center(
-                              child: Text(
-                                'DRINK',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w800),
+                          InkWell(
+                            onTap: () {
+                              if (value == 100 || value > 100) {
+                                value = 100;
+                              } else {
+                                // value = value + 12.5;
+                                _activityBloc.add(
+                                    WaterGlassIncrementDecrementEvent(
+                                        dayData: requestDayData!,
+                                        isIncrementing: true));
+                              }
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                      const DrinkAcknowledge()));
+                            },
+                            child: Container(
+                              height: 40,
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25.0),
+                                  color: kColorPrimary),
+                              child: Center(
+                                child: Text(
+                                  'DRINK',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w800),
+                                ),
                               ),
                             ),
                           ),
@@ -758,7 +803,7 @@ class _MyReportsState extends State<MyReports> {
                                       context: context,
                                       builder: (_) => Dialog(
                                         child: Container(
-                                          height: MediaQuery.of(context).size.height * 0.4,
+                                          height: MediaQuery.of(context).size.height * 0.45,
                                           child: BMIPopup(_calculate),
                                         ),
                                       )); //CountdownPopup(),
@@ -793,7 +838,15 @@ class _MyReportsState extends State<MyReports> {
                           Row(
                             children: [
                               Text("BMI range and categories come from "),
-                              Text("Wiki", style: TextStyle(color: kColorPrimary, decoration: TextDecoration.underline,),),
+                              InkWell(
+                                onTap: (){
+                                  _launchUrl();
+                                },
+                                child: Text(
+                                  "Wiki",
+                                  style: TextStyle(color: kColorPrimary, decoration: TextDecoration.underline),
+                                )
+                              ),
                               Text("."),
                             ],
                           ),
@@ -801,7 +854,7 @@ class _MyReportsState extends State<MyReports> {
                             height: 15,
                           ),
                           SizedBox(
-                              height: MediaQuery.of(context).size.height*0.075,
+                              height: MediaQuery.of(context).size.height*0.09,
                               width: double.infinity,
                               child: Column(
                                 children: [

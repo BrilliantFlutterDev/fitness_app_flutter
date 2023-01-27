@@ -1,5 +1,6 @@
 import 'package:fitness_app/constants/constants.dart';
 import 'package:fitness_app/screens/my_activity/MyActivityBloc/my_activity_bloc.dart';
+import 'package:fitness_app/screens/my_activity/my_reports.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,9 +13,9 @@ import 'dart:async';
 import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 
-import '../../Helper/DBModels/day_model.dart';
-import '../../Utils/app_global.dart';
-import '../../Utils/modal_progress_hud.dart';
+import '../../../Helper/DBModels/day_model.dart';
+import '../../../Utils/app_global.dart';
+import '../../../Utils/modal_progress_hud.dart';
 
 class WaterTracker extends StatefulWidget {
   final List<Color> availableColors = const [
@@ -82,17 +83,26 @@ class _WaterTrackerState extends State<WaterTracker> {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: const Color(0xff1c1b20),
+            // leading: InkWell(
+            //     onTap: (){
+            //       Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //               builder: (BuildContext context) => MyReports()));
+            //     },
+            //     child: Icon(Icons.arrow_back_sharp)
+            // ),
             title: const Text("WATER TRACKER"),
           ),
           body: SingleChildScrollView(
             child: ColorRemover(
-                //physics: const BouncingScrollPhysics(),
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 10,
-                ),
+              //physics: const BouncingScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.all(10),
@@ -305,158 +315,158 @@ class _WaterTrackerState extends State<WaterTracker> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 8, bottom: 4, left: 15),
-                  child: Text(
-                    "September 2022",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: const EdgeInsets.all(10),
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.topLeft,
-                      colors: [
-                        Colors.black.withOpacity(0.8),
-                        Colors.black.withOpacity(0.8),
-                      ],
-                    ),
-                  ),
-                  // BoxDecoration(
-                  //   borderRadius: BorderRadius.circular(8.0),
-                  //   image: DecorationImage(
-                  //     image: AssetImage(
-                  //         "assets/images/${constants.dailyExercises[2].image}"),
-                  //     fit: BoxFit.cover,
-                  //   ),
-                  // ),
-                  // BoxDecoration(
-                  //   borderRadius: BorderRadius.circular(12.0),
-                  //   gradient: LinearGradient(
-                  //     begin: Alignment.topRight,
-                  //     end: Alignment.topLeft,
-                  //     colors: [
-                  //       Colors.white10.withOpacity(0.4),
-                  //       Colors.white10.withOpacity(0.4),
-                  //     ],
-                  //   ),
-                  // ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Sep 18 - Sep 24",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 17,
-                                      color: Colors.white),
-                                ),
-                                Text(
-                                  "2022",
-                                  style: TextStyle(
-                                      fontSize: 13, color: Colors.white),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  "0.5",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 23,
-                                      color: Colors.white),
-                                ),
-                                Text(
-                                  "Average(Cups)",
-                                  style: TextStyle(
-                                      fontSize: 13, color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      AspectRatio(
-                        aspectRatio: 1.6,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18)),
-                          color: Colors.transparent,
-                          child: Stack(
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.01),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    const SizedBox(
-                                      height: 30,
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20.0),
-                                        child: BarChart(
-                                          isPlaying
-                                              ? randomData()
-                                              : mainBarData(),
-                                          swapAnimationDuration: animDuration,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              // Padding(
-                              //   padding: const EdgeInsets.all(8.0),
-                              //   child: Align(
-                              //     alignment: Alignment.topRight,
-                              //     child: IconButton(
-                              //       icon: Icon(
-                              //         isPlaying ? Icons.pause : Icons.play_arrow,
-                              //         color: Colors.white,
-                              //       ),
-                              //       onPressed: () {
-                              //         setState(() {
-                              //           isPlaying = !isPlaying;
-                              //           if (isPlaying) {
-                              //             refreshState();
-                              //           }
-                              //         });
-                              //       },
-                              //     ),
-                              //   ),
-                              // )
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: EdgeInsets.only(top: 8, bottom: 4, left: 15),
+                //   child: Text(
+                //     "September 2022",
+                //     style: TextStyle(color: Colors.white),
+                //   ),
+                // ),
+                // Container(
+                //   width: MediaQuery.of(context).size.width,
+                //   margin: const EdgeInsets.all(10),
+                //   padding: const EdgeInsets.symmetric(horizontal: 10),
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(8.0),
+                //     gradient: LinearGradient(
+                //       begin: Alignment.topRight,
+                //       end: Alignment.topLeft,
+                //       colors: [
+                //         Colors.black.withOpacity(0.8),
+                //         Colors.black.withOpacity(0.8),
+                //       ],
+                //     ),
+                //   ),
+                //   // BoxDecoration(
+                //   //   borderRadius: BorderRadius.circular(8.0),
+                //   //   image: DecorationImage(
+                //   //     image: AssetImage(
+                //   //         "assets/images/${constants.dailyExercises[2].image}"),
+                //   //     fit: BoxFit.cover,
+                //   //   ),
+                //   // ),
+                //   // BoxDecoration(
+                //   //   borderRadius: BorderRadius.circular(12.0),
+                //   //   gradient: LinearGradient(
+                //   //     begin: Alignment.topRight,
+                //   //     end: Alignment.topLeft,
+                //   //     colors: [
+                //   //       Colors.white10.withOpacity(0.4),
+                //   //       Colors.white10.withOpacity(0.4),
+                //   //     ],
+                //   //   ),
+                //   // ),
+                //   child: Column(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+                //       Padding(
+                //         padding: const EdgeInsets.only(top: 10),
+                //         child: Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           children: [
+                //             Column(
+                //               crossAxisAlignment: CrossAxisAlignment.start,
+                //               children: [
+                //                 Text(
+                //                   "Sep 18 - Sep 24",
+                //                   style: TextStyle(
+                //                       fontWeight: FontWeight.bold,
+                //                       fontSize: 17,
+                //                       color: Colors.white),
+                //                 ),
+                //                 Text(
+                //                   "2022",
+                //                   style: TextStyle(
+                //                       fontSize: 13, color: Colors.white),
+                //                 ),
+                //               ],
+                //             ),
+                //             Column(
+                //               crossAxisAlignment: CrossAxisAlignment.end,
+                //               children: [
+                //                 Text(
+                //                   "0.5",
+                //                   style: TextStyle(
+                //                       fontWeight: FontWeight.bold,
+                //                       fontSize: 23,
+                //                       color: Colors.white),
+                //                 ),
+                //                 Text(
+                //                   "Average(Cups)",
+                //                   style: TextStyle(
+                //                       fontSize: 13, color: Colors.white),
+                //                 ),
+                //               ],
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //       AspectRatio(
+                //         aspectRatio: 1.6,
+                //         child: Card(
+                //           shape: RoundedRectangleBorder(
+                //               borderRadius: BorderRadius.circular(18)),
+                //           color: Colors.transparent,
+                //           child: Stack(
+                //             children: <Widget>[
+                //               Padding(
+                //                 padding: EdgeInsets.only(
+                //                     bottom: MediaQuery.of(context).size.height *
+                //                         0.01),
+                //                 child: Column(
+                //                   crossAxisAlignment:
+                //                       CrossAxisAlignment.stretch,
+                //                   mainAxisAlignment: MainAxisAlignment.start,
+                //                   mainAxisSize: MainAxisSize.min,
+                //                   children: <Widget>[
+                //                     const SizedBox(
+                //                       height: 30,
+                //                     ),
+                //                     Expanded(
+                //                       child: Padding(
+                //                         padding: const EdgeInsets.symmetric(
+                //                             horizontal: 20.0),
+                //                         child: BarChart(
+                //                           isPlaying
+                //                               ? randomData()
+                //                               : mainBarData(),
+                //                           swapAnimationDuration: animDuration,
+                //                         ),
+                //                       ),
+                //                     ),
+                //                     const SizedBox(
+                //                       height: 5,
+                //                     ),
+                //                   ],
+                //                 ),
+                //               ),
+                //               // Padding(
+                //               //   padding: const EdgeInsets.all(8.0),
+                //               //   child: Align(
+                //               //     alignment: Alignment.topRight,
+                //               //     child: IconButton(
+                //               //       icon: Icon(
+                //               //         isPlaying ? Icons.pause : Icons.play_arrow,
+                //               //         color: Colors.white,
+                //               //       ),
+                //               //       onPressed: () {
+                //               //         setState(() {
+                //               //           isPlaying = !isPlaying;
+                //               //           if (isPlaying) {
+                //               //             refreshState();
+                //               //           }
+                //               //         });
+                //               //       },
+                //               //     ),
+                //               //   ),
+                //               // )
+                //             ],
+                //           ),
+                //         ),
+                //       )
+                //     ],
+                //   ),
+                // ),
               ],
             )),
           ),

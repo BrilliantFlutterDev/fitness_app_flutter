@@ -28,7 +28,7 @@ class _FAQState extends State<FAQ> {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
                     "FREQUENT",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: kColorPrimary),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23, color: kColorPrimary),
                   ),
                 ),
                 Padding(
@@ -92,7 +92,7 @@ class _FAQState extends State<FAQ> {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
                     "APP",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: kColorPrimary),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23, color: kColorPrimary),
                   ),
                 ),
                 Padding(

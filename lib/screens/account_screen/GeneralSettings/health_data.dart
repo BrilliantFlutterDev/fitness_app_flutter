@@ -14,47 +14,40 @@ import '../../../constants/colors.dart';
 enum Gender {Male, Female}
 
 class HealthData extends StatefulWidget {
+
   @override
   State<HealthData> createState() => _HealthDataState();
 }
 
 class _HealthDataState extends State<HealthData> {
 
-  //ValueNotifier<Gender> _selectedItem = new ValueNotifier<Gender>(Gender.Male);
-  // Gender? _selectedItem = Gender.Male;
   Gender selectedGender = Gender.Male;
 
   DateTime birthdate = DateTime.now();
-  DateFormat dateFormat = DateFormat('yyyy/MM/dd');
+  DateFormat dateFormat = DateFormat('dd-MMMM-yyyy');
+  // DateFormat dateFormat = DateFormat('yyyy/MM/dd');
   late String DOB;
-
-  String genderValue = "Not Selected";
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      initGender();
-    });
     super.initState();
     DOB = dateFormat.format(birthdate);
-    getGender();
-    initGender();
+    saveGender();
+    saveDOB();
+    // _datebirth(context);
   }
 
-  void initGender() async {
+  void saveGender() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     selectedGender = EnumToString.fromString(Gender.values, prefs.getString("gender").toString())!;
-    setState(() {});
+    setState(() {
+      // selectedGender = EnumToString.fromString(Gender.values, prefs.getString("gender").toString())!;
+    });
   }
 
-  getGender() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    // String? value = prefs.getString("GenderKey");
-    bool? value = prefs.getBool("GenderKey");
-    if (value != null) genderValue = value.toString();
-    setState(() {
-      // genderValue =
-    });
+  void saveDOB() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    DOB = pref.getString('birthdate')!;
   }
 
   Future<void> _datebirth(BuildContext context) async {
@@ -63,7 +56,7 @@ class _HealthDataState extends State<HealthData> {
       initialDate: DateTime.now(),
       firstDate: DateTime(1923),
       lastDate: DateTime(2023, 12, 31),
-      dateFormat: "dd-MMMM-yyyy",
+      dateFormat: "yyyy-MMMM-dd",
       locale: DateTimePickerLocale.en_us,
       backgroundColor: Colors.grey.shade800,
       looping: false,
@@ -73,14 +66,10 @@ class _HealthDataState extends State<HealthData> {
       itemTextStyle: TextStyle(color: Colors.white),
     );
     setState(() {
-      DOB = _datePicked! as String;
+      DOB = _datePicked!.toString();
     });
-
-    // final snackBar =
-    // SnackBar(content: Text("Date Picked $datePicked"));
-    // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    // Navigator.push(
-    //     context, MaterialPageRoute(builder: (_) => DateofBirth()));
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('birthdate', DOB);
   }
 
   @override
@@ -134,7 +123,10 @@ class _HealthDataState extends State<HealthData> {
                                         onChanged: (Gender? value) async {
                                           setState(() {
                                             selectedGender = Gender.Male;
-                                            Navigator.pop(context, selectedGender);
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                            Navigator.pushNamed(context, '/healthdata');
+                                            // Navigator.pop(context, '/healthdata');
                                           });
                                           SharedPreferences prefs = await SharedPreferences.getInstance();
                                           prefs.setString("gender", EnumToString.parse(Gender.Male));
@@ -149,7 +141,9 @@ class _HealthDataState extends State<HealthData> {
                                         onChanged: (Gender? value) async {
                                           setState(() {
                                             selectedGender = Gender.Female;
-                                            Navigator.pop(context, selectedGender);
+                                            Navigator.pop(context);
+                                            // Navigator.pop(context);
+                                            // Navigator.pushNamed(context, '/healthdata');
                                           });
                                           SharedPreferences prefs = await SharedPreferences.getInstance();
                                           prefs.setString("gender", EnumToString.parse(Gender.Female));
@@ -164,8 +158,10 @@ class _HealthDataState extends State<HealthData> {
                         ),
                       );
                     }
-                  );
-              },
+                  ).then((value) {
+                    saveGender();
+                  });
+                },
                 child: Padding(
                   padding: EdgeInsets.only(top: 10),
                   child: ListTile(
@@ -175,7 +171,6 @@ class _HealthDataState extends State<HealthData> {
                     ),
                     subtitle: Text(
                       "${selectedGender.name}",
-                      // "$genderValue",
                       // "Male",
                       style: TextStyle(color: Colors.grey),
                     ),

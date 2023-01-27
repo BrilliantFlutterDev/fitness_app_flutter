@@ -1,7 +1,7 @@
 // import 'dart:html';
 import 'dart:io';
 
-import 'package:fitness_app/screens/Feedback/device_info.dart';
+import 'package:fitness_app/screens/account_screen/Feedback/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:path_provider/path_provider.dart';
@@ -244,9 +244,6 @@ class _UserFeedbackState extends State<UserFeedback> {
     };
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -263,122 +260,127 @@ class _UserFeedbackState extends State<UserFeedback> {
           ),
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: TextField(
-                controller: _recipientController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Recipient',
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: TextField(
-                controller: _subjectController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Subject',
-                ),
-              ),
-            ),
-            // Container(
-            //   child: Expanded(
-            //     child: ListView(
-            //       children: _deviceData.keys.map(
-            //             (String property) {
-            //           return Row(
-            //             children: <Widget>[
-            //               Container(
-            //                 padding: const EdgeInsets.all(10.0),
-            //                 child: Text(
-            //                   property,
-            //                   style: const TextStyle(
-            //                     fontWeight: FontWeight.bold,
-            //                   ),
-            //                 ),
-            //               ),
-            //               Expanded(
-            //                   child: Container(
-            //                     padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
-            //                     child: Text(
-            //                       '${_deviceData[property]}',
-            //                       maxLines: 10,
-            //                       overflow: TextOverflow.ellipsis,
-            //                     ),
-            //                   )),
-            //             ],
-            //           );
-            //         },
-            //       ).toList(),
-            //     ),
-            //   ),
-            // ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: _bodyController,
-                  maxLines: null,
-                  expands: true,
-                  textAlignVertical: TextAlignVertical.top,
-                  decoration: InputDecoration(
-                    labelText: 'Body',
-                    border: OutlineInputBorder()
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height*0.8,
+            child: Column(
+              // mainAxisSize: MainAxisSize.max,
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: TextField(
+                    controller: _recipientController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Recipient',
+                    ),
                   ),
                 ),
-              ),
-            ),
-
-            // CheckboxListTile(
-            //   contentPadding:
-            //   EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
-            //   title: Text('HTML'),
-            //   onChanged: (bool? value) {
-            //     if (value != null) {
-            //       setState(() {
-            //         isHTML = value;
-            //       });
-            //     }
-            //   },
-            //   value: isHTML,
-            // ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Column(
-                children: <Widget>[
-                  for (var i = 0; i < attachments.length; i++)
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Text(
-                            attachments[i],
-                            softWrap: true,
-                            overflow: TextOverflow.fade,
-                          ),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.remove_circle),
-                          onPressed: () => {_removeAttachment(i)},
-                        )
-                      ],
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: TextField(
+                    controller: _subjectController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Subject',
                     ),
-                  // TextButton(
-                  //   child: Text('Attach file in app documents directory'),
-                  //   onPressed: () => _attachFileFromAppDocumentsDirectoy(),
-                  // ),
-                ],
-              ),
+                  ),
+                ),
+                // Container(
+                //   child: Expanded(
+                //     child: ListView(
+                //       children: _deviceData.keys.map(
+                //             (String property) {
+                //           return Row(
+                //             children: <Widget>[
+                //               Container(
+                //                 padding: const EdgeInsets.all(10.0),
+                //                 child: Text(
+                //                   property,
+                //                   style: const TextStyle(
+                //                     fontWeight: FontWeight.bold,
+                //                   ),
+                //                 ),
+                //               ),
+                //               Expanded(
+                //                   child: Container(
+                //                     padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+                //                     child: Text(
+                //                       '${_deviceData[property]}',
+                //                       maxLines: 10,
+                //                       overflow: TextOverflow.ellipsis,
+                //                     ),
+                //                   )),
+                //             ],
+                //           );
+                //         },
+                //       ).toList(),
+                //     ),
+                //   ),
+                // ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: TextField(
+                      controller: _bodyController,
+                      maxLines: null,
+                      expands: true,
+                      textAlignVertical: TextAlignVertical.top,
+                      decoration: InputDecoration(
+                        labelText: 'Body',
+                        border: OutlineInputBorder()
+                      ),
+                    ),
+                  ),
+                ),
+
+                // CheckboxListTile(
+                //   contentPadding:
+                //   EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
+                //   title: Text('HTML'),
+                //   onChanged: (bool? value) {
+                //     if (value != null) {
+                //       setState(() {
+                //         isHTML = value;
+                //       });
+                //     }
+                //   },
+                //   value: isHTML,
+                // ),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
+                    children: <Widget>[
+                      for (var i = 0; i < attachments.length; i++)
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                attachments[i],
+                                softWrap: true,
+                                overflow: TextOverflow.fade,
+                              ),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.remove_circle),
+                              onPressed: () => {_removeAttachment(i)},
+                            )
+                          ],
+                        ),
+                      // TextButton(
+                      //   child: Text('Attach file in app documents directory'),
+                      //   onPressed: () => _attachFileFromAppDocumentsDirectoy(),
+                      // ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

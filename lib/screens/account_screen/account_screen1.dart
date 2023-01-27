@@ -1,20 +1,21 @@
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/Helper/DBModels/user_data_model.dart';
-import 'package:fitness_app/screens/CommonQuestions/common_questions.dart';
-import 'package:fitness_app/screens/Feedback/feedback.dart';
+import 'package:fitness_app/screens/account_screen/CommonQuestions/common_questions.dart';
+import 'package:fitness_app/screens/account_screen/Feedback/feedback.dart';
 import 'package:fitness_app/screens/account_screen/GeneralSettings/health_data.dart';
 import 'package:fitness_app/screens/account_screen/GeneralSettings/metric_imperial_units.dart';
 import 'package:fitness_app/screens/account_screen/Workout/training_rest_popup.dart';
 import 'package:fitness_app/screens/reminder_screen/notification_service.dart';
 import 'package:fitness_app/screens/reminder_screen/reminder_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:fitness_app/screens/term_and_condition/term_and_condition.dart';
+import 'package:fitness_app/screens/account_screen/term_and_condition/term_and_condition.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fitness_app/constants/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants/colors.dart';
 
@@ -53,9 +54,16 @@ class _AccountScreen1State extends State<AccountScreen1> {
   int countresult = 10;
   int restresult = 10;
 
+  void saveWaterTracker() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    status = prefs.getBool("watertracker")!;
+  }
+
   @override
   void initState() {
     super.initState();
+    saveWaterTracker();
+
     _accountScreenBloc = BlocProvider.of<AccountScreenBloc>(context);
     // _accountScreenBloc.add(GetASpecificDaysEvent(day: 'Day ${AppGlobal.currentDay + 1}'));
 
@@ -549,10 +557,12 @@ class _AccountScreen1State extends State<AccountScreen1> {
                                 borderRadius: 30,
                                 padding: 8.0,
                                 showOnOff: false,
-                                onToggle: (val) {
+                                onToggle: (val) async {
                                   setState(() {
                                     status = val;
                                   });
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  prefs.setBool("watertracker", status);
                                 },
                               ),
                             ],
@@ -700,30 +710,32 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10,bottom: 10),
-                          child: InkWell(
-                            onTap: (){
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (ctx) => MetricImperialUnits(),
-                                ),
-                              );
-                            },
-                            child: Row(
-                              children: [
-                                Icon(
-                                    Icons.health_and_safety, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
-                                ),
-                                SizedBox(width: MediaQuery.of(context).size.width*0.035),
-                                Text(
-                                  "Metric & imperial units",
-                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+
+                        // Padding(
+                        //   padding: EdgeInsets.only(top: 10,bottom: 10),
+                        //   child: InkWell(
+                        //     onTap: (){
+                        //       Navigator.of(context).push(
+                        //         MaterialPageRoute(
+                        //           builder: (ctx) => MetricImperialUnits(),
+                        //         ),
+                        //       );
+                        //     },
+                        //     child: Row(
+                        //       children: [
+                        //         Icon(
+                        //             Icons.health_and_safety, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                        //         ),
+                        //         SizedBox(width: MediaQuery.of(context).size.width*0.035),
+                        //         Text(
+                        //           "Metric & imperial units",
+                        //           style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+
                         // Padding(
                         //   padding: EdgeInsets.only(top: 10,bottom: 10),
                         //   child: Row(

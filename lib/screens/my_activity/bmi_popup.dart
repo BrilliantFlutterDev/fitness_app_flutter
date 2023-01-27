@@ -3,7 +3,6 @@ import 'package:fitness_app/screens/my_activity/my_reports.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
 
-
 class BMIPopup extends StatefulWidget {
 
   final Function(BMIUser) calBMI;
@@ -28,17 +27,25 @@ class _BMIPopupState extends State<BMIPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "BMI",
+                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height*0.02),
                   Text(
-                      "Weight",
-                      style: TextStyle(fontSize: 22),
+                      "Weight (KG)",
+                      style: TextStyle(fontSize: 18),
                   ),
                   Padding(
                     padding: EdgeInsets.only(right: MediaQuery.of(context).size.width*0.075),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: MediaQuery.of(context).size.width*0.4,
+                          width: MediaQuery.of(context).size.width*0.5,
                           child: TextField(
                             keyboardType:
                             const TextInputType.numberWithOptions(decimal: true),
@@ -49,43 +56,43 @@ class _BMIPopupState extends State<BMIPopup> {
                             controller: _weightController,
                           ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.black,
-                            ),
-                          ),
-                          child: Text(
-                            "KG",
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.black,
-                            ),
-                          ),
-                          child: Text(
-                            "LB",
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        ),
+                        // Container(
+                        //   decoration: BoxDecoration(
+                        //     border: Border.all(
+                        //       color: Colors.black,
+                        //     ),
+                        //   ),
+                        //   child: Text(
+                        //     "KG",
+                        //     style: TextStyle(fontSize: 15),
+                        //   ),
+                        // ),
+                        // Container(
+                        //   decoration: BoxDecoration(
+                        //     border: Border.all(
+                        //       color: Colors.black,
+                        //     ),
+                        //   ),
+                        //   child: Text(
+                        //     "LB",
+                        //     style: TextStyle(fontSize: 15),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height*0.05),
+                  SizedBox(height: MediaQuery.of(context).size.height*0.04),
                   Text(
-                    "Height",
-                    style: TextStyle(fontSize: 22),
+                    "Height (INCH)",
+                    style: TextStyle(fontSize: 18),
                   ),
                   Padding(
                     padding: EdgeInsets.only(right: MediaQuery.of(context).size.width*0.075),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: MediaQuery.of(context).size.width*0.4,
+                          width: MediaQuery.of(context).size.width*0.5,
                           child: TextField(
                             keyboardType:
                             const TextInputType.numberWithOptions(decimal: true),
@@ -96,28 +103,29 @@ class _BMIPopupState extends State<BMIPopup> {
                             controller: _heightController,
                           ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.black,
-                            ),
-                          ),
-                          child: Text(
-                            "CM",
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.black,
-                            ),
-                          ),
-                          child: Text(
-                            "IN",
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        ),
+                        // Container(
+                        //   decoration: BoxDecoration(
+                        //     border: Border.all(
+                        //       color: Colors.black,
+                        //     ),
+                        //   ),
+                        //   child: Text(
+                        //     "CM",
+                        //     style: TextStyle(fontSize: 15),
+                        //   ),
+                        // ),
+
+                        // Container(
+                        //   decoration: BoxDecoration(
+                        //     border: Border.all(
+                        //       color: Colors.black,
+                        //     ),
+                        //   ),
+                        //   child: Text(
+                        //     "IN",
+                        //     style: TextStyle(fontSize: 15),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),

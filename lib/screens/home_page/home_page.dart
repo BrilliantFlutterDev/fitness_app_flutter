@@ -16,9 +16,10 @@ import 'package:sizer/sizer.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import '../../Utils/app_global.dart';
 import '../../Utils/modal_progress_hud.dart';
-import '../my_activity/open_activity.dart';
-import '../my_activity/water_tracker.dart';
+import 'open_activity.dart';
+import '../my_activity/WaterTracker/water_tracker.dart';
 import '../plan_screen/plan_screen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -169,7 +170,7 @@ class _HomePageState extends State<HomePage> {
               bottom: TabBar(
                 tabs: [
                   Tab(
-                    text: (AppGlobal.selectedPlan=='1'?'Beginner':AppGlobal.selectedPlan=='2'?'Intermediate':AppGlobal.selectedPlan=='3'?'Advance':'PLAN NAME'),
+                    text: (AppGlobal.selectedPlan=='1'?'BEGINNER':AppGlobal.selectedPlan=='2'?'INTERMEDIATE':AppGlobal.selectedPlan=='3'?'ADVANCED':'PLAN NAME'),
                     // text: ("PLAN NAME"),
                   ),
                   Tab(
@@ -349,10 +350,14 @@ class _HomePageState extends State<HomePage> {
                                       },
                                       child: Column(
                                         children: [
-                                          const CircleAvatar(
+                                          CircleAvatar(
                                             radius: 13,
                                             backgroundColor: Colors.black,
-                                            child: Icon(
+                                            child:
+                                            // Image.asset(
+                                            //   'assets/icons/change_plan_icon.png',
+                                            // ),
+                                            Icon(
                                                 Icons
                                                     .change_circle_outlined,
                                                 color: Color(0xff1ce5c1)),
@@ -546,10 +551,14 @@ class _HomePageState extends State<HomePage> {
                                       },
                                       child: Column(
                                         children: [
-                                          const CircleAvatar(
+                                          CircleAvatar(
                                             radius: 13,
                                             backgroundColor: Colors.black,
-                                            child: Icon(
+                                            child:
+                                            // Image.asset(
+                                            //   'assets/icons/change_plan_icon.png',
+                                            // ),
+                                            Icon(
                                                 Icons
                                                     .change_circle_outlined,
                                                 color: Color(0xff1ce5c1)),

@@ -1,6 +1,7 @@
 import 'package:fitness_app/constants.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/account_screen/AccountScreenBloc/account_screen_bloc.dart';
+import 'package:fitness_app/screens/account_screen/GeneralSettings/health_data.dart';
 import 'package:fitness_app/screens/account_screen/Workout/notification_service.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/home_page/splash_screen.dart';
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
             routes: <String, WidgetBuilder>{
               '/planSelect': (BuildContext context) => const SelectPlanScreen(),
               '/splashScreen': (BuildContext context) => const SplashScreen(),
+              '/healthdata': (BuildContext context) => HealthData(),
               // '/loginPage': (BuildContext context) => const LoginScreen(),
               // '/signupPage': (BuildContext context) => SignupScreen(),
               // '/orderPlaced': (BuildContext context) => OrderDetails(

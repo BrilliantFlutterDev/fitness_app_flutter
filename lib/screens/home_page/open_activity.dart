@@ -14,7 +14,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../Helper/DBModels/day_model.dart';
 import '../../Utils/modal_progress_hud.dart';
-import '../home_page/HomePageBloc/home_bloc.dart';
+import 'HomePageBloc/home_bloc.dart';
 
 class OpenActivity extends StatefulWidget {
 
@@ -116,50 +116,42 @@ class _OpenActivityState extends State<OpenActivity> {
               ),
             ),
             floatingActionButton: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.width * 0.1),
-                        child: InkWell(
-                          onTap: () {
-                            showModalBottomSheet(
-                              isScrollControlled: true,
-                              context: context,
-                              builder: (context) {
-                                return StatefulBuilder(builder: (BuildContext context,
-                                    StateSetter setState /*You can rename this!*/) {
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.1),
+                      child: InkWell(
+                        onTap: () {
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            context: context,
+                            builder: (context) {
+                              return StatefulBuilder(builder: (BuildContext context,
+                                StateSetter setState /*You can rename this!*/) {
                                   return Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 18, left: 18, right: 18),
+                                    padding: const EdgeInsets.only(top: 18, left: 18, right: 18),
                                     child: Container(
-                                      height:
-                                      MediaQuery.of(context).size.height * 0.7,
+                                      height: MediaQuery.of(context).size.height * 0.7,
                                       child: Wrap(
                                         children: [
                                           ListTile(
                                             title: Text(
                                               "Workout Settings",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 17,
-                                                  color: Colors.white),
+                                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: Colors.white),
                                             ),
                                             subtitle: Text(
                                               "Choose workout based on your condition",
-                                              style: TextStyle(
-                                                  fontSize: 13, color: Colors.white),
+                                              style: TextStyle(fontSize: 13, color: Colors.white),
                                             ),
                                           ),
                                           Container(
                                             // height: MediaQuery.of(context).size.height * 0.38,
                                             width: MediaQuery.of(context).size.width,
                                             child: Padding(
-                                              padding: const EdgeInsets.symmetric(
-                                                  vertical: 10),
+                                              padding: const EdgeInsets.symmetric(vertical: 10),
                                               child: Column(
                                                 children: [
                                                   GestureDetector(
@@ -171,42 +163,26 @@ class _OpenActivityState extends State<OpenActivity> {
                                                       });
                                                     },
                                                     child: Container(
-                                                      margin:
-                                                      const EdgeInsets.all(12),
+                                                      margin: const EdgeInsets.all(12),
                                                       child: Container(
                                                         height: 9.h,
-                                                        alignment:
-                                                        Alignment.bottomLeft,
-                                                        padding:
-                                                        const EdgeInsets.only(
-                                                            left: 20.0),
+                                                        alignment: Alignment.bottomLeft,
+                                                        padding: const EdgeInsets.only(left: 20.0),
                                                         child: Column(
-                                                          crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          mainAxisAlignment: MainAxisAlignment.center,
                                                           children: [
                                                             Text(
                                                               'I\'m fine',
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                  FontWeight.bold,
-                                                                  fontSize: 20.0,
-                                                                  color: _selectedPlan[
-                                                                  0] ==
-                                                                      false
+                                                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0,
+                                                                  color: _selectedPlan[0] == false
                                                                       ? Colors.white
                                                                       : Colors.black),
                                                             ),
                                                             Text(
                                                               'All workout are OK for me',
-                                                              style: TextStyle(
-                                                                  fontSize: 15.0,
-                                                                  color: _selectedPlan[
-                                                                  0] ==
-                                                                      false
+                                                              style: TextStyle(fontSize: 15.0,
+                                                                  color: _selectedPlan[0] == false
                                                                       ? Colors.white
                                                                       : Colors.black),
                                                             ),
@@ -214,8 +190,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                                         ),
                                                         decoration: BoxDecoration(
                                                           borderRadius:
-                                                          BorderRadius.circular(
-                                                              35.0),
+                                                          BorderRadius.circular(35.0),
                                                           // image: DecorationImage(
                                                           //   image: AssetImage(
                                                           //       "assets/images/${constants.standard[index].image}"),
@@ -225,13 +200,11 @@ class _OpenActivityState extends State<OpenActivity> {
                                                             // begin: Alignment.bottomCenter,
                                                             // end: Alignment.topCenter,
                                                             colors: [
-                                                              _selectedPlan[0] ==
-                                                                  false
+                                                              _selectedPlan[0] == false
                                                                   ? const Color(
                                                                   0xff1c1b20)
                                                                   : Colors.white60,
-                                                              _selectedPlan[0] ==
-                                                                  false
+                                                              _selectedPlan[0] == false
                                                                   ? Colors.transparent
                                                                   : Colors.white,
                                                             ],
@@ -250,51 +223,33 @@ class _OpenActivityState extends State<OpenActivity> {
                                                       });
                                                     },
                                                     child: Container(
-                                                      margin: const EdgeInsets.only(
-                                                          left: 12, right: 12),
+                                                      margin: const EdgeInsets.only(left: 12, right: 12),
                                                       child: Container(
                                                         height: 9.h,
-                                                        alignment:
-                                                        Alignment.bottomLeft,
-                                                        padding:
-                                                        const EdgeInsets.only(
-                                                            left: 20.0),
+                                                        alignment: Alignment.bottomLeft,
+                                                        padding: const EdgeInsets.only(left: 20.0),
                                                         child: Column(
-                                                          crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          mainAxisAlignment: MainAxisAlignment.center,
                                                           children: [
                                                             Text(
                                                               'No jumping',
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                  FontWeight.bold,
-                                                                  fontSize: 20.0,
-                                                                  color: _selectedPlan[
-                                                                  1] ==
-                                                                      false
+                                                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0,
+                                                                  color: _selectedPlan[1] == false
                                                                       ? Colors.white
                                                                       : Colors.black),
                                                             ),
                                                             Text(
                                                               'No noise, apartment friendly',
-                                                              style: TextStyle(
-                                                                  fontSize: 15.0,
-                                                                  color: _selectedPlan[
-                                                                  1] ==
-                                                                      false
+                                                              style: TextStyle(fontSize: 15.0,
+                                                                  color: _selectedPlan[1] == false
                                                                       ? Colors.white
                                                                       : Colors.black),
                                                             ),
                                                           ],
                                                         ),
                                                         decoration: BoxDecoration(
-                                                          borderRadius:
-                                                          BorderRadius.circular(
-                                                              35.0),
+                                                          borderRadius: BorderRadius.circular(35.0),
                                                           // image: DecorationImage(
                                                           //   image: AssetImage(
                                                           //       "assets/images/${constants.standard[index].image}"),
@@ -304,13 +259,10 @@ class _OpenActivityState extends State<OpenActivity> {
                                                             // begin: Alignment.b,
                                                             // end: Alignment.topCenter,
                                                             colors: [
-                                                              _selectedPlan[1] ==
-                                                                  false
-                                                                  ? const Color(
-                                                                  0xff1c1b20)
+                                                              _selectedPlan[1] == false
+                                                                  ? const Color(0xff1c1b20)
                                                                   : Colors.white60,
-                                                              _selectedPlan[1] ==
-                                                                  false
+                                                              _selectedPlan[1] == false
                                                                   ? Colors.transparent
                                                                   : Colors.white,
                                                             ],
@@ -329,32 +281,20 @@ class _OpenActivityState extends State<OpenActivity> {
                                                       });
                                                     },
                                                     child: Container(
-                                                      margin:
-                                                      const EdgeInsets.all(12),
+                                                      margin: const EdgeInsets.all(12),
                                                       child: Container(
                                                         height: 9.h,
-                                                        alignment:
-                                                        Alignment.bottomLeft,
-                                                        padding:
-                                                        const EdgeInsets.only(
-                                                            left: 20.0),
+                                                        alignment: Alignment.bottomLeft,
+                                                        padding: const EdgeInsets.only(left: 20.0),
                                                         child: Column(
-                                                          crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          mainAxisAlignment: MainAxisAlignment.center,
                                                           children: [
                                                             Text(
                                                               'Low impact',
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                  FontWeight.bold,
+                                                              style: TextStyle(fontWeight: FontWeight.bold,
                                                                   fontSize: 20.0,
-                                                                  color: _selectedPlan[
-                                                                  2] ==
-                                                                      false
+                                                                  color: _selectedPlan[2] == false
                                                                       ? Colors.white
                                                                       : Colors.black),
                                                             ),
@@ -362,18 +302,14 @@ class _OpenActivityState extends State<OpenActivity> {
                                                               'Friendly to overweight people',
                                                               style: TextStyle(
                                                                   fontSize: 15.0,
-                                                                  color: _selectedPlan[
-                                                                  2] ==
-                                                                      false
+                                                                  color: _selectedPlan[2] == false
                                                                       ? Colors.white
                                                                       : Colors.black),
                                                             ),
                                                           ],
                                                         ),
                                                         decoration: BoxDecoration(
-                                                          borderRadius:
-                                                          BorderRadius.circular(
-                                                              35.0),
+                                                          borderRadius: BorderRadius.circular(35.0),
                                                           // image: DecorationImage(
                                                           //   image: AssetImage(
                                                           //       "assets/images/${constants.standard[index].image}"),
@@ -383,13 +319,10 @@ class _OpenActivityState extends State<OpenActivity> {
                                                             // begin: Alignment.bottomCenter,
                                                             // end: Alignment.topCenter,
                                                             colors: [
-                                                              _selectedPlan[2] ==
-                                                                  false
-                                                                  ? const Color(
-                                                                  0xff1c1b20)
+                                                              _selectedPlan[2] == false
+                                                                  ? const Color(0xff1c1b20)
                                                                   : Colors.white60,
-                                                              _selectedPlan[2] ==
-                                                                  false
+                                                              _selectedPlan[2] == false
                                                                   ? Colors.transparent
                                                                   : Colors.white,
                                                             ],
@@ -410,13 +343,13 @@ class _OpenActivityState extends State<OpenActivity> {
                                           InkWell(
                                             onTap: (){
                                               showDialog(
-                                                  context: context,
-                                                  builder: (_) => Dialog(
-                                                    child: Container(
-                                                        height: MediaQuery.of(context).size.height*0.4,
-                                                        child: TrainingRestPopup()
-                                                    ),
-                                                  )
+                                                context: context,
+                                                builder: (_) => Dialog(
+                                                  child: Container(
+                                                    height: MediaQuery.of(context).size.height*0.4,
+                                                    child: TrainingRestPopup()
+                                                  ),
+                                                )
                                               );//CountdownPopup(),
                                             },
                                             child: Padding(
@@ -447,7 +380,6 @@ class _OpenActivityState extends State<OpenActivity> {
                                                       )
                                                     ],
                                                   ),
-
                                                 ],
                                               ),
                                             ),
@@ -465,14 +397,8 @@ class _OpenActivityState extends State<OpenActivity> {
                                                 //     ));
                                               },
                                               child: Container(
-                                                height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                    0.08,
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                    0.85,
+                                                height: MediaQuery.of(context).size.height * 0.08,
+                                                width: MediaQuery.of(context).size.width * 0.85,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                   BorderRadius.circular(50),
@@ -481,10 +407,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                                 child: Center(
                                                   child: Text(
                                                     "Done",
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                        fontSize: 20,
-                                                        color: Colors.white),
+                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
                                                     //Icons.play_arrow,
                                                     //color: Colors.white,
                                                   ),
@@ -773,13 +696,10 @@ class _OpenActivityState extends State<OpenActivity> {
                                           CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              exerciseData!
-                                                  .exerciseList![index]
-                                                  .name,
+                                              exerciseData!.exerciseList![index].name,
                                               style: TextStyle(
                                                 fontSize: MediaQuery.of(context).size.width*0.04,
-                                                fontWeight:
-                                                FontWeight.bold,
+                                                fontWeight: FontWeight.bold,
                                               ),
                                             ),
                                             const SizedBox(

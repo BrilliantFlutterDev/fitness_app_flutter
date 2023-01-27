@@ -37,6 +37,7 @@ dependencies:
   sleek_circular_slider: ^2.0.1
   sizer: ^2.0.15
   fl_chart: ^0.45.0
+  flutter_svg: ^1.1.6
 #  flutter_native_splash: ^2.0.5
   calender_picker: ^1.0.7
   vertical_picker: ^0.0.1
@@ -70,6 +71,7 @@ dependencies:
   flutter_email_sender: ^5.2.0
   device_info_plus: ^8.0.0
   image_picker: ^0.8.6+1
+  url_launcher: ^6.1.8
 
 
 dev_dependencies:
@@ -104,7 +106,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+#    - assets/
     - assets/images/
+    - assets/icons/
 #    - assets/cube/cube.obj
 #    - assets/cube/cube.mtl
 #    - assets/cube/flutter.png

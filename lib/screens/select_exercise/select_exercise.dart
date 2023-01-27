@@ -1,6 +1,6 @@
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
-import 'package:fitness_app/screens/my_activity/open_activity.dart';
+import 'package:fitness_app/screens/home_page/open_activity.dart';
 import 'package:fitness_app/screens/start_exercise/start_exercise.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/my_button.dart';
@@ -149,7 +149,9 @@ class _SelectExerciseState extends State<SelectExercise> {
                           InkWell(
                               onTap: (){
                                 if(widget.exerciseModelLocalDB.type=='rap'&& widget.exerciseModelLocalDB.raps>=1){
-                                  _homeBloc.add(RapsTimeIncrementDecrementEvent(exerciseModelLocalDB: widget.exerciseModelLocalDB, isIncrementing: false));
+                                  _homeBloc.add(RapsTimeIncrementDecrementEvent(exerciseModelLocalDB: widget.exerciseModelLocalDB, isIncrementing: false, isDecrementing: true));
+                                } else if () {
+
                                 }
                               },
                               child: SizedBox(
@@ -163,12 +165,15 @@ class _SelectExerciseState extends State<SelectExercise> {
                           ),
                           const SizedBox(width: 10,),
                           Text(
-                            widget.exerciseModelLocalDB.type!='rap'? widget.exerciseModelLocalDB.time:widget.exerciseModelLocalDB.raps.toString(),style: const TextStyle(fontSize: 20),
+                            widget.exerciseModelLocalDB.type!='rap'? widget.exerciseModelLocalDB.time:widget.exerciseModelLocalDB.raps.toString(),
+                            style: const TextStyle(fontSize: 20),
                           ),
                           const SizedBox(width: 5,),
                           InkWell(onTap: (){
                             if( widget.exerciseModelLocalDB.type=='rap'){
-                              _homeBloc.add(RapsTimeIncrementDecrementEvent(exerciseModelLocalDB: widget.exerciseModelLocalDB, isIncrementing: true));
+                              _homeBloc.add(RapsTimeIncrementDecrementEvent(exerciseModelLocalDB: widget.exerciseModelLocalDB, isIncrementing: true, isDecrementing: false));
+                            } else if() {
+
                             }
                           },
                           child: SizedBox(

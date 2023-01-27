@@ -2,7 +2,7 @@ import 'package:fitness_app/screens/help_center/help_center.dart';
 import 'package:fitness_app/screens/language_screen/language_screen.dart';
 import 'package:fitness_app/screens/my_trainer/my_trainer.dart';
 import 'package:fitness_app/screens/profile_screen/profile_screen.dart';
-import 'package:fitness_app/screens/term_and_condition/term_and_condition.dart';
+import 'package:fitness_app/screens/account_screen/term_and_condition/term_and_condition.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
 
