@@ -56,8 +56,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
       } else if (state is RefreshScreenState) {}
     }, builder: (context, state) {
       return Scaffold(
-        body: SafeArea(
-          child: ColorRemover(
+        body: ColorRemover(
             // physics: const BouncingScrollPhysics(),
             child: SingleChildScrollView(
               child: Column(
@@ -66,35 +65,33 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                   Stack(
                     children: [
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.9,
+                        height: MediaQuery.of(context).size.height,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage("assets/images/5.png"),
+                            image: AssetImage("assets/images/Bell Magic Workout.jpg"),
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
                       Container(
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           gradient: LinearGradient(
                             begin: Alignment.bottomCenter,
                             end: Alignment.topCenter,
                             colors: [
-                              Color(0xff1c1b20),
-                              Colors.transparent,
+                              kColorBG.withOpacity(0.8),
+                              kColorBG.withOpacity(0.8),
                             ],
                           ),
                         ),
-                        height: MediaQuery.of(context).size.height * 0.93,
+                        height: MediaQuery.of(context).size.height,
                         width: MediaQuery.of(context).size.width,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 0),
                           child: Column(
                             children: [
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.08),
+                              SizedBox(height: MediaQuery.of(context).size.height * 0.08),
                               // Row(
                               //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               //   children: [
@@ -175,7 +172,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                     maxLines: 1,
                                     style: TextStyle(
                                       fontSize: 15,
-                                      color: Colors.white,
+                                      color: kColorPrimary,
                                     ),
                                   ),
                                 ],
@@ -208,7 +205,8 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                         Text(
                                           'BEGINNER',
                                           style: TextStyle(
-                                              fontSize: 30.0,
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.bold,
                                               color: _selectedPlan[0] == false
                                                   ? Colors.white
                                                   : Colors.black),
@@ -272,7 +270,8 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                         Text(
                                           'INTERMEDIATE',
                                           style: TextStyle(
-                                              fontSize: 30.0,
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.bold,
                                               color: _selectedPlan[1] == false
                                                   ? Colors.white
                                                   : Colors.black),
@@ -336,7 +335,8 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                         Text(
                                           'ADVANCED',
                                           style: TextStyle(
-                                              fontSize: 30.0,
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.bold,
                                               color: _selectedPlan[2] == false
                                                   ? Colors.white
                                                   : Colors.black),
@@ -387,10 +387,8 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                               const PushUpsSpinnerScreen()));
                                 },
                                 child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.6,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.08,
+                                    width: MediaQuery.of(context).size.width * 0.6,
+                                    height: MediaQuery.of(context).size.height * 0.08,
                                     decoration: BoxDecoration(
                                         border: Border.all(
                                             // color: Colors.white,
@@ -426,7 +424,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
               ),
             ),
           ),
-        ),
+        // ),
       );
     });
   }

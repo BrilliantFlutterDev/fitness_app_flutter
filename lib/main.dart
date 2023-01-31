@@ -11,11 +11,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding =WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await NotificationService().init();
   await NotificationService().requestIOSPermissions();
+  FlutterNativeSplash.remove();
   runApp(const MyApp());
 }
 
@@ -49,7 +52,7 @@ class MyApp extends StatelessWidget {
                 backgroundColor: Color(0xff1c1b20),
               ),
               colorScheme: ColorScheme.dark(
-                primary: Color(0xff03dac6),
+                primary: kColorPrimary,
               ),
               iconTheme: const IconThemeData(color: Colors.white, opacity: 0.8),
             ),

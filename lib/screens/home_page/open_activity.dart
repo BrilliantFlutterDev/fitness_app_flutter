@@ -66,8 +66,10 @@ class _OpenActivityState extends State<OpenActivity> {
         color: kColorPrimary,
         child: SafeArea(
           child: Scaffold(
-            backgroundColor: Colors.black,
+            backgroundColor: kColorBG,
+            // backgroundColor: Colors.black,
             appBar: AppBar(
+              backgroundColor: kColorBG,
               leading: IconButton(
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -107,13 +109,13 @@ class _OpenActivityState extends State<OpenActivity> {
                   // ),
                 ],
               ),
-              flexibleSpace: Container(
-                decoration:  BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/images/${widget.dayModelLocalDB!.image}'),
-                      fit: BoxFit.cover),
-                ),
-              ),
+              // flexibleSpace: Container(
+              //   decoration:  BoxDecoration(
+              //     image: DecorationImage(
+              //         image: AssetImage('assets/images/${widget.dayModelLocalDB!.image}'),
+              //         fit: BoxFit.cover),
+              //   ),
+              // ),
             ),
             floatingActionButton: Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -126,6 +128,7 @@ class _OpenActivityState extends State<OpenActivity> {
                       child: InkWell(
                         onTap: () {
                           showModalBottomSheet(
+                            // backgroundColor: kColorBG,
                             isScrollControlled: true,
                             context: context,
                             builder: (context) {
@@ -373,10 +376,10 @@ class _OpenActivityState extends State<OpenActivity> {
                                                     children: [
                                                       Text(
                                                         "10 sec",
-                                                        style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.043, color: Colors.blue),
+                                                        style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.043, color: kColorPrimary),
                                                       ),
                                                       Icon(
-                                                          Icons.arrow_drop_down, color: Colors.blue, size: MediaQuery.of(context).size.width*0.065
+                                                          Icons.arrow_drop_down, color: kColorPrimary, size: MediaQuery.of(context).size.width*0.065
                                                       )
                                                     ],
                                                   ),
@@ -402,7 +405,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                   BorderRadius.circular(50),
-                                                  color: Colors.blue,
+                                                  color: kColorPrimary,
                                                 ),
                                                 child: Center(
                                                   child: Text(
@@ -428,12 +431,12 @@ class _OpenActivityState extends State<OpenActivity> {
                             width: MediaQuery.of(context).size.width * 0.15,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100),
-                              color: Colors.blue,
+                              color: Colors.white,
                             ),
                             child: Center(
                               child: Icon(
                                 Icons.settings,
-                                color: Colors.white,
+                                color: kColorPrimary,
                               ),
                             ),
                           ),
@@ -453,7 +456,7 @@ class _OpenActivityState extends State<OpenActivity> {
                           width: MediaQuery.of(context).size.width * 0.7,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            color: const Color(0xff1ce5c1),
+                            color: kColorPrimary,
                           ),
                           child: const Center(
                             child: Text(
@@ -470,23 +473,25 @@ class _OpenActivityState extends State<OpenActivity> {
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Checkbox(
-                        value: warmup_value,
-                        onChanged: (value) {
-                          setState(() {
-                            warmup_value = value;
-                          });
-                        },
-                      ),
-                      Text(
-                        'Start with warm ups',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
+
+                // Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Checkbox(
+                //         activeColor: kColorPrimary,
+                //         value: warmup_value,
+                //         onChanged: (value) {
+                //           setState(() {
+                //             warmup_value = value;
+                //           });
+                //         },
+                //       ),
+                //       Text(
+                //         'Start with warm ups',
+                //         style: TextStyle(fontWeight: FontWeight.bold),
+                //       ),
+                //     ],
+                //   ),
                 ],
               ),
             body: Container(
@@ -497,7 +502,8 @@ class _OpenActivityState extends State<OpenActivity> {
                   left: Radius.circular(12.0),
                   right: Radius.circular(12.0),
                 ),
-                color: Color(0xff1c1b20),
+                color: kColorBG,
+                // color: Color(0xff1c1b20),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
@@ -784,7 +790,7 @@ class _OpenActivityState extends State<OpenActivity> {
                       // ]),
                       //),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height*0.07),
+                    SizedBox(height: MediaQuery.of(context).size.height*0.1),
                   ],
                 ),
               ),

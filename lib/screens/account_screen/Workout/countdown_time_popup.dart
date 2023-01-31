@@ -1,4 +1,5 @@
 import 'package:fitness_app/constants.dart';
+import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
 
@@ -99,7 +100,7 @@ class _CountdownPopupState extends State<CountdownPopup> {
                           },
                           child: Text(
                             "SET",
-                            style: TextStyle(color: Color(0xff1ce5c1), fontWeight: FontWeight.bold),
+                            style: TextStyle(color: kColorPrimary, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],

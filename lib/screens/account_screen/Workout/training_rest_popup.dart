@@ -1,5 +1,6 @@
 import 'package:fitness_app/Helper/DBModels/user_data_model.dart';
 import 'package:fitness_app/constants.dart';
+import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/account_screen/AccountScreenBloc/account_screen_bloc.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
@@ -116,7 +117,7 @@ class _TrainingRestPopupState extends State<TrainingRestPopup> {
                           },
                           child: Text(
                             "SET",
-                            style: TextStyle(color: Color(0xff1ce5c1), fontWeight: FontWeight.bold),
+                            style: TextStyle(color: kColorPrimary, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],

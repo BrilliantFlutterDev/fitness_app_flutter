@@ -19,6 +19,7 @@ class _BMIPopupState extends State<BMIPopup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kColorFG,
         body: ColorRemover(
           child: Center(
             child: Padding(
@@ -36,7 +37,7 @@ class _BMIPopupState extends State<BMIPopup> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height*0.02),
                   Text(
-                      "Weight (KG)",
+                      "Weight (kg)",
                       style: TextStyle(fontSize: 18),
                   ),
                   Padding(
@@ -50,6 +51,7 @@ class _BMIPopupState extends State<BMIPopup> {
                             keyboardType:
                             const TextInputType.numberWithOptions(decimal: true),
                             decoration: const InputDecoration(
+                              hintText: 'Enter your weight',
                               // labelText: "Weight",
                               labelStyle: TextStyle(color: Colors.white),
                             ),
@@ -83,7 +85,7 @@ class _BMIPopupState extends State<BMIPopup> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height*0.04),
                   Text(
-                    "Height (INCH)",
+                    "Height (inch)",
                     style: TextStyle(fontSize: 18),
                   ),
                   Padding(
@@ -97,6 +99,7 @@ class _BMIPopupState extends State<BMIPopup> {
                             keyboardType:
                             const TextInputType.numberWithOptions(decimal: true),
                             decoration: const InputDecoration(
+                              hintText: 'Enter your height',
                               // labelText: "Height",
                               labelStyle: TextStyle(color: Colors.white),
                             ),
@@ -155,7 +158,7 @@ class _BMIPopupState extends State<BMIPopup> {
                           },
                           child: Text(
                             "CANCEL",
-                            style: TextStyle(color: Color(0xff1ce5c1), fontWeight: FontWeight.bold),
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width*0.1),
@@ -168,7 +171,7 @@ class _BMIPopupState extends State<BMIPopup> {
                           },
                           child: Text(
                             "SAVE",
-                            style: TextStyle(color: Color(0xff1ce5c1), fontWeight: FontWeight.bold),
+                            style: TextStyle(color: kColorPrimary, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],

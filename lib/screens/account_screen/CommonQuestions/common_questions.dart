@@ -12,8 +12,9 @@ class _FAQState extends State<FAQ> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kColorBG,
       appBar: AppBar(
-        backgroundColor: const Color(0xff1c1b20),
+        backgroundColor: kColorBG,
         title: const Text("Common Questions"),
       ),
       body: SafeArea(
@@ -117,11 +118,13 @@ class _FAQState extends State<FAQ> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   child: ExpansionTile(
                       title: Text('I\'ve finished 30 days training. What now?'),
                       children: [
-                        Text('Good job! You can try a higher level now.\n'),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text('Good job! You can try a higher level now.\n')),
                         Text('If you have finished all the levels, you can repeat the advanced training to reinforce your results or custom your own training in "My Training".'),
                       ]
                   ),

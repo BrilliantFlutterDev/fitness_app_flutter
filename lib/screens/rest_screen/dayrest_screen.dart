@@ -34,8 +34,9 @@ class _DayRestScreenState extends State<DayRestScreen>{
       }
     }, builder: (context, state) {
       return Scaffold(
+        backgroundColor: kColorBG,
         appBar: AppBar(
-          backgroundColor: const Color(0xff1c1b20),
+          backgroundColor: kColorBG,
           title: const Text("Rest Day"),
         ),
         body: Column(
@@ -44,9 +45,9 @@ class _DayRestScreenState extends State<DayRestScreen>{
             Center(
               child: CircleAvatar(
                 radius: 70,
-                backgroundColor: kColorPrimary,
+                backgroundColor: Colors.white,
                 // backgroundColor: Colors.grey,
-                child: Icon(Icons.energy_savings_leaf_outlined, color: Colors.white, size: 80,),
+                child: Icon(Icons.energy_savings_leaf_outlined, color: kColorPrimary, size: 80,),
               ),
             ),
             Text("Your body and muscles need to get some rest",

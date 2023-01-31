@@ -16,6 +16,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fitness_app/constants/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants/colors.dart';
 
@@ -59,6 +60,14 @@ class _AccountScreen1State extends State<AccountScreen1> {
     status = prefs.getBool("watertracker")!;
   }
 
+  final Uri _url = Uri.parse('https://gamescapesinc.com/privacy');
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -99,6 +108,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
     var _countresult1 = await showDialog(
         context: context,
         builder: (_) => Dialog(
+          backgroundColor: kColorFG,
           child: Container(
               height: MediaQuery.of(context).size.height*0.4,
               child: CountdownPopup()
@@ -115,6 +125,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
     var _restresult1 = await showDialog(
         context: context,
         builder: (_) => Dialog(
+          backgroundColor: kColorFG,
           child: Container(
               height: MediaQuery.of(context).size.height*0.4,
               child: TrainingRestPopup( )
@@ -178,8 +189,10 @@ class _AccountScreen1State extends State<AccountScreen1> {
     // },
     builder: (context, state) {
      return Scaffold(
+       backgroundColor: kColorBG,
         appBar: AppBar(
-          backgroundColor: const Color(0xff1c1b20),
+          backgroundColor: kColorBG,
+          // backgroundColor: const Color(0xff1c1b20),
           title: const Text("ME"),
         ),
       body: ColorRemover(
@@ -270,8 +283,10 @@ class _AccountScreen1State extends State<AccountScreen1> {
                       begin: Alignment.topRight,
                       end: Alignment.topLeft,
                       colors: [
-                        Colors.black.withOpacity(0.8),
-                        Colors.black.withOpacity(0.8),
+                        kColorFG.withOpacity(0.9),
+                        kColorFG.withOpacity(0.9),
+                        // Colors.black.withOpacity(0.8),
+                        // Colors.black.withOpacity(0.8),
                       ],
                     ),
                   ),
@@ -318,8 +333,10 @@ class _AccountScreen1State extends State<AccountScreen1> {
                                         begin: Alignment.topRight,
                                         end: Alignment.topLeft,
                                         colors: [
-                                          Color(0xff1ce5c1).withOpacity(0.9),
-                                          Color(0xff1ce5c1).withOpacity(0.9),
+                                          kColorPrimary,
+                                          kColorPrimary,
+                                          // Color(0xff1ce5c1).withOpacity(0.9),
+                                          // Color(0xff1ce5c1).withOpacity(0.9),
                                         ],
                                       ),
                                     ),
@@ -475,7 +492,6 @@ class _AccountScreen1State extends State<AccountScreen1> {
                                     )
                                   ],
                                 ),
-
                               ],
                             ),
                           ),
@@ -517,8 +533,10 @@ class _AccountScreen1State extends State<AccountScreen1> {
                       begin: Alignment.topRight,
                       end: Alignment.topLeft,
                       colors: [
-                        Colors.black.withOpacity(0.8),
-                        Colors.black.withOpacity(0.8),
+                        kColorFG,
+                        kColorFG,
+                        // kColorFG.withOpacity(0.9),
+                        // kColorFG.withOpacity(0.9),
                       ],
                     ),
                   ),
@@ -642,8 +660,8 @@ class _AccountScreen1State extends State<AccountScreen1> {
                       begin: Alignment.topRight,
                       end: Alignment.topLeft,
                       colors: [
-                        Colors.black.withOpacity(0.8),
-                        Colors.black.withOpacity(0.8),
+                        kColorFG,
+                        kColorFG,
                       ],
                     ),
                   ),
@@ -819,8 +837,8 @@ class _AccountScreen1State extends State<AccountScreen1> {
                       begin: Alignment.topRight,
                       end: Alignment.topLeft,
                       colors: [
-                        Colors.black.withOpacity(0.8),
-                        Colors.black.withOpacity(0.8),
+                        kColorFG,
+                        kColorFG,
                       ],
                     ),
                   ),
@@ -939,11 +957,12 @@ class _AccountScreen1State extends State<AccountScreen1> {
                         // ),
                         InkWell(
                           onTap: (){
+                            // _launchUrl();
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        TermAndCondition()));
+                                        PrivacyPolicyScreen()));
                           },
                           child: Padding(
                             padding: EdgeInsets.only(top: 10,bottom: 10),
@@ -963,12 +982,19 @@ class _AccountScreen1State extends State<AccountScreen1> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 10,bottom: 5),
-                          child: Center(
-                            child: Text(
-                              "Version 1.0.0",
-                              style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.042, color: Colors.grey),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Version ",
+                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.042, color: Colors.grey),
+                                ),
+                                Text(
+                                  "1.0.0",
+                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.042, color: kColorPrimary),
+                                ),
+                              ],
                             ),
-                          ),
                         ),
                       ],
                     ),

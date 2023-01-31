@@ -51,6 +51,7 @@ class _HomePageState extends State<HomePage> {
       _homeBloc.add(GetAllDaysEvent());
       print('>>>>>>> Show Days');
     }
+    AppGlobal.selectedPlan;
   }
 
   @override
@@ -83,9 +84,10 @@ class _HomePageState extends State<HomePage> {
         child: ModalProgressHUD(
           inAsyncCall: state is LoadingState,
           child: Scaffold(
-            //  backgroundColor: const Color(0xff1c1b20),
+             backgroundColor: kColorBG,
             appBar: AppBar(
-              backgroundColor: const Color(0xff1c1b20),
+              // backgroundColor: const Color(0xff1c1b20),
+              backgroundColor: kColorBG,
               title: const Text("FIT FITNESS"),
               actions: <Widget>[
                 IconButton(
@@ -147,10 +149,10 @@ class _HomePageState extends State<HomePage> {
                           progressBarColor: kColorPrimary,
                           dotColor: Colors.transparent,
                           // trackColor: Colors.white70,
-                          trackColor: const Color(0xff404040),
+                          trackColor: Colors.white,
                           progressBarColors: [
-                            kColorPrimary,
-                            kColorPrimary,
+                            Colors.blue,
+                            Colors.blue,
                           ],
                         ),
                       ),
@@ -158,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                         return const Center(
                           child: Icon(
                             Icons.water_drop_outlined,
-                            color: kColorPrimary,
+                            color: Colors.blue,
                             size: 18,
                           ),
                         );
@@ -178,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
                 indicatorColor: Colors.transparent,
-                labelColor: Color(0xff1ce5c1),
+                labelColor: kColorPrimary,
                 unselectedLabelColor: Colors.grey,
                 labelStyle: TextStyle(
                   fontSize: 20,
@@ -249,7 +251,7 @@ class _HomePageState extends State<HomePage> {
                                           child: CircleAvatar(
                                             radius: 15,
                                             backgroundColor: Colors.transparent,
-                                            child: Icon(Icons.energy_savings_leaf_outlined, color: Colors.white, size: 30,),
+                                            child: Icon(Icons.energy_savings_leaf_outlined, color: kColorPrimary, size: 30,),
                                           ),
                                         ),
                                         // Container(
@@ -325,19 +327,14 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               ),
-                              constants.days.length - 1 == index
-                                  ? Padding(
+                              constants.days.length - 1 == index ?
+                              Padding(
                                 padding: EdgeInsets.only(
-                                    left:
-                                    MediaQuery.of(context).size.width *
-                                        0.15,
-                                    right:
-                                    MediaQuery.of(context).size.width *
-                                        0.15,
-                                    top: 10),
+                                  left: MediaQuery.of(context).size.width * 0.15,
+                                  right: MediaQuery.of(context).size.width * 0.15,
+                                  top: 10),
                                 child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
                                     InkWell(
                                       onTap: () {
@@ -352,27 +349,22 @@ class _HomePageState extends State<HomePage> {
                                         children: [
                                           CircleAvatar(
                                             radius: 13,
-                                            backgroundColor: Colors.black,
+                                            backgroundColor: kColorBG,
                                             child:
                                             // Image.asset(
                                             //   'assets/icons/change_plan_icon.png',
                                             // ),
                                             Icon(
-                                                Icons
-                                                    .change_circle_outlined,
-                                                color: Color(0xff1ce5c1)),
+                                                Icons.change_circle_outlined,
+                                                color: kColorFG
+                                            ),
                                           ),
                                           SizedBox(
-                                            height: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.015,
+                                            height: MediaQuery.of(context).size.height * 0.015,
                                           ),
                                           const Text(
                                             "Change Plan",
-                                            style: TextStyle(
-                                                fontSize: 10,
-                                                color: Color(0xff1ce5c1)),
+                                            style: TextStyle(fontSize: 10, color: kColorPrimary),
                                           )
                                         ],
                                       ),
@@ -390,21 +382,20 @@ class _HomePageState extends State<HomePage> {
                                         children: [
                                           const CircleAvatar(
                                             radius: 12,
-                                            backgroundColor: Colors.black,
-                                            child: Icon(Icons.refresh,
-                                                color: Color(0xff1ce5c1)),
+                                            backgroundColor: kColorBG,
+                                            child: Icon(
+                                                Icons.refresh,
+                                                color: kColorFG
+                                            ),
                                           ),
                                           SizedBox(
-                                            height: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.015,
+                                            height: MediaQuery.of(context).size.height * 0.015,
                                           ),
                                           const Text(
                                             "Restart",
                                             style: TextStyle(
                                                 fontSize: 10,
-                                                color: Color(0xff1ce5c1)),
+                                                color: kColorPrimary),
                                           )
                                         ],
                                       ),
@@ -481,14 +472,13 @@ class _HomePageState extends State<HomePage> {
                                                   trackWidth: 3.0),
                                               customColors: CustomSliderColors(
                                                 hideShadow: true,
-                                                progressBarColor:
-                                                const Color(0xff1ce5c1),
+                                                progressBarColor: kColorPrimary,
                                                 dotColor: Colors.transparent,
                                                 trackColor: Colors.white70,
                                                 // trackColor: const Color(0xff404040),
                                                 progressBarColors: [
-                                                  const Color(0xff1ce5c1),
-                                                  const Color(0xff1ce5c1),
+                                                  kColorPrimary,
+                                                  kColorPrimary,
                                                 ],
                                               ),
                                             ),
@@ -552,28 +542,26 @@ class _HomePageState extends State<HomePage> {
                                       child: Column(
                                         children: [
                                           CircleAvatar(
-                                            radius: 13,
-                                            backgroundColor: Colors.black,
+                                            radius: 15,
+                                            backgroundColor: kColorFG,
                                             child:
                                             // Image.asset(
                                             //   'assets/icons/change_plan_icon.png',
                                             // ),
                                             Icon(
-                                                Icons
-                                                    .change_circle_outlined,
-                                                color: Color(0xff1ce5c1)),
+                                                Icons.change_circle_outlined,
+                                                color: kColorPrimary
+                                            ),
                                           ),
                                           SizedBox(
-                                            height: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.015,
+                                            height: MediaQuery.of(context).size.height * 0.015,
                                           ),
                                           const Text(
                                             "Change Plan",
                                             style: TextStyle(
                                                 fontSize: 10,
-                                                color: Color(0xff1ce5c1)),
+                                                color: kColorPrimary
+                                            ),
                                           )
                                         ],
                                       ),
@@ -586,22 +574,22 @@ class _HomePageState extends State<HomePage> {
                                       child: Column(
                                         children: [
                                           const CircleAvatar(
-                                            radius: 12,
-                                            backgroundColor: Colors.black,
-                                            child: Icon(Icons.refresh,
-                                                color: Color(0xff1ce5c1)),
+                                            radius: 15,
+                                            backgroundColor: kColorFG,
+                                            child: Icon(
+                                                Icons.refresh,
+                                                color: kColorPrimary
+                                            ),
                                           ),
                                           SizedBox(
-                                            height: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.015,
+                                            height: MediaQuery.of(context).size.height * 0.015,
                                           ),
                                           const Text(
                                             "Restart",
                                             style: TextStyle(
                                                 fontSize: 10,
-                                                color: Color(0xff1ce5c1)),
+                                                color: kColorPrimary
+                                            ),
                                           )
                                         ],
                                       ),

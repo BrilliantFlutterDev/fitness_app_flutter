@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 import 'package:fitness_app/Utils/modal_progress_hud.dart';
+import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/start_exercise/start_exercise.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
@@ -116,6 +117,7 @@ class _ReadyToGoState extends State<ReadyToGo> {
       return ModalProgressHUD(
       inAsyncCall: state is LoadingState,
       child: Scaffold(
+        backgroundColor: kColorBG,
         body: SafeArea(
           child: ColorRemover(
             child: SingleChildScrollView(
@@ -140,7 +142,7 @@ class _ReadyToGoState extends State<ReadyToGo> {
                             begin: Alignment.bottomCenter,
                             end: Alignment.topCenter,
                             colors: [
-                              Color(0xff1c1b20),
+                              kColorBG,
                               Colors.transparent,
                             ],
                           ),
@@ -175,7 +177,7 @@ class _ReadyToGoState extends State<ReadyToGo> {
                           SizedBox(height: MediaQuery.of(context).size.height*0.06),
                           Text(
                             "READY TO GO!",
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: Color(0xff1ce5c1)),
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: kColorPrimary),
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height*0.05),
                           Row(
@@ -210,12 +212,12 @@ class _ReadyToGoState extends State<ReadyToGo> {
                                   customColors: CustomSliderColors(
 
                                     hideShadow: true,
-                                    progressBarColor: const Color(0xff1ce5c1),
+                                    progressBarColor: kColorPrimary,
                                     dotColor: Colors.transparent,
-                                    trackColor: const Color(0xff404040),
+                                    trackColor: Colors.white,
                                     progressBarColors: [
-                                      const Color(0xff1ce5c1),
-                                      const Color(0xff1ce5c1),
+                                      kColorPrimary,
+                                      kColorPrimary,
                                     ],
                                   ),
                                 ),

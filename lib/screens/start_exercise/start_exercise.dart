@@ -120,6 +120,7 @@ class _StartExerciseState extends State<StartExercise> {
     return ModalProgressHUD(
       inAsyncCall: state is LoadingState,
       child: Scaffold(
+        backgroundColor: kColorBG,
         body: SafeArea(
           child: ColorRemover(
             child: SingleChildScrollView(
@@ -282,7 +283,7 @@ class _StartExerciseState extends State<StartExercise> {
                   SizedBox(height: MediaQuery.of(context).size.height*0.01),
                   Center(
                     child: Container(
-                      width: 150,
+                      width: MediaQuery.of(context).size.width*0.3,
                       alignment: Alignment.center,
                       child: MyButton(name: widget.exerciseData!.exerciseList![index].type=='rap'?"Done":"|| Pause", whenpress: () {
                         if(index<widget.exerciseData!.exerciseList!.length) {
@@ -320,7 +321,7 @@ class _StartExerciseState extends State<StartExercise> {
                                 "PREVIOUS",
                                 style: TextStyle(
                                   fontSize: 18,
-                                  color: Color(0xff1ce5c1),
+                                  color: kColorPrimary,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

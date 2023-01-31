@@ -1,3 +1,4 @@
+import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/constants/constants.dart';
 import 'package:fitness_app/screens/my_activity/MyActivityBloc/my_activity_bloc.dart';
 import 'package:fitness_app/screens/my_activity/my_reports.dart';
@@ -81,8 +82,9 @@ class _WaterTrackerState extends State<WaterTracker> {
       return ModalProgressHUD(
         inAsyncCall: state is LoadingState,
         child: Scaffold(
+          backgroundColor: kColorBG,
           appBar: AppBar(
-            backgroundColor: const Color(0xff1c1b20),
+            backgroundColor: kColorBG,
             // leading: InkWell(
             //     onTap: (){
             //       Navigator.push(
@@ -113,8 +115,8 @@ class _WaterTrackerState extends State<WaterTracker> {
                       begin: Alignment.topRight,
                       end: Alignment.topLeft,
                       colors: [
-                        Colors.black.withOpacity(0.8),
-                        Colors.black.withOpacity(0.8),
+                        kColorFG,
+                        kColorFG,
                       ],
                     ),
                   ),
@@ -187,13 +189,13 @@ class _WaterTrackerState extends State<WaterTracker> {
                                       progressBarWidth: 6.0, trackWidth: 5.0),
                                   customColors: CustomSliderColors(
                                     hideShadow: true,
-                                    progressBarColor: Color(0xff1ce5c1),
+                                    progressBarColor: kColorPrimary,
                                     dotColor: Colors.transparent,
                                     trackColor: Colors.white,
                                     // trackColor: const Color(0xff404040),
                                     progressBarColors: [
-                                      Color(0xff1ce5c1),
-                                      Color(0xff1ce5c1),
+                                      Colors.blue,
+                                      Colors.blue,
                                     ],
                                   ),
                                 ),
@@ -205,7 +207,7 @@ class _WaterTrackerState extends State<WaterTracker> {
                                       children: [
                                         Icon(
                                           Icons.water_drop_outlined,
-                                          color: Color(0xff1ce5c1),
+                                          color: Colors.blue,
                                           size: 22,
                                         ),
                                         Text(
@@ -304,6 +306,7 @@ class _WaterTrackerState extends State<WaterTracker> {
                               borderRadius: 30,
                               padding: 8.0,
                               showOnOff: false,
+                              activeColor: kColorPrimary,
                               onToggle: (val) {
                                 status = val;
                                 _activityBloc.add(RefreshScreenEvent());

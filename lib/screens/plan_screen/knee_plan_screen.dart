@@ -55,8 +55,7 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
       } else if (state is RefreshScreenState) {}
     }, builder: (context, state) {
       return Scaffold(
-        body: SafeArea(
-          child: ColorRemover(
+        body: ColorRemover(
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,23 +66,23 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                         height: MediaQuery.of(context).size.height * 0.9,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage("assets/images/5.png"),
+                            image: AssetImage("assets/images/Bell Magic Workout.jpg"),
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
                       Container(
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           gradient: LinearGradient(
                             begin: Alignment.bottomCenter,
                             end: Alignment.topCenter,
                             colors: [
-                              Color(0xff1c1b20),
-                              Colors.transparent,
+                              kColorBG.withOpacity(0.8),
+                              kColorBG.withOpacity(0.8),
                             ],
                           ),
                         ),
-                        height: MediaQuery.of(context).size.height * 0.96,
+                        height: MediaQuery.of(context).size.height,
                         width: MediaQuery.of(context).size.width,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -144,7 +143,7 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.white,
+                                        color: kColorPrimary,
                                       ),
                                     ),
                                   ],
@@ -179,7 +178,7 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                           'I\'M FINE',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 25.0,
+                                              fontSize: 20.0,
                                               color: _selectedPlan[0] == false
                                                   ? Colors.white
                                                   : Colors.black),
@@ -237,7 +236,7 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                           'NO JUMPING',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 25.0,
+                                              fontSize: 20.0,
                                               color: _selectedPlan[1] == false
                                                   ? Colors.white
                                                   : Colors.black),
@@ -294,7 +293,7 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                           'LOW IMPACT',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 25.0,
+                                              fontSize: 20.0,
                                               color: _selectedPlan[2] == false
                                                   ? Colors.white
                                                   : Colors.black),
@@ -375,7 +374,7 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
               ),
             ),
           ),
-        ),
+        // ),
       );
     });
   }

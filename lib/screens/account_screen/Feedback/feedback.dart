@@ -1,6 +1,7 @@
 // import 'dart:html';
 import 'dart:io';
 
+import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/account_screen/Feedback/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
@@ -247,7 +248,9 @@ class _UserFeedbackState extends State<UserFeedback> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kColorBG,
       appBar: AppBar(
+        backgroundColor: kColorBG,
         title: Text('Fitness Feedback'),
         actions: <Widget>[
           IconButton(
@@ -273,20 +276,31 @@ class _UserFeedbackState extends State<UserFeedback> {
                 Padding(
                   padding: EdgeInsets.all(8.0),
                   child: TextField(
+                    cursorColor: kColorPrimary,
                     controller: _recipientController,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                      ),
+                      labelStyle: TextStyle(color: Colors.grey),
                       labelText: 'Recipient',
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: kColorPrimary),
+                      ),
                     ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(8.0),
                   child: TextField(
+                    cursorColor: kColorPrimary,
                     controller: _subjectController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
+                      labelStyle: TextStyle(color: Colors.grey),
                       labelText: 'Subject',
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: kColorPrimary),
+                      ),
                     ),
                   ),
                 ),
@@ -326,13 +340,18 @@ class _UserFeedbackState extends State<UserFeedback> {
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
                     child: TextField(
+                      cursorColor: kColorPrimary,
                       controller: _bodyController,
                       maxLines: null,
                       expands: true,
                       textAlignVertical: TextAlignVertical.top,
                       decoration: InputDecoration(
+                        labelStyle: TextStyle(color: Colors.grey),
                         labelText: 'Body',
-                        border: OutlineInputBorder()
+                        border: OutlineInputBorder(),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: kColorPrimary),
+                        ),
                       ),
                     ),
                   ),

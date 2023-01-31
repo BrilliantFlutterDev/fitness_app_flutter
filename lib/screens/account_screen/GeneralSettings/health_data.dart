@@ -58,7 +58,7 @@ class _HealthDataState extends State<HealthData> {
       lastDate: DateTime(2023, 12, 31),
       dateFormat: "yyyy-MMMM-dd",
       locale: DateTimePickerLocale.en_us,
-      backgroundColor: Colors.grey.shade800,
+      backgroundColor: kColorFG,
       looping: false,
       textColor: kColorPrimary,
       confirmText: 'SET',
@@ -91,8 +91,10 @@ class _HealthDataState extends State<HealthData> {
       }
     }, builder: (context, state) {
       return Scaffold(
+        backgroundColor: kColorBG,
         appBar: AppBar(
-          backgroundColor: const Color(0xff1c1b20),
+          backgroundColor: kColorBG,
+          // backgroundColor: const Color(0xff1c1b20),
           title: const Text("HEALTH DATA"),
         ),
         body: SafeArea(
@@ -105,6 +107,7 @@ class _HealthDataState extends State<HealthData> {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
+                        backgroundColor: kColorFG,
                         content: StatefulBuilder(
                             builder: (BuildContext context, StateSetter setState) {
                               return Container(
@@ -114,9 +117,10 @@ class _HealthDataState extends State<HealthData> {
                                     children: [
                                       Text(
                                         "Gender",
-                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
                                       ),
                                       RadioListTile(
+                                        activeColor: kColorPrimary,
                                         title: const Text("Male"),
                                         value: Gender.Male,
                                         groupValue: selectedGender,
@@ -124,8 +128,8 @@ class _HealthDataState extends State<HealthData> {
                                           setState(() {
                                             selectedGender = Gender.Male;
                                             Navigator.pop(context);
-                                            Navigator.pop(context);
-                                            Navigator.pushNamed(context, '/healthdata');
+                                            // Navigator.pop(context);
+                                            // Navigator.pushNamed(context, '/healthdata');
                                             // Navigator.pop(context, '/healthdata');
                                           });
                                           SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -135,6 +139,7 @@ class _HealthDataState extends State<HealthData> {
                                         },
                                       ),
                                       RadioListTile(
+                                        activeColor: kColorPrimary,
                                         title: const Text("Female"),
                                         value: Gender.Female,
                                         groupValue: selectedGender,

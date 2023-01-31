@@ -1,6 +1,7 @@
 import 'package:calender_picker/date_picker_widget.dart';
 import 'package:fitness_app/constants/constants.dart';
 import 'package:fitness_app/screens/my_activity/WaterTracker/drink_acknowledge_screen.dart';
+import 'package:fitness_app/screens/my_activity/Wikipedia_direct.dart';
 import 'package:fitness_app/screens/my_activity/bmi_popup.dart';
 import 'package:fitness_app/screens/my_activity/WaterTracker/water_tracker.dart';
 import 'package:fitness_app/screens/my_activity/weight_popup.dart';
@@ -54,11 +55,11 @@ class _MyReportsState extends State<MyReports> {
     }
 
     setState(() {
-      _bmi = user.weight / (user.height * user.height);
+      _bmi = user.weight / ((user.height/39.37) * (user.height/ 39.37) );
       if (_bmi! < 18.5) {
         _message = "You are underweight";
       } else if (_bmi! < 25) {
-        _message = 'You body is fine';
+        _message = 'Healthy Weight';
       } else if (_bmi! < 30) {
         _message = 'You are overweight';
       } else {
@@ -123,10 +124,11 @@ class _MyReportsState extends State<MyReports> {
       return ModalProgressHUD(
         inAsyncCall: state is LoadingState,
         child: Scaffold(
+          backgroundColor: kColorBG,
           //  backgroundColor: const Color(0xff1c1b20),
           appBar: AppBar(
             toolbarHeight: MediaQuery.of(context).size.height*0.1,
-            backgroundColor: const Color(0xff1c1b20),
+            backgroundColor: kColorBG,
             title: Padding(
               padding: EdgeInsets.only(left: 15, top: 20),
               child: Text(
@@ -143,11 +145,11 @@ class _MyReportsState extends State<MyReports> {
                 //   height: 20,
                 // ),
                 Container(
-                  height: 15.h,
+                  height: 14.h,
                   width: MediaQuery.of(context).size.width * 2,
                   margin: const EdgeInsets.all(12),
                   child: Container(
-                    height: 15.h,
+                    height: 14.h,
                     width: MediaQuery.of(context).size.width * 2,
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
@@ -162,31 +164,33 @@ class _MyReportsState extends State<MyReports> {
                       // ),
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              height: 9.h,
-                              width: MediaQuery.of(context).size.width * 0.2,
-                              margin: const EdgeInsets.symmetric(vertical: 5),
-                              decoration: new BoxDecoration(
-                                color: kColorPrimary,
-                                // image: new DecorationImage(
-                                //     image: '', fit: BoxFit.cover),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(
-                                  child: Text(
+                            // Container(
+                            //   height: 9.h,
+                            //   width: MediaQuery.of(context).size.width * 0.2,
+                            //   margin: const EdgeInsets.symmetric(vertical: 5),
+                            //   decoration: new BoxDecoration(
+                            //     color: kColorPrimary,
+                            //     // image: new DecorationImage(
+                            //     //     image: '', fit: BoxFit.cover),
+                            //     shape: BoxShape.circle,
+                            //   ),
+                            //   child: Center(
+                            //       child:
+                            Text(
                                 '31',
                                 style: TextStyle(
-                                    color: Colors.black,
+                                    color: kColorPrimary,
                                     fontSize: 22,
                                     fontWeight: FontWeight.bold),
-                              )),
                             ),
+                              // ),
+                            // ),
                             Text(
                               'WORKOUTS',
                               style: TextStyle(
@@ -196,32 +200,34 @@ class _MyReportsState extends State<MyReports> {
                           ],
                         ),
                         Container(
-                          height: 9.h,
+                          height: 8.h,
                           width: 2,
                           color: Colors.white,
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              height: 9.h,
-                              width: MediaQuery.of(context).size.width * 0.2,
-                              margin: const EdgeInsets.symmetric(vertical: 5),
-                              decoration: new BoxDecoration(
-                                color: kColorPrimary,
-                                // image: new DecorationImage(
-                                //     image: '', fit: BoxFit.cover),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(
-                                  child: Text(
+                            // Container(
+                            //   height: 9.h,
+                            //   width: MediaQuery.of(context).size.width * 0.2,
+                            //   margin: const EdgeInsets.symmetric(vertical: 5),
+                            //   decoration: new BoxDecoration(
+                            //     color: kColorPrimary,
+                            //     // image: new DecorationImage(
+                            //     //     image: '', fit: BoxFit.cover),
+                            //     shape: BoxShape.circle,
+                            //   ),
+                            //   child: Center(
+                            //       child:
+                              Text(
                                 '31.0',
                                 style: TextStyle(
-                                    color: Colors.black,
+                                    color: kColorPrimary,
                                     fontSize: 21,
                                     fontWeight: FontWeight.bold),
-                              )),
-                            ),
+                              ),
+                            //  ),
+                            // ),
                             Text(
                               'KCAL',
                               style: TextStyle(
@@ -231,32 +237,34 @@ class _MyReportsState extends State<MyReports> {
                           ],
                         ),
                         Container(
-                          height: 9.h,
+                          height: 8.h,
                           width: 2,
                           color: Colors.white,
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              height: 9.h,
-                              width: MediaQuery.of(context).size.width * 0.2,
-                              margin: const EdgeInsets.symmetric(vertical: 5),
-                              decoration: new BoxDecoration(
-                                color: kColorPrimary,
-                                // image: new DecorationImage(
-                                //     image: '', fit: BoxFit.cover),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(
-                                  child: Text(
+                            // Container(
+                            //   height: 9.h,
+                            //   width: MediaQuery.of(context).size.width * 0.2,
+                            //   margin: const EdgeInsets.symmetric(vertical: 5),
+                            //   decoration: new BoxDecoration(
+                            //     color: kColorPrimary,
+                            //     // image: new DecorationImage(
+                            //     //     image: '', fit: BoxFit.cover),
+                            //     shape: BoxShape.circle,
+                            //   ),
+                            //   child: Center(
+                            //       child:
+                              Text(
                                 '01:00',
                                 style: TextStyle(
-                                    color: Colors.black,
+                                    color: kColorPrimary,
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold),
-                              )),
-                            ),
+                              ),
+                            //   ),
+                            // ),
                             Text(
                               'TIME(MIN)',
                               style: TextStyle(
@@ -269,7 +277,7 @@ class _MyReportsState extends State<MyReports> {
                     ),
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.black,
+                    color: kColorFG,
                     borderRadius: BorderRadius.circular(12.0),
                     // image: DecorationImage(
                     //   image: AssetImage(
@@ -397,9 +405,10 @@ class _MyReportsState extends State<MyReports> {
                 //     ),
                 //   ),
                 // ),
-                const SizedBox(
-                  height: 10,
-                ),
+
+                // const SizedBox(
+                //   height: 10,
+                // ),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -419,14 +428,14 @@ class _MyReportsState extends State<MyReports> {
                           horizontal: 5, vertical: 15),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12.0),
-                        // gradient: const LinearGradient(
-                        //   begin: Alignment.topRight,
-                        //   end: Alignment.topLeft,
-                        //   colors: [
-                        //     Colors.white70,
-                        //     Colors.white70,
-                        //   ],
-                        // ),
+                        gradient: LinearGradient(
+                          begin: Alignment.topRight,
+                          end: Alignment.topLeft,
+                          colors: [
+                            Colors.black.withOpacity(0.75),
+                            Colors.black.withOpacity(0.75),
+                          ],
+                        ),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -498,8 +507,8 @@ class _MyReportsState extends State<MyReports> {
                                         trackColor: Colors.white,
                                         // trackColor: const Color(0xff404040),
                                         progressBarColors: [
-                                          kColorPrimary,
-                                          kColorPrimary,
+                                          Colors.blue,
+                                          Colors.blue,
                                         ],
                                       ),
                                     ),
@@ -507,7 +516,7 @@ class _MyReportsState extends State<MyReports> {
                                       return const Center(
                                         child: Icon(
                                           Icons.water_drop_outlined,
-                                          color: kColorPrimary,
+                                          color: Colors.blue,
                                           size: 20,
                                         ),
                                       );
@@ -560,7 +569,8 @@ class _MyReportsState extends State<MyReports> {
                       borderRadius: BorderRadius.circular(12.0),
                       image: DecorationImage(
                         image: AssetImage(
-                            "assets/images/${constants.dailyExercises[3].image}"),
+                            "assets/images/Bell Magic Workout.jpg",),
+                            // "assets/images/${constants.dailyExercises[3].image}"),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -758,9 +768,10 @@ class _MyReportsState extends State<MyReports> {
                 //     ),
                 //   ),
                 // ),
-                const SizedBox(
-                  height: 10,
-                ),
+
+                // const SizedBox(
+                //   height: 10,
+                // ),
                 Container(
                   // height: 25.h,
                   width: MediaQuery.of(context).size.width * 2,
@@ -776,8 +787,8 @@ class _MyReportsState extends State<MyReports> {
                         begin: Alignment.topRight,
                         end: Alignment.topLeft,
                         colors: [
-                          Colors.black,
-                          Colors.black,
+                          kColorFG,
+                          kColorFG,
                         ],
                       ),
                     ),
@@ -840,7 +851,12 @@ class _MyReportsState extends State<MyReports> {
                               Text("BMI range and categories come from "),
                               InkWell(
                                 onTap: (){
-                                  _launchUrl();
+                                  // _launchUrl();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              WikiScreen()));
                                 },
                                 child: Text(
                                   "Wiki",

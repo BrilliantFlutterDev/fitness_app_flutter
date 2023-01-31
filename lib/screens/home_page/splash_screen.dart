@@ -134,8 +134,8 @@ class _SplashScreenState extends State<SplashScreen>
                     ],
                   ),
                   const Text(
-                    'Fit Fitness',
-                    style: TextStyle(color: Colors.white),
+                    'Powered by GameScapes',
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                   )
                 ],
               ),

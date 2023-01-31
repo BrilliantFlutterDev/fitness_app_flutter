@@ -1,5 +1,6 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/constants/constants.dart';
 import 'package:fitness_app/screens/account_screen/Workout/notification_service.dart';
 import 'package:fitness_app/screens/account_screen/Workout/reminder_list.dart';
@@ -95,7 +96,9 @@ class _ReminderScreenState extends State<ReminderScreen>{
       }
     }, builder: (context, state) {
       return Scaffold(
+        backgroundColor: kColorBG,
         floatingActionButton: FloatingActionButton(
+          backgroundColor: kColorPrimary,
           onPressed: ()
           {
             print(">>>>>>>>>>>>>Pressed");
@@ -140,7 +143,7 @@ class _ReminderScreenState extends State<ReminderScreen>{
           child: Icon(Icons.add, color: Colors.white),
         ),
         appBar: AppBar(
-          backgroundColor: const Color(0xff1c1b20),
+          backgroundColor: kColorBG,
           title: const Text("REMINDER"),
         ),
         body: Column(
@@ -161,7 +164,7 @@ class _ReminderScreenState extends State<ReminderScreen>{
                   return Container(
                     //height: 300,
                     decoration: BoxDecoration(
-                      color: Colors.black,
+                      color: kColorFG,
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     padding: const EdgeInsets.all(10),

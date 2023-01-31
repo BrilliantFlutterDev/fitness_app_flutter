@@ -56,8 +56,7 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
       } else if (state is RefreshScreenState) {}
     }, builder: (context, state) {
       return Scaffold(
-        body: SafeArea(
-          child: ColorRemover(
+        body: ColorRemover(
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,23 +67,23 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
                         height: MediaQuery.of(context).size.height * 0.9,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage("assets/images/5.png"),
+                            image: AssetImage("assets/images/Bell Magic Workout.jpg"),
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
                       Container(
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           gradient: LinearGradient(
                             begin: Alignment.bottomCenter,
                             end: Alignment.topCenter,
                             colors: [
-                              Color(0xff1c1b20),
-                              Colors.transparent,
+                              kColorBG.withOpacity(0.8),
+                              kColorBG.withOpacity(0.8),
                             ],
                           ),
                         ),
-                        height: MediaQuery.of(context).size.height * 0.96,
+                        height: MediaQuery.of(context).size.height,
                         width: MediaQuery.of(context).size.width,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -145,7 +144,7 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.white,
+                                        color: kColorPrimary,
                                       ),
                                     ),
                                   ],
@@ -217,8 +216,7 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
                                 child: Container(
                                     width:
                                         MediaQuery.of(context).size.width * 0.6,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.08,
+                                    height: MediaQuery.of(context).size.height * 0.08,
                                     decoration: BoxDecoration(
                                         border: Border.all(
                                             // color: Colors.white,
@@ -254,7 +252,7 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
               ),
             ),
           ),
-        ),
+        // ),
       );
     });
   }

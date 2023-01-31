@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../constants/colors.dart';
+
 class MyButton extends StatelessWidget {
   final String name;
   final Function()? whenpress;
@@ -17,7 +19,7 @@ class MyButton extends StatelessWidget {
       child: MaterialButton(
         shape: const StadiumBorder(),
         textColor: Colors.white,
-        color: const Color(0xff1ce5c1),
+        color: kColorPrimary,
         onPressed: whenpress,
         child: Text(
           name,
