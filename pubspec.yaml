@@ -69,11 +69,12 @@ dependencies:
   in_app_review: ^2.0.6
   enum_to_string: ^2.0.1
 
+  readmore: ^2.2.0
   flutter_email_sender: ^5.2.0
   device_info_plus: ^8.0.0
   image_picker: ^0.8.6+1
   url_launcher: ^6.1.8
-  flutter_inappwebview: ^5.4.0
+  flutter_inappwebview: ^5.7.2+3
 
 
 dev_dependencies:

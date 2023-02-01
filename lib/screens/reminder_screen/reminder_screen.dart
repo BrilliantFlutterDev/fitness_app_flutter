@@ -12,18 +12,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 class ReminderScreen extends StatefulWidget {
 
   final int id;
-  // final Color color;
   final String title;
   final String content;
 
-  const ReminderScreen(
-      {Key? key,
-        required this.id,
-        // required this.color,
-        required this.title,
-        required this.content
-      })
-      : super(key: key);
+  const ReminderScreen({Key? key, required this.id, required this.title, required this.content}) : super(key: key);
 
   @override
   State<ReminderScreen> createState() => _ReminderScreenState();
@@ -46,7 +38,8 @@ class _ReminderScreenState extends State<ReminderScreen>{
         context: context,
         firstDate: selectedDate,
         initialDate: selectedDate,
-        lastDate: DateTime(2100));
+        lastDate: DateTime(2023, 12, 31)
+    );
     if (date != null) {
       final time = await showTimePicker(
         context: context,
@@ -61,7 +54,8 @@ class _ReminderScreenState extends State<ReminderScreen>{
             id: widget.id,
             title: widget.title,
             body: widget.content,
-            time: fullDate);
+            time: fullDate
+        );
         //TODO
         //schedule a notification
       }
@@ -171,18 +165,24 @@ class _ReminderScreenState extends State<ReminderScreen>{
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          widget.title,
-                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
+                        // Text(
+                        //   widget.title,
+                        //   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                        // ),
                         const SizedBox(
                           height: 5,
                         ),
-                        Text(widget.content),
-                        const SizedBox(
-                          height: 50,
+                        Text(
+                          fullDate.toString(),
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Text(fullDate.toString()),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height*0.05,
+                        ),
+                        // Text(''),
+                        Text(
+                          "Message: ${widget.content}",
+                        ),
                         const SizedBox(
                           height: 15,
                         ),

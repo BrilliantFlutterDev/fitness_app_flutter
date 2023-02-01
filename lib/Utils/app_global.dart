@@ -3,7 +3,7 @@ class AppGlobal {
   static String rememberMeEmail = '';
   static String rememberMePassword = '';
   static String? dataStoreFromConstantToLDB = '';
-  static String? selectedPlan = '';
+  static String? selectedPlan = '1';
   static String? selectedKneeIssueOption = '';
   static String? selectedPushUpOption = '';
   static String? selectedPlankOption = '';

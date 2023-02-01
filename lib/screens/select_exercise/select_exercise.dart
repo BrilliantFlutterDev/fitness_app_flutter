@@ -1,5 +1,6 @@
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
+import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/home_page/open_activity.dart';
 import 'package:fitness_app/screens/start_exercise/start_exercise.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
@@ -63,6 +64,7 @@ class _SelectExerciseState extends State<SelectExercise> {
       child: ModalProgressHUD(
         inAsyncCall: state is LoadingState,
         child: Scaffold(
+          backgroundColor: kColorBG,
           bottomNavigationBar: SizedBox(
             height: MediaQuery.of(context).size.height*0.1,
             width: double.infinity,
@@ -104,6 +106,7 @@ class _SelectExerciseState extends State<SelectExercise> {
             ),
           ),
           appBar: AppBar(
+            backgroundColor: kColorBG,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_sharp),
               onPressed: () {
@@ -155,21 +158,29 @@ class _SelectExerciseState extends State<SelectExercise> {
                                 //   _homeBloc.add(TimeIncrementDecrementEvent(exerciseModelLocalDB: widget.exerciseModelLocalDB, isIncrementing: false, isDecrementing: true));
                                 // }
                               },
-                              child: SizedBox(
-                                  height:20,
-                                  width:20,
-                                  child: Icon(
-                                    Icons.remove,
-                                    color: Color(0xff1ce5c1),
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  // height:20,
+                                  // width:20,
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.remove,
+                                      color: kColorPrimary,
+                                      size: 18,
+                                    ),
                                   )
-                              )
+                              ),
                           ),
-                          const SizedBox(width: 10,),
+                          SizedBox(width: 10),
                           Text(
                             widget.exerciseModelLocalDB.type!='rap'? widget.exerciseModelLocalDB.time.toString():widget.exerciseModelLocalDB.raps.toString(),
                             style: const TextStyle(fontSize: 20),
                           ),
-                          const SizedBox(width: 5),
+                          SizedBox(width: 10),
                           InkWell(onTap: (){
                             if(widget.exerciseModelLocalDB.type=='rap'){
                               _homeBloc.add(RapsIncrementDecrementEvent(exerciseModelLocalDB: widget.exerciseModelLocalDB, isIncrementing: true, isDecrementing: false));
@@ -177,14 +188,22 @@ class _SelectExerciseState extends State<SelectExercise> {
                               _homeBloc.add(TimeIncrementDecrementEvent(exerciseModelLocalDB: widget.exerciseModelLocalDB, isIncrementing: true, isDecrementing: false));
                             }
                           },
-                          child: SizedBox(
-                              height:20,
-                              width:20,
-                              child: Icon(
-                                Icons.add,
-                                color: Color(0xff1ce5c1),
+                          child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.white,
+                                ),
+                              ),
+                              // height:20,
+                              // width:20,
+                              child: Center(
+                                child: Icon(
+                                  Icons.add,
+                                  color: kColorPrimary,
+                                  size: 18,
+                                ),
                               )
-                            )
+                            ),
                           ),
                         ],
                       ),

@@ -5,6 +5,7 @@ import 'package:fitness_app/screens/my_activity/my_reports.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
@@ -202,13 +203,17 @@ class _WaterTrackerState extends State<WaterTracker> {
                                 innerWidget: (re) {
                                   return Center(
                                     child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Icon(
-                                          Icons.water_drop_outlined,
+                                        // Icon(
+                                        //   Icons.water_drop_outlined,
+                                        //   color: Colors.blue,
+                                        //   size: 22,
+                                        // ),
+                                        SvgPicture.asset(
+                                          "assets/icons/waterglass.svg",
+                                          height: MediaQuery.of(context).size.height*0.03,
                                           color: Colors.blue,
-                                          size: 22,
                                         ),
                                         Text(
                                           requestDayData != null

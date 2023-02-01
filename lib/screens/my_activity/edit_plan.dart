@@ -58,8 +58,9 @@ class _EditPlanState extends State<EditPlan> {
       return ModalProgressHUD(
         inAsyncCall: state is LoadingState,
         child: Scaffold(
+          backgroundColor: kColorBG,
           appBar: AppBar(
-            backgroundColor: const Color(0xff1c1b20),
+            backgroundColor: kColorBG,
             title: const Text("EDIT PLAN"),
           ),
           body: ColorRemover(

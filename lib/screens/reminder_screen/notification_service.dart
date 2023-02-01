@@ -1,4 +1,3 @@
-
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationServices{
@@ -13,10 +12,11 @@ class NotificationServices{
   }
   void sendNotification(String title, String body) async {
     AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
-        'channelId',
-        'channelName',
+      'channelId',
+      'channelName',
       importance: Importance.max,
-      priority: Priority.high
+      priority: Priority.high,
+      styleInformation: BigTextStyleInformation(''),
     );
     NotificationDetails notificationDetails = NotificationDetails(
       android: androidNotificationDetails,
@@ -34,7 +34,9 @@ class NotificationServices{
         'channelId',
         'channelName',
         importance: Importance.max,
-        priority: Priority.high
+        priority: Priority.high,
+        fullScreenIntent: true,
+        styleInformation: BigTextStyleInformation(''),
     );
     NotificationDetails notificationDetails = NotificationDetails(
       android: androidNotificationDetails,

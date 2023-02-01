@@ -7,10 +7,12 @@ import 'package:fitness_app/screens/account_screen/GeneralSettings/metric_imperi
 import 'package:fitness_app/screens/account_screen/Workout/training_rest_popup.dart';
 import 'package:fitness_app/screens/reminder_screen/notification_service.dart';
 import 'package:fitness_app/screens/reminder_screen/reminder_screen.dart';
+import 'package:fitness_app/widgets/coming_soon_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/screens/account_screen/term_and_condition/term_and_condition.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -306,8 +308,12 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             children: [
                               Row(
                                 children: [
-                                  Icon(
-                                      Icons.ads_click, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                  Container(
+                                    child: SvgPicture.asset(
+                                      "assets/icons/ads.svg",
+                                      height: MediaQuery.of(context).size.height*0.03,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                   SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                   Text(
@@ -354,7 +360,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                           onTap: (){
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (ctx) => ReminderScreen(id: 1, content: 'Your body need energy! You did not exercise for 2 days', title: '', ),
+                                builder: (ctx) => ReminderScreen(id: 1, content: 'Just a few minutes a day and you will be in shape in no time. Let\'s get started!', title: 'Fit Fitness', ),
                               ),
                             );
                           },
@@ -394,7 +400,15 @@ class _AccountScreen1State extends State<AccountScreen1> {
                         ),
                         InkWell(
                           onTap: () {
-                            _navigatecount(context);
+                            showDialog(
+                                context: context,
+                                builder: (_) => Dialog(
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height * 0.3,
+                                    child: ComingSoonPopup(),
+                                  ),
+                                ));
+                            // _navigatecount(context);
                           },
                           // {
                           //   Future<void> _navigatecount(BuildContext context) async {
@@ -449,7 +463,15 @@ class _AccountScreen1State extends State<AccountScreen1> {
                         InkWell(
                           onTap: ()
                           {
-                            _navigaterest(context);
+                            showDialog(
+                                context: context,
+                                builder: (_) => Dialog(
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height * 0.3,
+                                    child: ComingSoonPopup(),
+                                  ),
+                                ));
+                            // _navigaterest(context);
                             // showDialog(
                             //     context: context,
                             //     builder: (_) => Dialog(
@@ -729,30 +751,30 @@ class _AccountScreen1State extends State<AccountScreen1> {
                           ),
                         ),
 
-                        // Padding(
-                        //   padding: EdgeInsets.only(top: 10,bottom: 10),
-                        //   child: InkWell(
-                        //     onTap: (){
-                        //       Navigator.of(context).push(
-                        //         MaterialPageRoute(
-                        //           builder: (ctx) => MetricImperialUnits(),
-                        //         ),
-                        //       );
-                        //     },
-                        //     child: Row(
-                        //       children: [
-                        //         Icon(
-                        //             Icons.health_and_safety, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
-                        //         ),
-                        //         SizedBox(width: MediaQuery.of(context).size.width*0.035),
-                        //         Text(
-                        //           "Metric & imperial units",
-                        //           style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10,bottom: 10),
+                          child: InkWell(
+                            onTap: (){
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (ctx) => MetricImperialUnits(),
+                                ),
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                    Icons.health_and_safety, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                ),
+                                SizedBox(width: MediaQuery.of(context).size.width*0.035),
+                                Text(
+                                  "Metric & imperial units",
+                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
 
                         // Padding(
                         //   padding: EdgeInsets.only(top: 10,bottom: 10),
@@ -788,9 +810,16 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             padding: EdgeInsets.only(top: 10,bottom: 10),
                             child: Row(
                               children: [
-                                Icon(
-                                    Icons.refresh, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                Container(
+                                  child: SvgPicture.asset(
+                                    "assets/icons/reset.svg",
+                                    height: MediaQuery.of(context).size.height*0.025,
+                                    color: Colors.white,
+                                  ),
                                 ),
+                                // Icon(
+                                //     Icons.refresh, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                // ),
                                 SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                 Text(
                                   "Restart progress",

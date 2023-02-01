@@ -62,7 +62,7 @@ class CusBottomBarState extends State<CusBottomBar> {
                     BottomNavigationBarItem(
                         icon: Icon(Icons.accessibility), label: 'Plan'),
                     BottomNavigationBarItem(
-                        icon: Icon(Icons.equalizer), label: 'Reports'),
+                        icon: Icon(Icons.equalizer_rounded), label: 'Reports'),
                     // BottomNavigationBarItem(
                     //     icon: Icon(Icons.chat_bubble), label: 'Messages'),
                     BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Me'),

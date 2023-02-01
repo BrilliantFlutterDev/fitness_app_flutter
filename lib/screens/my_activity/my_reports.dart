@@ -9,6 +9,7 @@ import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/line_chart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -136,6 +137,9 @@ class _MyReportsState extends State<MyReports> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
               ),
             ),
+            // actions: [
+            //   Image.asset("assets/images/wt_drink.jpg"),
+            // ],
           ),
           body: ColorRemover(
             child: ListView(
@@ -513,12 +517,17 @@ class _MyReportsState extends State<MyReports> {
                                       ),
                                     ),
                                     innerWidget: (re) {
-                                      return const Center(
-                                        child: Icon(
-                                          Icons.water_drop_outlined,
-                                          color: Colors.blue,
-                                          size: 20,
-                                        ),
+                                      return Center(
+                                        child: SvgPicture.asset(
+                                            "assets/icons/waterglass.svg",
+                                            height: MediaQuery.of(context).size.height*0.035,
+                                            color: Colors.blue,
+                                          ),
+                                        // Icon(
+                                        //   Icons.water_drop_outlined,
+                                        //   color: Colors.blue,
+                                        //   size: 20,
+                                        // ),
                                       );
                                     },
                                   ),

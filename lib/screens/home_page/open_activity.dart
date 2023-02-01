@@ -7,6 +7,7 @@ import 'package:fitness_app/screens/rest_screen/ready_to_go.dart';
 import 'package:fitness_app/screens/select_exercise/select_exercise.dart';
 import 'package:fitness_app/screens/start_exercise/start_exercise.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
+import 'package:fitness_app/widgets/coming_soon_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -15,6 +16,7 @@ import 'package:sizer/sizer.dart';
 import '../../Helper/DBModels/day_model.dart';
 import '../../Utils/modal_progress_hud.dart';
 import 'HomePageBloc/home_bloc.dart';
+import 'package:readmore/readmore.dart';
 
 class OpenActivity extends StatefulWidget {
 
@@ -345,15 +347,23 @@ class _OpenActivityState extends State<OpenActivity> {
                                           ),
                                           InkWell(
                                             onTap: (){
-                                              showDialog(
+                                            showDialog(
                                                 context: context,
                                                 builder: (_) => Dialog(
                                                   child: Container(
-                                                    height: MediaQuery.of(context).size.height*0.4,
-                                                    child: TrainingRestPopup()
+                                                    height: MediaQuery.of(context).size.height * 0.3,
+                                                    child: ComingSoonPopup(),
                                                   ),
-                                                )
-                                              );//CountdownPopup(),
+                                                ));
+                                              // showDialog(
+                                              //   context: context,
+                                              //   builder: (_) => Dialog(
+                                              //     child: Container(
+                                              //       height: MediaQuery.of(context).size.height*0.4,
+                                              //       child: TrainingRestPopup()
+                                              //     ),
+                                              //   )
+                                              // );//CountdownPopup(),
                                             },
                                             child: Padding(
                                               padding: EdgeInsets.only(top: 10,bottom: 10),
@@ -547,17 +557,42 @@ class _OpenActivityState extends State<OpenActivity> {
                           style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                         ),
-                        InkWell(
-                            onTap: (){
-
-                            },
-                            child: Icon(Icons.keyboard_arrow_down)
-                        )
+                        // InkWell(
+                        //     onTap: (){
+                        //
+                        //     },
+                        //     child: Icon(Icons.keyboard_arrow_down)
+                        // )
                       ],
                     ),
-                    SizedBox(height: 15),
+                    SizedBox(height: 5),
+                    // Text(
+                    //   "Just 5-10 min, this training is designed especially for beginners who want to lose weight but don't know where to start."
+                    //   "\n\n"
+                    //   "This training mixes with basic aerobic and anaerobic exercises. It uses your bodyweight to work all muscle groups and boost your fat burning."
+                    //   "\n\n"
+                    //   "Low-impact option is friendly for people who are overweight or have joint problems. Please stick to a low-calorie diet to maximize your workout result.",
+                    //   // style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                    //   overflow: TextOverflow.ellipsis,
+                    //   maxLines: 2,
+                    // ),
+                    ReadMoreText(
+                      "Just 5-10 min, this training is designed especially for beginners who want to lose weight but don't know where to start."
+                      "\n\n"
+                      "This training mixes with basic aerobic and anaerobic exercises. It uses your bodyweight to work all muscle groups and boost your fat burning."
+                      "\n\n"
+                      "Low-impact option is friendly for people who are overweight or have joint problems. Please stick to a low-calorie diet to maximize your workout result.",
+                      trimLines: 2,
+                      colorClickableText: kColorPrimary,
+                      trimMode: TrimMode.Line,
+                      trimCollapsedText: 'Show more',
+                      trimExpandedText: ' Show less',
+                      moreStyle: TextStyle(color:kColorPrimary),
+                      lessStyle: TextStyle(color:kColorPrimary),
+                    ),
                     Padding(
                       padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.width * 0.025,
                           right: MediaQuery.of(context).size.width * 0.15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -632,11 +667,26 @@ class _OpenActivityState extends State<OpenActivity> {
                         ),
                         InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        EditPlan(dayModelLocalDB: widget.dayModelLocalDB,exerciseData: exerciseData,)));
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   SnackBar(
+                            //     content: Text('Coming Soon!'),
+                            //     padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.35),
+                            //   ),
+                            // );
+                            showDialog(
+                                context: context,
+                                builder: (_) => Dialog(
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height * 0.3,
+                                    child: ComingSoonPopup(),
+                                  ),
+                                ));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (BuildContext context) =>
+                            //             EditPlan(dayModelLocalDB: widget.dayModelLocalDB,exerciseData: exerciseData,))
+                            // );
                           },
                           child: Row(
                             children: [
@@ -790,7 +840,7 @@ class _OpenActivityState extends State<OpenActivity> {
                       // ]),
                       //),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height*0.1),
+                    SizedBox(height: MediaQuery.of(context).size.height*0.085),
                   ],
                 ),
               ),

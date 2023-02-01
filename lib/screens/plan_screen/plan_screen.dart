@@ -1,3 +1,4 @@
+import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/screens/forget_password/forget_password.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/plan_screen/push_ups_spinner_screen.dart';
@@ -180,12 +181,12 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                               SizedBox(
                                   height: MediaQuery.of(context).size.height *
                                       0.09),
-
                               GestureDetector(
                                 onTap: () async {
                                   _selectedPlan[2] = false;
                                   _selectedPlan[1] = false;
                                   _selectedPlan[0] = true;
+                                  AppGlobal.selectedPlan = "1";
                                   await storage.write(
                                       key: 'selectedPlan', value: '1');
                                   _homeBloc.add(RefreshScreenEvent());
@@ -251,6 +252,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                   _selectedPlan[0] = false;
                                   _selectedPlan[2] = false;
                                   _selectedPlan[1] = true;
+                                  AppGlobal.selectedPlan = "2";
                                   await storage.write(
                                       key: 'selectedPlan', value: '2');
                                   _homeBloc.add(RefreshScreenEvent());
@@ -316,6 +318,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                   _selectedPlan[0] = false;
                                   _selectedPlan[1] = false;
                                   _selectedPlan[2] = true;
+                                  AppGlobal.selectedPlan = "3";
                                   await storage.write(
                                       key: 'selectedPlan', value: '3');
                                   _homeBloc.add(RefreshScreenEvent());
