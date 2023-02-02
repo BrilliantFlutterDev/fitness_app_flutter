@@ -5,6 +5,7 @@ import 'package:fitness_app/widgets/cus_bottom_bar.dart';
 import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class DayRestScreen extends StatefulWidget {
@@ -47,7 +48,14 @@ class _DayRestScreenState extends State<DayRestScreen>{
                 radius: 70,
                 backgroundColor: Colors.white,
                 // backgroundColor: Colors.grey,
-                child: Icon(Icons.energy_savings_leaf_outlined, color: kColorPrimary, size: 80,),
+                  child: LimitedBox(
+                    child: SvgPicture.asset(
+                      "assets/icons/coffecup.svg",
+                      height: MediaQuery.of(context).size.height*0.1,
+                      color: kColorPrimary,
+                    ),
+                  ),
+                // Icon(Icons.energy_savings_leaf_outlined, color: kColorPrimary, size: 80,),
               ),
             ),
             Text("Your body and muscles need to get some rest",

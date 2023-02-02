@@ -5,6 +5,7 @@ import 'package:fitness_app/constants/constants.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/home_page/custom_training.dart';
 import 'package:fitness_app/screens/home_page/open_home_page/open_home_page.dart';
+import 'package:fitness_app/screens/home_page/quit_screens/quit_screen.dart';
 import 'package:fitness_app/screens/rest_screen/dayrest_screen.dart';
 import 'package:fitness_app/screens/rest_screen/rest_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
@@ -84,8 +85,9 @@ class _HomePageState extends State<HomePage> {
         length: 2,
         child: ModalProgressHUD(
           inAsyncCall: state is LoadingState,
+          progressIndicator: CircularProgressIndicator(),
           child: Scaffold(
-             backgroundColor: kColorBG,
+            backgroundColor: kColorBG,
             appBar: AppBar(
               // backgroundColor: const Color(0xff1c1b20),
               backgroundColor: kColorBG,
@@ -120,13 +122,22 @@ class _HomePageState extends State<HomePage> {
                 //                 const SelectPlanScreen()));
                 //   },
                 // ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.03),
-                  child: Container(
-                    child: SvgPicture.asset(
-                      "assets/icons/ads.svg",
-                      height: MediaQuery.of(context).size.height*0.04,
-                      color: Colors.white,
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                            const QuitScreen()));
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.03),
+                    child: Container(
+                      child: SvgPicture.asset(
+                        "assets/icons/ads.svg",
+                        height: MediaQuery.of(context).size.height*0.04,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -278,14 +289,33 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                         Container(
                                           height: 8.h,
-                                            width: MediaQuery.of(context).size.width * 0.2,
-                                            margin: const EdgeInsets.symmetric(vertical: 5),
-                                          child: CircleAvatar(
-                                            radius: 15,
-                                            backgroundColor: Colors.transparent,
-                                            child: Icon(Icons.energy_savings_leaf_outlined, color: kColorPrimary, size: 30,),
+                                          width: MediaQuery.of(context).size.width * 0.2,
+                                          margin: const EdgeInsets.symmetric(vertical: 5),
+                                          child: Center(
+                                            child: SvgPicture.asset(
+                                              "assets/icons/coffecup.svg",
+                                              height: MediaQuery.of(context).size.height*0.045,
+                                              color: kColorPrimary,
+                                            ),
                                           ),
                                         ),
+                                        // Container(
+                                        //   height: 8.h,
+                                        //   width: MediaQuery.of(context).size.width * 0.2,
+                                        //   margin: const EdgeInsets.symmetric(vertical: 5),
+                                        //   child: CircleAvatar(
+                                        //     radius: 15,
+                                        //     backgroundColor: Colors.transparent,
+                                        //       child: Container(
+                                        //         child: SvgPicture.asset(
+                                        //           "assets/icons/coffeecup.svg",
+                                        //           height: MediaQuery.of(context).size.height*0.02,
+                                        //           color: kColorPrimary,
+                                        //         ),
+                                        //       ),
+                                        //     // Icon(Icons.energy_savings_leaf_outlined, color: kColorPrimary, size: 30,),
+                                        //   ),
+                                        // ),
                                         // Container(
                                         //   height: 8.h,
                                         //   width:
@@ -450,7 +480,7 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                 ),
                               )
-                                  : SizedBox(),
+                              : SizedBox(),
                             ],
                           );
                         }else{
@@ -460,21 +490,17 @@ class _HomePageState extends State<HomePage> {
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (ctx) => OpenActivity(
-                                        dayModelLocalDB: requestDayData!
-                                            .exerciseList![index],
-
+                                        dayModelLocalDB: requestDayData!.exerciseList![index],
                                       )));
                                 },
                                 child: Container(
                                   height: 10.h,
                                   width: MediaQuery.of(context).size.width * 2,
-                                  margin: const EdgeInsets.only(
-                                      left: 12, right: 12, top: 12),
+                                  margin: const EdgeInsets.only(left: 12, right: 12, top: 12),
                                   child: Container(
                                     height: 10.h,
                                     width: MediaQuery.of(context).size.width * 2,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
+                                    padding: const EdgeInsets.symmetric(horizontal: 10),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(12.0),
                                       gradient: const LinearGradient(
@@ -487,23 +513,16 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          requestDayData!
-                                              .exerciseList![index].name,
-                                          style: const TextStyle(
-                                              fontSize: 25.0,
-                                              fontWeight: FontWeight.bold),
+                                          requestDayData!.exerciseList![index].name,
+                                          style: const TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
                                         ),
                                         Container(
                                           height: 8.h,
-                                          width:
-                                          MediaQuery.of(context).size.width *
-                                              0.2,
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: 5),
+                                          width: MediaQuery.of(context).size.width * 0.2,
+                                          margin: const EdgeInsets.symmetric(vertical: 5),
                                           child: SleekCircularSlider(
                                             initialValue: requestDayData!.exerciseList![index].completedPercentage.toDouble(),
                                             max: 100,

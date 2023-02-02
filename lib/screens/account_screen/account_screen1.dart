@@ -489,9 +489,16 @@ class _AccountScreen1State extends State<AccountScreen1> {
                               children: [
                                 Row(
                                   children: [
-                                    Icon(
-                                        Icons.restaurant, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                    Container(
+                                      child: SvgPicture.asset(
+                                        "assets/icons/coffecup.svg",
+                                        height: MediaQuery.of(context).size.height*0.028,
+                                        color: Colors.white,
+                                      ),
                                     ),
+                                    // Icon(
+                                    //     Icons.restaurant, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                    // ),
                                     SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                     Text(
                                       "Training rest",

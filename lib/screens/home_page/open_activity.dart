@@ -85,9 +85,7 @@ class _OpenActivityState extends State<OpenActivity> {
                     children: [
                       Text(
                         widget.dayModelLocalDB!.name,
-                        style: const TextStyle(
-                          fontSize: 20.0,
-                        ),
+                        style: const TextStyle(fontSize: 20.0,),
                       ),
                       // const Spacer(),
                       // const Icon(
