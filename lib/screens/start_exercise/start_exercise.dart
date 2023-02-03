@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fitness_app/screens/home_page/quit_screens/quit_screen.dart';
 import 'package:fitness_app/screens/rest_screen/rest_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/my_button.dart';
@@ -72,6 +73,7 @@ class _StartExerciseState extends State<StartExercise> {
     //     builder: (ctx) =>  StartExercise(exerciseData: exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)));
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -160,7 +162,13 @@ class _StartExerciseState extends State<StartExercise> {
                               AppBar(
                                 leading: IconButton(
                                     onPressed: () {
-                                      Navigator.of(context).pop();
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                              const QuitScreen())
+                                      );
+                                      // Navigator.of(context).pop();
                                     },
                                     icon: const Icon(Icons.arrow_back_sharp)),
                                 backgroundColor: Colors.transparent,
