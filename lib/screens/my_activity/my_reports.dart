@@ -1,5 +1,6 @@
 import 'package:calender_picker/date_picker_widget.dart';
 import 'package:fitness_app/constants/constants.dart';
+import 'package:fitness_app/screens/my_activity/WaterTracker/animated_drinking_screen.dart';
 import 'package:fitness_app/screens/my_activity/WaterTracker/drink_acknowledge_screen.dart';
 import 'package:fitness_app/screens/my_activity/Wikipedia_direct.dart';
 import 'package:fitness_app/screens/my_activity/bmi_popup.dart';
@@ -25,13 +26,15 @@ import 'MyActivityBloc/my_activity_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MyReports extends StatefulWidget {
-  MyReports({Key? key}) : super(key: key);
+
+  MyReports({Key? key,}) : super(key: key);
 
   @override
   State<MyReports> createState() => _MyReportsState();
 }
 
 class _MyReportsState extends State<MyReports> {
+
   DateTime dateTime = DateTime.now();
   int days = 10;
   ExerciseConstants constants = ExerciseConstants();
@@ -90,7 +93,6 @@ class _MyReportsState extends State<MyReports> {
   }
 
   @override
-
   void initState() {
     super.initState();
     saveBMI();
@@ -137,9 +139,10 @@ class _MyReportsState extends State<MyReports> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
               ),
             ),
-            // actions: [
-            //   Image.asset("assets/images/wt_drink.jpg"),
-            // ],
+            actions: [
+              Image.asset("assets/images/wt_drink_report.png"),
+              SizedBox(width: 10),
+            ],
           ),
           body: ColorRemover(
             child: ListView(
@@ -151,7 +154,7 @@ class _MyReportsState extends State<MyReports> {
                 Container(
                   height: 14.h,
                   width: MediaQuery.of(context).size.width * 2,
-                  margin: const EdgeInsets.all(12),
+                  margin: const EdgeInsets.only(left: 12, right: 12, bottom: 12, top: 2),
                   child: Container(
                     height: 14.h,
                     width: MediaQuery.of(context).size.width * 2,
@@ -491,8 +494,7 @@ class _MyReportsState extends State<MyReports> {
                                   // height: 8.h,
                                   // width: MediaQuery.of(context).size.width * 0.2,
                                   // margin: const EdgeInsets.symmetric(vertical: 5),
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 10),
+                                  padding: const EdgeInsets.symmetric(vertical: 10),
                                   child: SleekCircularSlider(
                                     initialValue: value,
                                     max: 100,
@@ -520,7 +522,7 @@ class _MyReportsState extends State<MyReports> {
                                       return Center(
                                         child: SvgPicture.asset(
                                             "assets/icons/waterglass.svg",
-                                            height: MediaQuery.of(context).size.height*0.035,
+                                            height: MediaQuery.of(context).size.height*0.03,
                                             color: Colors.blue,
                                           ),
                                         // Icon(
@@ -549,17 +551,17 @@ class _MyReportsState extends State<MyReports> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                      const DrinkAcknowledge()));
+                                    builder: (BuildContext context) =>
+                                        AnimatedDrinkAcknowledge()));
                             },
                             child: Container(
                               height: 40,
                               width: MediaQuery.of(context).size.width * 0.7,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
+                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(25.0),
-                                  color: kColorPrimary),
+                                  color: Colors.blue
+                              ),
                               child: Center(
                                 child: Text(
                                   'DRINK',

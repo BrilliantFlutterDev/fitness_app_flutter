@@ -16,7 +16,11 @@ import '../home_page/HomePageBloc/home_bloc.dart';
 class SelectExercise extends StatefulWidget {
   ExerciseModelLocalDB exerciseModelLocalDB;
 
-  SelectExercise({Key? key,required this.exerciseModelLocalDB, this.exerciseData, this.dayModelLocalDB}) : super(key: key);
+  int current_index;
+  SelectExercise({
+    Key? key,
+    required this.exerciseModelLocalDB, this.exerciseData, this.dayModelLocalDB, required this.current_index
+  }) : super(key: key);
 
   RequestExerciseData? exerciseData;
   DayModelLocalDB? dayModelLocalDB;
@@ -29,14 +33,35 @@ class _SelectExerciseState extends State<SelectExercise> {
 
   late HomeBloc _homeBloc;
   int index = 0;
+
   // RequestExerciseData? exerciseData;
+  void previousclick() {
+    setState(() {
+      widget.current_index!=1
+          ? widget.current_index = widget.current_index-1
+          : widget.current_index=1;
+      widget.exerciseModelLocalDB = widget.exerciseData!.exerciseList![widget.current_index-1];
+    });
+    print(widget.current_index);
+  }
+
+  void nextclick() {
+    setState(() {
+      widget.current_index!=widget.exerciseData!.exerciseList!.length
+          ? widget.current_index = widget.current_index+1
+          : widget.current_index = widget.exerciseData!.exerciseList!.length;
+      widget.exerciseModelLocalDB = widget.exerciseData!.exerciseList![widget.current_index+1-2];
+    });
+    print(widget.current_index);
+  }
+
   @override
   void initState() {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     print('>>>>>>>>>>>>>Excercise ID: ${widget.exerciseModelLocalDB.columnsId}');
-
-    index=widget.exerciseModelLocalDB.columnsId!;
+    // index = int.parse(widget.dayModelLocalDB!.name[index]);
+    // index=widget.exerciseModelLocalDB.columnsId!;
     // index=widget.dayModelLocalDB!.exerciseNumInProgress;
   }
   @override
@@ -66,13 +91,15 @@ class _SelectExerciseState extends State<SelectExercise> {
         child: Scaffold(
           backgroundColor: kColorBG,
           bottomNavigationBar: SizedBox(
-            height: MediaQuery.of(context).size.height*0.1,
+            height: MediaQuery.of(context).size.height*0.08,
             width: double.infinity,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    previousclick();
+                  },
                   icon: const Icon(
                     Icons.arrow_circle_left,
                     color: Colors.white,
@@ -80,12 +107,14 @@ class _SelectExerciseState extends State<SelectExercise> {
                   ),
                 ),
                 Text(
-                  "${widget.exerciseModelLocalDB.columnsId}/${widget.exerciseData!=null? widget.exerciseData!.exerciseList!.length:'0'}",
+                  widget.exerciseData!=null? "${widget.current_index}/${widget.exerciseData!.exerciseList!.length}" :"0/0",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     // ${widget.exerciseModelLocalDB.columnsId}
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    nextclick();
+                  },
                   icon: const Icon(
                     Icons.arrow_circle_right,
                     color: Colors.white,

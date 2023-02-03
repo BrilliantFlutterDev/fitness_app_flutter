@@ -2,6 +2,7 @@ import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/constants/constants.dart';
 import 'package:fitness_app/screens/my_activity/MyActivityBloc/my_activity_bloc.dart';
 import 'package:fitness_app/screens/my_activity/my_reports.dart';
+import 'package:fitness_app/widgets/cus_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -96,6 +97,16 @@ class _WaterTrackerState extends State<WaterTracker> {
             //     child: Icon(Icons.arrow_back_sharp)
             // ),
             title: const Text("WATER TRACKER"),
+            leading: InkWell(
+              onTap: (){
+                // Navigator.pushAndRemoveUntil(
+                //   context,
+                //   MaterialPageRoute(builder: (BuildContext context) => MyReports()),
+                //   ModalRoute.withName('/'),
+                // );
+                Navigator.pop(context);
+              },
+                child: Icon(Icons.arrow_back_sharp)),
           ),
           body: SingleChildScrollView(
             child: ColorRemover(

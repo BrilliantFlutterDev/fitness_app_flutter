@@ -22,6 +22,7 @@ import 'open_activity.dart';
 import '../my_activity/WaterTracker/water_tracker.dart';
 import '../plan_screen/plan_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:overlay_loader_with_app_icon/overlay_loader_with_app_icon.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -83,9 +84,17 @@ class _HomePageState extends State<HomePage> {
     }, builder: (context, state) {
       return DefaultTabController(
         length: 2,
-        child: ModalProgressHUD(
-          inAsyncCall: state is LoadingState,
-          progressIndicator: CircularProgressIndicator(),
+        child: OverlayLoaderWithAppIcon(
+          isLoading: state is LoadingState,
+          overlayBackgroundColor: kColorBG,
+          circularProgressColor: kColorPrimary,
+          appIconSize: 40,
+          borderRadius: MediaQuery.of(context).size.height*0.2,
+          overlayOpacity: 1,
+          appIcon: Image.asset('assets/images/wt_drink.jpg'),
+        // ModalProgressHUD(
+          // inAsyncCall: state is LoadingState,
+          // progressIndicator: CircularProgressIndicator(),
           child: Scaffold(
             backgroundColor: kColorBG,
             appBar: AppBar(
@@ -268,12 +277,14 @@ class _HomePageState extends State<HomePage> {
                                         horizontal: 10),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(12.0),
-                                      gradient: const LinearGradient(
+                                      gradient: LinearGradient(
                                         begin: Alignment.topRight,
                                         end: Alignment.topLeft,
                                         colors: [
-                                          Color(0xff1c1b20),
-                                          Colors.transparent,
+                                          kColorPrimary,
+                                          Color(0xff1e1e1e),
+                                          // Color(0xff1c1b20),
+                                          // Colors.transparent,
                                         ],
                                       ),
                                     ),
@@ -293,9 +304,9 @@ class _HomePageState extends State<HomePage> {
                                           margin: const EdgeInsets.symmetric(vertical: 5),
                                           child: Center(
                                             child: SvgPicture.asset(
-                                              "assets/icons/coffecup.svg",
-                                              height: MediaQuery.of(context).size.height*0.045,
-                                              color: kColorPrimary,
+                                              "assets/icons/dayrest.svg",
+                                              height: MediaQuery.of(context).size.height*0.03,
+                                              color: Colors.white,
                                             ),
                                           ),
                                         ),
@@ -381,11 +392,12 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(12.0),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                          "assets/images/${requestDayData!.exerciseList![index].image}"),
-                                      fit: BoxFit.cover,
-                                    ),
+                                    color: kColorPrimary.withOpacity(0.2),
+                                    // image: DecorationImage(
+                                    //   image: AssetImage(
+                                    //       "assets/images/${requestDayData!.exerciseList![index].image}"),
+                                    //   fit: BoxFit.cover,
+                                    // ),
                                   ),
                                 ),
                               ),
@@ -455,7 +467,7 @@ class _HomePageState extends State<HomePage> {
                                             child:
                                             Container(
                                               child: SvgPicture.asset(
-                                                "assets/icons/reset.svg",
+                                                "assets/icons/restart.svg",
                                                 height: MediaQuery.of(context).size.height*0.02,
                                                 color: kColorPrimary,
                                               ),
@@ -647,8 +659,8 @@ class _HomePageState extends State<HomePage> {
                                             backgroundColor: kColorFG,
                                             child: Container(
                                               child: SvgPicture.asset(
-                                                "assets/icons/reset.svg",
-                                                height: MediaQuery.of(context).size.height*0.02,
+                                                "assets/icons/restart.svg",
+                                                height: MediaQuery.of(context).size.height*0.025,
                                                 color: kColorPrimary,
                                               ),
                                             ),

@@ -371,9 +371,16 @@ class _AccountScreen1State extends State<AccountScreen1> {
                               children: [
                                 Row(
                                   children: [
-                                    Icon(
-                                        Icons.alarm, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                    Container(
+                                      child: SvgPicture.asset(
+                                        "assets/icons/timer.svg",
+                                        height: MediaQuery.of(context).size.height*0.03,
+                                        color: Colors.white,
+                                      ),
                                     ),
+                                    // Icon(
+                                    //     Icons.alarm, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                    // ),
                                     SizedBox(width: MediaQuery.of(context).size.width*0.036),
                                     Text(
                                       "Reminder",
@@ -431,10 +438,17 @@ class _AccountScreen1State extends State<AccountScreen1> {
                               children: [
                                 Row(
                                   children: [
-                                    Icon(
-                                        Icons.timer, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                    Container(
+                                      child: SvgPicture.asset(
+                                        "assets/icons/counter.svg",
+                                        height: MediaQuery.of(context).size.height*0.0275,
+                                        color: Colors.white,
+                                      ),
                                     ),
-                                    SizedBox(width: MediaQuery.of(context).size.width*0.035),
+                                    // Icon(
+                                    //     Icons.timer, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                    // ),
+                                    SizedBox(width: MediaQuery.of(context).size.width*0.032),
                                     Text(
                                       "Countdown time",
                                       style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
@@ -491,8 +505,8 @@ class _AccountScreen1State extends State<AccountScreen1> {
                                   children: [
                                     Container(
                                       child: SvgPicture.asset(
-                                        "assets/icons/coffecup.svg",
-                                        height: MediaQuery.of(context).size.height*0.028,
+                                        "assets/icons/dayrest.svg",
+                                        height: MediaQuery.of(context).size.height*0.025,
                                         color: Colors.white,
                                       ),
                                     ),
@@ -770,10 +784,17 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             },
                             child: Row(
                               children: [
-                                Icon(
-                                    Icons.health_and_safety, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                Container(
+                                  child: SvgPicture.asset(
+                                    "assets/icons/ruler.svg",
+                                    height: MediaQuery.of(context).size.height*0.013,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                                SizedBox(width: MediaQuery.of(context).size.width*0.035),
+                                // Icon(
+                                //     Icons.health_and_safety, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                // ),
+                                SizedBox(width: MediaQuery.of(context).size.width*0.03),
                                 Text(
                                   "Metric & imperial units",
                                   style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
@@ -819,15 +840,15 @@ class _AccountScreen1State extends State<AccountScreen1> {
                               children: [
                                 Container(
                                   child: SvgPicture.asset(
-                                    "assets/icons/reset.svg",
-                                    height: MediaQuery.of(context).size.height*0.025,
+                                    "assets/icons/restart.svg",
+                                    height: MediaQuery.of(context).size.height*0.03,
                                     color: Colors.white,
                                   ),
                                 ),
                                 // Icon(
                                 //     Icons.refresh, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
                                 // ),
-                                SizedBox(width: MediaQuery.of(context).size.width*0.035),
+                                SizedBox(width: MediaQuery.of(context).size.width*0.036),
                                 Text(
                                   "Restart progress",
                                   style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
@@ -895,9 +916,16 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             padding: EdgeInsets.only(top: 18,bottom: 10),
                             child: Row(
                               children: [
-                                Icon(
-                                    Icons.share, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                Container(
+                                  child: SvgPicture.asset(
+                                    "assets/icons/Share.svg",
+                                    height: MediaQuery.of(context).size.height*0.025,
+                                    color: Colors.white,
+                                  ),
                                 ),
+                                // Icon(
+                                //     Icons.share, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                // ),
                                 SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                 Text(
                                   "Share with friends",
@@ -916,9 +944,16 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             padding: EdgeInsets.only(top: 10,bottom: 10),
                             child: Row(
                               children: [
-                                Icon(
-                                    Icons.star_rate_outlined, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                Container(
+                                  child: SvgPicture.asset(
+                                    "assets/icons/star.svg",
+                                    height: MediaQuery.of(context).size.height*0.025,
+                                    color: Colors.white,
+                                  ),
                                 ),
+                                // Icon(
+                                //     Icons.star_rate_outlined, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                // ),
                                 SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                 Text(
                                   "Rate us",
@@ -940,10 +975,18 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             padding: EdgeInsets.only(top: 10,bottom: 10),
                             child: Row(
                               children: [
-                                Icon(
-                                    Icons.edit, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                SizedBox(width: MediaQuery.of(context).size.width*0.01,),
+                                Container(
+                                  child: SvgPicture.asset(
+                                    "assets/icons/bulb.svg",
+                                    height: MediaQuery.of(context).size.height*0.025,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                                SizedBox(width: MediaQuery.of(context).size.width*0.035),
+                                // Icon(
+                                //     Icons.edit, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                // ),
+                                SizedBox(width: MediaQuery.of(context).size.width*0.036),
                                 Text(
                                   "Common questions",
                                   style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
@@ -964,9 +1007,16 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             padding: EdgeInsets.only(top: 10,bottom: 10),
                             child: Row(
                               children: [
-                                Icon(
-                                  Icons.edit, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                Container(
+                                  child: SvgPicture.asset(
+                                    "assets/icons/feedback.svg",
+                                    height: MediaQuery.of(context).size.height*0.024,
+                                    color: Colors.white,
+                                  ),
                                 ),
+                                // Icon(
+                                //   Icons.edit, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                // ),
                                 SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                 Text(
                                   "Feedback",
@@ -1004,9 +1054,16 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             padding: EdgeInsets.only(top: 10,bottom: 10),
                             child: Row(
                               children: [
-                                Icon(
-                                    Icons.remove_red_eye_outlined, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                Container(
+                                  child: SvgPicture.asset(
+                                    "assets/icons/privacy.svg",
+                                    height: MediaQuery.of(context).size.height*0.018,
+                                    color: Colors.white,
+                                  ),
                                 ),
+                                // Icon(
+                                //     Icons.remove_red_eye_outlined, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                // ),
                                 SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                 Text(
                                   "Privacy policy",

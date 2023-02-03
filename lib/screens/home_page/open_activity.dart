@@ -583,10 +583,10 @@ class _OpenActivityState extends State<OpenActivity> {
                       trimLines: 2,
                       colorClickableText: kColorPrimary,
                       trimMode: TrimMode.Line,
-                      trimCollapsedText: 'Show more',
-                      trimExpandedText: ' Show less',
-                      moreStyle: TextStyle(color:kColorPrimary),
-                      lessStyle: TextStyle(color:kColorPrimary),
+                      trimCollapsedText: 'show more',
+                      trimExpandedText: ' show less',
+                      moreStyle: TextStyle(color:kColorPrimary ,fontWeight: FontWeight.bold),
+                      lessStyle: TextStyle(color:kColorPrimary ,fontWeight: FontWeight.bold),
                     ),
                     Padding(
                       padding: EdgeInsets.only(
@@ -650,7 +650,7 @@ class _OpenActivityState extends State<OpenActivity> {
                         Row(
                           children: [
                             const Text(
-                              "Exercises  ",
+                              "Exercises ",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 17),
                             ),
@@ -689,16 +689,16 @@ class _OpenActivityState extends State<OpenActivity> {
                           child: Row(
                             children: [
                               const Text(
-                                "Edit  ",
+                                "Edit ",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                    color: Colors.grey),
+                                    fontSize: 15,
+                                    color: Colors.white),
                               ),
                               const Icon(
                                 Icons.edit_outlined,
-                                color: Colors.grey,
-                                size: 20,
+                                color: Colors.white,
+                                size: 18,
                               ),
                             ],
                           ),
@@ -717,13 +717,13 @@ class _OpenActivityState extends State<OpenActivity> {
                             : 0,
                             itemBuilder: (ctx, index) {
                               return exerciseData!.exerciseList![index].dayTitle == widget.dayModelLocalDB!.name
-                                ? GestureDetector(
+                                ? InkWell(
                                   onTap: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                           builder: (ctx) =>
                                            SelectExercise(exerciseModelLocalDB: exerciseData!.exerciseList![index],
-                                               exerciseData: exerciseData, dayModelLocalDB: widget.dayModelLocalDB
+                                               exerciseData: exerciseData, dayModelLocalDB: widget.dayModelLocalDB, current_index: index+1,
                                            )
                                       )
                                     );
@@ -736,13 +736,13 @@ class _OpenActivityState extends State<OpenActivity> {
                                           borderRadius:
                                           BorderRadius.circular(8.0),
                                           child: Image(
-                                              height: 80,
-                                              width: 90,
+                                              height: 70,
+                                              width: 80,
                                               fit: BoxFit.cover,
                                               image: AssetImage(
                                                   "assets/images/${exerciseData!.exerciseList![index].image}")),
                                         ),
-                                        const SizedBox(
+                                        SizedBox(
                                           width: 18.0,
                                         ),
                                         Column(
@@ -756,7 +756,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            const SizedBox(
+                                            SizedBox(
                                               height: 6.0,
                                             ),
                                             Text(

@@ -46,13 +46,13 @@ class _DayRestScreenState extends State<DayRestScreen>{
             Center(
               child: CircleAvatar(
                 radius: 70,
-                backgroundColor: Colors.white,
+                backgroundColor: kColorPrimary,
                 // backgroundColor: Colors.grey,
                   child: LimitedBox(
                     child: SvgPicture.asset(
                       "assets/icons/coffecup.svg",
                       height: MediaQuery.of(context).size.height*0.1,
-                      color: kColorPrimary,
+                      color: Colors.white,
                     ),
                   ),
                 // Icon(Icons.energy_savings_leaf_outlined, color: kColorPrimary, size: 80,),

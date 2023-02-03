@@ -1,4 +1,5 @@
 import 'package:fitness_app/screens/my_activity/WaterTracker/water_tracker.dart';
+import 'package:fitness_app/widgets/cus_bottom_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/colors.dart';
@@ -7,7 +8,7 @@ import '../../../constants/colors.dart';
 
 class DrinkAcknowledge extends StatefulWidget {
 
-  const DrinkAcknowledge({Key? key}) : super(key: key);
+  DrinkAcknowledge({Key? key,}) : super(key: key);
 
   @override
   State<DrinkAcknowledge> createState() => _DrinkAcknowledgeState();
@@ -18,18 +19,20 @@ class _DrinkAcknowledgeState extends State<DrinkAcknowledge> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kColorBG,
       appBar: AppBar(
-        backgroundColor: const Color(0xff1c1b20),
+        backgroundColor: kColorBG,
+        // backgroundColor: const Color(0xff1c1b20),
         leading: InkWell(
           onTap: (){
             Navigator.pop(context);
           },
             child: Icon(Icons.arrow_back_sharp)
         ),
-        actions: [
-          Icon(Icons.settings),
-          SizedBox(width: 10),
-        ],
+        // actions: [
+        //   Icon(Icons.settings),
+        //   SizedBox(width: 10),
+        // ],
       ),
       body: Column(
         children: [
@@ -58,6 +61,11 @@ class _DrinkAcknowledgeState extends State<DrinkAcknowledge> {
           ),
           InkWell(
             onTap: (){
+              // Navigator.pushAndRemoveUntil(
+              //   context,
+              //   MaterialPageRoute(builder: (BuildContext context) => CusBottomBar()),
+              //   ModalRoute.withName('/'),
+              // );
               Navigator.pop(context);
             },
             child: Container(

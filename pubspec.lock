@@ -253,6 +253,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.3"
+  expandable_page_view:
+    dependency: "direct main"
+    description:
+      name: expandable_page_view
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.17"
   fake_async:
     dependency: transitive
     description:
@@ -639,6 +646,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  overlay_loader_with_app_icon:
+    dependency: "direct main"
+    description:
+      name: overlay_loader_with_app_icon
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   package_config:
     dependency: transitive
     description:
