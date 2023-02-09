@@ -58,11 +58,9 @@ class _QuitReasonScreenState extends State<QuitReasonScreen> {
             SizedBox(height: MediaQuery.of(context).size.height*0.025),
             InkWell(
               onTap: (){
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (BuildContext context) => CusBottomBar()),
-                    ModalRoute.withName('/'),
-                );
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => const CusBottomBar()),
+                        (Route<dynamic> route) => false);
               },
               child: Container(
                 width: MediaQuery.of(context).size.width*0.9,
@@ -93,11 +91,9 @@ class _QuitReasonScreenState extends State<QuitReasonScreen> {
             SizedBox(height: MediaQuery.of(context).size.height*0.025),
             InkWell(
               onTap: (){
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (BuildContext context) => CusBottomBar()),
-                  ModalRoute.withName('/'),
-                );
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => const CusBottomBar()),
+                        (Route<dynamic> route) => false);
               },
               child: Container(
                 width: MediaQuery.of(context).size.width*0.9,
@@ -129,11 +125,9 @@ class _QuitReasonScreenState extends State<QuitReasonScreen> {
             // Text("Pause"),
             InkWell(
               onTap: (){
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (BuildContext context) => CusBottomBar()),
-                  ModalRoute.withName('/'),
-                );
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => const CusBottomBar()),
+                        (Route<dynamic> route) => false);
               },
               child: Container(
                 width: MediaQuery.of(context).size.width*0.9,
@@ -166,11 +160,9 @@ class _QuitReasonScreenState extends State<QuitReasonScreen> {
               alignment: Alignment.centerRight,
               child: InkWell(
                 onTap: (){
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (BuildContext context) => CusBottomBar()),
-                    ModalRoute.withName('/'),
-                  );
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => const CusBottomBar()),
+                          (Route<dynamic> route) => false);
                 },
                 child: Text(
                   "Quit >",

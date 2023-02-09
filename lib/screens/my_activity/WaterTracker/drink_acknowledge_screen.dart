@@ -61,11 +61,7 @@ class _DrinkAcknowledgeState extends State<DrinkAcknowledge> {
           ),
           InkWell(
             onTap: (){
-              // Navigator.pushAndRemoveUntil(
-              //   context,
-              //   MaterialPageRoute(builder: (BuildContext context) => CusBottomBar()),
-              //   ModalRoute.withName('/'),
-              // );
+              Navigator.pop(context);
               Navigator.pop(context);
             },
             child: Container(

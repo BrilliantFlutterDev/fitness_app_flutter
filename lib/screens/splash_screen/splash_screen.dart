@@ -66,12 +66,12 @@ class _SplashScreenState extends State<SplashScreen>
         (await storage.read(key: 'dataStoreFromConstantToLDB'));
     if (AppGlobal.dataStoreFromConstantToLDB == 'true') {
       AppGlobal.selectedPlan = (await storage.read(key: 'selectedPlan'));
-      AppGlobal.selectedPushUpOption =
-          (await storage.read(key: 'selectedPushUpOption'));
-      AppGlobal.selectedPlankOption =
-          (await storage.read(key: 'selectedPlankOption'));
-      AppGlobal.selectedKneeIssueOption =
-          (await storage.read(key: 'selectedKneeIssueOption'));
+
+      AppGlobal.selectedPushUpOption = (await storage.read(key: 'selectedPushUpOption'));
+
+      AppGlobal.selectedPlankOption = (await storage.read(key: 'selectedPlankOption'));
+
+      AppGlobal.selectedKneeIssueOption = (await storage.read(key: 'selectedKneeIssueOption'));
       var tempDate = await storage.read(key: 'startDate');
       DateTime startDate = DateTime.parse(tempDate!);
       final todayDate = DateTime.now();
@@ -111,35 +111,69 @@ class _SplashScreenState extends State<SplashScreen>
       return ModalProgressHUD(
         inAsyncCall: state is LoadingState,
         child: Scaffold(
-          backgroundColor: kColorPrimary,
-          body: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Column(
-                    children: [
-                      const SizedBox(
-                        height: 20,
+          // backgroundColor: kColorPrimary,
+          body: Stack(
+            alignment: Alignment.bottomLeft,
+            children: [
+              // const SizedBox(
+              //   height: 20,
+              // ),
+              Image.asset(
+                'assets/images/splash.png',
+                height: MediaQuery.of(context).size.height,
+                opacity: AlwaysStoppedAnimation(0.4),
+                // color: kColorBG.withOpacity(0.2),
+                // width: _animation.value * 300,
+                //height: _animation.value * 300,
+                fit: BoxFit.fill,
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).size.height*0.3, left: MediaQuery.of(context).size.width*0.1
+                ),
+                child:
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      height: 65,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: kColorPrimary,
+                          width: 3,
+                        )
                       ),
-                      Image.asset(
-                        'assets/images/splash_icon.png',
-                        width: _animation.value * 300,
-                        //height: _animation.value * 300,
-                      ),
-                    ],
-                  ),
-                  const Text(
+                    ),
+                    SizedBox(width: 10),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'AppName',
+                          style: TextStyle(color: kColorPrimary, fontSize: 30,fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          'AppName',
+                          style: TextStyle(color: Colors.white, fontSize: 30,fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height*0.05),
+                  child: Text(
                     'Powered by GameScapes',
                     style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                  )
-                ],
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
         ),
       );

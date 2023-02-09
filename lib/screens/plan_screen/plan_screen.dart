@@ -179,8 +179,8 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                 ],
                               ),
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.09),
+                                  height: MediaQuery.of(context).size.height * 0.09
+                              ),
                               GestureDetector(
                                 onTap: () async {
                                   _selectedPlan[2] = false;

@@ -61,9 +61,6 @@ class _SelectExerciseState extends State<SelectExercise> {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     print('>>>>>>>>>>>>>Excercise ID: ${widget.exerciseModelLocalDB.columnsId}');
-    // index = int.parse(widget.dayModelLocalDB!.name[index]);
-    // index=widget.exerciseModelLocalDB.columnsId!;
-    // index=widget.dayModelLocalDB!.exerciseNumInProgress;
   }
   @override
   Widget build(BuildContext context) {
@@ -184,9 +181,10 @@ class _SelectExerciseState extends State<SelectExercise> {
                                 if(widget.exerciseModelLocalDB.type=='rap'&& widget.exerciseModelLocalDB.raps>=1){
                                   _homeBloc.add(RapsIncrementDecrementEvent(exerciseModelLocalDB: widget.exerciseModelLocalDB, isIncrementing: false, isDecrementing: true));
                                 }
-                                // else if (widget.exerciseModelLocalDB.type=='time'&& widget.exerciseModelLocalDB.time>=1) {
-                                //   _homeBloc.add(TimeIncrementDecrementEvent(exerciseModelLocalDB: widget.exerciseModelLocalDB, isIncrementing: false, isDecrementing: true));
-                                // }
+                                else if (widget.exerciseModelLocalDB.type=='time'&& widget.exerciseModelLocalDB.time>=1) {
+                                  print('Time dec');
+                                  _homeBloc.add(TimeIncrementDecrementEvent(exerciseModelLocalDB: widget.exerciseModelLocalDB, isIncrementing: false, isDecrementing: true));
+                                }
                               },
                               child: Container(
                                   decoration: BoxDecoration(
@@ -215,6 +213,7 @@ class _SelectExerciseState extends State<SelectExercise> {
                             if(widget.exerciseModelLocalDB.type=='rap'){
                               _homeBloc.add(RapsIncrementDecrementEvent(exerciseModelLocalDB: widget.exerciseModelLocalDB, isIncrementing: true, isDecrementing: false));
                             } else if(widget.exerciseModelLocalDB.type=='time') {
+                              print('Time inc');
                               _homeBloc.add(TimeIncrementDecrementEvent(exerciseModelLocalDB: widget.exerciseModelLocalDB, isIncrementing: true, isDecrementing: false));
                             }
                           },
@@ -298,21 +297,18 @@ class _SelectExerciseState extends State<SelectExercise> {
                         // const SizedBox(
                         //   height: 18.0,
                         // ),
-                        const Text(
-                          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                          style: TextStyle(
-                            fontSize: 18.0,
-                          ),
+                        SizedBox(height: 10),
+                        Text(
+                          widget.exerciseModelLocalDB.discription,
+                          style: TextStyle(fontSize: 17),
+                          textAlign: TextAlign.justify,
                         ),
-                        const SizedBox(
-                          height: 18.0,
-                        ),
-                        const Text(
-                          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                          style: TextStyle(
-                            fontSize: 18.0,
-                          ),
-                        ),
+                        // const Text(
+                        //   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                        //   style: TextStyle(
+                        //     fontSize: 18.0,
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),

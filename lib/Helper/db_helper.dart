@@ -26,6 +26,7 @@ class DatabaseHelper {
   static const inPlankCat = 'inPlankCat';
   static const completeStatus = 'completeStatus';
   static const isRest = 'isRest';
+  static const discription = 'discription';
 
   ///Day variables
   // static const dayTitle = 'dayTitle';
@@ -79,13 +80,14 @@ class DatabaseHelper {
             $name TEXT,
             $image TEXT,
             $raps INTEGER,
-            $time TEXT,
+            $time INTEGER,
             $type TEXT,
             $kneeIssue TEXT,
             $planLevel TEXT,
             $inPushUpCat TEXT,
             $inPlankCat TEXT,
-            $completeStatus TEXT
+            $completeStatus TEXT,
+            $discription TEXT
           )
           ''');
 

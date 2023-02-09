@@ -7,6 +7,7 @@ import 'package:fitness_app/screens/home_page/custom_training.dart';
 import 'package:fitness_app/screens/home_page/open_home_page/open_home_page.dart';
 import 'package:fitness_app/screens/home_page/quit_screens/quit_screen.dart';
 import 'package:fitness_app/screens/rest_screen/dayrest_screen.dart';
+import 'package:fitness_app/screens/rest_screen/exercise_rest.dart';
 import 'package:fitness_app/screens/rest_screen/rest_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/coming_soon_popup.dart';
@@ -84,17 +85,19 @@ class _HomePageState extends State<HomePage> {
     }, builder: (context, state) {
       return DefaultTabController(
         length: 2,
-        child: OverlayLoaderWithAppIcon(
-          isLoading: state is LoadingState,
-          overlayBackgroundColor: kColorBG,
-          circularProgressColor: kColorPrimary,
-          appIconSize: 40,
-          borderRadius: MediaQuery.of(context).size.height*0.2,
-          overlayOpacity: 1,
-          appIcon: Image.asset('assets/images/wt_drink.jpg'),
-        // ModalProgressHUD(
-          // inAsyncCall: state is LoadingState,
-          // progressIndicator: CircularProgressIndicator(),
+        child:
+        // OverlayLoaderWithAppIcon(
+        //   isLoading: state is LoadingState,
+        //   overlayBackgroundColor: kColorBG,
+        //   circularProgressColor: kColorPrimary,
+        //   appIconSize: 40,
+        //   borderRadius: MediaQuery.of(context).size.height*0.2,
+        //   overlayOpacity: 1,
+        //   appIcon: Image.asset('assets/images/wt_drink.jpg'),
+        ModalProgressHUD(
+          inAsyncCall: state is LoadingState,
+          progressIndicator: CircularProgressIndicator(),
+          color: Colors.transparent,
           child: Scaffold(
             backgroundColor: kColorBG,
             appBar: AppBar(
@@ -118,6 +121,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
+                SizedBox(width: MediaQuery.of(context).size.width*0.01),
                 // IconButton(
                 //   icon: const Icon(
                 //     Icons.flash_on_rounded,
@@ -137,7 +141,7 @@ class _HomePageState extends State<HomePage> {
                     //     context,
                     //     MaterialPageRoute(
                     //         builder: (BuildContext context) =>
-                    //         const QuitScreen()));
+                    //         ExerciseRestScreen(exerciseData: exerciseData, dayModelLocalDB: dayModelLocalDB,)));
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.03),
@@ -292,11 +296,8 @@ class _HomePageState extends State<HomePage> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          requestDayData!
-                                              .exerciseList![index].name,
-                                          style: const TextStyle(
-                                              fontSize: 25.0,
-                                              fontWeight: FontWeight.bold),
+                                          requestDayData!.exerciseList![index].name,
+                                          style: const TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
                                         ),
                                         Container(
                                           height: 8.h,
@@ -564,11 +565,11 @@ class _HomePageState extends State<HomePage> {
                                                   MainAxisAlignment.center,
                                                   children: [
                                                     Text(
+                                                      // requestDayData!.exerciseList![index].exerciseNumInProgress == exerciseData!.exerciseList!.length
+                                                      //     ?
+                                                      // "100%" : "${requestDayData!.exerciseList![index].completedPercentage}%",
                                                       "${requestDayData!.exerciseList![index].completedPercentage}%",
-                                                      style: const TextStyle(
-                                                        fontSize: 18,
-                                                        color: Colors.grey,
-                                                      ),
+                                                      style: const TextStyle(fontSize: 18, color: Colors.grey,),
                                                     ),
                                                   ],
                                                 ),

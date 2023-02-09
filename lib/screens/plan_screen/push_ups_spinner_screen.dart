@@ -1,3 +1,4 @@
+import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/forget_password/forget_password.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
@@ -36,7 +37,7 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
   }
 
   void addUserData() async {
-    await storage.write(key: 'selectedPushUpOption', value: pushUpsRanges[0]);
+    await storage.write(key: 'selectedPushUpOption', value: '4');    //pushUpsRanges[1]
   }
 
   @override
@@ -86,8 +87,7 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
                         height: MediaQuery.of(context).size.height,
                         width: MediaQuery.of(context).size.width,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 15),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                           child: Column(
                             children: [
                               Align(
@@ -106,17 +106,13 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.02),
+                              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                               Align(
                                 alignment: Alignment.center,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
+                                  padding: const EdgeInsets.only(left: 10, right: 10),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: const [
                                       Text(
                                         "HOW MANY PUSH UPS CAN YOU DO AT A TIME?",
@@ -154,15 +150,12 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
                               Container(
                                 margin: const EdgeInsets.all(12),
                                 child: Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.5,
+                                  height: MediaQuery.of(context).size.height * 0.5,
                                   alignment: Alignment.bottomLeft,
-                                  padding: const EdgeInsets.only(
-                                      bottom: 12.0, left: 12.0),
+                                  padding: const EdgeInsets.only(bottom: 12.0, left: 12.0),
                                   child: VerticalPicker(
                                     // give height for eacch item
-                                    itemHeight:
-                                        MediaQuery.of(context).size.height / 10,
+                                    itemHeight: MediaQuery.of(context).size.height / 10,
 
                                     // margin for border
                                     leftMargin: 20,
@@ -170,22 +163,32 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
 
                                     // create list of text for items
                                     items: List.generate(
-                                        pushUpsRanges.length,
-                                        (index) => Center(
-                                              child: Text(
-                                                pushUpsRanges[index],
-                                                style: const TextStyle(
-                                                    fontSize: 30,
-                                                    fontWeight:
-                                                        FontWeight.w700),
-                                              ),
-                                            )),
+                                      pushUpsRanges.length,
+                                      (index) => Center(
+                                          child: Text(
+                                            pushUpsRanges[index],
+                                            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
+                                          ),
+                                        ),
+                                    ),
 
                                     // empty void for item selected
                                     onSelectedChanged: (indexSelected) async {
+
                                       await storage.write(
-                                          key: 'selectedPushUpOption',
-                                          value: pushUpsRanges[indexSelected]);
+                                        key: 'selectedPushUpOption',
+                                        value: pushUpsRanges[indexSelected] == '0-5'?
+                                                  AppGlobal.selectedPushUpOption = '3' :
+                                               pushUpsRanges[indexSelected] == '5-10'?
+                                                  AppGlobal.selectedPushUpOption = '8' :
+                                               pushUpsRanges[indexSelected] == '10-20'?
+                                                  AppGlobal.selectedPushUpOption = '15' :
+                                               pushUpsRanges[indexSelected] == 'Over 20'?
+                                                  AppGlobal.selectedPushUpOption = '20' :
+                                               '10',
+                                      );
+                                      print('pushup>>>>>> ${AppGlobal.selectedPushUpOption}');
+                                      _homeBloc.add(RefreshScreenEvent());
                                     },
 
                                     // give color to border
@@ -195,52 +198,51 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
                                     borderThickness: 3,
                                   ),
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(12.0),
+                                    borderRadius: BorderRadius.circular(12.0),
                                       // image: DecorationImage(
                                       //   image: AssetImage(
                                       //       "assets/images/${constants.standard[index].image}"),
                                       //   fit: BoxFit.cover,
                                       // ),
-                                      color: Colors.white),
+                                    color: Colors.white
+                                  ),
                                 ),
                               ),
                               const SizedBox(height: 25),
                               InkWell(
                                 onTap: () {
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              const PlanksSpinnerScreen()));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                        const PlanksSpinnerScreen()));
                                 },
                                 child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.6,
-                                    height: MediaQuery.of(context).size.height * 0.08,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
+                                  width: MediaQuery.of(context).size.width * 0.6,
+                                  height: MediaQuery.of(context).size.height * 0.08,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
                                             // color: Colors.white,
                                             // width: 2.0,
                                             ),
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        color: kColorPrimary,
-                                        boxShadow: const [
-                                          BoxShadow(
-                                            color: Colors.black26,
-                                            spreadRadius: 1,
-                                            blurRadius: 8,
-                                            offset: Offset(0, 3),
-                                          )
-                                        ]),
-                                    child: const Center(
-                                        child: Text(
+                                    borderRadius:
+                                      BorderRadius.circular(100),
+                                      color: kColorPrimary,
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Colors.black26,
+                                          spreadRadius: 1,
+                                          blurRadius: 8,
+                                          offset: Offset(0, 3),
+                                        )
+                                      ]
+                                  ),
+                                  child: const Center(
+                                    child: Text(
                                       'NEXT',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold),
-                                    ))),
+                                      style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+                                    )
+                                  )),
                               )
                             ],
                           ),

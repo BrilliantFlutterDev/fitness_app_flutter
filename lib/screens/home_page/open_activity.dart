@@ -36,11 +36,20 @@ class _OpenActivityState extends State<OpenActivity> {
 
   final List<bool> _selectedPlan = <bool>[true, false, false];
 
+  int pushUp = 10;
+  int plank = 15;
   @override
   void initState() {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     _homeBloc.add(GetAllExerciseOfDayEvent(day: widget.dayModelLocalDB!.name));
+
+    pushUp = int.parse(AppGlobal.selectedPushUpOption!);
+    print(AppGlobal.selectedPushUpOption);
+
+    plank = int.parse(AppGlobal.selectedPlankOption!);
+    print(AppGlobal.selectedPlankOption);
+
   }
 
   @override
@@ -65,7 +74,7 @@ class _OpenActivityState extends State<OpenActivity> {
     }, builder: (context, state) {
       return ModalProgressHUD(
         inAsyncCall: state is LoadingState,
-        color: kColorPrimary,
+        color: Colors.transparent,
         child: SafeArea(
           child: Scaffold(
             backgroundColor: kColorBG,
@@ -454,7 +463,7 @@ class _OpenActivityState extends State<OpenActivity> {
                       InkWell(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (ctx) =>  ReadyToGo(exerciseData: exerciseData, dayModelLocalDB: widget.dayModelLocalDB)));
+                              builder: (ctx) =>  ReadyToGo(exerciseData: exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)));
 
                           // Navigator.of(context).push(MaterialPageRoute(
                           //     builder: (ctx) =>  StartExercise(exerciseData: exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)));
@@ -575,7 +584,7 @@ class _OpenActivityState extends State<OpenActivity> {
                     //   maxLines: 2,
                     // ),
                     ReadMoreText(
-                      "Just 5-10 min, this training is designed especially for beginners who want to lose weight but don't know where to start."
+                      "Just ${AppGlobal.selectedPlan=='1'?'5-10':AppGlobal.selectedPlan=='2'?'10-20':AppGlobal.selectedPlan=='3'?'15-30':'a few'} min, this training is designed especially for beginners who want to lose weight but don't know where to start."
                       "\n\n"
                       "This training mixes with basic aerobic and anaerobic exercises. It uses your bodyweight to work all muscle groups and boost your fat burning."
                       "\n\n"
@@ -627,12 +636,14 @@ class _OpenActivityState extends State<OpenActivity> {
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
-                                "4 mins",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
-                              ),
+                                exerciseData!=null?exerciseData!.exerciseList!.length == 7
+                                    ? "5 mins" : exerciseData!=null?exerciseData!.exerciseList!.length == 8
+                                    ? "6 mins" : exerciseData!=null?exerciseData!.exerciseList!.length == 9
+                                    ? "7 mins" : "5 mins" : "5 min" :"5 min" : "5 min",
+                                // "4 mins",
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
                               SizedBox(height: 5),
                               Text(
                                 "Duration",
@@ -760,8 +771,15 @@ class _OpenActivityState extends State<OpenActivity> {
                                               height: 6.0,
                                             ),
                                             Text(
-                                              exerciseData!.exerciseList![index].type!='rap'?"${exerciseData!.exerciseList![index].time} sec":
-                                              "${exerciseData!.exerciseList![index].raps} Raps",
+                                              exerciseData!.exerciseList![index].type =='rap'
+                                                  ?
+                                              exerciseData!.exerciseList![index].name=='PUSH-UPS'
+                                                  ?
+                                                "$pushUp raps" : "${exerciseData!.exerciseList![index].raps} raps"
+                                                  :
+                                              exerciseData!.exerciseList![index].name=='PLANK'
+                                                  ?
+                                              "$plank secs" : "${exerciseData!.exerciseList![index].time} sec",
                                               style: const TextStyle(
                                                 fontSize: 12,
                                               ),

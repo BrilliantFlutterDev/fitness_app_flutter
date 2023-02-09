@@ -5,7 +5,7 @@ class AppGlobal {
   static String? dataStoreFromConstantToLDB = '';
   static String? selectedPlan = '1';
   static String? selectedKneeIssueOption = '';
-  static String? selectedPushUpOption = '';
-  static String? selectedPlankOption = '';
+  static String? selectedPushUpOption = '3';
+  static String? selectedPlankOption = '15';
   static int currentDay = 0;
 }

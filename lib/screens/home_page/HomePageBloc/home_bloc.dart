@@ -45,6 +45,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             inPushUpCat: constants.dailyExercises[i].inPushUpCat,
             inPlankCat: constants.dailyExercises[i].inPlankCat,
             dayTitle: constants.dailyExercises[i].dayTitle,
+            discription: constants.dailyExercises[i].discription,
             completeStatus: '0',);
         await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
       }
@@ -130,23 +131,23 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         yield ErrorState(error: 'No Exercise found!');
       }
     }
-    // else if (event is TimeIncrementDecrementEvent) {
-    //   try {
-    //     if (event.isIncrementing == true) {
-    //       event.exerciseModelLocalDB.time =
-    //           event.exerciseModelLocalDB.time + 1;
-    //     } else if (event.isDecrementing == true) {
-    //       event.exerciseModelLocalDB.time =
-    //           event.exerciseModelLocalDB.time - 1;
-    //     }
-    //     var data =
-    //     await dbHelper.updateAExercise(event.exerciseModelLocalDB.toJson());
-    //
-    //     yield UpdateAllExerciseState(exerciseModelLocalDB: event.exerciseModelLocalDB);
-    //   } catch (e) {
-    //     yield ErrorState(error: 'No Exercise found!');
-    //   }
-    // }
+    else if (event is TimeIncrementDecrementEvent) {
+      try {
+        if (event.isIncrementing == true) {
+          event.exerciseModelLocalDB.time =
+              event.exerciseModelLocalDB.time + 1;
+        } else if (event.isDecrementing == true) {
+          event.exerciseModelLocalDB.time =
+              event.exerciseModelLocalDB.time - 1;
+        }
+        var data =
+        await dbHelper.updateAExercise(event.exerciseModelLocalDB.toJson());
+
+        yield UpdateAllExerciseState(exerciseModelLocalDB: event.exerciseModelLocalDB);
+      } catch (e) {
+        yield ErrorState(error: 'No Exercise found!');
+      }
+    }
     else if (event is ChangeExerciseStatusToDoneEvent) {
       try {
         event.exerciseModelLocalDB.completeStatus = '1';

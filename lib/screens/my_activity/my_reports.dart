@@ -42,6 +42,8 @@ class _MyReportsState extends State<MyReports> {
 
   late MyActivityBloc _activityBloc;
   RequestDayData? requestDayData;
+  DayModelLocalDB? dayModelLocalDB;
+  int totalWorkout = 0;
 
   String _message = 'Please enter your height and weight';
   double? _bmi;
@@ -79,7 +81,7 @@ class _MyReportsState extends State<MyReports> {
 
   void saveBMI() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    _bmi = prefs.getDouble('bmi')!;
+    _bmi = prefs.getDouble('bmi');
     SharedPreferences pref = await SharedPreferences.getInstance();
     _message = pref.getString('bmi_message')!;
   }
@@ -96,11 +98,16 @@ class _MyReportsState extends State<MyReports> {
   void initState() {
     super.initState();
     saveBMI();
-
     _activityBloc = BlocProvider.of<MyActivityBloc>(context);
+    _activityBloc.add(GetASpecificDaysEvent(day: 'Day ${AppGlobal.currentDay + 1}'));
 
-    _activityBloc
-        .add(GetASpecificDaysEvent(day: 'Day ${AppGlobal.currentDay + 1}'));
+    // totalWorkout = int.parse('${requestDayData!.exerciseList![0].exerciseNumInProgress}');
+    // print("Exercise Number>>>>>>>>> $totalWorkout");
+    // print("Exercise Number: ${dayModelLocalDB!.completedPercentage}");
+
+    // totalWorkout = dayModelLocalDB!.exerciseNumInProgress;
+    // print("Workout>>>>>>>>>>>> $totalWorkout");
+    // index=index-1;
   }
 
   @override
@@ -121,11 +128,15 @@ class _MyReportsState extends State<MyReports> {
       } else if (state is RefreshScreenState) {
       } else if (state is GetAllDaysState) {
         requestDayData = state.dayData;
-        value = requestDayData!.exerciseList![0].noOfGlassWaterDrank * 12.5;
+        totalWorkout = int.parse('${requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress}');
+        print("Exercise Number>>>>>>>>> $totalWorkout");
+        print("CurrentDay>>>>>>>>> ${AppGlobal.currentDay}");
+        value = requestDayData!.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank * 12.5;
       }
     }, builder: (context, state) {
       return ModalProgressHUD(
         inAsyncCall: state is LoadingState,
+        color: Colors.transparent,
         child: Scaffold(
           backgroundColor: kColorBG,
           //  backgroundColor: const Color(0xff1c1b20),
@@ -190,19 +201,16 @@ class _MyReportsState extends State<MyReports> {
                             //   child: Center(
                             //       child:
                             Text(
-                                '31',
-                                style: TextStyle(
-                                    color: kColorPrimary,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold),
+                              totalWorkout.toString(),
+                              // requestDayData!.exerciseList![0].exerciseNumInProgress.toString(),
+                              // dayModelLocalDB!=null?  dayModelLocalDB!.exerciseNumInProgress.toString() : "0",
+                              style: TextStyle(color: kColorPrimary, fontSize: 22, fontWeight: FontWeight.bold),
                             ),
                               // ),
                             // ),
                             Text(
                               'WORKOUTS',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700),
+                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
                             )
                           ],
                         ),
@@ -228,18 +236,13 @@ class _MyReportsState extends State<MyReports> {
                             //       child:
                               Text(
                                 '31.0',
-                                style: TextStyle(
-                                    color: kColorPrimary,
-                                    fontSize: 21,
-                                    fontWeight: FontWeight.bold),
+                                style: TextStyle(color: kColorPrimary, fontSize: 21, fontWeight: FontWeight.bold),
                               ),
                             //  ),
                             // ),
                             Text(
                               'KCAL',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700),
+                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
                             )
                           ],
                         ),
@@ -265,18 +268,13 @@ class _MyReportsState extends State<MyReports> {
                             //       child:
                               Text(
                                 '01:00',
-                                style: TextStyle(
-                                    color: kColorPrimary,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
+                                style: TextStyle(color: kColorPrimary, fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                             //   ),
                             // ),
                             Text(
                               'TIME(MIN)',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700),
+                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
                             )
                           ],
                         ),

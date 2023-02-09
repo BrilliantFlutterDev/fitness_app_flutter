@@ -1,16 +1,20 @@
+import 'dart:async';
+
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/screens/my_activity/MyActivityBloc/my_activity_bloc.dart';
+import 'package:fitness_app/screens/my_activity/WaterTracker/drink_acknowledge_screen.dart';
 import 'package:fitness_app/screens/my_activity/WaterTracker/water_tracker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../constants/colors.dart';
 
 class AnimatedDrinkAcknowledge extends StatefulWidget {
 
-  const AnimatedDrinkAcknowledge({Key? key}) : super(key: key);
+  AnimatedDrinkAcknowledge({Key? key,}) : super(key: key);
 
   @override
   State<AnimatedDrinkAcknowledge> createState() => _AnimatedDrinkAcknowledgeState();
@@ -28,6 +32,15 @@ class _AnimatedDrinkAcknowledgeState extends State<AnimatedDrinkAcknowledge> {
     super.initState();
     _activityBloc = BlocProvider.of<MyActivityBloc>(context);
     _activityBloc.add(GetASpecificDaysEvent(day: 'Day ${AppGlobal.currentDay + 1}'));
+
+    Timer(
+        Duration(milliseconds: 1500),
+            () => setState(() {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => DrinkAcknowledge()),
+              );
+        })
+    );
   }
 
   @override
@@ -91,10 +104,7 @@ class _AnimatedDrinkAcknowledgeState extends State<AnimatedDrinkAcknowledge> {
                 ),
                 Text(
                   ' cups today',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -113,35 +123,47 @@ class _AnimatedDrinkAcknowledgeState extends State<AnimatedDrinkAcknowledge> {
           SizedBox(
             height: MediaQuery.of(context).size.height*0.1,
           ),
-          Image.asset('assets/icons/well_done.png'),
-          InkWell(
-            onTap: (){
-              Navigator.pop(context);
-            },
-            child: Container(
-              height: 45,
-              width: MediaQuery.of(context).size.width * 0.85,
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 10, vertical: 10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25.0),
-                  gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.topLeft,
-                      colors: [
-                        Colors.blue,
-                        Color(0xff1e1e1e),
-                      ],
-                    ),
-              ),
-              child: Center(
-                child: Text(
-                  'Enjoy drinking...',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w800),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                child: SvgPicture.asset(
+                  "assets/icons/waterglass.svg",
+                  height: MediaQuery.of(context).size.height*0.25,
+                  color: Colors.lightBlueAccent,
                 ),
+              ),
+              // Image.asset('assets/icons/well_done.png'),
+              Center(
+                child: Text(
+                  "${int.parse(value.ceil().toString())}%",
+                  style: TextStyle(color: Colors.blue, fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height*0.1,
+          ),
+          Container(
+            height: 45,
+            width: MediaQuery.of(context).size.width * 0.85,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25.0),
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.topLeft,
+                    colors: [
+                      Colors.blue,
+                      Color(0xff1e1e1e),
+                    ],
+                  ),
+            ),
+            child: Center(
+              child: Text(
+                'Enjoy drinking...',
+                style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w800),
               ),
             ),
           ),

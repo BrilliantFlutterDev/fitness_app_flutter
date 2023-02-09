@@ -1,3 +1,4 @@
+import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/forget_password/forget_password.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
@@ -23,7 +24,7 @@ class PlanksSpinnerScreen extends StatefulWidget {
 }
 
 class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
-  List<String> pushUpsRanges = ['0-30s', '30-60s', '60-120s', 'Over 120s'];
+  List<String> plankRanges = ['0-30s', '30-60s', '60-120s', 'Over 120s'];
   FlutterSecureStorage storage = const FlutterSecureStorage();
   late HomeBloc _homeBloc;
 
@@ -35,7 +36,7 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
   }
 
   void addUserData() async {
-    await storage.write(key: 'selectedPlankOption', value: pushUpsRanges[0]);
+    await storage.write(key: 'selectedPlankOption', value: '15');
   }
 
   @override
@@ -170,10 +171,10 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
 
                                     // create list of text for items
                                     items: List.generate(
-                                        pushUpsRanges.length,
+                                        plankRanges.length,
                                         (index) => Center(
                                               child: Text(
-                                                pushUpsRanges[index],
+                                                plankRanges[index],
                                                 style: const TextStyle(
                                                     fontSize: 30,
                                                     fontWeight:
@@ -184,8 +185,19 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
                                     // empty void for item selected
                                     onSelectedChanged: (indexSelected) async {
                                       await storage.write(
-                                          key: 'selectedPlankOption',
-                                          value: pushUpsRanges[indexSelected]);
+                                        key: 'selectedPlankOption',
+                                        value: plankRanges[indexSelected] == '0-30s'?
+                                                  AppGlobal.selectedPlankOption = '15' :
+                                               plankRanges[indexSelected] == '30-60s'?
+                                                  AppGlobal.selectedPlankOption = '45' :
+                                               plankRanges[indexSelected] == '60-120s'?
+                                                  AppGlobal.selectedPlankOption = '15' :
+                                               plankRanges[indexSelected] == 'Over 120s'?
+                                                  AppGlobal.selectedPlankOption = '120' :
+                                               '30',
+                                      );
+                                      print('plank>>>>>> ${AppGlobal.selectedPlankOption}');
+                                      _homeBloc.add(RefreshScreenEvent());
                                     },
 
                                     // give color to border

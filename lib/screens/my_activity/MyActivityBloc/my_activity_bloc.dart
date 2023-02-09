@@ -43,6 +43,7 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
             inPushUpCat: constants.dailyExercises[i].inPushUpCat,
             inPlankCat: constants.dailyExercises[i].inPlankCat,
             dayTitle: constants.dailyExercises[i].dayTitle,
+            discription: constants.dailyExercises[i].discription,
             completeStatus: '0');
         await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
       }

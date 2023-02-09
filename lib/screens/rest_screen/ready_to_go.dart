@@ -16,7 +16,8 @@ class ReadyToGo extends StatefulWidget {
 
   RequestExerciseData? exerciseData;
   DayModelLocalDB? dayModelLocalDB;
-  ReadyToGo({Key? key,required this.exerciseData,required this.dayModelLocalDB}) : super(key: key);
+  // int current_index;
+  ReadyToGo({Key? key,required this.exerciseData, required this.dayModelLocalDB,}) : super(key: key);
 
   @override
   State<ReadyToGo> createState() => _ReadyToGoState();
@@ -36,7 +37,7 @@ class _ReadyToGoState extends State<ReadyToGo> {
     const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(
       oneSec,
-          (Timer timer) {
+      (Timer timer) {
         if (_start == 0) {
           setState(() {
             timer.cancel();
@@ -100,16 +101,14 @@ class _ReadyToGoState extends State<ReadyToGo> {
             progress = progress * 100;
             print('>>>>>>>2 $progress');
           }
-
           index = index + 1;
           widget.dayModelLocalDB!.exerciseNumInProgress = index;
 
-
           _homeBloc.add(UpdateDayProgressEvent(
               dayModelLocalDB: widget.dayModelLocalDB!,
-              progress: int.parse(progress.ceil().toString())));
+              progress: int.parse(progress.ceil().toString()),
+          ));
         }
-
       }else if (state is UpdateDayProgressState) {
         widget.dayModelLocalDB=state.dayModelLocalDB;
       }
@@ -184,8 +183,7 @@ class _ReadyToGoState extends State<ReadyToGo> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'ARM CIRCLES',
-                                // widget.exerciseData!.exerciseList![index].name,
+                                widget.exerciseData!.exerciseList![index].name,
                                 style: TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,

@@ -390,10 +390,10 @@ class _AccountScreen1State extends State<AccountScreen1> {
                                 ),
                                 Row(
                                   children: [
-                                    Text(
-                                      "19:00",
-                                      style: TextStyle(fontSize: 16, color: kColorPrimary),
-                                    ),
+                                    // Text(
+                                    //   "19:00",
+                                    //   style: TextStyle(fontSize: 16, color: kColorPrimary),
+                                    // ),
                                     SizedBox(width: 5),
                                     Icon(
                                         Icons.add,color: kColorPrimary, size: MediaQuery.of(context).size.width*0.065
@@ -599,9 +599,16 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             children: [
                               Row(
                                 children: [
-                                  Icon(
-                                      Icons.water_drop, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                  Container(
+                                    child: SvgPicture.asset(
+                                      "assets/icons/water.svg",
+                                      height: MediaQuery.of(context).size.height*0.025,
+                                      color: Colors.white,
+                                    ),
                                   ),
+                                  // Icon(
+                                  //     Icons.water_drop, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                  // ),
                                   SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                   Text(
                                     "Turn on water tracker",
@@ -638,9 +645,16 @@ class _AccountScreen1State extends State<AccountScreen1> {
                               children: [
                                 Row(
                                   children: [
-                                    Icon(
-                                        Icons.water_drop, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                    Container(
+                                      child: SvgPicture.asset(
+                                        "assets/icons/drink.svg",
+                                        height: MediaQuery.of(context).size.height*0.025,
+                                        color: Colors.white,
+                                      ),
                                     ),
+                                    // Icon(
+                                    //     Icons.water_drop, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                    // ),
                                     SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                     Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -759,9 +773,17 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             },
                             child: Row(
                               children: [
-                                Icon(
-                                    Icons.health_and_safety, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                SizedBox(width: MediaQuery.of(context).size.width*0.011),
+                                Container(
+                                  child: SvgPicture.asset(
+                                    "assets/icons/healthdata.svg",
+                                    height: MediaQuery.of(context).size.height*0.025,
+                                    color: Colors.white,
+                                  ),
                                 ),
+                                // Icon(
+                                //     Icons.health_and_safety, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                                // ),
                                 SizedBox(width: MediaQuery.of(context).size.width*0.035),
                                 Text(
                                   "Health data",

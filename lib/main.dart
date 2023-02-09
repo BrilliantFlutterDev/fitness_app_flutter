@@ -4,7 +4,7 @@ import 'package:fitness_app/screens/account_screen/AccountScreenBloc/account_scr
 import 'package:fitness_app/screens/account_screen/GeneralSettings/health_data.dart';
 import 'package:fitness_app/screens/account_screen/Workout/notification_service.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
-import 'package:fitness_app/screens/home_page/splash_screen.dart';
+import 'package:fitness_app/screens/splash_screen/splash_screen.dart';
 import 'package:fitness_app/screens/my_activity/MyActivityBloc/my_activity_bloc.dart';
 import 'package:fitness_app/screens/plan_screen/plan_screen.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +61,6 @@ class MyApp extends StatelessWidget {
             routes: <String, WidgetBuilder>{
               '/planSelect': (BuildContext context) => const SelectPlanScreen(),
               '/splashScreen': (BuildContext context) => const SplashScreen(),
-              '/healthdata': (BuildContext context) => HealthData(),
               // '/loginPage': (BuildContext context) => const LoginScreen(),
               // '/signupPage': (BuildContext context) => SignupScreen(),
               // '/orderPlaced': (BuildContext context) => OrderDetails(

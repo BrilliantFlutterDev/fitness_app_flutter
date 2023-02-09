@@ -38,6 +38,12 @@ class _DayRestScreenState extends State<DayRestScreen>{
         backgroundColor: kColorBG,
         appBar: AppBar(
           backgroundColor: kColorBG,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: const Icon(Icons.arrow_back_sharp)
+          ),
           title: const Text("Rest Day"),
         ),
         body: Column(

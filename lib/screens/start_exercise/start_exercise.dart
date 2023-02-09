@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:fitness_app/Utils/app_global.dart';
+import 'package:fitness_app/screens/home_page/open_activity.dart';
 import 'package:fitness_app/screens/home_page/quit_screens/quit_screen.dart';
+import 'package:fitness_app/screens/rest_screen/exercise_rest.dart';
 import 'package:fitness_app/screens/rest_screen/rest_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/my_button.dart';
@@ -19,7 +22,7 @@ import '../home_page/HomePageBloc/home_bloc.dart';
 class StartExercise extends StatefulWidget {
   RequestExerciseData? exerciseData;
   DayModelLocalDB? dayModelLocalDB;
-  StartExercise({Key? key,required this.exerciseData,required this.dayModelLocalDB}) : super(key: key);
+  StartExercise({Key? key,required this.exerciseData,required this.dayModelLocalDB,}) : super(key: key);
 
   @override
   State<StartExercise> createState() => _StartExerciseState();
@@ -31,16 +34,35 @@ class _StartExerciseState extends State<StartExercise> {
   int index=0;
   late HomeBloc _homeBloc;
 
-  startTimer() {
+  int pushUp = 10;
+  double plank = 15;
+
+  void startTimer() {
     const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(
       oneSec,
-          (Timer timer) {
+      (Timer timer) {
         if (value == 0) {
           setState(() {
             timer.cancel();
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (ctx) =>  StartExercise(exerciseData: widget.exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)));
+            if(index<(widget.exerciseData!.exerciseList!.length-1)) {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                      builder: (ctx) =>
+                          ExerciseRestScreen(exerciseData: widget.exerciseData, dayModelLocalDB: widget.dayModelLocalDB)
+                  )
+              );
+
+              _homeBloc.add(ChangeExerciseStatusToDoneEvent(
+                    exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
+              }
+            else if(index>(widget.exerciseData!.exerciseList!.length-1)) {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (ctx) => OpenActivity()
+                    )
+                  );
+              }
           });
         } else {
           setState(() {
@@ -56,21 +78,28 @@ class _StartExerciseState extends State<StartExercise> {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     index=widget.dayModelLocalDB!.exerciseNumInProgress;
-    startTimer();
-    value = double.parse(widget.exerciseData!.exerciseList![index].time.toString());
+    if(widget.exerciseData!.exerciseList![index].type=='time'){
+      startTimer();
+    }
+
+    pushUp = int.parse(AppGlobal.selectedPushUpOption!);
+    print(AppGlobal.selectedPushUpOption);
+
+    plank = double.parse(AppGlobal.selectedPlankOption!);
+    print(AppGlobal.selectedPlankOption);
+
+    if(widget.exerciseData!.exerciseList![index].name=='PLANK') {
+      value = plank;
+      value = double.parse(plank.toString());
+    } else {
+      value = double.parse(widget.exerciseData!.exerciseList![index].time.toString());
+    }
+
   }
 
   @override
   void dispose() {
     _timer.cancel();
-    if(index<widget.exerciseData!.exerciseList!.length) {
-      _homeBloc.add(ChangeExerciseStatusToDoneEvent(
-          exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
-    } else if(index>widget.exerciseData!.exerciseList!.length) {
-      Navigator.pop(context);
-    }
-    // Navigator.of(context).push(MaterialPageRoute(
-    //     builder: (ctx) =>  StartExercise(exerciseData: exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)));
     super.dispose();
   }
 
@@ -105,16 +134,14 @@ class _StartExerciseState extends State<StartExercise> {
             progress = (progress * 100).floorToDouble();
             print('>>>>>>>2 $progress');
           }
-
+          // progress = progress+1;
           index = index + 1;
           widget.dayModelLocalDB!.exerciseNumInProgress = index;
-
 
           _homeBloc.add(UpdateDayProgressEvent(
               dayModelLocalDB: widget.dayModelLocalDB!,
               progress: int.parse(progress.ceil().toString())));
         }
-
       }else if (state is UpdateDayProgressState) {
         widget.dayModelLocalDB=state.dayModelLocalDB;
       }
@@ -215,90 +242,73 @@ class _StartExerciseState extends State<StartExercise> {
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height*0.015),
 
-                          widget.exerciseData!.exerciseList![index].type=='rap'?SizedBox():
-                          widget.exerciseData!.exerciseList![index].type=='time'?
                           Text(
-                            "00:${value.ceil()} sec",
-                            style: const TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold,
-                            ),
-                          ):const SizedBox(),
-                          // SleekCircularSlider(
-                          //   initialValue: value,
-                          //   min: 0,
-                          //   max: value,
-                          //   appearance: CircularSliderAppearance(
-                          //     // infoProperties: InfoProperties(),
-                          //     angleRange: 360,
-                          //     size: MediaQuery.of(context).size.width * 0.35,
-                          //     customWidths: CustomSliderWidths(
-                          //         progressBarWidth: 6.0, trackWidth: 6.0),
-                          //     customColors: CustomSliderColors(
-                          //       hideShadow: true,
-                          //       progressBarColor: const Color(0xff1ce5c1),
-                          //       dotColor: Colors.transparent,
-                          //       trackColor: const Color(0xff404040),
-                          //       progressBarColors: [
-                          //         const Color(0xff1ce5c1),
-                          //         const Color(0xff1ce5c1),
-                          //       ],
-                          //     ),
+                            widget.exerciseData!.exerciseList![index].type =='rap'
+                                ?
+                            widget.exerciseData!.exerciseList![index].name=='PUSH-UPS'
+                                ?
+                            "X $pushUp raps" : "X ${widget.exerciseData!.exerciseList![index].raps} raps"
+                                :
+                            widget.exerciseData!.exerciseList![index].name=='PLANK'
+                                ?
+                            "00:${value.ceil()} sec" : "00:${value.ceil()} sec",
+                            style: TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold,),
+                          ),
+                          // "$plank secs"
+                          // "${widget.exerciseData!.exerciseList![index].time} sec"
+
+                          // widget.exerciseData!.exerciseList![index].time
+                          // widget.exerciseData!.exerciseList![index].type=='rap'
+                          //     ?
+                          // widget.exerciseData!.exerciseList![index].name=='PUSH-UPS'
+                          //     ?
+                          // Text(
+                          //   "X ${widget.exerciseData!.exerciseList![index].raps}",
+                          //   style: const TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold,
                           //   ),
-                          //   innerWidget: (re) {
-                          //     return Center(
-                          //       child: Column(
-                          //         mainAxisAlignment: MainAxisAlignment.center,
-                          //         children: [
-                          //           widget.exerciseData!.exerciseList![index].type=='time'?
-                          //           Text(
-                          //             "${value.ceil()}",
-                          //             style: const TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold,
-                          //             ),
-                          //           ):const SizedBox(),
-                          //           // Text(
-                          //           //   "10",
-                          //           //   style: TextStyle(
-                          //           //     fontSize: 40,
-                          //           //   ),
-                          //           // ),
-                          //           Text(
-                          //             "sec",
-                          //             style: TextStyle(
-                          //               fontSize: 18,
-                          //               color: Colors.grey,
-                          //             ),
-                          //           ),
-                          //         ],
-                          //       ),
-                          //     );
-                          //   },
-                          //   onChange: (e) {
-                          //     setState(() {
-                          //       value = e;
-                          //     });
-                          //   },
-                          // ),
+                          // ):
+                          // widget.exerciseData!.exerciseList![index].type=='time'?
+                          // Text(
+                          //   "00:${value.ceil()} sec",
+                          //   style: const TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold,
+                          //   ),
+                          // ):const SizedBox(),
                         ],
                       ),
                     ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height*0.01),
-                  widget.exerciseData!.exerciseList![index].type=='rap'? Center(
-                      child: Text(
-                        "X ${widget.exerciseData!.exerciseList![index].raps}",
-                        style: const TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold,
-                        ),
-                      )):const SizedBox(),
-                  SizedBox(height: MediaQuery.of(context).size.height*0.01),
                   Center(
                     child: Container(
                       width: MediaQuery.of(context).size.width*0.3,
                       alignment: Alignment.center,
-                      child: MyButton(name: widget.exerciseData!.exerciseList![index].type=='rap'?"Done":"|| Pause", whenpress: () {
-                        if(index<widget.exerciseData!.exerciseList!.length) {
+                      child: MyButton(name: widget.exerciseData!.exerciseList![index].type=='rap'?"Done":"Done", whenpress: () {
+                        if(index<(widget.exerciseData!.exerciseList!.length)) {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (ctx) =>
+                                      ExerciseRestScreen(dayModelLocalDB: widget.dayModelLocalDB, exerciseData: widget.exerciseData,)
+                              )
+                          );
+
                           _homeBloc.add(ChangeExerciseStatusToDoneEvent(
                               exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
-                        } else if(index>widget.exerciseData!.exerciseList!.length) {
-                          Navigator.pop(context);
+
+                        }
+                        // else if(index==(widget.exerciseData!.exerciseList!.length)-1) {
+                        //   Navigator.of(context).pushReplacement(
+                        //     MaterialPageRoute(
+                        //       builder: (ctx) => OpenActivity()
+                        //     )
+                        //   );
+                        //   // Navigator.pop(context);
+                        // }
+                        else {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (ctx) => OpenActivity()
+                              )
+                          );
                         }
                       }),
                     ),
@@ -327,11 +337,7 @@ class _StartExerciseState extends State<StartExercise> {
                               Icon(Icons.skip_previous, color: kColorPrimary,),
                               Text(
                                 "PREVIOUS",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: kColorPrimary,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: TextStyle(fontSize: 18, color: kColorPrimary, fontWeight: FontWeight.bold,),
                               ),
                             ],
                           ),
@@ -339,14 +345,17 @@ class _StartExerciseState extends State<StartExercise> {
                         SizedBox(width: MediaQuery.of(context).size.width*0.28),
                         index<widget.exerciseData!.exerciseList!.length-1?GestureDetector(
                           onTap: () {
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (ctx) =>
+                                        ExerciseRestScreen(dayModelLocalDB: widget.dayModelLocalDB, exerciseData: widget.exerciseData,)
+                                )
+                            );
                             if(index<widget.exerciseData!.exerciseList!.length){
-                              index=index+1;
                               setState(() {
-
+                                index=index+1;
                               });
                             }
-                            // Navigator.of(context).push(
-                            //     MaterialPageRoute(builder: (ctx) =>const RestScreen()));
                           },
                           child: Row(
                             children: [
