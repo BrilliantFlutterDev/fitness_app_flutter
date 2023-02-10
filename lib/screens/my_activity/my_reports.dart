@@ -38,7 +38,9 @@ class _MyReportsState extends State<MyReports> {
   DateTime dateTime = DateTime.now();
   int days = 10;
   ExerciseConstants constants = ExerciseConstants();
+
   double value = 0;
+  double previousValue = 0;
 
   late MyActivityBloc _activityBloc;
   RequestDayData? requestDayData;
@@ -131,6 +133,7 @@ class _MyReportsState extends State<MyReports> {
         totalWorkout = int.parse('${requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress}');
         print("Exercise Number>>>>>>>>> $totalWorkout");
         print("CurrentDay>>>>>>>>> ${AppGlobal.currentDay}");
+        previousValue = double.parse(requestDayData!.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank.toString());
         value = requestDayData!.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank * 12.5;
       }
     }, builder: (context, state) {
@@ -550,7 +553,7 @@ class _MyReportsState extends State<MyReports> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        AnimatedDrinkAcknowledge()));
+                                        AnimatedDrinkAcknowledge(previousValue: previousValue)));
                             },
                             child: Container(
                               height: 40,

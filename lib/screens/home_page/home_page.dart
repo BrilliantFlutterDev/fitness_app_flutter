@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
         _homeBloc.add(GetAllDaysEvent());
       } else if (state is GetAllDaysState) {
         requestDayData = state.dayData;
-        value = requestDayData!.exerciseList![0].noOfGlassWaterDrank * 12.5;
+        value = requestDayData!.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank * 12.5;
       } else if (state is UpdateDayProgressState) {
         dayModelLocalDB = state.dayModelLocalDB;
       }

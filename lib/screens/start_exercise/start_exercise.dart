@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:fitness_app/Utils/app_global.dart';
+import 'package:fitness_app/screens/home_page/home_page.dart';
 import 'package:fitness_app/screens/home_page/open_activity.dart';
 import 'package:fitness_app/screens/home_page/quit_screens/quit_screen.dart';
 import 'package:fitness_app/screens/rest_screen/exercise_rest.dart';
 import 'package:fitness_app/screens/rest_screen/rest_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
+import 'package:fitness_app/widgets/cus_bottom_bar.dart';
 import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,20 +51,25 @@ class _StartExerciseState extends State<StartExercise> {
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                       builder: (ctx) =>
-                          ExerciseRestScreen(exerciseData: widget.exerciseData, dayModelLocalDB: widget.dayModelLocalDB)
+                          ExerciseRestScreen(dayModelLocalDB: widget.dayModelLocalDB, exerciseData: widget.exerciseData,)
                   )
               );
 
               _homeBloc.add(ChangeExerciseStatusToDoneEvent(
-                    exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
-              }
-            else if(index>(widget.exerciseData!.exerciseList!.length-1)) {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (ctx) => OpenActivity()
-                    )
-                  );
-              }
+                  exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
+
+            }
+            else if(index==(widget.exerciseData!.exerciseList!.length-1)) {
+              _homeBloc.add(ChangeExerciseStatusToDoneEvent(
+                  exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
+
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (ctx) =>
+                        CusBottomBar(),
+                  )
+              );
+            }
           });
         } else {
           setState(() {
@@ -140,7 +147,7 @@ class _StartExerciseState extends State<StartExercise> {
 
           _homeBloc.add(UpdateDayProgressEvent(
               dayModelLocalDB: widget.dayModelLocalDB!,
-              progress: int.parse(progress.ceil().toString())));
+              progress: int.parse(progress.floor().toString())));
         }
       }else if (state is UpdateDayProgressState) {
         widget.dayModelLocalDB=state.dayModelLocalDB;
@@ -283,7 +290,7 @@ class _StartExerciseState extends State<StartExercise> {
                       width: MediaQuery.of(context).size.width*0.3,
                       alignment: Alignment.center,
                       child: MyButton(name: widget.exerciseData!.exerciseList![index].type=='rap'?"Done":"Done", whenpress: () {
-                        if(index<(widget.exerciseData!.exerciseList!.length)) {
+                        if(index<(widget.exerciseData!.exerciseList!.length-1)) {
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                   builder: (ctx) =>
@@ -295,21 +302,24 @@ class _StartExerciseState extends State<StartExercise> {
                               exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
 
                         }
-                        // else if(index==(widget.exerciseData!.exerciseList!.length)-1) {
-                        //   Navigator.of(context).pushReplacement(
-                        //     MaterialPageRoute(
-                        //       builder: (ctx) => OpenActivity()
-                        //     )
-                        //   );
-                        //   // Navigator.pop(context);
-                        // }
-                        else {
+                        else if(index==(widget.exerciseData!.exerciseList!.length-1)) {
+                          _homeBloc.add(ChangeExerciseStatusToDoneEvent(
+                              exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
+
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                  builder: (ctx) => OpenActivity()
+                                  builder: (ctx) =>
+                                      CusBottomBar(),
                               )
                           );
                         }
+                        // else {
+                        //   Navigator.of(context).pushReplacement(
+                        //       MaterialPageRoute(
+                        //           builder: (ctx) => CusBottomBar()
+                        //       )
+                        //   );
+                        // }
                       }),
                     ),
                   ),

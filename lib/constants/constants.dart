@@ -1,5 +1,6 @@
 import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/models/chat_model.dart';
+import 'package:fitness_app/models/exercise_model.dart';
 import 'package:fitness_app/models/gym_model.dart';
 import 'package:fitness_app/models/user_model.dart';
 
@@ -3063,7 +3064,19 @@ class ExerciseConstants {
     ),
   ];
 
-  List<GymModel> standard = [
+
+  List<ExercisesModel> AllExercises = [
+      ExercisesModel(
+          id: 1,
+          name: "MOUNTAIN CLIMBER",
+          image: "Wheel Stretch.jpg",
+          type: "time",
+          raps: 0,
+          time: 30,
+          discription: "Start in the push-up position. Bend your right knee towards your chest and keep your left leg straight, then quickly switch from one leg to the other."
+              "\n\n"
+              "This exercise strengthens multiple muscle groups.",
+      ),
     // GymModel(image: "Chest Workouts.jpg", name: "STRAIGHT-ARM PLANK"),
     // GymModel(image: "Arm Workouts.jpg", name: "STANDING BICYCLE CRUNCHES"),
     // GymModel(image: "Back Workouts.jpg", name: "HIGH STEPPING"),

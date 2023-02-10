@@ -106,25 +106,21 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                 ),
                               ),
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.02),
+                                  height: MediaQuery.of(context).size.height * 0.02
+                              ),
                               Align(
                                 alignment: Alignment.center,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
+                                  padding: const EdgeInsets.only(left: 10, right: 10),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: const [
                                       Text(
                                         "DO YOU HAVE KNEE ISSUES?",
                                         maxLines: 2,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                          fontSize: 25,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
+                                          fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ],

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:countup/countup.dart';
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/screens/my_activity/MyActivityBloc/my_activity_bloc.dart';
@@ -14,7 +15,8 @@ import '../../../constants/colors.dart';
 
 class AnimatedDrinkAcknowledge extends StatefulWidget {
 
-  AnimatedDrinkAcknowledge({Key? key,}) : super(key: key);
+  late double previousValue;
+  AnimatedDrinkAcknowledge({Key? key, required this.previousValue}) : super(key: key);
 
   @override
   State<AnimatedDrinkAcknowledge> createState() => _AnimatedDrinkAcknowledgeState();
@@ -34,7 +36,7 @@ class _AnimatedDrinkAcknowledgeState extends State<AnimatedDrinkAcknowledge> {
     _activityBloc.add(GetASpecificDaysEvent(day: 'Day ${AppGlobal.currentDay + 1}'));
 
     Timer(
-        Duration(milliseconds: 1500),
+        Duration(seconds: 2),
             () => setState(() {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => DrinkAcknowledge()),
@@ -130,16 +132,32 @@ class _AnimatedDrinkAcknowledgeState extends State<AnimatedDrinkAcknowledge> {
                 child: SvgPicture.asset(
                   "assets/icons/waterglass.svg",
                   height: MediaQuery.of(context).size.height*0.25,
-                  color: Colors.lightBlueAccent,
+                  color: Colors.blue,
                 ),
               ),
               // Image.asset('assets/icons/well_done.png'),
-              Center(
-                child: Text(
-                  "${int.parse(value.ceil().toString())}%",
-                  style: TextStyle(color: Colors.blue, fontSize: 30, fontWeight: FontWeight.bold),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Countup(
+                    begin: widget.previousValue,
+                    end: value,
+                    duration: Duration(milliseconds: 750),
+                    separator: ',',
+                    style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "%",
+                    style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
+              // Center(
+              //   child: Text(
+              //     "${int.parse(value.ceil().toString())}%",
+              //     style: TextStyle(color: Colors.blue, fontSize: 30, fontWeight: FontWeight.bold),
+              //   ),
+              // ),
             ],
           ),
           SizedBox(

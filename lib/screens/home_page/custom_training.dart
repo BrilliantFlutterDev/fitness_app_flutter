@@ -47,7 +47,7 @@ class _CustomTrainingState extends State<CustomTraining> {
         child: ListView.builder(
           // shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
-          itemCount: constants.standard.length,
+          itemCount: constants.AllExercises.length,
           itemBuilder: (ctx, index) {
             return GestureDetector(
               onTap: () {
@@ -107,7 +107,7 @@ class _CustomTrainingState extends State<CustomTraining> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                constants.standard[index].name,
+                                constants.AllExercises[index].name,
                                 style: const TextStyle(
                                     fontSize: 15.0,
                                     color: Colors.black,
@@ -183,7 +183,7 @@ class _CustomTrainingState extends State<CustomTraining> {
                   borderRadius: BorderRadius.circular(12.0),
                   image: DecorationImage(
                     image: AssetImage(
-                        "assets/images/${constants.standard[index].image}"),
+                        "assets/images/${constants.AllExercises[index].image}"),
                     fit: BoxFit.cover,
                   ),
                 ),
