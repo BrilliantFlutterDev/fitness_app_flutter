@@ -8,6 +8,7 @@ class DatabaseHelper {
   static const _databaseVersion = 1;
 
   static const tableExercises = 'AddExercise';
+  static const tableExercisesDetail = 'ExerciseDetail';
   static const tableDay = 'AddDay';
   static const tableUserData = 'AddUserData';
 
@@ -15,6 +16,7 @@ class DatabaseHelper {
 
   ///Exercises variables
   static const dayTitle = 'dayTitle';
+  static const exercise_id = 'exerciseId';
   static const image = 'image';
   static const name = 'name';
   static const raps = 'raps';
@@ -26,7 +28,7 @@ class DatabaseHelper {
   static const inPlankCat = 'inPlankCat';
   static const completeStatus = 'completeStatus';
   static const isRest = 'isRest';
-  static const discription = 'discription';
+  static const description = 'description';
 
   ///Day variables
   // static const dayTitle = 'dayTitle';
@@ -77,17 +79,25 @@ class DatabaseHelper {
           CREATE TABLE $tableExercises (
             $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
             $dayTitle TEXT,
-            $name TEXT,
-            $image TEXT,
+            $exercise_id INTEGER,
             $raps INTEGER,
             $time INTEGER,
-            $type TEXT,
             $kneeIssue TEXT,
             $planLevel TEXT,
             $inPushUpCat TEXT,
             $inPlankCat TEXT,
-            $completeStatus TEXT,
-            $discription TEXT
+            $completeStatus TEXT
+          )
+          ''');
+
+    await db.execute('''
+          CREATE TABLE $tableExercisesDetail (
+            $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
+            $name TEXT,
+            $exercise_id INTEGER,
+            $image TEXT,
+            $type TEXT,
+            $description TEXT
           )
           ''');
 
@@ -140,6 +150,13 @@ class DatabaseHelper {
     return await db.insert(tableExercises, row);
   }
 
+  Future<int> insertExerciseDetail(Map<String, dynamic> row) async {
+    Database db = await instance.database;
+    print('>>>>>>>>stored exercise detail data in DB');
+
+    return await db.insert(tableExercisesDetail, row);
+  }
+
   Future<int> insertDays(Map<String, dynamic> row) async {
     Database db = await instance.database;
     print('>>>>>>>>stored table data in DB');
@@ -181,6 +198,10 @@ class DatabaseHelper {
     return await db.query(tableDay, where: '$dayTitle = ?', whereArgs: [findDay]);
   }
 
+  Future<List<Map<String, Object?>>> queryASpecificExercise(int exerciseId) {
+    return _database!.query(tableExercisesDetail, where: '$exercise_id = ?', whereArgs: [exerciseId]);
+  }
+
   Future<List<Map<String, dynamic>>> queryUserTrainingData(int trainRest) async {
     Database db = await instance.database;
     return await db.query(tableUserData);
@@ -205,6 +226,16 @@ class DatabaseHelper {
   Future<int> resetExerciseStatus() async {
     Database db = await instance.database;
     return await db.rawUpdate('UPDATE $tableDay SET $completeExercisePercentage = 0, $exerciseNumInProgress = 0 ');
+  }
+
+  Future<int> clearExercise() async {
+    Database db = await instance.database;
+    return await db.delete(tableExercises);
+  }
+
+  Future<int> removeDays() async {
+    Database db = await instance.database;
+    return await db.delete(tableDay);
   }
 
   // Future<List<Map<String, dynamic>>> queryAllCartProductCombination() async {

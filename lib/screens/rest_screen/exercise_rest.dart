@@ -153,22 +153,27 @@ class _ExerciseRestScreenState extends State<ExerciseRestScreen> {
                     Row(
                       children: [
                         Text(
-                          widget.exerciseData!.exerciseList![index].name,
+                          widget.exerciseData!.exerciseList![index].exercise.name,
                           style: const TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold,),
                         ),
                         // Icon(Icons.question_mark_outlined, color: Colors.black, size: 17),
                       ],
                     ),
                     Text(
-                      widget.exerciseData!.exerciseList![index].type =='rap'
+                      widget.exerciseData!.exerciseList![index].exercise.type =='rap'
                           ?
-                      widget.exerciseData!.exerciseList![index].name=='PUSH-UPS'
-                          ?
-                      "$pushUp raps" : "${widget.exerciseData!.exerciseList![index].raps} raps"
+                      "${widget.exerciseData!.exerciseList![index].raps} raps"
                           :
-                      widget.exerciseData!.exerciseList![index].name=='PLANK'
-                          ?
-                      "$plank secs" : "${widget.exerciseData!.exerciseList![index].time} sec",
+                      "${widget.exerciseData!.exerciseList![index].time} sec",
+                      // widget.exerciseData!.exerciseList![index].exercise.type =='rap'
+                      //     ?
+                      // widget.exerciseData!.exerciseList![index].exercise.name=='PUSH-UPS'
+                      //     ?
+                      // "$pushUp raps" : "${widget.exerciseData!.exerciseList![index].raps} raps"
+                      //     :
+                      // widget.exerciseData!.exerciseList![index].exercise.name=='PLANK'
+                      //     ?
+                      // "$plank secs" : "${widget.exerciseData!.exerciseList![index].time} sec",
                       style: const TextStyle(fontSize: 16, color: kColorPrimary),
                     ),
                     SizedBox(height: MediaQuery.of(context).size.width*0.05),
@@ -189,7 +194,7 @@ class _ExerciseRestScreenState extends State<ExerciseRestScreen> {
                   Padding(
                     padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.04, bottom: MediaQuery.of(context).size.height*0.03),
                     child: Text(
-                      "00:${value.ceil()}",
+                      value>=10 ? "00:${value.ceil()}" : "00:0${value.ceil()}",
                       style: const TextStyle(fontSize: 50, color: Colors.white, fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -221,15 +226,14 @@ class _ExerciseRestScreenState extends State<ExerciseRestScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          {
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (ctx) =>
-                                  StartExercise(exerciseData: widget.exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)
-                              )
-                            );
-                          }
-                        },
+                          _timer.cancel();
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (ctx) =>
+                                StartExercise(exerciseData: widget.exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)
+                            )
+                          );
+                      },
                         child: Container(
                           height: MediaQuery.of(context).size.height * 0.06,
                           width: MediaQuery.of(context).size.width * 0.3,

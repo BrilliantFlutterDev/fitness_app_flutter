@@ -592,10 +592,11 @@ class _OpenActivityState extends State<OpenActivity> {
                       trimLines: 2,
                       colorClickableText: kColorPrimary,
                       trimMode: TrimMode.Line,
-                      trimCollapsedText: 'show more',
-                      trimExpandedText: ' show less',
+                      trimCollapsedText: 'Show more',
+                      trimExpandedText: ' Show less',
                       moreStyle: TextStyle(color:kColorPrimary ,fontWeight: FontWeight.bold),
                       lessStyle: TextStyle(color:kColorPrimary ,fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.justify,
                     ),
                     Padding(
                       padding: EdgeInsets.only(
@@ -751,7 +752,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                               width: 80,
                                               fit: BoxFit.cover,
                                               image: AssetImage(
-                                                  "assets/images/${exerciseData!.exerciseList![index].image}")),
+                                                  "assets/images/${exerciseData!.exerciseList![index].exercise.image}")),
                                         ),
                                         SizedBox(
                                           width: 18.0,
@@ -761,7 +762,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                           CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              exerciseData!.exerciseList![index].name,
+                                              exerciseData!.exerciseList![index].exercise!.name,
                                               style: TextStyle(
                                                 fontSize: MediaQuery.of(context).size.width*0.04,
                                                 fontWeight: FontWeight.bold,
@@ -771,18 +772,21 @@ class _OpenActivityState extends State<OpenActivity> {
                                               height: 6.0,
                                             ),
                                             Text(
-                                              exerciseData!.exerciseList![index].type =='rap'
+                                              exerciseData!.exerciseList![index].exercise!.type =='rap'
                                                   ?
-                                              exerciseData!.exerciseList![index].name=='PUSH-UPS'
-                                                  ?
-                                                "$pushUp raps" : "${exerciseData!.exerciseList![index].raps} raps"
+                                              "${exerciseData!.exerciseList![index].raps} raps"
                                                   :
-                                              exerciseData!.exerciseList![index].name=='PLANK'
-                                                  ?
-                                              "$plank secs" : "${exerciseData!.exerciseList![index].time} sec",
-                                              style: const TextStyle(
-                                                fontSize: 12,
-                                              ),
+                                              "${exerciseData!.exerciseList![index].time} sec",
+                                              // exerciseData!.exerciseList![index].exercise!.type =='rap'
+                                              //     ?
+                                              // exerciseData!.exerciseList![index].exercise!.name=='PUSH-UPS'
+                                              //     ?
+                                              //   "$pushUp raps" : "${exerciseData!.exerciseList![index].raps} raps"
+                                              //     :
+                                              // exerciseData!.exerciseList![index].exercise!.name=='PLANK'
+                                              //     ?
+                                              // "$plank secs" : "${exerciseData!.exerciseList![index].time} sec",
+                                              style: const TextStyle(fontSize: 12,),
                                             ),
                                           ],
                                         ),

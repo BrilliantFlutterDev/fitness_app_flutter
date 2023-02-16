@@ -1,5 +1,8 @@
+import '../db_helper.dart';
+
 class RequestExerciseData {
   List<ExerciseModelLocalDB>? exerciseList;
+
 
   RequestExerciseData({required this.exerciseList});
 
@@ -20,29 +23,62 @@ class RequestExerciseData {
   }
 }
 
-class ExerciseModelLocalDB {
+class ExerciseDetailModel{
   late final int? columnsId;
+  late final int id;
   late final String name;
   late final String image;
+  late final String type;
+  late final String description;
+
+  ExerciseDetailModel( {this.columnsId, required this.id, required this.name, required this.image, required this.type, required this.description,});
+
+
+  ExerciseDetailModel.fromJson(Map<String, dynamic> json) {
+    columnsId=json['id'];
+    id=json['exerciseId'];
+    image = json['image'];
+    name = json['name'];
+    type = json['type'];
+    description = json['description'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = columnsId;
+    data['exerciseId'] = id;
+    data['image'] = image;
+    data['name'] = name;
+    data['type'] = type;
+    data['description'] = description;
+
+    return data;
+  }
+}
+
+class ExerciseModelLocalDB {
+  late final int? columnsId;
+  late final int exerciseID;
   late String dayTitle;
-  // late final String time;
   late int time;
   late int raps;
-  late final String type;
   late final String kneeIssue;
   late final String planLevel;
   late final String inPushUpCat;
   late final String inPlankCat;
-  late  String completeStatus;
-  late final String discription;
-  ExerciseModelLocalDB( {this.columnsId, required this.image, required this.name,required this.time,required  this.raps,required  this.type,required  this.kneeIssue,required  this.planLevel,required  this.inPushUpCat,required  this.inPlankCat,required this.dayTitle,required this.completeStatus,required this.discription});
+  late String completeStatus;
+  late ExerciseDetailModel exercise;
+  ExerciseModelLocalDB( {this.columnsId, required this.time, required this.raps, required this.kneeIssue, required this.planLevel, required this.inPushUpCat, required this.inPlankCat, required this.dayTitle,required this.completeStatus, required this.exerciseID});
+
 
 
   ExerciseModelLocalDB.fromJson(Map<String, dynamic> json) {
     columnsId=json['id'];
+    exerciseID=json['exerciseId'];
+
     dayTitle=json['dayTitle'];
-    image = json['image'];
-    name = json['name'];
+    // image = json['image'];
+    // name = json['name'];
     raps = json['raps'];
     final jsonTime = json['time'];
     if(jsonTime is int){
@@ -54,30 +90,31 @@ class ExerciseModelLocalDB {
       time = 0;
     }
     // time = int.parse(json['time']);
-    type = json['type'];
+    // type = json['type'];
     kneeIssue = json['kneeIssue'];
     planLevel = json['planLevel'];
     inPushUpCat = json['inPushUpCat'];
     inPlankCat = json['inPlankCat'];
     completeStatus = json['completeStatus'];
-    discription = json['discription'];
+    // description = json['description'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = columnsId;
     data['dayTitle'] = dayTitle;
-    data['image'] = image;
-    data['name'] = name;
+    data['exerciseId'] = exerciseID;
+    // data['image'] = image;
+    // data['name'] = name;
     data['raps'] = raps;
     data['time'] = time;
-    data['type'] = type;
+    // data['type'] = type;
     data['kneeIssue'] = kneeIssue;
     data['planLevel'] = planLevel;
     data['inPushUpCat'] = inPushUpCat;
     data['inPlankCat'] = inPlankCat;
     data['completeStatus'] = completeStatus;
-    data['discription'] = discription;
+    // data['description'] = description;
 
     return data;
   }

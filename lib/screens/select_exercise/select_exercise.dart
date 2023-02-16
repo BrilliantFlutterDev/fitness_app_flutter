@@ -154,7 +154,7 @@ class _SelectExerciseState extends State<SelectExercise> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.0),
                       image:  DecorationImage(
-                          image: AssetImage('assets/images/${widget.exerciseModelLocalDB.image}'),
+                          image: AssetImage('assets/images/${widget.exerciseModelLocalDB.exercise.image}'),
                           fit: BoxFit.cover),
                     ),
                   ),
@@ -162,7 +162,7 @@ class _SelectExerciseState extends State<SelectExercise> {
                     height: MediaQuery.of(context).size.height*0.02,
                   ),
                   Text(
-                    widget.exerciseModelLocalDB.name,
+                    widget.exerciseModelLocalDB.exercise.name,
                     style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
                   ),
                   SizedBox(
@@ -172,16 +172,17 @@ class _SelectExerciseState extends State<SelectExercise> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        widget.exerciseModelLocalDB.type!='rap'? "Duration":'Raps',style: const TextStyle(fontSize: 20),
+                        widget.exerciseModelLocalDB.exercise.type!='rap'? "Duration":'Raps',
+                        style: const TextStyle(fontSize: 20),
                       ),
                       Row(
                         children: [
                           InkWell(
                               onTap: (){
-                                if(widget.exerciseModelLocalDB.type=='rap'&& widget.exerciseModelLocalDB.raps>=1){
+                                if(widget.exerciseModelLocalDB.exercise.type=='rap'&& widget.exerciseModelLocalDB.raps>=1){
                                   _homeBloc.add(RapsIncrementDecrementEvent(exerciseModelLocalDB: widget.exerciseModelLocalDB, isIncrementing: false, isDecrementing: true));
                                 }
-                                else if (widget.exerciseModelLocalDB.type=='time'&& widget.exerciseModelLocalDB.time>=1) {
+                                else if (widget.exerciseModelLocalDB.exercise.type=='time'&& widget.exerciseModelLocalDB.time>=1) {
                                   print('Time dec');
                                   _homeBloc.add(TimeIncrementDecrementEvent(exerciseModelLocalDB: widget.exerciseModelLocalDB, isIncrementing: false, isDecrementing: true));
                                 }
@@ -205,14 +206,14 @@ class _SelectExerciseState extends State<SelectExercise> {
                           ),
                           SizedBox(width: 10),
                           Text(
-                            widget.exerciseModelLocalDB.type!='rap'? widget.exerciseModelLocalDB.time.toString():widget.exerciseModelLocalDB.raps.toString(),
+                            widget.exerciseModelLocalDB.exercise.type!='rap'? widget.exerciseModelLocalDB.time.toString():widget.exerciseModelLocalDB.raps.toString(),
                             style: const TextStyle(fontSize: 20),
                           ),
                           SizedBox(width: 10),
                           InkWell(onTap: (){
-                            if(widget.exerciseModelLocalDB.type=='rap'){
+                            if(widget.exerciseModelLocalDB.exercise.type=='rap'){
                               _homeBloc.add(RapsIncrementDecrementEvent(exerciseModelLocalDB: widget.exerciseModelLocalDB, isIncrementing: true, isDecrementing: false));
-                            } else if(widget.exerciseModelLocalDB.type=='time') {
+                            } else if(widget.exerciseModelLocalDB.exercise.type=='time') {
                               print('Time inc');
                               _homeBloc.add(TimeIncrementDecrementEvent(exerciseModelLocalDB: widget.exerciseModelLocalDB, isIncrementing: true, isDecrementing: false));
                             }
@@ -299,7 +300,7 @@ class _SelectExerciseState extends State<SelectExercise> {
                         // ),
                         SizedBox(height: 10),
                         Text(
-                          widget.exerciseModelLocalDB.discription,
+                          widget.exerciseModelLocalDB.exercise.description,
                           style: TextStyle(fontSize: 17),
                           textAlign: TextAlign.justify,
                         ),

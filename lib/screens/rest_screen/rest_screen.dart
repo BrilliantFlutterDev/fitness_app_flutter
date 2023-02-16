@@ -98,6 +98,7 @@ class _RestScreenState extends State<RestScreen> {
                           max: 100,
                           appearance: CircularSliderAppearance(
                             // infoProperties: InfoProperties(),
+                            startAngle: 270,
                             angleRange: 360,
                             size: MediaQuery.of(context).size.width * 0.5,
                             customWidths: CustomSliderWidths(

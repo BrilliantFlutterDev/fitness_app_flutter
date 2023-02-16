@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
+import 'package:fitness_app/Utils/app_global.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -30,22 +31,78 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
 
       String timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
       ExerciseModelLocalDB exerciseModelLocalDB;
-      for (int i = 0; i < constants.dailyExercises.length; i++) {
-        exerciseModelLocalDB = ExerciseModelLocalDB(
 
-            image: constants.dailyExercises[i].image,
-            name: constants.dailyExercises[i].name,
-            time: constants.dailyExercises[i].time,
-            raps: constants.dailyExercises[i].raps,
-            type: constants.dailyExercises[i].type,
-            kneeIssue: constants.dailyExercises[i].kneeIssue,
-            planLevel: constants.dailyExercises[i].planLevel,
-            inPushUpCat: constants.dailyExercises[i].inPushUpCat,
-            inPlankCat: constants.dailyExercises[i].inPlankCat,
-            dayTitle: constants.dailyExercises[i].dayTitle,
-            discription: constants.dailyExercises[i].discription,
-            completeStatus: '0');
-        await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
+      if(AppGlobal.selectedPlan=='1') {
+        for (int i = 0; i < constants.BeginnerExercises.length; i++) {
+          exerciseModelLocalDB = ExerciseModelLocalDB(
+            time: constants.BeginnerExercises[i].time,
+            raps: constants.BeginnerExercises[i].raps,
+            kneeIssue: constants.BeginnerExercises[i].kneeIssue,
+            planLevel: constants.BeginnerExercises[i].planLevel,
+            inPushUpCat: constants.BeginnerExercises[i].inPushUpCat,
+            inPlankCat: constants.BeginnerExercises[i].inPlankCat,
+            dayTitle: constants.BeginnerExercises[i].dayTitle,
+            exerciseID: constants.BeginnerExercises[i].exercise_id,
+            completeStatus: '0',);
+          await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
+        }
+      }
+      else if(AppGlobal.selectedPlan=='2') {
+        for (int i = 0; i < constants.IntermediateExercises.length; i++) {
+          exerciseModelLocalDB = ExerciseModelLocalDB(
+            time: constants.IntermediateExercises[i].time,
+            raps: constants.IntermediateExercises[i].raps,
+            kneeIssue: constants.IntermediateExercises[i].kneeIssue,
+            planLevel: constants.IntermediateExercises[i].planLevel,
+            inPushUpCat: constants.IntermediateExercises[i].inPushUpCat,
+            inPlankCat: constants.IntermediateExercises[i].inPlankCat,
+            dayTitle: constants.IntermediateExercises[i].dayTitle,
+            exerciseID: constants.IntermediateExercises[i].exercise_id,
+            completeStatus: '0',);
+          await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
+        }
+      }
+      else if(AppGlobal.selectedPlan=='3') {
+        for (int i = 0; i < constants.AdvancedExercises.length; i++) {
+          exerciseModelLocalDB = ExerciseModelLocalDB(
+            time: constants.AdvancedExercises[i].time,
+            raps: constants.AdvancedExercises[i].raps,
+            kneeIssue: constants.AdvancedExercises[i].kneeIssue,
+            planLevel: constants.AdvancedExercises[i].planLevel,
+            inPushUpCat: constants.AdvancedExercises[i].inPushUpCat,
+            inPlankCat: constants.AdvancedExercises[i].inPlankCat,
+            dayTitle: constants.AdvancedExercises[i].dayTitle,
+            exerciseID: constants.AdvancedExercises[i].exercise_id,
+            completeStatus: '0',);
+          await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
+        }
+      }
+      else{
+        for (int i = 0; i < constants.BeginnerExercises.length; i++) {
+          exerciseModelLocalDB = ExerciseModelLocalDB(
+            time: constants.BeginnerExercises[i].time,
+            raps: constants.BeginnerExercises[i].raps,
+            kneeIssue: constants.BeginnerExercises[i].kneeIssue,
+            planLevel: constants.BeginnerExercises[i].planLevel,
+            inPushUpCat: constants.BeginnerExercises[i].inPushUpCat,
+            inPlankCat: constants.BeginnerExercises[i].inPlankCat,
+            dayTitle: constants.BeginnerExercises[i].dayTitle,
+            exerciseID: constants.BeginnerExercises[i].exercise_id,
+            completeStatus: '0',);
+          await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
+        }
+      }
+
+      ExerciseDetailModel exerciseDetailModel;
+      for (int i = 0; i < constants.AllExercises.length; i++) {
+        exerciseDetailModel = ExerciseDetailModel(
+          id: constants.AllExercises[i].id,
+          name: constants.AllExercises[i].name,
+          image: constants.AllExercises[i].image,
+          type: constants.AllExercises[i].type,
+          description: constants.AllExercises[i].description,
+        );
+        await dbHelper.insertExerciseDetail(exerciseDetailModel.toJson());
       }
 
       DayModelLocalDB dayModelLocalDB;
@@ -85,6 +142,12 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
         var data = await dbHelper.queryAllExercise();
         RequestExerciseData exerciseData = RequestExerciseData.fromJson(data);
 
+        for(int i=0;i< exerciseData.exerciseList!.length; i++){
+          var mExercise = await dbHelper.queryASpecificExercise(exerciseData.exerciseList![i].exerciseID);
+          exerciseData.exerciseList![i].exercise = ExerciseDetailModel.fromJson(mExercise[0]);
+          print(exerciseData);
+        }
+
         yield GetAllExerciseState(exerciseData: exerciseData);
       } catch (e) {
         yield ErrorState(error: 'No Exercise found!');
@@ -95,6 +158,12 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
       try {
         var data = await dbHelper.queryAllExerciseOfDay(event.day);
         RequestExerciseData exerciseData = RequestExerciseData.fromJson(data);
+
+        for(int i=0;i< exerciseData.exerciseList!.length; i++){
+          var mExercise = await dbHelper.queryASpecificExercise(exerciseData.exerciseList![i].exerciseID);
+          exerciseData.exerciseList![i].exercise = ExerciseDetailModel.fromJson(mExercise[0]);
+          print(exerciseData);
+        }
 
         yield GetAllExerciseState(exerciseData: exerciseData);
       } catch (e) {

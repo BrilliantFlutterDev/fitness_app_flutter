@@ -25,7 +25,7 @@ class MyTrainer extends StatelessWidget {
             itemBuilder: (ctx, index) {
               return GestureDetector(
                 onTap: () {
-                  
+
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(18.0),

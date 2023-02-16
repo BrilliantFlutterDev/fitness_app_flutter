@@ -1,3 +1,4 @@
+import 'package:fitness_app/Helper/db_helper.dart';
 import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/screens/forget_password/forget_password.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
@@ -186,7 +187,13 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                   _selectedPlan[2] = false;
                                   _selectedPlan[1] = false;
                                   _selectedPlan[0] = true;
-                                  AppGlobal.selectedPlan = "1";
+                                  if (AppGlobal.selectedPlan != "1"){
+                                    AppGlobal.selectedPlan = "1";
+                                    AppGlobal.dataStoreFromConstantToLDB = "false";
+                                    _homeBloc.add(ClearExerciseEvent());
+                                    _homeBloc.add(RemoveDaysEvent());
+
+                                  }
                                   await storage.write(
                                       key: 'selectedPlan', value: '1');
                                   _homeBloc.add(RefreshScreenEvent());
@@ -252,7 +259,13 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                   _selectedPlan[0] = false;
                                   _selectedPlan[2] = false;
                                   _selectedPlan[1] = true;
-                                  AppGlobal.selectedPlan = "2";
+
+                                  if (AppGlobal.selectedPlan != "2"){
+                                    AppGlobal.selectedPlan = "2";
+                                    AppGlobal.dataStoreFromConstantToLDB = "false";
+                                    _homeBloc.add(ClearExerciseEvent());
+                                    _homeBloc.add(RemoveDaysEvent());
+                                  }
                                   await storage.write(
                                       key: 'selectedPlan', value: '2');
                                   _homeBloc.add(RefreshScreenEvent());
@@ -264,10 +277,8 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                     alignment: Alignment.bottomLeft,
                                     padding: const EdgeInsets.only(left: 12.0),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           'INTERMEDIATE',
@@ -318,7 +329,12 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                   _selectedPlan[0] = false;
                                   _selectedPlan[1] = false;
                                   _selectedPlan[2] = true;
-                                  AppGlobal.selectedPlan = "3";
+                                  if (AppGlobal.selectedPlan != "3"){
+                                    AppGlobal.selectedPlan = "3";
+                                    AppGlobal.dataStoreFromConstantToLDB = "false";
+                                    _homeBloc.add(ClearExerciseEvent());
+                                    _homeBloc.add(RemoveDaysEvent());
+                                  }
                                   await storage.write(
                                       key: 'selectedPlan', value: '3');
                                   _homeBloc.add(RefreshScreenEvent());
@@ -330,10 +346,8 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                     alignment: Alignment.bottomLeft,
                                     padding: const EdgeInsets.only(left: 12.0),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           'ADVANCED',

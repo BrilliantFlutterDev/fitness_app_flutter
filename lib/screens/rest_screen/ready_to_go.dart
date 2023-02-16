@@ -183,7 +183,7 @@ class _ReadyToGoState extends State<ReadyToGo> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                widget.exerciseData!.exerciseList![index].name,
+                                widget.exerciseData!.exerciseList![index].exercise.name,
                                 style: TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
@@ -202,6 +202,7 @@ class _ReadyToGoState extends State<ReadyToGo> {
                                 min: 0,
                                 max: 10,
                                 appearance: CircularSliderAppearance(
+                                  startAngle: 270,
                                   angleRange: 360,
                                   size: MediaQuery.of(context).size.width * 0.35,
                                   customWidths: CustomSliderWidths(
@@ -238,6 +239,7 @@ class _ReadyToGoState extends State<ReadyToGo> {
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (ctx) =>  StartExercise(exerciseData: widget.exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)));
+                                  _timer.cancel();
                                 },
                                 child: Icon(Icons.arrow_forward_ios)),
                             ],

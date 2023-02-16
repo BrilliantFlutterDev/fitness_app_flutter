@@ -195,6 +195,7 @@ class _WaterTrackerState extends State<WaterTracker> {
                                 max: 100,
                                 appearance: CircularSliderAppearance(
                                   // infoProperties: InfoProperties(),
+                                  startAngle: 270,
                                   angleRange: 360,
                                   size: MediaQuery.of(context).size.width * 0.3,
                                   customWidths: CustomSliderWidths(

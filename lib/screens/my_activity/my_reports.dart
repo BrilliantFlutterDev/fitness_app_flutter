@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
@@ -36,6 +37,9 @@ class MyReports extends StatefulWidget {
 class _MyReportsState extends State<MyReports> {
 
   DateTime dateTime = DateTime.now();
+
+  String formattedDate = DateFormat.d().format(DateTime.now());
+
   int days = 10;
   ExerciseConstants constants = ExerciseConstants();
 
@@ -132,7 +136,6 @@ class _MyReportsState extends State<MyReports> {
         requestDayData = state.dayData;
         totalWorkout = int.parse('${requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress}');
         print("Exercise Number>>>>>>>>> $totalWorkout");
-        print("CurrentDay>>>>>>>>> ${AppGlobal.currentDay}");
         previousValue = double.parse(requestDayData!.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank.toString());
         value = requestDayData!.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank * 12.5;
       }
@@ -501,6 +504,7 @@ class _MyReportsState extends State<MyReports> {
                                     max: 100,
                                     appearance: CircularSliderAppearance(
                                       // infoProperties: InfoProperties(),
+                                      startAngle: 270,
                                       angleRange: 360,
                                       size: MediaQuery.of(context).size.width *
                                           0.15,

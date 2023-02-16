@@ -107,16 +107,12 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
                                 ),
                               ),
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.02),
+                                  height: MediaQuery.of(context).size.height * 0.02),
                               Align(
                                 alignment: Alignment.center,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                  padding: const EdgeInsets.only(left: 10, right: 10),
+                                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                                     children: const [
                                       Text(
                                         "HOW LONG CAN YOU HOLD A PLANK?",
@@ -156,14 +152,12 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
                                 margin: const EdgeInsets.all(12),
                                 child: Container(
                                   height:
-                                      MediaQuery.of(context).size.height * 0.5,
+                                  MediaQuery.of(context).size.height * 0.5,
                                   alignment: Alignment.bottomLeft,
-                                  padding: const EdgeInsets.only(
-                                      bottom: 12.0, left: 12.0),
+                                  padding: const EdgeInsets.only(bottom: 12.0, left: 12.0),
                                   child: VerticalPicker(
                                     // give height for eacch item
-                                    itemHeight:
-                                        MediaQuery.of(context).size.height / 10,
+                                    itemHeight: MediaQuery.of(context).size.height / 10,
 
                                     // margin for border
                                     leftMargin: 20,
@@ -189,11 +183,11 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
                                         value: plankRanges[indexSelected] == '0-30s'?
                                                   AppGlobal.selectedPlankOption = '15' :
                                                plankRanges[indexSelected] == '30-60s'?
-                                                  AppGlobal.selectedPlankOption = '45' :
+                                                  AppGlobal.selectedPlankOption = '40' :
                                                plankRanges[indexSelected] == '60-120s'?
-                                                  AppGlobal.selectedPlankOption = '15' :
+                                                  AppGlobal.selectedPlankOption = '75' :
                                                plankRanges[indexSelected] == 'Over 120s'?
-                                                  AppGlobal.selectedPlankOption = '120' :
+                                                  AppGlobal.selectedPlankOption = '90' :
                                                '30',
                                       );
                                       print('plank>>>>>> ${AppGlobal.selectedPlankOption}');

@@ -97,7 +97,7 @@ class _EditPlanState extends State<EditPlan> {
                                         width: 90,
                                         fit: BoxFit.cover,
                                         image: AssetImage(
-                                            "assets/images/${widget.exerciseData!.exerciseList![index].image}")),
+                                            "assets/images/${widget.exerciseData!.exerciseList![index].exercise.image}")),
                                   ),
                                   const SizedBox(
                                     width: 18.0,
@@ -107,9 +107,7 @@ class _EditPlanState extends State<EditPlan> {
                                     CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        widget.exerciseData!
-                                            .exerciseList![index]
-                                            .name,
+                                        widget.exerciseData!.exerciseList![index].exercise.name,
                                         style: TextStyle(
                                           fontSize: MediaQuery.of(context).size.width*0.035,
                                           fontWeight:
@@ -120,7 +118,7 @@ class _EditPlanState extends State<EditPlan> {
                                         height: 6.0,
                                       ),
                                       Text(
-                                        widget.exerciseData!.exerciseList![index].type!='rap'?"${widget.exerciseData!.exerciseList![index].time} mins":
+                                        widget.exerciseData!.exerciseList![index].exercise.type!='rap'?"${widget.exerciseData!.exerciseList![index].time} mins":
                                         "${widget.exerciseData!.exerciseList![index].raps} Raps",
                                         style: const TextStyle(
                                           fontSize: 12,

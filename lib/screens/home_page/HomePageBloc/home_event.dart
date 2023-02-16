@@ -33,11 +33,30 @@ class ChangeExerciseStatusToDoneEvent extends HomeEvent {
   ChangeExerciseStatusToDoneEvent(
       {required this.exerciseModelLocalDB,});
 }
+
+class ChangeExerciseStatusToUnDoneEvent extends HomeEvent {
+  late final ExerciseModelLocalDB exerciseModelLocalDB;
+
+  ChangeExerciseStatusToUnDoneEvent(
+      {required this.exerciseModelLocalDB,});
+}
+
 class ChangeExerciseStatusToResetEvent extends HomeEvent {
   // late final ExerciseModelLocalDB exerciseModelLocalDB;
 
   ChangeExerciseStatusToResetEvent();
 }
+
+class ClearExerciseEvent extends HomeEvent {
+
+  ClearExerciseEvent();
+}
+
+class RemoveDaysEvent extends HomeEvent {
+
+  RemoveDaysEvent();
+}
+
 class DeleteExerciseInADayEvent extends HomeEvent {
   late final RequestExerciseData exerciseData;
   late final int index;

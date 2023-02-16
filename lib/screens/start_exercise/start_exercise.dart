@@ -57,18 +57,17 @@ class _StartExerciseState extends State<StartExercise> {
 
               _homeBloc.add(ChangeExerciseStatusToDoneEvent(
                   exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
-
             }
             else if(index==(widget.exerciseData!.exerciseList!.length-1)) {
-              _homeBloc.add(ChangeExerciseStatusToDoneEvent(
-                  exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
-
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (ctx) =>
                         CusBottomBar(),
                   )
               );
+
+              _homeBloc.add(ChangeExerciseStatusToDoneEvent(
+                  exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
             }
           });
         } else {
@@ -85,7 +84,7 @@ class _StartExerciseState extends State<StartExercise> {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     index=widget.dayModelLocalDB!.exerciseNumInProgress;
-    if(widget.exerciseData!.exerciseList![index].type=='time'){
+    if(widget.exerciseData!.exerciseList![index].exercise.type =='time'){
       startTimer();
     }
 
@@ -95,7 +94,7 @@ class _StartExerciseState extends State<StartExercise> {
     plank = double.parse(AppGlobal.selectedPlankOption!);
     print(AppGlobal.selectedPlankOption);
 
-    if(widget.exerciseData!.exerciseList![index].name=='PLANK') {
+    if(widget.exerciseData!.exerciseList![index].exercise.name =='PLANK') {
       value = plank;
       value = double.parse(plank.toString());
     } else {
@@ -170,7 +169,7 @@ class _StartExerciseState extends State<StartExercise> {
                         height: MediaQuery.of(context).size.height * 0.40,
                         decoration:  BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage("assets/images/${widget.exerciseData!.exerciseList![index].image}"),
+                            image: AssetImage("assets/images/${widget.exerciseData!.exerciseList![index].exercise.image}"),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -243,22 +242,30 @@ class _StartExerciseState extends State<StartExercise> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            widget.exerciseData!.exerciseList![index].name,
+                            widget.exerciseData!.exerciseList![index].exercise.name,
                               // "READY TO GO!",
                             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height*0.015),
 
                           Text(
-                            widget.exerciseData!.exerciseList![index].type =='rap'
+                            widget.exerciseData!.exerciseList![index].exercise.type =='rap'
                                 ?
-                            widget.exerciseData!.exerciseList![index].name=='PUSH-UPS'
-                                ?
-                            "X $pushUp raps" : "X ${widget.exerciseData!.exerciseList![index].raps} raps"
+                            "X ${widget.exerciseData!.exerciseList![index].raps} raps"
                                 :
-                            widget.exerciseData!.exerciseList![index].name=='PLANK'
-                                ?
-                            "00:${value.ceil()} sec" : "00:${value.ceil()} sec",
+                            value>=10 ? "00:${value.ceil()} sec" : "00:0${value.ceil()} sec",
+                            // widget.exerciseData!.exerciseList![index].exercise.type =='rap'
+                            //     ?
+                            // widget.exerciseData!.exerciseList![index].exercise.name=='PUSH-UPS'
+                            //     ?
+                            // "X $pushUp raps" : "X ${widget.exerciseData!.exerciseList![index].raps} raps"
+                            //     :
+                            // widget.exerciseData!.exerciseList![index].exercise.name=='PLANK'
+                            //     ?
+                            // value>=10 ? "00:${value.ceil()} sec" : "00:0${value.ceil()} sec" :
+                            // value>=10 ? "00:${value.ceil()} sec" : "00:0${value.ceil()} sec",
+
+                            // "00:${value.ceil()} sec" : "00:${value.ceil()} sec",
                             style: TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold,),
                           ),
                           // "$plank secs"
@@ -289,13 +296,16 @@ class _StartExerciseState extends State<StartExercise> {
                     child: Container(
                       width: MediaQuery.of(context).size.width*0.3,
                       alignment: Alignment.center,
-                      child: MyButton(name: widget.exerciseData!.exerciseList![index].type=='rap'?"Done":"Done", whenpress: () {
+                      child: MyButton(name: widget.exerciseData!.exerciseList![index].exercise.type=='rap'?"Done":"Done", whenpress: () {
                         if(index<(widget.exerciseData!.exerciseList!.length-1)) {
+                          if(widget.exerciseData!.exerciseList![index].exercise.type=='time'){
+                            _timer.cancel();
+                          }
                           Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (ctx) =>
-                                      ExerciseRestScreen(dayModelLocalDB: widget.dayModelLocalDB, exerciseData: widget.exerciseData,)
-                              )
+                            MaterialPageRoute(
+                              builder: (ctx) =>
+                                ExerciseRestScreen(dayModelLocalDB: widget.dayModelLocalDB, exerciseData: widget.exerciseData,)
+                            )
                           );
 
                           _homeBloc.add(ChangeExerciseStatusToDoneEvent(
@@ -307,10 +317,9 @@ class _StartExerciseState extends State<StartExercise> {
                               exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
 
                           Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (ctx) =>
-                                      CusBottomBar(),
-                              )
+                            MaterialPageRoute(
+                              builder: (ctx) => CusBottomBar(),
+                            )
                           );
                         }
                         // else {
@@ -331,16 +340,18 @@ class _StartExerciseState extends State<StartExercise> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        widget.exerciseData!.exerciseList![index].type=='rap'?SizedBox(
+                        widget.exerciseData!.exerciseList![index].exercise.type=='rap'?SizedBox(
                           height: screenSize.height*0.07,
                         ):const SizedBox(),
-                        index!=0?GestureDetector(
+                        index!=0? GestureDetector(
                           onTap: () {
                             if(index>=1){
                               index=index-1;
                               setState(() {
                               });
                             }
+                            _homeBloc.add(ChangeExerciseStatusToUnDoneEvent(
+                                exerciseModelLocalDB: widget.exerciseData!.exerciseList![index-1]));
                           },
                           child: Row(
                             children: [
@@ -351,7 +362,7 @@ class _StartExerciseState extends State<StartExercise> {
                               ),
                             ],
                           ),
-                        ):SizedBox(),
+                        ) : SizedBox(),
                         SizedBox(width: MediaQuery.of(context).size.width*0.28),
                         index<widget.exerciseData!.exerciseList!.length-1?GestureDetector(
                           onTap: () {
@@ -399,7 +410,7 @@ class _StartExerciseState extends State<StartExercise> {
                               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: kColorPrimary),
                             ),
                             Text(
-                              index<widget.exerciseData!.exerciseList!.length-1? widget.exerciseData!.exerciseList![index+1].name:"",
+                              index<widget.exerciseData!.exerciseList!.length-1? widget.exerciseData!.exerciseList![index+1].exercise.name:"",
                               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold,),
                             ),
                           ],

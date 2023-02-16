@@ -124,7 +124,7 @@ class _EditMyPlanState extends State<EditMyPlan> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    widget.exerciseData!.exerciseList![index].name,
+                                    widget.exerciseData!.exerciseList![index].exercise.name,
                                     style: const TextStyle(
                                         fontSize: 15.0,
                                         color: Colors.black,
@@ -200,7 +200,7 @@ class _EditMyPlanState extends State<EditMyPlan> {
                       borderRadius: BorderRadius.circular(12.0),
                       image: DecorationImage(
                         image: AssetImage(
-                            "assets/images/${widget.exerciseData!.exerciseList![index].image}"),
+                            "assets/images/${widget.exerciseData!.exerciseList![index].exercise.image}"),
                         fit: BoxFit.cover,
                       ),
                     ),

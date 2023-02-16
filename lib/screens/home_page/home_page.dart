@@ -191,6 +191,7 @@ class _HomePageState extends State<HomePage> {
                       max: 100,
                       appearance: CircularSliderAppearance(
                         // infoProperties: InfoProperties(),
+                        startAngle: 270,
                         angleRange: 360,
                         size: MediaQuery.of(context).size.width * 0.15,
                         customWidths: CustomSliderWidths(
@@ -541,6 +542,7 @@ class _HomePageState extends State<HomePage> {
                                             max: 100,
                                             appearance: CircularSliderAppearance(
                                               // infoProperties: InfoProperties(),
+                                              startAngle: 270,
                                               angleRange: 360,
                                               size: MediaQuery.of(context).size.width * 0.2,
                                               customWidths: CustomSliderWidths(

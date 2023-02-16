@@ -180,11 +180,11 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
                                         value: pushUpsRanges[indexSelected] == '0-5'?
                                                   AppGlobal.selectedPushUpOption = '3' :
                                                pushUpsRanges[indexSelected] == '5-10'?
-                                                  AppGlobal.selectedPushUpOption = '8' :
+                                                  AppGlobal.selectedPushUpOption = '7' :
                                                pushUpsRanges[indexSelected] == '10-20'?
-                                                  AppGlobal.selectedPushUpOption = '15' :
+                                                  AppGlobal.selectedPushUpOption = '13' :
                                                pushUpsRanges[indexSelected] == 'Over 20'?
-                                                  AppGlobal.selectedPushUpOption = '20' :
+                                                  AppGlobal.selectedPushUpOption = '15' :
                                                '10',
                                       );
                                       print('pushup>>>>>> ${AppGlobal.selectedPushUpOption}');

@@ -93,7 +93,7 @@ class _ReplaceExercisePlanState extends State<ReplaceExercisePlan> {
                                   width: 90,
                                   fit: BoxFit.cover,
                                   image: AssetImage(
-                                      "assets/images/${exerciseData!.exerciseList![widget.index].image}")),
+                                      "assets/images/${exerciseData!.exerciseList![widget.index].exercise.image}")),
                             ),
                             const SizedBox(
                               width: 18.0,
@@ -103,9 +103,7 @@ class _ReplaceExercisePlanState extends State<ReplaceExercisePlan> {
                               CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  exerciseData!
-                                      .exerciseList![widget.index]
-                                      .name,
+                                  exerciseData!.exerciseList![widget.index].exercise.name,
                                   style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight:
@@ -116,7 +114,7 @@ class _ReplaceExercisePlanState extends State<ReplaceExercisePlan> {
                                   height: 6.0,
                                 ),
                                 Text(
-                                  exerciseData!.exerciseList![widget.index].type!='rap'?"${exerciseData!.exerciseList![widget.index].time} mins":
+                                  exerciseData!.exerciseList![widget.index].exercise.type!='rap'?"${exerciseData!.exerciseList![widget.index].time} mins":
                                   "${exerciseData!.exerciseList![widget.index].raps} Raps",
                                   style: const TextStyle(
                                     fontSize: 12,
@@ -171,7 +169,7 @@ class _ReplaceExercisePlanState extends State<ReplaceExercisePlan> {
                                               width: 90,
                                               fit: BoxFit.cover,
                                               image: AssetImage(
-                                                  "assets/images/${exerciseData!.exerciseList![index].image}")),
+                                                  "assets/images/${exerciseData!.exerciseList![index].exercise.image}")),
                                         ),
                                         const SizedBox(
                                           width: 18.0,
@@ -181,9 +179,7 @@ class _ReplaceExercisePlanState extends State<ReplaceExercisePlan> {
                                           CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              exerciseData!
-                                                  .exerciseList![index]
-                                                  .name,
+                                              exerciseData!.exerciseList![index].exercise.name,
                                               style: const TextStyle(
                                                 fontSize: 20,
                                                 fontWeight:
@@ -194,7 +190,7 @@ class _ReplaceExercisePlanState extends State<ReplaceExercisePlan> {
                                               height: 6.0,
                                             ),
                                             Text(
-                                              exerciseData!.exerciseList![index].type!='rap'?"${exerciseData!.exerciseList![index].time} mins":
+                                              exerciseData!.exerciseList![index].exercise.type!='rap'?"${exerciseData!.exerciseList![index].time} mins":
                                               "${exerciseData!.exerciseList![index].raps} Raps",
                                               style: const TextStyle(
                                                 fontSize: 12,
