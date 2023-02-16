@@ -146,16 +146,26 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                 ),
                               ),
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.05),
+                                  height: MediaQuery.of(context).size.height * 0.05
+                              ),
                               GestureDetector(
                                 onTap: () async {
                                   _selectedPlan[2] = false;
                                   _selectedPlan[1] = false;
                                   _selectedPlan[0] = true;
+
+                                  // if (AppGlobal.selectedPlan != "1"){
+                                  //   AppGlobal.selectedPlan = "1";
+                                  //   AppGlobal.dataStoreFromConstantToLDB = "false";
+                                  //   _homeBloc.add(ClearExerciseEvent());
+                                  //   _homeBloc.add(RemoveDaysEvent());
+                                  //
+                                  // }
+
                                   await storage.write(
-                                      key: 'selectedKneeIssueOption',
-                                      value: '1');
+                                      key: 'selectedKneeIssueOption', value: '1'
+                                  );
+                                  // _homeBloc.add(RefreshScreenEvent());
                                   setState(() {});
                                 },
                                 child: Container(
@@ -210,9 +220,18 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                   _selectedPlan[0] = false;
                                   _selectedPlan[2] = false;
                                   _selectedPlan[1] = true;
+
+                                  // if (AppGlobal.selectedPlan != "2"){
+                                  //   AppGlobal.selectedPlan = "2";
+                                  //   AppGlobal.dataStoreFromConstantToLDB = "false";
+                                  //   _homeBloc.add(ClearExerciseEvent());
+                                  //   _homeBloc.add(RemoveDaysEvent());
+                                  // }
+
                                   await storage.write(
-                                      key: 'selectedKneeIssueOption',
-                                      value: '2');
+                                      key: 'selectedKneeIssueOption', value: '2'
+                                  );
+                                  // _homeBloc.add(RefreshScreenEvent());
                                   setState(() {});
                                 },
                                 child: Container(

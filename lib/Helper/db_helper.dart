@@ -109,7 +109,7 @@ class DatabaseHelper {
             $kneeIssue TEXT,
             $planLevel TEXT,
             $completeStatus TEXT,
-            $completeExercisePercentage INTEGER,
+            $completeExercisePercentage REAL,
             $noOfGlassWaterDrank INTEGER,
             $exerciseNumInProgress INTEGER,
             $isRest INTEGER

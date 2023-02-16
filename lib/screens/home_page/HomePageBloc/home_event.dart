@@ -68,7 +68,7 @@ class DeleteExerciseInADayEvent extends HomeEvent {
 
 class UpdateDayProgressEvent extends HomeEvent {
   final DayModelLocalDB dayModelLocalDB;
-  final  int progress;
+  final  double progress;
   UpdateDayProgressEvent(
       {required this.dayModelLocalDB,required this.progress,});
 }

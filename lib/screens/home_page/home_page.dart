@@ -570,7 +570,7 @@ class _HomePageState extends State<HomePage> {
                                                       // requestDayData!.exerciseList![index].exerciseNumInProgress == exerciseData!.exerciseList!.length
                                                       //     ?
                                                       // "100%" : "${requestDayData!.exerciseList![index].completedPercentage}%",
-                                                      "${requestDayData!.exerciseList![index].completedPercentage}%",
+                                                      "${requestDayData!.exerciseList![index].completedPercentage.ceil()}%",
                                                       style: const TextStyle(fontSize: 18, color: Colors.grey,),
                                                     ),
                                                   ],

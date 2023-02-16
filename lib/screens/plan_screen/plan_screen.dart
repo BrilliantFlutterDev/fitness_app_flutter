@@ -195,7 +195,8 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
 
                                   }
                                   await storage.write(
-                                      key: 'selectedPlan', value: '1');
+                                      key: 'selectedPlan', value: '1'
+                                  );
                                   _homeBloc.add(RefreshScreenEvent());
                                 },
                                 child: Container(

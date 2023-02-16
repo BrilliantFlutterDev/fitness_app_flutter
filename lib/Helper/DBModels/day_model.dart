@@ -26,7 +26,7 @@ class DayModelLocalDB {
   late final String planLevel;
   late final String completeStatus;
   late int noOfGlassWaterDrank;
-  late int completedPercentage;
+  late double completedPercentage;
   late int exerciseNumInProgress;
   late int isRest;
 

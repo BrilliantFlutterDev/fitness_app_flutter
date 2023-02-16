@@ -48,6 +48,10 @@ class _StartExerciseState extends State<StartExercise> {
           setState(() {
             timer.cancel();
             if(index<(widget.exerciseData!.exerciseList!.length-1)) {
+
+              _homeBloc.add(ChangeExerciseStatusToDoneEvent(
+                  exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
+
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                       builder: (ctx) =>
@@ -55,8 +59,8 @@ class _StartExerciseState extends State<StartExercise> {
                   )
               );
 
-              _homeBloc.add(ChangeExerciseStatusToDoneEvent(
-                  exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
+              // _homeBloc.add(ChangeExerciseStatusToDoneEvent(
+              //     exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
             }
             else if(index==(widget.exerciseData!.exerciseList!.length-1)) {
               Navigator.of(context).pushReplacement(
@@ -137,19 +141,44 @@ class _StartExerciseState extends State<StartExercise> {
             progress = progress * widget.exerciseData!.exerciseList!.length;
             progress = progress + 1;
             progress = progress / widget.exerciseData!.exerciseList!.length;
-            progress = (progress * 100).floorToDouble();
+            progress = (progress * 100);
             print('>>>>>>>2 $progress');
           }
           // progress = progress+1;
-          index = index + 1;
-          widget.dayModelLocalDB!.exerciseNumInProgress = index;
+
 
           _homeBloc.add(UpdateDayProgressEvent(
               dayModelLocalDB: widget.dayModelLocalDB!,
-              progress: int.parse(progress.floor().toString())));
+              progress: progress
+              // int.parse(progress.floor().toString())
+          ));
         }
       }else if (state is UpdateDayProgressState) {
         widget.dayModelLocalDB=state.dayModelLocalDB;
+        print('Ameer: index: $index');
+        if(index<(widget.exerciseData!.exerciseList!.length-1)) {
+
+          widget.dayModelLocalDB!.exerciseNumInProgress = index + 1;
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (ctx) =>
+                ExerciseRestScreen(dayModelLocalDB: widget.dayModelLocalDB, exerciseData: widget.exerciseData,)
+            )
+          ).then((value){
+            setState(() {
+              index = index + 1;
+            });
+          });
+
+        }
+        else if(index==(widget.exerciseData!.exerciseList!.length-1)) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (ctx) => CusBottomBar(),
+            )
+          );
+        }
+
       }
     }, builder: (context, state) {
     return ModalProgressHUD(
@@ -297,31 +326,15 @@ class _StartExerciseState extends State<StartExercise> {
                       width: MediaQuery.of(context).size.width*0.3,
                       alignment: Alignment.center,
                       child: MyButton(name: widget.exerciseData!.exerciseList![index].exercise.type=='rap'?"Done":"Done", whenpress: () {
-                        if(index<(widget.exerciseData!.exerciseList!.length-1)) {
-                          if(widget.exerciseData!.exerciseList![index].exercise.type=='time'){
-                            _timer.cancel();
-                          }
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (ctx) =>
-                                ExerciseRestScreen(dayModelLocalDB: widget.dayModelLocalDB, exerciseData: widget.exerciseData,)
-                            )
-                          );
 
-                          _homeBloc.add(ChangeExerciseStatusToDoneEvent(
-                              exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
-
+                        if(widget.exerciseData!.exerciseList![index].exercise.type=='time'){
+                          _timer.cancel();
                         }
-                        else if(index==(widget.exerciseData!.exerciseList!.length-1)) {
-                          _homeBloc.add(ChangeExerciseStatusToDoneEvent(
-                              exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
 
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (ctx) => CusBottomBar(),
-                            )
-                          );
-                        }
+
+                        _homeBloc.add(ChangeExerciseStatusToDoneEvent(
+                            exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
+
                         // else {
                         //   Navigator.of(context).pushReplacement(
                         //       MaterialPageRoute(

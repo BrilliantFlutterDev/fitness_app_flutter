@@ -5,7 +5,7 @@ class DayModel {
   final String planLevel;
   final String completeStatus;
   final int noOfGlassWaterDrank;
-  final int completedPercentage;
+  final double completedPercentage;
   final int exerciseNumInProgress;
   final int isRest;
   DayModel({

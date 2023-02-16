@@ -27,7 +27,6 @@ class _ReadyToGoState extends State<ReadyToGo> {
 
   // RequestExerciseData? exerciseData;
 
-  late HomeBloc _homeBloc;
   int index=0;
 
   late Timer _timer;
@@ -56,7 +55,6 @@ class _ReadyToGoState extends State<ReadyToGo> {
   @override
   void initState() {
     super.initState();
-    _homeBloc = BlocProvider.of<HomeBloc>(context);
     index=widget.dayModelLocalDB!.exerciseNumInProgress;
 
     startTimer();
@@ -72,53 +70,10 @@ class _ReadyToGoState extends State<ReadyToGo> {
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    return BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
-      if (state is LoadingState) {
-      } else if (state is ErrorState) {
-        Fluttertoast.showToast(
-            msg: state.error,
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.grey.shade400,
-            textColor: Colors.white,
-            fontSize: 12.0);
-      } else if (state is RefreshScreenState) {
-      }else if (state is UpdateAllExerciseState) {
-        widget.exerciseData!.exerciseList![index]=state.exerciseModelLocalDB;
-        double progress;
-        if(index<widget.exerciseData!.exerciseList!.length) {
-          if (widget.dayModelLocalDB!.completedPercentage == 0) {
-            progress = (1 / widget.exerciseData!.exerciseList!.length);
-            progress = progress * 100;
-            print('>>>>>>> $progress');
-          } else {
-            progress = (widget.dayModelLocalDB!.completedPercentage / 100);
-            progress = progress * widget.exerciseData!.exerciseList!.length;
-            progress = progress + 1;
-            progress = progress / widget.exerciseData!.exerciseList!.length;
-            progress = progress * 100;
-            print('>>>>>>>2 $progress');
-          }
-          index = index + 1;
-          widget.dayModelLocalDB!.exerciseNumInProgress = index;
-
-          _homeBloc.add(UpdateDayProgressEvent(
-              dayModelLocalDB: widget.dayModelLocalDB!,
-              progress: int.parse(progress.ceil().toString()),
-          ));
-        }
-      }else if (state is UpdateDayProgressState) {
-        widget.dayModelLocalDB=state.dayModelLocalDB;
-      }
-    }, builder: (context, state) {
-      return ModalProgressHUD(
-      inAsyncCall: state is LoadingState,
-      child: Scaffold(
-        backgroundColor: kColorBG,
-        body: SafeArea(
-          child: ColorRemover(
+    return Scaffold(
+      backgroundColor: kColorBG,
+      body: SafeArea(
+        child: ColorRemover(
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Column(
@@ -236,12 +191,16 @@ class _ReadyToGoState extends State<ReadyToGo> {
                               ),
                               SizedBox(width: MediaQuery.of(context).size.width*0.1),
                               InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (ctx) =>  StartExercise(exerciseData: widget.exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)));
-                                  _timer.cancel();
-                                },
-                                child: Icon(Icons.arrow_forward_ios)),
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (ctx) =>
+                                                StartExercise(exerciseData: widget.exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)
+                                        )
+                                    );
+                                    _timer.cancel();
+                                  },
+                                  child: Icon(Icons.arrow_forward_ios)),
                             ],
                           ),
                         ],
@@ -251,9 +210,8 @@ class _ReadyToGoState extends State<ReadyToGo> {
                 ],
               ),
             )
-          ),
         ),
-      )
-    );});
+      ),
+    );
   }
 }
