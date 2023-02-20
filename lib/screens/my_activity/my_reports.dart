@@ -134,6 +134,7 @@ class _MyReportsState extends State<MyReports> {
       } else if (state is RefreshScreenState) {
       } else if (state is GetAllDaysState) {
         requestDayData = state.dayData;
+
         totalWorkout = int.parse('${requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress}');
         print("Exercise Number>>>>>>>>> $totalWorkout");
         previousValue = double.parse(requestDayData!.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank.toString());

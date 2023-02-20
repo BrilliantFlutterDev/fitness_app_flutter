@@ -1,19 +1,15 @@
 import 'dart:async';
 
-import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/screens/home_page/home_page.dart';
 import 'package:fitness_app/screens/home_page/open_activity.dart';
 import 'package:fitness_app/screens/home_page/quit_screens/quit_screen.dart';
 import 'package:fitness_app/screens/rest_screen/exercise_rest.dart';
-import 'package:fitness_app/screens/rest_screen/rest_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/cus_bottom_bar.dart';
 import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:sizer/sizer.dart';
-import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../../Helper/DBModels/day_model.dart';
 import '../../Helper/DBModels/exercise_model.dart';
@@ -36,8 +32,8 @@ class _StartExerciseState extends State<StartExercise> {
   int index=0;
   late HomeBloc _homeBloc;
 
-  int pushUp = 10;
-  double plank = 15;
+  // int pushUp = 10;
+  // double plank = 15;
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
@@ -47,32 +43,36 @@ class _StartExerciseState extends State<StartExercise> {
         if (value == 0) {
           setState(() {
             timer.cancel();
-            if(index<(widget.exerciseData!.exerciseList!.length-1)) {
 
-              _homeBloc.add(ChangeExerciseStatusToDoneEvent(
-                  exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
+            _homeBloc.add(ChangeExerciseStatusToDoneEvent(
+                exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
 
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                      builder: (ctx) =>
-                          ExerciseRestScreen(dayModelLocalDB: widget.dayModelLocalDB, exerciseData: widget.exerciseData,)
-                  )
-              );
-
-              // _homeBloc.add(ChangeExerciseStatusToDoneEvent(
-              //     exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
-            }
-            else if(index==(widget.exerciseData!.exerciseList!.length-1)) {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (ctx) =>
-                        CusBottomBar(),
-                  )
-              );
-
-              _homeBloc.add(ChangeExerciseStatusToDoneEvent(
-                  exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
-            }
+            // if(index<(widget.exerciseData!.exerciseList!.length-1)) {
+            //
+            //   _homeBloc.add(ChangeExerciseStatusToDoneEvent(
+            //       exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
+            //
+            //   Navigator.of(context).pushReplacement(
+            //       MaterialPageRoute(
+            //           builder: (ctx) =>
+            //               ExerciseRestScreen(dayModelLocalDB: widget.dayModelLocalDB, exerciseData: widget.exerciseData,)
+            //       )
+            //   );
+            //
+            //   // _homeBloc.add(ChangeExerciseStatusToDoneEvent(
+            //   //     exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
+            // }
+            // else if(index==(widget.exerciseData!.exerciseList!.length-1)) {
+            //   Navigator.of(context).pushReplacement(
+            //       MaterialPageRoute(
+            //         builder: (ctx) =>
+            //             CusBottomBar(),
+            //       )
+            //   );
+            //
+            //   _homeBloc.add(ChangeExerciseStatusToDoneEvent(
+            //       exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
+            // }
           });
         } else {
           setState(() {
@@ -88,22 +88,24 @@ class _StartExerciseState extends State<StartExercise> {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     index=widget.dayModelLocalDB!.exerciseNumInProgress;
+
     if(widget.exerciseData!.exerciseList![index].exercise.type =='time'){
+      value = double.parse(widget.exerciseData!.exerciseList![index].time.toString());
       startTimer();
     }
 
-    pushUp = int.parse(AppGlobal.selectedPushUpOption!);
-    print(AppGlobal.selectedPushUpOption);
-
-    plank = double.parse(AppGlobal.selectedPlankOption!);
-    print(AppGlobal.selectedPlankOption);
-
-    if(widget.exerciseData!.exerciseList![index].exercise.name =='PLANK') {
-      value = plank;
-      value = double.parse(plank.toString());
-    } else {
-      value = double.parse(widget.exerciseData!.exerciseList![index].time.toString());
-    }
+    // pushUp = int.parse(AppGlobal.selectedPushUpOption!);
+    // print(AppGlobal.selectedPushUpOption);
+    //
+    // plank = double.parse(AppGlobal.selectedPlankOption!);
+    // print(AppGlobal.selectedPlankOption);
+    //
+    // if(widget.exerciseData!.exerciseList![index].exercise.name =='PLANK') {
+    //   value = plank;
+    //   value = double.parse(plank.toString());
+    // } else {
+    //   value = double.parse(widget.exerciseData!.exerciseList![index].time.toString());
+    // }
 
   }
 
@@ -131,7 +133,7 @@ class _StartExerciseState extends State<StartExercise> {
       }else if (state is UpdateAllExerciseState) {
         widget.exerciseData!.exerciseList![index]=state.exerciseModelLocalDB;
         double progress;
-        if(index<widget.exerciseData!.exerciseList!.length) {
+        if(index<widget.exerciseData!.exerciseList!.length-1) {
           if (widget.dayModelLocalDB!.completedPercentage == 0) {
             progress = (1 / widget.exerciseData!.exerciseList!.length);
             progress = (progress * 100);
@@ -146,7 +148,6 @@ class _StartExerciseState extends State<StartExercise> {
           }
           // progress = progress+1;
 
-
           _homeBloc.add(UpdateDayProgressEvent(
               dayModelLocalDB: widget.dayModelLocalDB!,
               progress: progress
@@ -154,8 +155,8 @@ class _StartExerciseState extends State<StartExercise> {
           ));
         }
       }else if (state is UpdateDayProgressState) {
+        print('update.........................1');
         widget.dayModelLocalDB=state.dayModelLocalDB;
-        print('Ameer: index: $index');
         if(index<(widget.exerciseData!.exerciseList!.length-1)) {
 
           widget.dayModelLocalDB!.exerciseNumInProgress = index + 1;
@@ -164,12 +165,15 @@ class _StartExerciseState extends State<StartExercise> {
               builder: (ctx) =>
                 ExerciseRestScreen(dayModelLocalDB: widget.dayModelLocalDB, exerciseData: widget.exerciseData,)
             )
-          ).then((value){
+          ).then((val){
             setState(() {
               index = index + 1;
+              value = double.parse(widget.exerciseData!.exerciseList![index].time.toString());
+              if(widget.exerciseData!.exerciseList![index].exercise!.type !='rap'){
+                startTimer();
+              }
             });
           });
-
         }
         else if(index==(widget.exerciseData!.exerciseList!.length-1)) {
           Navigator.of(context).pushReplacement(
@@ -178,7 +182,6 @@ class _StartExerciseState extends State<StartExercise> {
             )
           );
         }
-
       }
     }, builder: (context, state) {
     return ModalProgressHUD(
@@ -231,6 +234,7 @@ class _StartExerciseState extends State<StartExercise> {
                                               const QuitScreen())
                                       );
                                       // Navigator.of(context).pop();
+
                                     },
                                     icon: const Icon(Icons.arrow_back_sharp)),
                                 backgroundColor: Colors.transparent,
@@ -272,7 +276,6 @@ class _StartExerciseState extends State<StartExercise> {
                         children: [
                           Text(
                             widget.exerciseData!.exerciseList![index].exercise.name,
-                              // "READY TO GO!",
                             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height*0.015),
@@ -331,7 +334,6 @@ class _StartExerciseState extends State<StartExercise> {
                           _timer.cancel();
                         }
 
-
                         _homeBloc.add(ChangeExerciseStatusToDoneEvent(
                             exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
 
@@ -353,9 +355,11 @@ class _StartExerciseState extends State<StartExercise> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        widget.exerciseData!.exerciseList![index].exercise.type=='rap'?SizedBox(
+                        widget.exerciseData!.exerciseList![index].exercise.type=='rap'?
+                        SizedBox(
                           height: screenSize.height*0.07,
-                        ):const SizedBox(),
+                        ):
+                        const SizedBox(),
                         index!=0? GestureDetector(
                           onTap: () {
                             if(index>=1){
@@ -377,13 +381,14 @@ class _StartExerciseState extends State<StartExercise> {
                           ),
                         ) : SizedBox(),
                         SizedBox(width: MediaQuery.of(context).size.width*0.28),
-                        index<widget.exerciseData!.exerciseList!.length-1?GestureDetector(
+                        index<widget.exerciseData!.exerciseList!.length-1?
+                        GestureDetector(
                           onTap: () {
                             Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (ctx) =>
-                                        ExerciseRestScreen(dayModelLocalDB: widget.dayModelLocalDB, exerciseData: widget.exerciseData,)
-                                )
+                              MaterialPageRoute(
+                                builder: (ctx) =>
+                                  ExerciseRestScreen(dayModelLocalDB: widget.dayModelLocalDB, exerciseData: widget.exerciseData,)
+                              )
                             );
                             if(index<widget.exerciseData!.exerciseList!.length){
                               setState(() {

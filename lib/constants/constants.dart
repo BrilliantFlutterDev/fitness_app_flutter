@@ -10245,7 +10245,19 @@ class ExerciseConstants {
       ),
       ExercisesModel(
         id: 15,
-        name: "SKIPPING WITHOUT ROPE",
+        name: AppGlobal.selectedKneeIssueOption == '1'
+            ?
+        "SKIPPING WITHOUT ROPE"
+            :
+        AppGlobal.selectedKneeIssueOption == '2'
+            ?
+        "ROUNDHOUSE SQUAT KICKS"
+            :
+        AppGlobal.selectedKneeIssueOption == '3'
+            ?
+        "KNEE TO ELBOW CRUNCHES"
+            :
+        "SKIPPING WITHOUT ROPE",
         image: "Wheel Stretch.jpg",
         type: 'time',
         description: "Place your arms at your sides and pretend to hold a skipping rope handle in each hand."
@@ -10346,6 +10358,15 @@ class ExerciseConstants {
             "\n\n"
             "Lift your shoulders up off the floor,then slowly go back to the starting position. Repeat the exercise.",
       ),
+
+
+    // Squat Reach Ups
+    // Standing Bicycle Crunches
+    // Scissors
+    // Squat Reach ups
+    // V-UP
+    // Inchworms
+
 
     // GymModel(image: "Chest Workouts.jpg", name: "STRAIGHT-ARM PLANK"),
     // GymModel(image: "Arm Workouts.jpg", name: "STANDING BICYCLE CRUNCHES"),

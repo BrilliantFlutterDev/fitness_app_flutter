@@ -36,19 +36,21 @@ class _OpenActivityState extends State<OpenActivity> {
 
   final List<bool> _selectedPlan = <bool>[true, false, false];
 
-  int pushUp = 10;
-  int plank = 15;
+  // int pushUp = 10;
+  // int plank = 15;
   @override
   void initState() {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     _homeBloc.add(GetAllExerciseOfDayEvent(day: widget.dayModelLocalDB!.name));
 
-    pushUp = int.parse(AppGlobal.selectedPushUpOption!);
-    print(AppGlobal.selectedPushUpOption);
+    print('Exercise in progress>>111111> ${widget.dayModelLocalDB!.exerciseNumInProgress}');
 
-    plank = int.parse(AppGlobal.selectedPlankOption!);
-    print(AppGlobal.selectedPlankOption);
+    // pushUp = int.parse(AppGlobal.selectedPushUpOption!);
+    // print(AppGlobal.selectedPushUpOption);
+    //
+    // plank = int.parse(AppGlobal.selectedPlankOption!);
+    // print(AppGlobal.selectedPlankOption);
 
   }
 
@@ -70,6 +72,7 @@ class _OpenActivityState extends State<OpenActivity> {
       } else if (state is RefreshScreenState) {
       } else if (state is GetAllExerciseState) {
         exerciseData = state.exerciseData;
+
       }
     }, builder: (context, state) {
       return ModalProgressHUD(

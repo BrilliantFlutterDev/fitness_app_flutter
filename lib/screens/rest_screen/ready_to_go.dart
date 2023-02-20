@@ -104,8 +104,7 @@ class _ReadyToGoState extends State<ReadyToGo> {
                         height: MediaQuery.of(context).size.height * 0.40,
                         width: MediaQuery.of(context).size.width,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 0, vertical: 0),
+                          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                           child: Column(
                             children: [
                               AppBar(

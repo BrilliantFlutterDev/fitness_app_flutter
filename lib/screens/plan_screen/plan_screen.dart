@@ -1,9 +1,6 @@
-import 'package:fitness_app/Helper/db_helper.dart';
 import 'package:fitness_app/Utils/app_global.dart';
-import 'package:fitness_app/screens/forget_password/forget_password.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/plan_screen/push_ups_spinner_screen.dart';
-import 'package:fitness_app/screens/register_screen/register_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/cus_bottom_bar.dart';
 import 'package:fitness_app/widgets/my_button.dart';
@@ -39,8 +36,6 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
     await storage.write(key: 'selectedPlan', value: '1');
   }
 
-  int x = 1;
-
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -59,7 +54,6 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
     }, builder: (context, state) {
       return Scaffold(
         body: ColorRemover(
-            // physics: const BouncingScrollPhysics(),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -187,12 +181,12 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                   _selectedPlan[2] = false;
                                   _selectedPlan[1] = false;
                                   _selectedPlan[0] = true;
+
                                   if (AppGlobal.selectedPlan != "1"){
                                     AppGlobal.selectedPlan = "1";
                                     AppGlobal.dataStoreFromConstantToLDB = "false";
                                     _homeBloc.add(ClearExerciseEvent());
                                     _homeBloc.add(RemoveDaysEvent());
-
                                   }
                                   await storage.write(
                                       key: 'selectedPlan', value: '1'
@@ -206,10 +200,8 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                     alignment: Alignment.bottomLeft,
                                     padding: const EdgeInsets.only(left: 12.0),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           'BEGINNER',
@@ -330,6 +322,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                   _selectedPlan[0] = false;
                                   _selectedPlan[1] = false;
                                   _selectedPlan[2] = true;
+
                                   if (AppGlobal.selectedPlan != "3"){
                                     AppGlobal.selectedPlan = "3";
                                     AppGlobal.dataStoreFromConstantToLDB = "false";
@@ -337,7 +330,8 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                     _homeBloc.add(RemoveDaysEvent());
                                   }
                                   await storage.write(
-                                      key: 'selectedPlan', value: '3');
+                                      key: 'selectedPlan', value: '3'
+                                  );
                                   _homeBloc.add(RefreshScreenEvent());
                                 },
                                 child: Container(
@@ -394,8 +388,8 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                               ),
 
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.11),
+                                  height: MediaQuery.of(context).size.height * 0.11
+                              ),
                               InkWell(
                                 onTap: () {
                                   Navigator.push(

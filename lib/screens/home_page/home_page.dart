@@ -56,6 +56,7 @@ class _HomePageState extends State<HomePage> {
       print('>>>>>>> Show Days');
     }
     AppGlobal.selectedPlan;
+    AppGlobal.selectedKneeIssueOption;
   }
 
   @override
@@ -503,9 +504,10 @@ class _HomePageState extends State<HomePage> {
                               GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (ctx) => OpenActivity(
-                                        dayModelLocalDB: requestDayData!.exerciseList![index],
-                                      )));
+                                    builder: (ctx) => OpenActivity(
+                                      dayModelLocalDB: requestDayData!.exerciseList![index],
+                                    )
+                                  ));
                                 },
                                 child: Container(
                                   height: 10.h,
@@ -563,8 +565,7 @@ class _HomePageState extends State<HomePage> {
                                             innerWidget: (re) {
                                               return Center(
                                                 child: Column(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     Text(
                                                       // requestDayData!.exerciseList![index].exerciseNumInProgress == exerciseData!.exerciseList!.length

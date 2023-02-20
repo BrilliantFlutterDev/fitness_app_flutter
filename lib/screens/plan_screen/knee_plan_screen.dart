@@ -1,5 +1,5 @@
+import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/constants/colors.dart';
-import 'package:fitness_app/screens/forget_password/forget_password.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/plan_screen/push_ups_spinner_screen.dart';
 import 'package:fitness_app/screens/register_screen/register_screen.dart';
@@ -24,7 +24,6 @@ class SelectKneeIssueScreen extends StatefulWidget {
 class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
   final List<bool> _selectedPlan = <bool>[true, false, false];
   FlutterSecureStorage storage = const FlutterSecureStorage();
-
   late HomeBloc _homeBloc;
 
   @override
@@ -154,19 +153,16 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                   _selectedPlan[1] = false;
                                   _selectedPlan[0] = true;
 
-                                  // if (AppGlobal.selectedPlan != "1"){
-                                  //   AppGlobal.selectedPlan = "1";
-                                  //   AppGlobal.dataStoreFromConstantToLDB = "false";
-                                  //   _homeBloc.add(ClearExerciseEvent());
-                                  //   _homeBloc.add(RemoveDaysEvent());
-                                  //
-                                  // }
-
+                                  if (AppGlobal.selectedKneeIssueOption != "1"){
+                                    AppGlobal.selectedKneeIssueOption = "1";
+                                    AppGlobal.dataStoreFromConstantToLDB = "false";
+                                    _homeBloc.add(ClearExerciseEvent());
+                                    _homeBloc.add(RemoveDaysEvent());
+                                  }
                                   await storage.write(
                                       key: 'selectedKneeIssueOption', value: '1'
                                   );
-                                  // _homeBloc.add(RefreshScreenEvent());
-                                  setState(() {});
+                                  _homeBloc.add(RefreshScreenEvent());
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.all(12),
@@ -175,10 +171,8 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                     alignment: Alignment.bottomLeft,
                                     padding: const EdgeInsets.only(left: 12.0),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           'I\'M FINE',
@@ -221,18 +215,16 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                   _selectedPlan[2] = false;
                                   _selectedPlan[1] = true;
 
-                                  // if (AppGlobal.selectedPlan != "2"){
-                                  //   AppGlobal.selectedPlan = "2";
-                                  //   AppGlobal.dataStoreFromConstantToLDB = "false";
-                                  //   _homeBloc.add(ClearExerciseEvent());
-                                  //   _homeBloc.add(RemoveDaysEvent());
-                                  // }
-
+                                  if (AppGlobal.selectedKneeIssueOption != "2"){
+                                    AppGlobal.selectedKneeIssueOption = "2";
+                                    AppGlobal.dataStoreFromConstantToLDB = "false";
+                                    _homeBloc.add(ClearExerciseEvent());
+                                    _homeBloc.add(RemoveDaysEvent());
+                                  }
                                   await storage.write(
                                       key: 'selectedKneeIssueOption', value: '2'
                                   );
-                                  // _homeBloc.add(RefreshScreenEvent());
-                                  setState(() {});
+                                  _homeBloc.add(RefreshScreenEvent());
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.only(
@@ -242,10 +234,8 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                     alignment: Alignment.bottomLeft,
                                     padding: const EdgeInsets.only(left: 12.0),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           'NO JUMPING',
@@ -287,10 +277,17 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                   _selectedPlan[0] = false;
                                   _selectedPlan[1] = false;
                                   _selectedPlan[2] = true;
+
+                                  if (AppGlobal.selectedKneeIssueOption != "3"){
+                                    AppGlobal.selectedKneeIssueOption = "3";
+                                    AppGlobal.dataStoreFromConstantToLDB = "false";
+                                    _homeBloc.add(ClearExerciseEvent());
+                                    _homeBloc.add(RemoveDaysEvent());
+                                  }
                                   await storage.write(
-                                      key: 'selectedKneeIssueOption',
-                                      value: '3');
-                                  setState(() {});
+                                      key: 'selectedKneeIssueOption', value: '3'
+                                  );
+                                  _homeBloc.add(RefreshScreenEvent());
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.all(12),
@@ -299,10 +296,8 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                     alignment: Alignment.bottomLeft,
                                     padding: const EdgeInsets.only(left: 12.0),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           'LOW IMPACT',
@@ -339,8 +334,8 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                 ),
                               ),
                               SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.1),
+                                  height: MediaQuery.of(context).size.height * 0.1
+                              ),
                               InkWell(
                                 onTap: () {
                                   Navigator.of(context).pushAndRemoveUntil(
@@ -350,10 +345,8 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                       (Route<dynamic> route) => false);
                                 },
                                 child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.6,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.08,
+                                    width: MediaQuery.of(context).size.width * 0.6,
+                                    height: MediaQuery.of(context).size.height * 0.08,
                                     decoration: BoxDecoration(
                                         border: Border.all(
                                             // color: Colors.white,

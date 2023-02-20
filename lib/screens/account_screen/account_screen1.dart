@@ -28,6 +28,7 @@ import 'package:share_plus/share_plus.dart';
 
 import 'dart:io';
 import 'package:in_app_review/in_app_review.dart';
+import 'package:open_share_pro/open.dart';
 
 enum Availability { loading, available, unavailable }
 
@@ -1019,6 +1020,10 @@ class _AccountScreen1State extends State<AccountScreen1> {
                         ),
                         InkWell(
                           onTap: () {
+                            // Open.mail(
+                            //     toAddress: "gamescapes234@gmail.com",
+                            //     subject: "Fitness App Feedback",
+                            //     body: "Write your feedback here...........");
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (ctx) => UserFeedback(),

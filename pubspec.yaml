@@ -73,12 +73,14 @@ dependencies:
 
   readmore: ^2.2.0
   flutter_email_sender: ^5.2.0
-  device_info_plus: ^8.0.0
+#  device_info_plus: ^8.0.0
   image_picker: ^0.8.6+1
   url_launcher: ^6.1.8
   flutter_inappwebview: ^5.7.2+3
   overlay_loader_with_app_icon: ^0.0.3
   expandable_page_view: ^1.0.17
+  open_mail_app: ^0.4.5
+  open_share_pro:
 
 dev_dependencies:
   mockito: ^5.3.0

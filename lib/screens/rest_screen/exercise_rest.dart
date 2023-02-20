@@ -2,18 +2,10 @@ import 'dart:async';
 
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
-import 'package:fitness_app/Utils/app_global.dart';
-import 'package:fitness_app/Utils/modal_progress_hud.dart';
 import 'package:fitness_app/constants/colors.dart';
-import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
-import 'package:fitness_app/screens/home_page/open_activity.dart';
-import 'package:fitness_app/screens/start_exercise/start_exercise.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class ExerciseRestScreen extends StatefulWidget {
 
@@ -32,23 +24,20 @@ class _ExerciseRestScreenState extends State<ExerciseRestScreen> {
   late Timer _timer;
   double value = 10;
 
-  int pushUp = 10;
-  int plank = 15;
-
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(
       oneSec,
-          (Timer timer) {
-        if (value == 0) {
-          setState(() {
-            timer.cancel();
-            Navigator.of(context).pop();
-          });
-        } else {
-          setState(() {
-            value--;
-          });
+        (Timer timer) {
+          if (value == 0) {
+            setState(() {
+              timer.cancel();
+              Navigator.of(context).pop();
+            });
+          } else {
+            setState(() {
+              value--;
+            });
         }
       },
     );
@@ -60,12 +49,6 @@ class _ExerciseRestScreenState extends State<ExerciseRestScreen> {
     index=(widget.dayModelLocalDB!.exerciseNumInProgress);
 
     startTimer();
-
-    // pushUp = int.parse(AppGlobal.selectedPushUpOption!);
-    // print(AppGlobal.selectedPushUpOption);
-    //
-    // plank = int.parse(AppGlobal.selectedPlankOption!);
-    // print(AppGlobal.selectedPlankOption);
   }
 
   @override
@@ -108,7 +91,7 @@ class _ExerciseRestScreenState extends State<ExerciseRestScreen> {
                       widget.exerciseData!.exerciseList![index].exercise.name,
                       style: const TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold,),
                     ),
-                    // Icon(Icons.question_mark_outlined, color: Colors.black, size: 17),
+                    Icon(Icons.question_mark_outlined, color: Colors.black, size: 17),
                   ],
                 ),
                 Text(
@@ -117,15 +100,6 @@ class _ExerciseRestScreenState extends State<ExerciseRestScreen> {
                   "${widget.exerciseData!.exerciseList![index].raps} raps"
                       :
                   "${widget.exerciseData!.exerciseList![index].time} sec",
-                  // widget.exerciseData!.exerciseList![index].exercise.type =='rap'
-                  //     ?
-                  // widget.exerciseData!.exerciseList![index].exercise.name=='PUSH-UPS'
-                  //     ?
-                  // "$pushUp raps" : "${widget.exerciseData!.exerciseList![index].raps} raps"
-                  //     :
-                  // widget.exerciseData!.exerciseList![index].exercise.name=='PLANK'
-                  //     ?
-                  // "$plank secs" : "${widget.exerciseData!.exerciseList![index].time} sec",
                   style: const TextStyle(fontSize: 16, color: kColorPrimary),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.width*0.05),
@@ -170,8 +144,6 @@ class _ExerciseRestScreenState extends State<ExerciseRestScreen> {
                               child: Text(
                                 "+20s",
                                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),
-                                //Icons.play_arrow,
-                                //color: Colors.white,
                               ),
                             ),
                           ),
