@@ -33,61 +33,61 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
       ExerciseModelLocalDB exerciseModelLocalDB;
 
       if(AppGlobal.selectedPlan=='1') {
-        for (int i = 0; i < constants.BeginnerExercises.length; i++) {
+        for (int i = 0; i < constants.BeginnerFineExercises.length; i++) {
           exerciseModelLocalDB = ExerciseModelLocalDB(
-            time: constants.BeginnerExercises[i].time,
-            raps: constants.BeginnerExercises[i].raps,
-            kneeIssue: constants.BeginnerExercises[i].kneeIssue,
-            planLevel: constants.BeginnerExercises[i].planLevel,
-            inPushUpCat: constants.BeginnerExercises[i].inPushUpCat,
-            inPlankCat: constants.BeginnerExercises[i].inPlankCat,
-            dayTitle: constants.BeginnerExercises[i].dayTitle,
-            exerciseID: constants.BeginnerExercises[i].exercise_id,
+            time: constants.BeginnerFineExercises[i].time,
+            raps: constants.BeginnerFineExercises[i].raps,
+            kneeIssue: constants.BeginnerFineExercises[i].kneeIssue,
+            planLevel: constants.BeginnerFineExercises[i].planLevel,
+            inPushUpCat: constants.BeginnerFineExercises[i].inPushUpCat,
+            inPlankCat: constants.BeginnerFineExercises[i].inPlankCat,
+            dayTitle: constants.BeginnerFineExercises[i].dayTitle,
+            exerciseID: constants.BeginnerFineExercises[i].exercise_id,
             completeStatus: '0',);
           await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
         }
       }
       else if(AppGlobal.selectedPlan=='2') {
-        for (int i = 0; i < constants.IntermediateExercises.length; i++) {
+        for (int i = 0; i < constants.IntermediateFineExercises.length; i++) {
           exerciseModelLocalDB = ExerciseModelLocalDB(
-            time: constants.IntermediateExercises[i].time,
-            raps: constants.IntermediateExercises[i].raps,
-            kneeIssue: constants.IntermediateExercises[i].kneeIssue,
-            planLevel: constants.IntermediateExercises[i].planLevel,
-            inPushUpCat: constants.IntermediateExercises[i].inPushUpCat,
-            inPlankCat: constants.IntermediateExercises[i].inPlankCat,
-            dayTitle: constants.IntermediateExercises[i].dayTitle,
-            exerciseID: constants.IntermediateExercises[i].exercise_id,
+            time: constants.IntermediateFineExercises[i].time,
+            raps: constants.IntermediateFineExercises[i].raps,
+            kneeIssue: constants.IntermediateFineExercises[i].kneeIssue,
+            planLevel: constants.IntermediateFineExercises[i].planLevel,
+            inPushUpCat: constants.IntermediateFineExercises[i].inPushUpCat,
+            inPlankCat: constants.IntermediateFineExercises[i].inPlankCat,
+            dayTitle: constants.IntermediateFineExercises[i].dayTitle,
+            exerciseID: constants.IntermediateFineExercises[i].exercise_id,
             completeStatus: '0',);
           await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
         }
       }
       else if(AppGlobal.selectedPlan=='3') {
-        for (int i = 0; i < constants.AdvancedExercises.length; i++) {
+        for (int i = 0; i < constants.AdvancedFineExercises.length; i++) {
           exerciseModelLocalDB = ExerciseModelLocalDB(
-            time: constants.AdvancedExercises[i].time,
-            raps: constants.AdvancedExercises[i].raps,
-            kneeIssue: constants.AdvancedExercises[i].kneeIssue,
-            planLevel: constants.AdvancedExercises[i].planLevel,
-            inPushUpCat: constants.AdvancedExercises[i].inPushUpCat,
-            inPlankCat: constants.AdvancedExercises[i].inPlankCat,
-            dayTitle: constants.AdvancedExercises[i].dayTitle,
-            exerciseID: constants.AdvancedExercises[i].exercise_id,
+            time: constants.AdvancedFineExercises[i].time,
+            raps: constants.AdvancedFineExercises[i].raps,
+            kneeIssue: constants.AdvancedFineExercises[i].kneeIssue,
+            planLevel: constants.AdvancedFineExercises[i].planLevel,
+            inPushUpCat: constants.AdvancedFineExercises[i].inPushUpCat,
+            inPlankCat: constants.AdvancedFineExercises[i].inPlankCat,
+            dayTitle: constants.AdvancedFineExercises[i].dayTitle,
+            exerciseID: constants.AdvancedFineExercises[i].exercise_id,
             completeStatus: '0',);
           await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
         }
       }
       else{
-        for (int i = 0; i < constants.BeginnerExercises.length; i++) {
+        for (int i = 0; i < constants.BeginnerFineExercises.length; i++) {
           exerciseModelLocalDB = ExerciseModelLocalDB(
-            time: constants.BeginnerExercises[i].time,
-            raps: constants.BeginnerExercises[i].raps,
-            kneeIssue: constants.BeginnerExercises[i].kneeIssue,
-            planLevel: constants.BeginnerExercises[i].planLevel,
-            inPushUpCat: constants.BeginnerExercises[i].inPushUpCat,
-            inPlankCat: constants.BeginnerExercises[i].inPlankCat,
-            dayTitle: constants.BeginnerExercises[i].dayTitle,
-            exerciseID: constants.BeginnerExercises[i].exercise_id,
+            time: constants.BeginnerFineExercises[i].time,
+            raps: constants.BeginnerFineExercises[i].raps,
+            kneeIssue: constants.BeginnerFineExercises[i].kneeIssue,
+            planLevel: constants.BeginnerFineExercises[i].planLevel,
+            inPushUpCat: constants.BeginnerFineExercises[i].inPushUpCat,
+            inPlankCat: constants.BeginnerFineExercises[i].inPlankCat,
+            dayTitle: constants.BeginnerFineExercises[i].dayTitle,
+            exerciseID: constants.BeginnerFineExercises[i].exercise_id,
             completeStatus: '0',);
           await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
         }
@@ -195,14 +195,14 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
     else if (event is WaterGlassIncrementDecrementEvent) {
       try {
         if (event.isIncrementing == true) {
-          event.dayData.exerciseList![0].noOfGlassWaterDrank =
-              event.dayData.exerciseList![0].noOfGlassWaterDrank + 1;
+          event.dayData.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank =
+              event.dayData.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank + 1;
         } else {
-          event.dayData.exerciseList![0].noOfGlassWaterDrank =
-              event.dayData.exerciseList![0].noOfGlassWaterDrank - 1;
+          event.dayData.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank =
+              event.dayData.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank - 1;
         }
         var data =
-            await dbHelper.updateADay(event.dayData.exerciseList![0].toJson());
+            await dbHelper.updateADay(event.dayData.exerciseList![AppGlobal.currentDay].toJson());
 
         yield GetAllDaysState(dayData: event.dayData);
       } catch (e) {

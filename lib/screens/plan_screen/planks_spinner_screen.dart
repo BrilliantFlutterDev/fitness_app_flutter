@@ -1,19 +1,14 @@
 import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/constants/colors.dart';
-import 'package:fitness_app/screens/forget_password/forget_password.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
-import 'package:fitness_app/screens/register_screen/register_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
-import 'package:fitness_app/widgets/cus_bottom_bar.dart';
-import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:sizer/sizer.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:vertical_picker/vertical_picker.dart';
 
-import '../../constants.dart';
 import 'knee_plan_screen.dart';
 
 class PlanksSpinnerScreen extends StatefulWidget {
@@ -27,6 +22,24 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
   List<String> plankRanges = ['0-30s', '30-60s', '60-120s', 'Over 120s'];
   FlutterSecureStorage storage = const FlutterSecureStorage();
   late HomeBloc _homeBloc;
+
+  BannerAd myBanner = BannerAd(
+    adUnitId: 'ca-app-pub-3940256099942544/6300978111',   //'<ad unit ID>'
+    size: AdSize.banner,
+    request: AdRequest(),
+    listener: BannerAdListener(
+      onAdLoaded: (Ad ad){
+        print('Ad Loaded Sucessfully');
+      },
+      onAdFailedToLoad: (Ad ad, LoadAdError error){
+        print('Ad Loaded Failed');
+        ad.dispose();
+      },
+      onAdOpened: (Ad ad){
+        print('Ad Opened');
+      },
+    ),
+  );
 
   @override
   void initState() {
@@ -56,6 +69,17 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
       } else if (state is RefreshScreenState) {}
     }, builder: (context, state) {
       return Scaffold(
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: SizedBox(
+            height: myBanner.size.height.toDouble(),  //MediaQuery.of(context).size.height*0.08,
+            width: myBanner.size.width.toDouble(), //double.infinity,
+            child: AdWidget(
+              ad: myBanner..load(),
+              key: UniqueKey(),
+            ),
+          ),
+        ),
         body: ColorRemover(
             child: SingleChildScrollView(
               child: Column(
@@ -169,10 +193,7 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
                                         (index) => Center(
                                               child: Text(
                                                 plankRanges[index],
-                                                style: const TextStyle(
-                                                    fontSize: 30,
-                                                    fontWeight:
-                                                        FontWeight.w700),
+                                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w700, color: Colors.black),
                                               ),
                                             )),
 

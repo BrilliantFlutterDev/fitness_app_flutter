@@ -1,15 +1,13 @@
 import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
-import 'package:fitness_app/screens/plan_screen/push_ups_spinner_screen.dart';
-import 'package:fitness_app/screens/register_screen/register_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/cus_bottom_bar.dart';
-import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constants.dart';
@@ -25,6 +23,24 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
   final List<bool> _selectedPlan = <bool>[true, false, false];
   FlutterSecureStorage storage = const FlutterSecureStorage();
   late HomeBloc _homeBloc;
+
+  BannerAd myBanner = BannerAd(
+    adUnitId: 'ca-app-pub-3940256099942544/6300978111',   //'<ad unit ID>'
+    size: AdSize.banner,
+    request: AdRequest(),
+    listener: BannerAdListener(
+      onAdLoaded: (Ad ad){
+        print('Ad Loaded Sucessfully');
+      },
+      onAdFailedToLoad: (Ad ad, LoadAdError error){
+        print('Ad Loaded Failed');
+        ad.dispose();
+      },
+      onAdOpened: (Ad ad){
+        print('Ad Opened');
+      },
+    ),
+  );
 
   @override
   void initState() {
@@ -54,6 +70,17 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
       } else if (state is RefreshScreenState) {}
     }, builder: (context, state) {
       return Scaffold(
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: SizedBox(
+            height: myBanner.size.height.toDouble(),  //MediaQuery.of(context).size.height*0.08,
+            width: myBanner.size.width.toDouble(), //double.infinity,
+            child: AdWidget(
+              ad: myBanner..load(),
+              key: UniqueKey(),
+            ),
+          ),
+        ),
         body: ColorRemover(
             child: SingleChildScrollView(
               child: Column(
@@ -84,8 +111,7 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                         height: MediaQuery.of(context).size.height,
                         width: MediaQuery.of(context).size.width,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 15),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                           child: Column(
                             children: [
                               Align(
@@ -179,9 +205,11 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 20.0,
-                                              color: _selectedPlan[0] == false
-                                                  ? Colors.white
-                                                  : Colors.black),
+                                              color: AppGlobal.selectedKneeIssueOption == '1'
+                                              // _selectedPlan[0] == false
+                                                  ? Colors.black
+                                                  : Colors.white
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -196,12 +224,14 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                         // begin: Alignment.bottomCenter,
                                         // end: Alignment.topCenter,
                                         colors: [
-                                          _selectedPlan[0] == false
-                                              ? const Color(0xff1c1b20)
-                                              : Colors.white60,
-                                          _selectedPlan[0] == false
-                                              ? Colors.transparent
-                                              : Colors.white,
+                                          AppGlobal.selectedKneeIssueOption == '1'
+                                          // _selectedPlan[0] == false
+                                              ? Colors.white60
+                                              : const Color(0xff1c1b20),
+                                          AppGlobal.selectedKneeIssueOption == '1'
+                                          // _selectedPlan[0] == false
+                                              ? Colors.white
+                                              : Colors.transparent,
                                         ],
                                       ),
                                     ),
@@ -227,8 +257,7 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                   _homeBloc.add(RefreshScreenEvent());
                                 },
                                 child: Container(
-                                  margin: const EdgeInsets.only(
-                                      left: 12, right: 12),
+                                  margin: const EdgeInsets.only(left: 12, right: 12),
                                   child: Container(
                                     height: 12.h,
                                     alignment: Alignment.bottomLeft,
@@ -242,9 +271,11 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 20.0,
-                                              color: _selectedPlan[1] == false
-                                                  ? Colors.white
-                                                  : Colors.black),
+                                              color: AppGlobal.selectedKneeIssueOption == '2'
+                                              // _selectedPlan[1] == false
+                                                  ? Colors.black
+                                                  : Colors.white
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -259,12 +290,14 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                         // begin: Alignment.b,
                                         // end: Alignment.topCenter,
                                         colors: [
-                                          _selectedPlan[1] == false
-                                              ? const Color(0xff1c1b20)
-                                              : Colors.white60,
-                                          _selectedPlan[1] == false
-                                              ? Colors.transparent
-                                              : Colors.white,
+                                          AppGlobal.selectedKneeIssueOption == '2'
+                                          // _selectedPlan[1] == false
+                                              ? Colors.white60
+                                              : const Color(0xff1c1b20),
+                                          AppGlobal.selectedKneeIssueOption == '2'
+                                          // _selectedPlan[1] == false
+                                              ? Colors.white
+                                              : Colors.transparent,
                                         ],
                                       ),
                                     ),
@@ -304,9 +337,11 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 20.0,
-                                              color: _selectedPlan[2] == false
-                                                  ? Colors.white
-                                                  : Colors.black),
+                                              color: AppGlobal.selectedKneeIssueOption == '3'
+                                              // _selectedPlan[2] == false
+                                                  ? Colors.black
+                                                  : Colors.white
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -321,12 +356,14 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                         // begin: Alignment.bottomCenter,
                                         // end: Alignment.topCenter,
                                         colors: [
-                                          _selectedPlan[2] == false
-                                              ? const Color(0xff1c1b20)
-                                              : Colors.white60,
-                                          _selectedPlan[2] == false
-                                              ? Colors.transparent
-                                              : Colors.white,
+                                          AppGlobal.selectedKneeIssueOption == '3'
+                                          // _selectedPlan[2] == false
+                                              ? Colors.white60
+                                              : const Color(0xff1c1b20),
+                                          AppGlobal.selectedKneeIssueOption == '3'
+                                          // _selectedPlan[2] == false
+                                              ? Colors.white
+                                              : Colors.transparent,
                                         ],
                                       ),
                                     ),
@@ -366,10 +403,7 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                     child: const Center(
                                         child: Text(
                                       'DONE',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold),
+                                      style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
                                     ))),
                               ),
                             ],

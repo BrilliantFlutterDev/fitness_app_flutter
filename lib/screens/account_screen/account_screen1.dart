@@ -47,7 +47,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
 
   String _appStoreId = '';
   String _microsoftStoreId = '';
-  Availability _availability = Availability.loading;
+  Availability availability = Availability.loading;
 
   UserConstants constants = UserConstants();
 
@@ -86,12 +86,12 @@ class _AccountScreen1State extends State<AccountScreen1> {
         final isAvailable = await _inAppReview.isAvailable();
 
         setState(() {
-          _availability = isAvailable && !Platform.isAndroid
+          availability = isAvailable && !Platform.isAndroid
               ? Availability.available
               : Availability.unavailable;
         });
       } catch (_) {
-        setState(() => _availability = Availability.unavailable);
+        setState(() => availability = Availability.unavailable);
       }
     });
   }
@@ -270,7 +270,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
               // ),
               Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
                   decoration:
                   // BoxDecoration(
                   //   borderRadius: BorderRadius.circular(8.0),
@@ -294,7 +294,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                     ),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.only(left: 10, top: 10, right: 10),
+                    padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -303,7 +303,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                           style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: kColorPrimary),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 18,bottom: 10),
+                          padding: const EdgeInsets.only(top: 18,bottom: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -329,14 +329,14 @@ class _AccountScreen1State extends State<AccountScreen1> {
                                     "3950.00",
                                     style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.043, color: Colors.grey, decoration: TextDecoration.lineThrough),
                                   ),
-                                  SizedBox(width: 5),
+                                  const SizedBox(width: 5),
                                   Container(
                                     alignment: Alignment.center,
                                     height: 28,
                                     width: MediaQuery.of(context).size.width*0.22,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8.0),
-                                      gradient: LinearGradient(
+                                      gradient: const LinearGradient(
                                         begin: Alignment.topRight,
                                         end: Alignment.topLeft,
                                         colors: [
@@ -347,7 +347,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                                         ],
                                       ),
                                     ),
-                                    child: Text(
+                                    child: const Text(
                                       "Rs 790.00",
                                       style: TextStyle(fontSize: 15, color: Colors.white),
                                     ),
@@ -361,12 +361,13 @@ class _AccountScreen1State extends State<AccountScreen1> {
                           onTap: (){
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (ctx) => ReminderScreen(id: 1, content: 'Just a few minutes a day and you will be in shape in no time. Let\'s get started!', title: 'Fit Fitness', ),
+                                // builder: (ctx) => ReminderScreen(),
+                                builder: (ctx) => ReminderScreen(),
                               ),
                             );
                           },
                           child: Padding(
-                            padding: EdgeInsets.only(top: 10,bottom: 10),
+                            padding: const EdgeInsets.only(top: 10,bottom: 10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -395,7 +396,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                                     //   "19:00",
                                     //   style: TextStyle(fontSize: 16, color: kColorPrimary),
                                     // ),
-                                    SizedBox(width: 5),
+                                    const SizedBox(width: 5),
                                     Icon(
                                         Icons.add,color: kColorPrimary, size: MediaQuery.of(context).size.width*0.065
                                     )
@@ -433,7 +434,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                           //   if (!mounted) return;
                           // },
                           child: Padding(
-                            padding: EdgeInsets.only(top: 10,bottom: 10),
+                            padding: const EdgeInsets.only(top: 10,bottom: 10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -461,7 +462,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                                     Text(
                                       // '${_accountScreenBloc.add(InsertAllUserDataInLocalDBEvent())}',
                                       // '${requestUserData?.userDataList?[0].countDownTime}',
-                                      '${countresult} sec',
+                                      '$countresult sec',
                                       // "10 sec",
                                       style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.043, color: kColorPrimary),
                                     ),
@@ -498,7 +499,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             // );//CountdownPopup(),
                           },
                           child: Padding(
-                            padding: EdgeInsets.only(top: 10,bottom: 10),
+                            padding: const EdgeInsets.only(top: 10,bottom: 10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -527,7 +528,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                                       // '${requestUserData?.userDataList?[0].trainingRest.toString()}',
                                       // '${GetUserTrainingDataEvent(trainRest: 10)}',
                                       // '${requestUserData?.userDataList?[0].trainingRest}',
-                                      '${restresult} sec',
+                                      '$restresult sec',
                                       // "10 sec",
                                       style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.043, color: kColorPrimary),
                                     ),
@@ -561,7 +562,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
               ),
               Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
                   decoration:
                   // BoxDecoration(
                   //   borderRadius: BorderRadius.circular(8.0),
@@ -573,7 +574,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                   // ),
                   BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                       begin: Alignment.topRight,
                       end: Alignment.topLeft,
                       colors: [
@@ -585,7 +586,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                     ),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.only(left: 10, top: 10, right: 10),
+                    padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -594,7 +595,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                           style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: kColorPrimary),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 18,bottom: 10),
+                          padding: const EdgeInsets.only(top: 18,bottom: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -640,7 +641,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                         Visibility(
                           visible: status,
                           child: Padding(
-                            padding: EdgeInsets.only(top: 10,bottom: 10),
+                            padding: const EdgeInsets.only(top: 10,bottom: 10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -702,7 +703,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
               ),
               Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
                   decoration:
                   // BoxDecoration(
                   //   borderRadius: BorderRadius.circular(8.0),
@@ -714,7 +715,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                   // ),
                   BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                       begin: Alignment.topRight,
                       end: Alignment.topLeft,
                       colors: [
@@ -724,7 +725,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                     ),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.only(left: 10, top: 10),
+                    padding: const EdgeInsets.only(left: 10, top: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -763,7 +764,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                         //   ),
                         // ),
                         Padding(
-                          padding: EdgeInsets.only(top: 18,bottom: 10),
+                          padding: const EdgeInsets.only(top: 18,bottom: 10),
                           child: InkWell(
                             onTap: (){
                               Navigator.of(context).push(
@@ -796,7 +797,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                         ),
 
                         Padding(
-                          padding: EdgeInsets.only(top: 10,bottom: 10),
+                          padding: const EdgeInsets.only(top: 10,bottom: 10),
                           child: InkWell(
                             onTap: (){
                               Navigator.of(context).push(
@@ -858,7 +859,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             // requestDayData!.exerciseList![index].completedPercentage.truncate();
                           },
                           child: Padding(
-                            padding: EdgeInsets.only(top: 10,bottom: 10),
+                            padding: const EdgeInsets.only(top: 10,bottom: 10),
                             child: Row(
                               children: [
                                 Container(
@@ -901,7 +902,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
               ),
               Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
                   decoration:
                   // BoxDecoration(
                   //   borderRadius: BorderRadius.circular(8.0),
@@ -913,7 +914,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                   // ),
                   BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                       begin: Alignment.topRight,
                       end: Alignment.topLeft,
                       colors: [
@@ -923,7 +924,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                     ),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.only(left: 10, top: 10),
+                    padding: const EdgeInsets.only(left: 10, top: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -936,7 +937,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             Share.share('check out my App https://example.com', subject: 'Look what I made!');
                           },
                           child: Padding(
-                            padding: EdgeInsets.only(top: 18,bottom: 10),
+                            padding: const EdgeInsets.only(top: 18,bottom: 10),
                             child: Row(
                               children: [
                                 Container(
@@ -964,7 +965,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             _openStoreListing();
                           },
                           child: Padding(
-                            padding: EdgeInsets.only(top: 10,bottom: 10),
+                            padding: const EdgeInsets.only(top: 10,bottom: 10),
                             child: Row(
                               children: [
                                 Container(
@@ -995,7 +996,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             );
                           },
                           child: Padding(
-                            padding: EdgeInsets.only(top: 10,bottom: 10),
+                            padding: const EdgeInsets.only(top: 10,bottom: 10),
                             child: Row(
                               children: [
                                 SizedBox(width: MediaQuery.of(context).size.width*0.01,),
@@ -1019,19 +1020,34 @@ class _AccountScreen1State extends State<AccountScreen1> {
                           ),
                         ),
                         InkWell(
-                          onTap: () {
-                            // Open.mail(
-                            //     toAddress: "gamescapes234@gmail.com",
-                            //     subject: "Fitness App Feedback",
-                            //     body: "Write your feedback here...........");
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (ctx) => UserFeedback(),
-                              ),
-                            );
-                          },
+                        onTap: () async{
+                          String email = Uri.encodeComponent("gamescapes234@gmail.com");
+                          String subject = Uri.encodeComponent("Fitness App Feedback");
+                          String body = Uri.encodeComponent("Write your feedback here...........");
+                          Uri mail = Uri.parse("mailto:$email?subject=$subject&body=$body");
+                          if (await launchUrl(mail)) {
+                            //email app opened
+                          }else{
+                            //email app is not opened
+                          }
+                        },
+
+                          // onTap: () {
+                          //
+                          //
+                          //   Open.mail(
+                          //       toAddress: "gamescapes234@gmail.com",
+                          //       subject: "Fitness App Feedback",
+                          //       body: "Write your feedback here..........."
+                          //   );
+                          //   // Navigator.of(context).push(
+                          //   //   MaterialPageRoute(
+                          //   //     builder: (ctx) => UserFeedback(),
+                          //   //   ),
+                          //   // );
+                          // },
                           child: Padding(
-                            padding: EdgeInsets.only(top: 10,bottom: 10),
+                            padding: const EdgeInsets.only(top: 10,bottom: 10),
                             child: Row(
                               children: [
                                 Container(
@@ -1078,7 +1094,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                                         PrivacyPolicyScreen()));
                           },
                           child: Padding(
-                            padding: EdgeInsets.only(top: 10,bottom: 10),
+                            padding: const EdgeInsets.only(top: 10,bottom: 10),
                             child: Row(
                               children: [
                                 Container(
@@ -1101,7 +1117,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 10,bottom: 5),
+                          padding: const EdgeInsets.only(top: 10,bottom: 5),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [

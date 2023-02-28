@@ -37,62 +37,152 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       String timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
       ExerciseModelLocalDB exerciseModelLocalDB;
 
-      if(AppGlobal.selectedPlan=='1') {
-        for (int i = 0; i < constants.BeginnerExercises.length; i++) {
+      if(AppGlobal.selectedPlan=='1' && AppGlobal.selectedKneeIssueOption=='1') {
+        for (int i = 0; i < constants.BeginnerFineExercises.length; i++) {
           exerciseModelLocalDB = ExerciseModelLocalDB(
-            time: constants.BeginnerExercises[i].time,
-            raps: constants.BeginnerExercises[i].raps,
-            kneeIssue: constants.BeginnerExercises[i].kneeIssue,
-            planLevel: constants.BeginnerExercises[i].planLevel,
-            inPushUpCat: constants.BeginnerExercises[i].inPushUpCat,
-            inPlankCat: constants.BeginnerExercises[i].inPlankCat,
-            dayTitle: constants.BeginnerExercises[i].dayTitle,
-            exerciseID: constants.BeginnerExercises[i].exercise_id,
+            time: constants.BeginnerFineExercises[i].time,
+            raps: constants.BeginnerFineExercises[i].raps,
+            kneeIssue: constants.BeginnerFineExercises[i].kneeIssue,
+            planLevel: constants.BeginnerFineExercises[i].planLevel,
+            inPushUpCat: constants.BeginnerFineExercises[i].inPushUpCat,
+            inPlankCat: constants.BeginnerFineExercises[i].inPlankCat,
+            dayTitle: constants.BeginnerFineExercises[i].dayTitle,
+            exerciseID: constants.BeginnerFineExercises[i].exercise_id,
             completeStatus: '0',);
           await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
         }
       }
-      else if(AppGlobal.selectedPlan=='2') {
-        for (int i = 0; i < constants.IntermediateExercises.length; i++) {
+      else if(AppGlobal.selectedPlan=='1' && AppGlobal.selectedKneeIssueOption=='2') {
+        for (int i = 0; i < constants.BeginnerNoJumpingExercises.length; i++) {
           exerciseModelLocalDB = ExerciseModelLocalDB(
-            time: constants.IntermediateExercises[i].time,
-            raps: constants.IntermediateExercises[i].raps,
-            kneeIssue: constants.IntermediateExercises[i].kneeIssue,
-            planLevel: constants.IntermediateExercises[i].planLevel,
-            inPushUpCat: constants.IntermediateExercises[i].inPushUpCat,
-            inPlankCat: constants.IntermediateExercises[i].inPlankCat,
-            dayTitle: constants.IntermediateExercises[i].dayTitle,
-            exerciseID: constants.IntermediateExercises[i].exercise_id,
+            time: constants.BeginnerNoJumpingExercises[i].time,
+            raps: constants.BeginnerNoJumpingExercises[i].raps,
+            kneeIssue: constants.BeginnerNoJumpingExercises[i].kneeIssue,
+            planLevel: constants.BeginnerNoJumpingExercises[i].planLevel,
+            inPushUpCat: constants.BeginnerNoJumpingExercises[i].inPushUpCat,
+            inPlankCat: constants.BeginnerNoJumpingExercises[i].inPlankCat,
+            dayTitle: constants.BeginnerNoJumpingExercises[i].dayTitle,
+            exerciseID: constants.BeginnerNoJumpingExercises[i].exercise_id,
             completeStatus: '0',);
           await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
         }
       }
-      else if(AppGlobal.selectedPlan=='3') {
-        for (int i = 0; i < constants.AdvancedExercises.length; i++) {
+      else if(AppGlobal.selectedPlan=='1' && AppGlobal.selectedKneeIssueOption=='3') {
+        for (int i = 0; i < constants.BeginnerLowImpactExercises.length; i++) {
           exerciseModelLocalDB = ExerciseModelLocalDB(
-            time: constants.AdvancedExercises[i].time,
-            raps: constants.AdvancedExercises[i].raps,
-            kneeIssue: constants.AdvancedExercises[i].kneeIssue,
-            planLevel: constants.AdvancedExercises[i].planLevel,
-            inPushUpCat: constants.AdvancedExercises[i].inPushUpCat,
-            inPlankCat: constants.AdvancedExercises[i].inPlankCat,
-            dayTitle: constants.AdvancedExercises[i].dayTitle,
-            exerciseID: constants.AdvancedExercises[i].exercise_id,
+            time: constants.BeginnerLowImpactExercises[i].time,
+            raps: constants.BeginnerLowImpactExercises[i].raps,
+            kneeIssue: constants.BeginnerLowImpactExercises[i].kneeIssue,
+            planLevel: constants.BeginnerLowImpactExercises[i].planLevel,
+            inPushUpCat: constants.BeginnerLowImpactExercises[i].inPushUpCat,
+            inPlankCat: constants.BeginnerLowImpactExercises[i].inPlankCat,
+            dayTitle: constants.BeginnerLowImpactExercises[i].dayTitle,
+            exerciseID: constants.BeginnerLowImpactExercises[i].exercise_id,
+            completeStatus: '0',);
+          await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
+        }
+      }
+      else if(AppGlobal.selectedPlan=='2' && AppGlobal.selectedKneeIssueOption=='1') {
+        for (int i = 0; i < constants.IntermediateFineExercises.length; i++) {
+          exerciseModelLocalDB = ExerciseModelLocalDB(
+            time: constants.IntermediateFineExercises[i].time,
+            raps: constants.IntermediateFineExercises[i].raps,
+            kneeIssue: constants.IntermediateFineExercises[i].kneeIssue,
+            planLevel: constants.IntermediateFineExercises[i].planLevel,
+            inPushUpCat: constants.IntermediateFineExercises[i].inPushUpCat,
+            inPlankCat: constants.IntermediateFineExercises[i].inPlankCat,
+            dayTitle: constants.IntermediateFineExercises[i].dayTitle,
+            exerciseID: constants.IntermediateFineExercises[i].exercise_id,
+            completeStatus: '0',);
+          await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
+        }
+      }
+      else if(AppGlobal.selectedPlan=='2' && AppGlobal.selectedKneeIssueOption=='2') {
+        for (int i = 0; i < constants.IntermediateNoJumpingExercises.length; i++) {
+          exerciseModelLocalDB = ExerciseModelLocalDB(
+            time: constants.IntermediateNoJumpingExercises[i].time,
+            raps: constants.IntermediateNoJumpingExercises[i].raps,
+            kneeIssue: constants.IntermediateNoJumpingExercises[i].kneeIssue,
+            planLevel: constants.IntermediateNoJumpingExercises[i].planLevel,
+            inPushUpCat: constants.IntermediateNoJumpingExercises[i].inPushUpCat,
+            inPlankCat: constants.IntermediateNoJumpingExercises[i].inPlankCat,
+            dayTitle: constants.IntermediateNoJumpingExercises[i].dayTitle,
+            exerciseID: constants.IntermediateNoJumpingExercises[i].exercise_id,
+            completeStatus: '0',);
+          await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
+        }
+      }
+      else if(AppGlobal.selectedPlan=='2' && AppGlobal.selectedKneeIssueOption=='3') {
+        for (int i = 0; i < constants.IntermediateLowImpactExercises.length; i++) {
+          exerciseModelLocalDB = ExerciseModelLocalDB(
+            time: constants.IntermediateLowImpactExercises[i].time,
+            raps: constants.IntermediateLowImpactExercises[i].raps,
+            kneeIssue: constants.IntermediateLowImpactExercises[i].kneeIssue,
+            planLevel: constants.IntermediateLowImpactExercises[i].planLevel,
+            inPushUpCat: constants.IntermediateLowImpactExercises[i].inPushUpCat,
+            inPlankCat: constants.IntermediateLowImpactExercises[i].inPlankCat,
+            dayTitle: constants.IntermediateLowImpactExercises[i].dayTitle,
+            exerciseID: constants.IntermediateLowImpactExercises[i].exercise_id,
+            completeStatus: '0',);
+          await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
+        }
+      }
+      else if(AppGlobal.selectedPlan=='3' && AppGlobal.selectedKneeIssueOption=='1') {
+        for (int i = 0; i < constants.AdvancedFineExercises.length; i++) {
+          exerciseModelLocalDB = ExerciseModelLocalDB(
+            time: constants.AdvancedFineExercises[i].time,
+            raps: constants.AdvancedFineExercises[i].raps,
+            kneeIssue: constants.AdvancedFineExercises[i].kneeIssue,
+            planLevel: constants.AdvancedFineExercises[i].planLevel,
+            inPushUpCat: constants.AdvancedFineExercises[i].inPushUpCat,
+            inPlankCat: constants.AdvancedFineExercises[i].inPlankCat,
+            dayTitle: constants.AdvancedFineExercises[i].dayTitle,
+            exerciseID: constants.AdvancedFineExercises[i].exercise_id,
+            completeStatus: '0',);
+          await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
+        }
+      }
+      else if(AppGlobal.selectedPlan=='3' && AppGlobal.selectedKneeIssueOption=='2') {
+        for (int i = 0; i < constants.AdvancedNoJumpingExercises.length; i++) {
+          exerciseModelLocalDB = ExerciseModelLocalDB(
+            time: constants.AdvancedNoJumpingExercises[i].time,
+            raps: constants.AdvancedNoJumpingExercises[i].raps,
+            kneeIssue: constants.AdvancedNoJumpingExercises[i].kneeIssue,
+            planLevel: constants.AdvancedNoJumpingExercises[i].planLevel,
+            inPushUpCat: constants.AdvancedNoJumpingExercises[i].inPushUpCat,
+            inPlankCat: constants.AdvancedNoJumpingExercises[i].inPlankCat,
+            dayTitle: constants.AdvancedNoJumpingExercises[i].dayTitle,
+            exerciseID: constants.AdvancedNoJumpingExercises[i].exercise_id,
+            completeStatus: '0',);
+          await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
+        }
+      }
+      else if(AppGlobal.selectedPlan=='3' && AppGlobal.selectedKneeIssueOption=='3') {
+        for (int i = 0; i < constants.AdvancedLowImpactExercises.length; i++) {
+          exerciseModelLocalDB = ExerciseModelLocalDB(
+            time: constants.AdvancedLowImpactExercises[i].time,
+            raps: constants.AdvancedLowImpactExercises[i].raps,
+            kneeIssue: constants.AdvancedLowImpactExercises[i].kneeIssue,
+            planLevel: constants.AdvancedLowImpactExercises[i].planLevel,
+            inPushUpCat: constants.AdvancedLowImpactExercises[i].inPushUpCat,
+            inPlankCat: constants.AdvancedLowImpactExercises[i].inPlankCat,
+            dayTitle: constants.AdvancedLowImpactExercises[i].dayTitle,
+            exerciseID: constants.AdvancedLowImpactExercises[i].exercise_id,
             completeStatus: '0',);
           await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
         }
       }
       else{
-        for (int i = 0; i < constants.BeginnerExercises.length; i++) {
+        for (int i = 0; i < constants.BeginnerFineExercises.length; i++) {
           exerciseModelLocalDB = ExerciseModelLocalDB(
-            time: constants.BeginnerExercises[i].time,
-            raps: constants.BeginnerExercises[i].raps,
-            kneeIssue: constants.BeginnerExercises[i].kneeIssue,
-            planLevel: constants.BeginnerExercises[i].planLevel,
-            inPushUpCat: constants.BeginnerExercises[i].inPushUpCat,
-            inPlankCat: constants.BeginnerExercises[i].inPlankCat,
-            dayTitle: constants.BeginnerExercises[i].dayTitle,
-            exerciseID: constants.BeginnerExercises[i].exercise_id,
+            time: constants.BeginnerFineExercises[i].time,
+            raps: constants.BeginnerFineExercises[i].raps,
+            kneeIssue: constants.BeginnerFineExercises[i].kneeIssue,
+            planLevel: constants.BeginnerFineExercises[i].planLevel,
+            inPushUpCat: constants.BeginnerFineExercises[i].inPushUpCat,
+            inPlankCat: constants.BeginnerFineExercises[i].inPlankCat,
+            dayTitle: constants.BeginnerFineExercises[i].dayTitle,
+            exerciseID: constants.BeginnerFineExercises[i].exercise_id,
             completeStatus: '0',);
           await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
         }

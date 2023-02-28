@@ -2,15 +2,13 @@ import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/plan_screen/push_ups_spinner_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
-import 'package:fitness_app/widgets/cus_bottom_bar.dart';
-import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../constants.dart';
 import '../../constants/colors.dart';
 
 class SelectPlanScreen extends StatefulWidget {
@@ -25,11 +23,36 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
   late HomeBloc _homeBloc;
   FlutterSecureStorage storage = const FlutterSecureStorage();
 
+  BannerAd myBanner = BannerAd(
+    adUnitId: 'ca-app-pub-3940256099942544/6300978111',   //'<ad unit ID>'
+    size: AdSize.banner,
+    request: AdRequest(),
+    listener: BannerAdListener(
+      onAdLoaded: (Ad ad){
+        print('Ad Loaded Sucessfully');
+
+      },
+      onAdFailedToLoad: (Ad ad, LoadAdError error){
+        print('Ad Loaded Failed');
+        ad.dispose();
+      },
+      onAdOpened: (Ad ad){
+        print('Ad Opened');
+      },
+    ),
+  );
+
   @override
   void initState() {
     super.initState();
-    addUserData();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
+    addUserData();
+  }
+
+  @override
+  void dispose() {
+    myBanner.dispose();
+    super.dispose();
   }
 
   void addUserData() async {
@@ -53,6 +76,17 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
       } else if (state is RefreshScreenState) {}
     }, builder: (context, state) {
       return Scaffold(
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: SizedBox(
+            height: myBanner.size.height.toDouble(),  //MediaQuery.of(context).size.height*0.08,
+            width: myBanner.size.width.toDouble(), //double.infinity,
+            child: AdWidget(
+              ad: myBanner..load(),
+              key: UniqueKey(),
+            ),
+          ),
+        ),
         body: ColorRemover(
             child: SingleChildScrollView(
               child: Column(
@@ -83,8 +117,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                         height: MediaQuery.of(context).size.height,
                         width: MediaQuery.of(context).size.width,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 0),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                           child: Column(
                             children: [
                               SizedBox(height: MediaQuery.of(context).size.height * 0.08),
@@ -208,17 +241,21 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                           style: TextStyle(
                                               fontSize: 20.0,
                                               fontWeight: FontWeight.bold,
-                                              color: _selectedPlan[0] == false
-                                                  ? Colors.white
-                                                  : Colors.black),
+                                              color: AppGlobal.selectedPlan == '1'
+                                              // _selectedPlan[0] == false
+                                                  ? Colors.black
+                                                  : Colors.white
+                                          ),
                                         ),
                                         Text(
                                           '5-10 min a day',
                                           style: TextStyle(
                                               fontSize: 15.0,
-                                              color: _selectedPlan[0] == false
-                                                  ? Colors.white
-                                                  : Colors.black),
+                                              color: AppGlobal.selectedPlan == '1'
+                                              // _selectedPlan[0] == false
+                                                  ? Colors.black
+                                                  : Colors.white
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -233,12 +270,14 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                         // begin: Alignment.bottomCenter,
                                         // end: Alignment.topCenter,
                                         colors: [
-                                          _selectedPlan[0] == false
-                                              ? const Color(0xff1c1b20)
-                                              : Colors.white60,
-                                          _selectedPlan[0] == false
-                                              ? Colors.transparent
-                                              : Colors.white,
+                                          // _selectedPlan[0] == false
+                                          AppGlobal.selectedPlan == '1'
+                                              ? Colors.white60
+                                              : const Color(0xff1c1b20),
+                                          AppGlobal.selectedPlan == '1'
+                                          // _selectedPlan[0] == false
+                                              ? Colors.white
+                                              : Colors.transparent,
                                         ],
                                       ),
                                     ),
@@ -264,7 +303,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                   _homeBloc.add(RefreshScreenEvent());
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.only(left: 12, right: 12),
+                                  margin: const EdgeInsets.only(left: 12, right: 12),
                                   child: Container(
                                     height: 12.h,
                                     alignment: Alignment.bottomLeft,
@@ -278,17 +317,21 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                           style: TextStyle(
                                               fontSize: 20.0,
                                               fontWeight: FontWeight.bold,
-                                              color: _selectedPlan[1] == false
-                                                  ? Colors.white
-                                                  : Colors.black),
+                                              color: AppGlobal.selectedPlan == '2'
+                                              // _selectedPlan[1] == false
+                                                  ? Colors.black
+                                                  : Colors.white
+                                          ),
                                         ),
                                         Text(
                                           '10-20 min a day',
                                           style: TextStyle(
                                               fontSize: 15.0,
-                                              color: _selectedPlan[1] == false
-                                                  ? Colors.white
-                                                  : Colors.black),
+                                              color: AppGlobal.selectedPlan == '2'
+                                              // _selectedPlan[1] == false
+                                                  ? Colors.black
+                                                  : Colors.white
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -303,12 +346,14 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                         // begin: Alignment.b,
                                         // end: Alignment.topCenter,
                                         colors: [
-                                          _selectedPlan[1] == false
-                                              ? const Color(0xff1c1b20)
-                                              : Colors.white60,
-                                          _selectedPlan[1] == false
-                                              ? Colors.transparent
-                                              : Colors.white,
+                                          AppGlobal.selectedPlan == '2'
+                                          // _selectedPlan[1] == false
+                                              ? Colors.white60
+                                              : const Color(0xff1c1b20),
+                                          AppGlobal.selectedPlan == '2'
+                                          // _selectedPlan[1] == false
+                                              ? Colors.white
+                                              : Colors.transparent,
                                         ],
                                       ),
                                     ),
@@ -349,17 +394,21 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                           style: TextStyle(
                                               fontSize: 20.0,
                                               fontWeight: FontWeight.bold,
-                                              color: _selectedPlan[2] == false
-                                                  ? Colors.white
-                                                  : Colors.black),
+                                              color: AppGlobal.selectedPlan == '3'
+                                              // _selectedPlan[2] == false
+                                                  ? Colors.black
+                                                  : Colors.white
+                                          ),
                                         ),
                                         Text(
                                           '15-30 min a day',
                                           style: TextStyle(
                                               fontSize: 15.0,
-                                              color: _selectedPlan[2] == false
-                                                  ? Colors.white
-                                                  : Colors.black),
+                                              color: AppGlobal.selectedPlan == '3'
+                                              // _selectedPlan[2] == false
+                                                  ? Colors.black
+                                                  : Colors.white
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -374,12 +423,14 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                         // begin: Alignment.bottomCenter,
                                         // end: Alignment.topCenter,
                                         colors: [
-                                          _selectedPlan[2] == false
-                                              ? const Color(0xff1c1b20)
-                                              : Colors.white60,
-                                          _selectedPlan[2] == false
-                                              ? Colors.transparent
-                                              : Colors.white,
+                                          AppGlobal.selectedPlan == '3'
+                                          // _selectedPlan[2] == false
+                                              ? Colors.white60
+                                              : const Color(0xff1c1b20),
+                                          AppGlobal.selectedPlan == '3'
+                                          // _selectedPlan[2] == false
+                                              ? Colors.white
+                                              : Colors.transparent,
                                         ],
                                       ),
                                     ),

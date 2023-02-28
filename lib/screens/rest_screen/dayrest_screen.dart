@@ -1,12 +1,7 @@
 import 'package:fitness_app/constants/colors.dart';
-import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
-import 'package:fitness_app/screens/home_page/home_page.dart';
-import 'package:fitness_app/widgets/cus_bottom_bar.dart';
 import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class DayRestScreen extends StatefulWidget {
   const DayRestScreen({Key? key}) : super(key: key);
@@ -19,21 +14,6 @@ class _DayRestScreenState extends State<DayRestScreen>{
 
   @override
   Widget build(BuildContext context){
-    return BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
-      if (state is LoadingState) {
-      } else if (state is ErrorState) {
-        Fluttertoast.showToast(
-            msg: state.error,
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.grey.shade400,
-            textColor: Colors.white,
-            fontSize: 12.0);
-      } else if (state is RefreshScreenState) {
-
-      }
-    }, builder: (context, state) {
       return Scaffold(
         backgroundColor: kColorBG,
         appBar: AppBar(
@@ -74,16 +54,12 @@ class _DayRestScreenState extends State<DayRestScreen>{
               child: MyButton(
                 name: "FINISHED",
                 whenpress: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) =>
-                          const CusBottomBar()),
-                          (Route<dynamic> route) => false);
+                  Navigator.pop(context);
                 },
               ),
             ),
           ],
         ),
-      );});
+      );
   }
 }

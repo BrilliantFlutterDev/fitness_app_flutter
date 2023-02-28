@@ -1,20 +1,14 @@
 import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/constants/colors.dart';
-import 'package:fitness_app/screens/forget_password/forget_password.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/plan_screen/planks_spinner_screen.dart';
-import 'package:fitness_app/screens/register_screen/register_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
-import 'package:fitness_app/widgets/cus_bottom_bar.dart';
-import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:sizer/sizer.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:vertical_picker/vertical_picker.dart';
-
-import '../../constants.dart';
 
 class PushUpsSpinnerScreen extends StatefulWidget {
   const PushUpsSpinnerScreen({Key? key}) : super(key: key);
@@ -26,8 +20,25 @@ class PushUpsSpinnerScreen extends StatefulWidget {
 class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
   List<String> pushUpsRanges = ['0-5', '5-10', '10-20', 'Over 20'];
   FlutterSecureStorage storage = const FlutterSecureStorage();
-
   late HomeBloc _homeBloc;
+
+  BannerAd myBanner = BannerAd(
+    adUnitId: 'ca-app-pub-3940256099942544/6300978111',   //'<ad unit ID>'
+    size: AdSize.banner,
+    request: AdRequest(),
+    listener: BannerAdListener(
+      onAdLoaded: (Ad ad){
+        print('Ad Loaded Sucessfully');
+      },
+      onAdFailedToLoad: (Ad ad, LoadAdError error){
+        print('Ad Loaded Failed');
+        ad.dispose();
+      },
+      onAdOpened: (Ad ad){
+        print('Ad Opened');
+      },
+    ),
+  );
 
   @override
   void initState() {
@@ -57,6 +68,17 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
       } else if (state is RefreshScreenState) {}
     }, builder: (context, state) {
       return Scaffold(
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: SizedBox(
+            height: myBanner.size.height.toDouble(),  //MediaQuery.of(context).size.height*0.08,
+            width: myBanner.size.width.toDouble(), //double.infinity,
+            child: AdWidget(
+              ad: myBanner..load(),
+              key: UniqueKey(),
+            ),
+          ),
+        ),
         body: ColorRemover(
             child: SingleChildScrollView(
               child: Column(
@@ -167,14 +189,13 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
                                       (index) => Center(
                                           child: Text(
                                             pushUpsRanges[index],
-                                            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
+                                            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w700, color: Colors.black ),
                                           ),
                                         ),
                                     ),
 
                                     // empty void for item selected
                                     onSelectedChanged: (indexSelected) async {
-
                                       await storage.write(
                                         key: 'selectedPushUpOption',
                                         value: pushUpsRanges[indexSelected] == '0-5'?

@@ -8,8 +8,6 @@ import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/start_exercise/start_exercise.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class ReadyToGo extends StatefulWidget {
@@ -85,7 +83,7 @@ class _ReadyToGoState extends State<ReadyToGo> {
                         height: MediaQuery.of(context).size.height * 0.40,
                         decoration:  BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage("assets/images/Wheel Stretch.jpg"),
+                            image: AssetImage("assets/images/${widget.exerciseData!.exerciseList![index].exercise.image}"),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -138,10 +136,7 @@ class _ReadyToGoState extends State<ReadyToGo> {
                             children: [
                               Text(
                                 widget.exerciseData!.exerciseList![index].exercise.name,
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,),
                               ),
                               Icon(Icons.question_mark_outlined),
                             ],

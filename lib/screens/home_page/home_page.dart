@@ -3,18 +3,12 @@ import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/constants/constants.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
-import 'package:fitness_app/screens/home_page/custom_training.dart';
-import 'package:fitness_app/screens/home_page/open_home_page/open_home_page.dart';
-import 'package:fitness_app/screens/home_page/quit_screens/quit_screen.dart';
 import 'package:fitness_app/screens/rest_screen/dayrest_screen.dart';
-import 'package:fitness_app/screens/rest_screen/exercise_rest.dart';
-import 'package:fitness_app/screens/rest_screen/rest_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/coming_soon_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import '../../Utils/app_global.dart';
@@ -23,7 +17,6 @@ import 'open_activity.dart';
 import '../my_activity/WaterTracker/water_tracker.dart';
 import '../plan_screen/plan_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:overlay_loader_with_app_icon/overlay_loader_with_app_icon.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -57,6 +50,8 @@ class _HomePageState extends State<HomePage> {
     }
     AppGlobal.selectedPlan;
     AppGlobal.selectedKneeIssueOption;
+    // dayModelLocalDB!.exerciseNumInProgress;
+    print("Exercise Number in Progress>>>> ${dayModelLocalDB?.exerciseNumInProgress}");
   }
 
   @override
@@ -102,9 +97,22 @@ class _HomePageState extends State<HomePage> {
           child: Scaffold(
             backgroundColor: kColorBG,
             appBar: AppBar(
+              toolbarHeight: MediaQuery.of(context).size.height*0.1,
               // backgroundColor: const Color(0xff1c1b20),
               backgroundColor: kColorBG,
-              title: const Text("FIT FITNESS"),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                      "\nDAILY WEIGHT LOSS",
+                      style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.06, color: kColorPrimary),
+                  ),
+                  Text(
+                      "HOME WORKOUT",
+                      style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.055),
+                  ),
+                ],
+              ),
               actions: <Widget>[
                 InkWell(
                   onTap: () {
@@ -117,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     child: SvgPicture.asset(
                       "assets/icons/changeplanupper.svg",
-                      height: MediaQuery.of(context).size.height*0.038,
+                      height: MediaQuery.of(context).size.height*0.035,
                       color: kColorPrimary,
                     ),
                   ),
@@ -142,14 +150,14 @@ class _HomePageState extends State<HomePage> {
                     //     context,
                     //     MaterialPageRoute(
                     //         builder: (BuildContext context) =>
-                    //         ExerciseRestScreen(exerciseData: exerciseData, dayModelLocalDB: dayModelLocalDB,)));
+                    //             SimpleProgressIndicatorsApp()));
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.03),
                     child: Container(
                       child: SvgPicture.asset(
                         "assets/icons/ads.svg",
-                        height: MediaQuery.of(context).size.height*0.04,
+                        height: MediaQuery.of(context).size.height*0.037,
                         color: Colors.white,
                       ),
                     ),
@@ -173,14 +181,14 @@ class _HomePageState extends State<HomePage> {
                 InkWell(
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                const WaterTracker())).then((ma){
-                                  print("Value is updated");
-                                  _homeBloc.add(GetAllDaysEvent());
-                                  print(value);
-                    });
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                          const WaterTracker())).then((ma){
+                            print("Value is updated");
+                            _homeBloc.add(GetAllDaysEvent());
+                            print(value);
+                          });
                   },
                   child: Container(
                     // height: 8.h,
@@ -194,7 +202,7 @@ class _HomePageState extends State<HomePage> {
                         // infoProperties: InfoProperties(),
                         startAngle: 270,
                         angleRange: 360,
-                        size: MediaQuery.of(context).size.width * 0.15,
+                        size: MediaQuery.of(context).size.width * 0.085,
                         customWidths: CustomSliderWidths(
                             progressBarWidth: 3.0, trackWidth: 3.0),
                         customColors: CustomSliderColors(
@@ -213,7 +221,7 @@ class _HomePageState extends State<HomePage> {
                         return Center(
                           child: SvgPicture.asset(
                             "assets/icons/waterglass.svg",
-                            height: MediaQuery.of(context).size.height*0.02,
+                            height: MediaQuery.of(context).size.height*0.0175,
                             color: Colors.blue,
                           ),
                           // Icon(
@@ -226,6 +234,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
+                SizedBox(width: MediaQuery.of(context).size.width*0.02),
               ],
               bottom: TabBar(
                 tabs: [

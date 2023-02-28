@@ -1,15 +1,14 @@
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/constants/colors.dart';
-import 'package:fitness_app/screens/account_screen/Workout/training_rest_popup.dart';
-import 'package:fitness_app/screens/my_activity/edit_plan.dart';
 import 'package:fitness_app/screens/rest_screen/ready_to_go.dart';
 import 'package:fitness_app/screens/select_exercise/select_exercise.dart';
-import 'package:fitness_app/screens/start_exercise/start_exercise.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/coming_soon_popup.dart';
+import 'package:fitness_app/widgets/cus_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 
@@ -35,6 +34,7 @@ class _OpenActivityState extends State<OpenActivity> {
   RequestExerciseData? exerciseData;
 
   final List<bool> _selectedPlan = <bool>[true, false, false];
+  FlutterSecureStorage storage = const FlutterSecureStorage();
 
   // int pushUp = 10;
   // int plank = 15;
@@ -170,12 +170,22 @@ class _OpenActivityState extends State<OpenActivity> {
                                               child: Column(
                                                 children: [
                                                   GestureDetector(
-                                                    onTap: () {
+                                                    onTap: () async {
                                                       setState(() {
                                                         _selectedPlan[2] = false;
                                                         _selectedPlan[1] = false;
                                                         _selectedPlan[0] = true;
                                                       });
+                                                      if (AppGlobal.selectedKneeIssueOption != "1"){
+                                                        AppGlobal.selectedKneeIssueOption = "1";
+                                                        AppGlobal.dataStoreFromConstantToLDB = "false";
+                                                        _homeBloc.add(ClearExerciseEvent());
+                                                        _homeBloc.add(RemoveDaysEvent());
+                                                      }
+                                                      await storage.write(
+                                                          key: 'selectedKneeIssueOption', value: '1'
+                                                      );
+                                                      _homeBloc.add(RefreshScreenEvent());
                                                     },
                                                     child: Container(
                                                       margin: const EdgeInsets.all(12),
@@ -190,16 +200,20 @@ class _OpenActivityState extends State<OpenActivity> {
                                                             Text(
                                                               'I\'m fine',
                                                               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0,
-                                                                  color: _selectedPlan[0] == false
-                                                                      ? Colors.white
-                                                                      : Colors.black),
+                                                                  color: AppGlobal.selectedKneeIssueOption == '1'
+                                                                  // _selectedPlan[0] == false
+                                                                      ? Colors.black
+                                                                      : Colors.white
+                                                              ),
                                                             ),
                                                             Text(
                                                               'All workout are OK for me',
                                                               style: TextStyle(fontSize: 15.0,
-                                                                  color: _selectedPlan[0] == false
-                                                                      ? Colors.white
-                                                                      : Colors.black),
+                                                                  color: AppGlobal.selectedKneeIssueOption == '1'
+                                                                  // _selectedPlan[0] == false
+                                                                      ? Colors.black
+                                                                      : Colors.white
+                                                              ),
                                                             ),
                                                           ],
                                                         ),
@@ -215,13 +229,20 @@ class _OpenActivityState extends State<OpenActivity> {
                                                             // begin: Alignment.bottomCenter,
                                                             // end: Alignment.topCenter,
                                                             colors: [
-                                                              _selectedPlan[0] == false
-                                                                  ? const Color(
-                                                                  0xff1c1b20)
-                                                                  : Colors.white60,
-                                                              _selectedPlan[0] == false
-                                                                  ? Colors.transparent
-                                                                  : Colors.white,
+                                                              AppGlobal.selectedKneeIssueOption == '1'
+                                                            // _selectedPlan[0] == false
+                                                                ? Colors.white60
+                                                                : const Color(0xff1c1b20),
+                                                              AppGlobal.selectedKneeIssueOption == '1'
+                                                              // _selectedPlan[0] == false
+                                                                  ? Colors.white
+                                                                  : Colors.transparent,
+                                                              // _selectedPlan[0] == false
+                                                              //     ? const Color(0xff1c1b20)
+                                                              //     : Colors.white60,
+                                                              // _selectedPlan[0] == false
+                                                              //     ? Colors.transparent
+                                                              //     : Colors.white,
                                                             ],
                                                           ),
                                                         ),
@@ -230,12 +251,22 @@ class _OpenActivityState extends State<OpenActivity> {
                                                   ),
                                                   const SizedBox(height: 5),
                                                   GestureDetector(
-                                                    onTap: () {
+                                                    onTap: () async {
                                                       setState(() {
                                                         _selectedPlan[0] = false;
                                                         _selectedPlan[2] = false;
                                                         _selectedPlan[1] = true;
                                                       });
+                                                      if (AppGlobal.selectedKneeIssueOption != "2"){
+                                                        AppGlobal.selectedKneeIssueOption = "2";
+                                                        AppGlobal.dataStoreFromConstantToLDB = "false";
+                                                        _homeBloc.add(ClearExerciseEvent());
+                                                        _homeBloc.add(RemoveDaysEvent());
+                                                      }
+                                                      await storage.write(
+                                                          key: 'selectedKneeIssueOption', value: '2'
+                                                      );
+                                                      _homeBloc.add(RefreshScreenEvent());
                                                     },
                                                     child: Container(
                                                       margin: const EdgeInsets.only(left: 12, right: 12),
@@ -250,16 +281,20 @@ class _OpenActivityState extends State<OpenActivity> {
                                                             Text(
                                                               'No jumping',
                                                               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0,
-                                                                  color: _selectedPlan[1] == false
-                                                                      ? Colors.white
-                                                                      : Colors.black),
+                                                                  color: AppGlobal.selectedKneeIssueOption == '2'
+                                                                  // _selectedPlan[1] == false
+                                                                      ? Colors.black
+                                                                      : Colors.white
+                                                              ),
                                                             ),
                                                             Text(
                                                               'No noise, apartment friendly',
                                                               style: TextStyle(fontSize: 15.0,
-                                                                  color: _selectedPlan[1] == false
-                                                                      ? Colors.white
-                                                                      : Colors.black),
+                                                                  color: AppGlobal.selectedKneeIssueOption == '2'
+                                                                  // _selectedPlan[1] == false
+                                                                      ? Colors.black
+                                                                      : Colors.white
+                                                              ),
                                                             ),
                                                           ],
                                                         ),
@@ -274,12 +309,20 @@ class _OpenActivityState extends State<OpenActivity> {
                                                             // begin: Alignment.b,
                                                             // end: Alignment.topCenter,
                                                             colors: [
-                                                              _selectedPlan[1] == false
-                                                                  ? const Color(0xff1c1b20)
-                                                                  : Colors.white60,
-                                                              _selectedPlan[1] == false
-                                                                  ? Colors.transparent
-                                                                  : Colors.white,
+                                                              AppGlobal.selectedKneeIssueOption == '2'
+                                                              // _selectedPlan[0] == false
+                                                                  ? Colors.white60
+                                                                  : const Color(0xff1c1b20),
+                                                              AppGlobal.selectedKneeIssueOption == '2'
+                                                              // _selectedPlan[0] == false
+                                                                  ? Colors.white
+                                                                  : Colors.transparent,
+                                                              // _selectedPlan[1] == false
+                                                              //     ? const Color(0xff1c1b20)
+                                                              //     : Colors.white60,
+                                                              // _selectedPlan[1] == false
+                                                              //     ? Colors.transparent
+                                                              //     : Colors.white,
                                                             ],
                                                           ),
                                                         ),
@@ -288,12 +331,22 @@ class _OpenActivityState extends State<OpenActivity> {
                                                   ),
                                                   const SizedBox(height: 5),
                                                   GestureDetector(
-                                                    onTap: () {
+                                                    onTap: () async {
                                                       setState(() {
                                                         _selectedPlan[0] = false;
                                                         _selectedPlan[1] = false;
                                                         _selectedPlan[2] = true;
                                                       });
+                                                      if (AppGlobal.selectedKneeIssueOption != "3"){
+                                                        AppGlobal.selectedKneeIssueOption = "3";
+                                                        AppGlobal.dataStoreFromConstantToLDB = "false";
+                                                        _homeBloc.add(ClearExerciseEvent());
+                                                        _homeBloc.add(RemoveDaysEvent());
+                                                      }
+                                                      await storage.write(
+                                                          key: 'selectedKneeIssueOption', value: '3'
+                                                      );
+                                                      _homeBloc.add(RefreshScreenEvent());
                                                     },
                                                     child: Container(
                                                       margin: const EdgeInsets.all(12),
@@ -309,17 +362,21 @@ class _OpenActivityState extends State<OpenActivity> {
                                                               'Low impact',
                                                               style: TextStyle(fontWeight: FontWeight.bold,
                                                                   fontSize: 20.0,
-                                                                  color: _selectedPlan[2] == false
-                                                                      ? Colors.white
-                                                                      : Colors.black),
+                                                                  color: AppGlobal.selectedKneeIssueOption == '3'
+                                                                  // _selectedPlan[2] == false
+                                                                      ? Colors.black
+                                                                      : Colors.white
+                                                              ),
                                                             ),
                                                             Text(
                                                               'Friendly to overweight people',
                                                               style: TextStyle(
                                                                   fontSize: 15.0,
-                                                                  color: _selectedPlan[2] == false
-                                                                      ? Colors.white
-                                                                      : Colors.black),
+                                                                  color: AppGlobal.selectedKneeIssueOption == '3'
+                                                                  // _selectedPlan[2] == false
+                                                                      ? Colors.black
+                                                                      : Colors.white
+                                                              ),
                                                             ),
                                                           ],
                                                         ),
@@ -334,12 +391,20 @@ class _OpenActivityState extends State<OpenActivity> {
                                                             // begin: Alignment.bottomCenter,
                                                             // end: Alignment.topCenter,
                                                             colors: [
-                                                              _selectedPlan[2] == false
-                                                                  ? const Color(0xff1c1b20)
-                                                                  : Colors.white60,
-                                                              _selectedPlan[2] == false
-                                                                  ? Colors.transparent
-                                                                  : Colors.white,
+                                                              AppGlobal.selectedKneeIssueOption == '3'
+                                                              // _selectedPlan[0] == false
+                                                                  ? Colors.white60
+                                                                  : const Color(0xff1c1b20),
+                                                              AppGlobal.selectedKneeIssueOption == '3'
+                                                              // _selectedPlan[0] == false
+                                                                  ? Colors.white
+                                                                  : Colors.transparent,
+                                                              // _selectedPlan[2] == false
+                                                              //     ? const Color(0xff1c1b20)
+                                                              //     : Colors.white60,
+                                                              // _selectedPlan[2] == false
+                                                              //     ? Colors.transparent
+                                                              //     : Colors.white,
                                                             ],
                                                           ),
                                                         ),
@@ -376,7 +441,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                               // );//CountdownPopup(),
                                             },
                                             child: Padding(
-                                              padding: EdgeInsets.only(top: 10,bottom: 10),
+                                              padding: const EdgeInsets.only(top: 10,bottom: 10),
                                               child: Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
@@ -412,7 +477,12 @@ class _OpenActivityState extends State<OpenActivity> {
                                                 left: 10, top: 10),
                                             child: InkWell(
                                               onTap: () {
-                                                Navigator.pop(context);
+                                                Navigator.of(context).pushAndRemoveUntil(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                        const CusBottomBar()),
+                                                        (Route<dynamic> route) => false);
+                                                // Navigator.pop(context);
                                                 // Navigator.of(context).push(
                                                 //     MaterialPageRoute(
                                                 //         builder: (ctx) =>
@@ -564,8 +634,7 @@ class _OpenActivityState extends State<OpenActivity> {
                       children: [
                         Text(
                           "Instruction",
-                          style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                         ),
                         // InkWell(
                         //     onTap: (){
@@ -575,11 +644,11 @@ class _OpenActivityState extends State<OpenActivity> {
                         // )
                       ],
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     // Text(
                     //   "Just 5-10 min, this training is designed especially for beginners who want to lose weight but don't know where to start."
                     //   "\n\n"
-                    //   "This training mixes with basic aerobic and anaerobic exercises. It uses your bodyweight to work all muscle groups and boost your fat burning."
+                    //   "This training mixes with basic aerobic and anaerobic exercises. It uses your body weight to work all muscle groups and boost your fat burning."
                     //   "\n\n"
                     //   "Low-impact option is friendly for people who are overweight or have joint problems. Please stick to a low-calorie diet to maximize your workout result.",
                     //   // style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
@@ -589,7 +658,7 @@ class _OpenActivityState extends State<OpenActivity> {
                     ReadMoreText(
                       "Just ${AppGlobal.selectedPlan=='1'?'5-10':AppGlobal.selectedPlan=='2'?'10-20':AppGlobal.selectedPlan=='3'?'15-30':'a few'} min, this training is designed especially for beginners who want to lose weight but don't know where to start."
                       "\n\n"
-                      "This training mixes with basic aerobic and anaerobic exercises. It uses your bodyweight to work all muscle groups and boost your fat burning."
+                      "This training mixes with basic aerobic and anaerobic exercises. It uses your body weight to work all muscle groups and boost your fat burning."
                       "\n\n"
                       "Low-impact option is friendly for people who are overweight or have joint problems. Please stick to a low-calorie diet to maximize your workout result.",
                       trimLines: 2,
@@ -616,7 +685,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 17),
                               ),
-                              SizedBox(height: 5),
+                              const SizedBox(height: 5),
                               Text(
                                 "Level",
                                 style: TextStyle(fontSize: 14),
@@ -642,13 +711,21 @@ class _OpenActivityState extends State<OpenActivity> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                exerciseData!=null?exerciseData!.exerciseList!.length == 7
-                                    ? "5 mins" : exerciseData!=null?exerciseData!.exerciseList!.length == 8
-                                    ? "6 mins" : exerciseData!=null?exerciseData!.exerciseList!.length == 9
-                                    ? "7 mins" : "5 mins" : "5 min" :"5 min" : "5 min",
+                                exerciseData!=null? exerciseData!.exerciseList!.length == 7 ? "5 mins" :
+                                exerciseData!=null? exerciseData!.exerciseList!.length == 8 ? "6 mins" :
+                                exerciseData!=null? exerciseData!.exerciseList!.length == 9 ? "7 mins" :
+
+                                exerciseData!=null? exerciseData!.exerciseList!.length == 12 ? "10 mins" :
+                                exerciseData!=null? exerciseData!.exerciseList!.length == 14 ? "12 mins" :
+                                exerciseData!=null? exerciseData!.exerciseList!.length == 16 ? "14 mins" :
+
+                                exerciseData!=null? exerciseData!.exerciseList!.length == 17 ? "15 mins" :
+                                exerciseData!=null? exerciseData!.exerciseList!.length == 20 ? "18 mins" :
+                                exerciseData!=null? exerciseData!.exerciseList!.length == 23 ? "21 mins" :
+                                "21 mins" : "18 mins" : "15 mins" : "14 mins" : "12 mins" : "10 mins" : "7 mins" : "6 mins" :"5 mins" : "5 mins",
                                 // "4 mins",
                                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
-                              SizedBox(height: 5),
+                              const SizedBox(height: 5),
                               Text(
                                 "Duration",
                                 style: TextStyle(fontSize: 14),
@@ -765,7 +842,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                           CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              exerciseData!.exerciseList![index].exercise!.name,
+                                              exerciseData!.exerciseList![index].exercise.name,
                                               style: TextStyle(
                                                 fontSize: MediaQuery.of(context).size.width*0.04,
                                                 fontWeight: FontWeight.bold,
@@ -775,7 +852,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                               height: 6.0,
                                             ),
                                             Text(
-                                              exerciseData!.exerciseList![index].exercise!.type =='rap'
+                                              exerciseData!.exerciseList![index].exercise.type =='rap'
                                                   ?
                                               "${exerciseData!.exerciseList![index].raps} raps"
                                                   :

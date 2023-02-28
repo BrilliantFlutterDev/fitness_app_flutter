@@ -5,7 +5,7 @@
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
-		<string>Fitness App</string>
+		<string>Daily Weight Loss Home Workout</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
@@ -44,6 +44,8 @@
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<true/>
 		<key>UIStatusBarHidden</key>
+		<key>GADApplicationIdentifier</key>
+        <string>ca-app-pub-3940256099942544~3347511713</string>
 		<false/>
 	</dict>
 </plist>

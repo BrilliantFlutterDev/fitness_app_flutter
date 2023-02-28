@@ -1,7 +1,6 @@
 import 'package:fitness_app/constants.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/account_screen/AccountScreenBloc/account_screen_bloc.dart';
-import 'package:fitness_app/screens/account_screen/GeneralSettings/health_data.dart';
 import 'package:fitness_app/screens/account_screen/Workout/notification_service.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/splash_screen/splash_screen.dart';
@@ -9,17 +8,17 @@ import 'package:fitness_app/screens/my_activity/MyActivityBloc/my_activity_bloc.
 import 'package:fitness_app/screens/plan_screen/plan_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
-  // WidgetsBinding widgetsBinding =
   WidgetsFlutterBinding.ensureInitialized();
-  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  if(MobileAds.instance == null){
+    MobileAds.instance.initialize();
+  }
   await NotificationService().init();
   await NotificationService().requestIOSPermissions();
-  // FlutterNativeSplash.remove();
   runApp(const MyApp());
 }
 

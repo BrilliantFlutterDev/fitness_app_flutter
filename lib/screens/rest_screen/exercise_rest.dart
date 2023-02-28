@@ -76,7 +76,7 @@ class _ExerciseRestScreenState extends State<ExerciseRestScreen> {
                   children: [
                     Text(
                       "Next exercise ",
-                      style: TextStyle(color: Colors.black, fontSize: 18),
+                      style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height*0.028),
                     ),
                     // Text(
                     //   widget.exerciseData!=null? "${widget.current_index}/${widget.exerciseData!.exerciseList!.length}" :"0/0",
@@ -89,9 +89,9 @@ class _ExerciseRestScreenState extends State<ExerciseRestScreen> {
                   children: [
                     Text(
                       widget.exerciseData!.exerciseList![index].exercise.name,
-                      style: const TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold,),
+                      style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height*0.03, fontWeight: FontWeight.bold,),
                     ),
-                    Icon(Icons.question_mark_outlined, color: Colors.black, size: 17),
+                    Icon(Icons.question_mark_outlined, color: Colors.black, size: MediaQuery.of(context).size.height*0.03),
                   ],
                 ),
                 Text(
@@ -100,9 +100,9 @@ class _ExerciseRestScreenState extends State<ExerciseRestScreen> {
                   "${widget.exerciseData!.exerciseList![index].raps} raps"
                       :
                   "${widget.exerciseData!.exerciseList![index].time} sec",
-                  style: const TextStyle(fontSize: 16, color: kColorPrimary),
+                  style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.025, color: kColorPrimary),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.width*0.05),
+                SizedBox(height: MediaQuery.of(context).size.width*0.03),
               ],
             ),
           ),

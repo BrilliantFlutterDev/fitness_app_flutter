@@ -5,6 +5,7 @@ import 'package:fitness_app/screens/home_page/open_activity.dart';
 import 'package:fitness_app/screens/home_page/quit_screens/quit_screen.dart';
 import 'package:fitness_app/screens/rest_screen/exercise_rest.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
+import 'package:fitness_app/widgets/coming_soon_popup.dart';
 import 'package:fitness_app/widgets/cus_bottom_bar.dart';
 import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +44,8 @@ class _StartExerciseState extends State<StartExercise> {
         if (value == 0) {
           setState(() {
             timer.cancel();
+
+            widget.dayModelLocalDB!.exerciseNumInProgress = index + 1;
 
             _homeBloc.add(ChangeExerciseStatusToDoneEvent(
                 exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
@@ -88,7 +91,6 @@ class _StartExerciseState extends State<StartExercise> {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     index=widget.dayModelLocalDB!.exerciseNumInProgress;
-
     if(widget.exerciseData!.exerciseList![index].exercise.type =='time'){
       value = double.parse(widget.exerciseData!.exerciseList![index].time.toString());
       startTimer();
@@ -155,11 +157,10 @@ class _StartExerciseState extends State<StartExercise> {
           ));
         }
       }else if (state is UpdateDayProgressState) {
-        print('update.........................1');
         widget.dayModelLocalDB=state.dayModelLocalDB;
         if(index<(widget.exerciseData!.exerciseList!.length-1)) {
 
-          widget.dayModelLocalDB!.exerciseNumInProgress = index + 1;
+          print("Index is Updated and value is: ${widget.dayModelLocalDB!.exerciseNumInProgress}");
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (ctx) =>
@@ -169,7 +170,7 @@ class _StartExerciseState extends State<StartExercise> {
             setState(() {
               index = index + 1;
               value = double.parse(widget.exerciseData!.exerciseList![index].time.toString());
-              if(widget.exerciseData!.exerciseList![index].exercise!.type !='rap'){
+              if(widget.exerciseData!.exerciseList![index].exercise.type !='rap'){
                 startTimer();
               }
             });
@@ -333,6 +334,7 @@ class _StartExerciseState extends State<StartExercise> {
                         if(widget.exerciseData!.exerciseList![index].exercise.type=='time'){
                           _timer.cancel();
                         }
+                        widget.dayModelLocalDB!.exerciseNumInProgress = index + 1;
 
                         _homeBloc.add(ChangeExerciseStatusToDoneEvent(
                             exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
@@ -362,13 +364,22 @@ class _StartExerciseState extends State<StartExercise> {
                         const SizedBox(),
                         index!=0? GestureDetector(
                           onTap: () {
-                            if(index>=1){
-                              index=index-1;
-                              setState(() {
-                              });
-                            }
-                            _homeBloc.add(ChangeExerciseStatusToUnDoneEvent(
-                                exerciseModelLocalDB: widget.exerciseData!.exerciseList![index-1]));
+                            showDialog(
+                                context: context,
+                                builder: (_) => Dialog(
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height * 0.3,
+                                    child: ComingSoonPopup(),
+                                  ),
+                                ));
+                            // if(index>=1){
+                            //   index=index-1;
+                            //   setState(() {
+                            //   });
+                            // }
+
+                            // _homeBloc.add(ChangeExerciseStatusToUnDoneEvent(
+                            //     exerciseModelLocalDB: widget.exerciseData!.exerciseList![index-1]));
                           },
                           child: Row(
                             children: [

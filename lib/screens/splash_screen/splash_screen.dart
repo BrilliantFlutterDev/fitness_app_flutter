@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:simple_progress_indicators/simple_progress_indicators.dart';
 
 import '../../Utils/app_global.dart';
 import '../../Utils/common_functions.dart';
@@ -31,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     checkUserData();
     _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 2000));
+        vsync: this, duration: const Duration(seconds: 6));
     _animation = CurvedAnimation(
       parent: _animationController,
       curve: Curves.easeOut,
@@ -47,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen>
     _animation.addListener(() => setState(() {}));
     _animationController.forward();
 
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 6), () {
       if (AppGlobal.dataStoreFromConstantToLDB == 'true') {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => const CusBottomBar()),
@@ -122,6 +123,7 @@ class _SplashScreenState extends State<SplashScreen>
                 'assets/images/splash.png',
                 height: MediaQuery.of(context).size.height,
                 opacity: AlwaysStoppedAnimation(0.4),
+                // kColorBG.withOpacity(0.8),
                 // color: kColorBG.withOpacity(0.2),
                 // width: _animation.value * 300,
                 //height: _animation.value * 300,
@@ -131,38 +133,62 @@ class _SplashScreenState extends State<SplashScreen>
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).size.height*0.3, left: MediaQuery.of(context).size.width*0.1
                 ),
-                child:
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Container(
-                      height: 65,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: kColorPrimary,
-                          width: 3,
-                        )
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'AppName',
-                          style: TextStyle(color: kColorPrimary, fontSize: 30,fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'AppName',
-                          style: TextStyle(color: Colors.white, fontSize: 30,fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ],
+                child: Image.asset(
+                  'assets/icons/splashappname.png',
+                  width: MediaQuery.of(context).size.width*0.7,
+                  // height: 240.0,
+                  // fit: BoxFit.cover,
                 ),
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.end,
+                //   children: [
+                //     Container(
+                //       height: 65,
+                //       decoration: BoxDecoration(
+                //         borderRadius: BorderRadius.circular(20),
+                //         border: Border.all(
+                //           color: kColorPrimary,
+                //           width: 3,
+                //         )
+                //       ),
+                //     ),
+                //     SizedBox(width: 10),
+                //     Column(
+                //       mainAxisAlignment: MainAxisAlignment.end,
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       children: [
+                //         Text(
+                //           'Daily Weight Loss',
+                //           style: TextStyle(color: kColorPrimary, fontSize: 30,fontWeight: FontWeight.bold),
+                //         ),
+                //         Text(
+                //           'Home Workout',
+                //           style: TextStyle(color: Colors.white, fontSize: 25,fontWeight: FontWeight.bold),
+                //         ),
+                //       ],
+                //     ),
+                //   ],
+                // ),
               ),
+              // Align(
+              //   alignment: Alignment.bottomCenter,
+              //   child: Padding(
+              //     padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height*0.1),
+              //     child: ProgressBarAnimation(
+              //       width: MediaQuery.of(context).size.width*0.8,
+              //       height: 5,
+              //       duration: const Duration(milliseconds: 800),
+              //       gradient: const LinearGradient(
+              //         colors: [
+              //           kColorPrimary,
+              //           kColorPrimary,
+              //           // Color(0xff1e1e1e),
+              //         ],
+              //       ),
+              //       backgroundColor: kColorFG,
+              //     ),
+              //   ),
+              // ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(

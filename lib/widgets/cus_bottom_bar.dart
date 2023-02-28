@@ -1,5 +1,3 @@
-import 'package:fitness_app/Helper/DBModels/day_model.dart';
-import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/account_screen/account_screen.dart';
 import 'package:fitness_app/screens/account_screen/account_screen1.dart';
@@ -57,15 +55,43 @@ class CusBottomBarState extends State<CusBottomBar> {
                 // )
                 // sets the active color of the `BottomNavigationBar` if `Brightness` is light
               ),
+
                 child: BottomNavigationBar(
-                  items: const [
+                  items: [
                     BottomNavigationBarItem(
-                        icon: Icon(Icons.accessibility), label: 'Plan'),
+                        icon: Padding(
+                          padding: const EdgeInsets.only(bottom: 3),
+                          child: ImageIcon(
+                            AssetImage("assets/icons/bottomplanicon.png"),
+                            size: MediaQuery.of(context).size.height*0.03,
+                          ),
+                        ),
+                        // icon: Icon(
+                        //     Icons.accessibility
+                        // ),
+                        label: 'Plan'
+                    ),
                     BottomNavigationBarItem(
-                        icon: Icon(Icons.equalizer_rounded), label: 'Reports'),
+                        icon: Padding(
+                          padding: const EdgeInsets.only(bottom: 3),
+                          child: ImageIcon(
+                            AssetImage("assets/icons/bottomreporticon.png"),
+                            size: MediaQuery.of(context).size.height*0.03,
+                          ),
+                        ),
+                        label: 'Reports'),
                     // BottomNavigationBarItem(
                     //     icon: Icon(Icons.chat_bubble), label: 'Messages'),
-                    BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Me'),
+                    BottomNavigationBarItem(
+                        icon: Padding(
+                          padding: const EdgeInsets.only(bottom: 2),
+                          child: ImageIcon(
+                            AssetImage("assets/icons/bottomaccounticon.png"),
+                            size: MediaQuery.of(context).size.height*0.0285,
+                          ),
+                        ),
+                        label: 'Me'
+                    ),
                   ],
                   currentIndex: selectedIndex,
                   type: BottomNavigationBarType.fixed,
