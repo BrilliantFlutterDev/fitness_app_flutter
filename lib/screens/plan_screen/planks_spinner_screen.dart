@@ -1,5 +1,6 @@
 import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/constants/colors.dart';
+import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
@@ -22,24 +23,6 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
   List<String> plankRanges = ['0-30s', '30-60s', '60-120s', 'Over 120s'];
   FlutterSecureStorage storage = const FlutterSecureStorage();
   late HomeBloc _homeBloc;
-
-  BannerAd myBanner = BannerAd(
-    adUnitId: 'ca-app-pub-3940256099942544/6300978111',   //'<ad unit ID>'
-    size: AdSize.banner,
-    request: AdRequest(),
-    listener: BannerAdListener(
-      onAdLoaded: (Ad ad){
-        print('Ad Loaded Sucessfully');
-      },
-      onAdFailedToLoad: (Ad ad, LoadAdError error){
-        print('Ad Loaded Failed');
-        ad.dispose();
-      },
-      onAdOpened: (Ad ad){
-        print('Ad Opened');
-      },
-    ),
-  );
 
   @override
   void initState() {
@@ -72,10 +55,10 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
           child: SizedBox(
-            height: myBanner.size.height.toDouble(),  //MediaQuery.of(context).size.height*0.08,
-            width: myBanner.size.width.toDouble(), //double.infinity,
+            height: MediaQuery.of(context).size.height*0.07,
+            width: AdmobHelper.getBannerAd().size.width.toDouble(), //double.infinity,
             child: AdWidget(
-              ad: myBanner..load(),
+              ad:  AdmobHelper.getBannerAd()..load(),                 //myBanner..load(),
               key: UniqueKey(),
             ),
           ),
@@ -88,7 +71,7 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
                   Stack(
                     children: [
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.93,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage("assets/images/Bell Magic Workout.jpg"),
@@ -107,7 +90,7 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
                             ],
                           ),
                         ),
-                        height: MediaQuery.of(context).size.height,
+                        height: MediaQuery.of(context).size.height*0.93,
                         width: MediaQuery.of(context).size.width,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(

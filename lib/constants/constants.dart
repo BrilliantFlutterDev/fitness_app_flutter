@@ -6,8 +6,6 @@ import 'package:fitness_app/models/user_model.dart';
 
 import '../models/day_model.dart';
 
-
-
 class ExerciseConstants {
   List<GymModel> BeginnerFineExercises = [
     GymModel(
@@ -30327,6 +30325,7 @@ class ExerciseConstants {
         name: "MOUNTAIN CLIMBER",
         image: "testgiff.gif",  //Wheel Stretch.jpg
         type: "time",
+        kcal: 0.23,
         description: "Start in the push-up position. Bend your right knee towards your chest and keep your left leg straight, then quickly switch from one leg to the other."
             "\n\n"
             "This exercise strengthens multiple muscle groups.",
@@ -30336,6 +30335,7 @@ class ExerciseConstants {
         name: "SQUATS",
         image: "Full Crunches.jpg",
         type: "rap",
+        kcal: 0.0866,
         description: "Stand with your feet shoulder width apart and your arms stretched forward, then lower your body until your thighs are parallel with the floor."
             "\n\n"
             "Your knees should be extended in the same direction as your toes. Return to the start position and do the next rep."
@@ -30347,6 +30347,7 @@ class ExerciseConstants {
         name: "HIGH STEPPING",
         image: "Battle Rope.jpg",
         type: 'time',
+        kcal: 0.23,
         description: "Run in place while pulling your knees as high as possible with each step."
             "\n\n"
             "Keep your upper body upright during this exercise.",
@@ -30356,6 +30357,7 @@ class ExerciseConstants {
         name: "PUSH-UPS",
         image: "Side Crunches.jpg",
         type: 'rap',
+        kcal: 0.1,
         description: "Lay prone on the ground with arms supporting your body."
             "\n\n"
             "Keep your body straight while raising and lowering your body with your arms."
@@ -30367,6 +30369,7 @@ class ExerciseConstants {
         name: "REVERSE CRUNCHES",
         image: "Half Crunches.jpg",
         type: 'rap',
+        kcal: 0.043,
         description: "Lie on your back with your knees up at a 90 degree angle and your hands behind your head."
             "\n\n"
             "Lift your upper body and thighs, and then stretch out. Repeat this exercise.",
@@ -30376,6 +30379,7 @@ class ExerciseConstants {
         name: "PLANK",
         image: "Wheel Stretch.jpg",
         type: 'time',
+        kcal: 0.238,
         description: "Lie on the floor with your toes and forearms on the ground. Keep your body straight and hold this position as long as you can."
             "\n\n"
             "This exercise strengthens the abdomen, back and shoulders.",
@@ -30385,6 +30389,7 @@ class ExerciseConstants {
         name: "COBRA STRETCH",
         image: "Full Crunches.jpg",
         type: 'time',
+        kcal: 0.08,
         description: "Lie down on your stomach and bend your elbows with your hands beneath your shoulders."
             "\n\n"
             "Then push your chest up off the ground as far as possible. Hold this position for seconds.",
@@ -30394,6 +30399,7 @@ class ExerciseConstants {
         name: "TRICEPS DIPS",
         image: "Full Crunches.jpg",
         type: 'rap',
+        kcal: 0.066,
         description: "For the start position, sit on the chair. Then move your hip off the chair with your hands holding the edge of the chair."
             "\n\n"
             "Slowly bend and stretch your arms to make your body go up and down. This is a great exercise for the triceps.",
@@ -30403,6 +30409,7 @@ class ExerciseConstants {
         name: "JUMPING JACKS",
         image: "Battle Rope.jpg",
         type: 'time',
+        kcal: 0.23,
         description: "Start with your feet together and your arms by your sides, then jump up with your feet apart and your hands overhead."
             "\n\n"
             "Return to the start position then do the next rep. This exercise provides a full-body workout and works all your large muscle groups.",
@@ -30412,6 +30419,7 @@ class ExerciseConstants {
         name: "LONG ARM CRUNCHES",
         image: "Side Crunches.jpg",
         type: 'rap',
+        kcal: 0.03,
         description: "Lie on your back with knees bent and feet flat on the floor. Put your arms straight over the top of your head."
             "\n\n"
             "Lift your upper body off the floor, then slowly go back to the start position. The exercise increases abdominal endurance.",
@@ -30421,6 +30429,7 @@ class ExerciseConstants {
         name: "BICYCLE CRUNCHES",
         image: "Half Crunches.jpg",
         type: 'rap',
+        kcal: 0.03,
         description: "Lie on the floor with your hands behind your ears. Raise your knees and close your right elbow toward your left knee, then close your left elbow toward your right knee. Repeat the exercise.",
       ),
       ExercisesModel(
@@ -30428,6 +30437,7 @@ class ExerciseConstants {
         name: "ABDOMINAL CRUNCHES",
         image: "Battle Rope.jpg",
         type: 'rap',
+        kcal: 0.03,
         description: "Lie on your back with your knees bent and your arms stretched forward."
             "\n\n"
             "Then lift your upper body off the floor. Hold for a few seconds and slowly return."
@@ -30439,6 +30449,7 @@ class ExerciseConstants {
         name: "HEEL TOUCH",
         image: "Side Crunches.jpg",
         type: 'rap',
+        kcal: 0.0545,
         description: "Lie on the ground with your legs bent and your arms by your sides."
             "\n\n"
             "Slightly lift your upper body off the floor and make your hands alternately reach your heels.",
@@ -30448,6 +30459,7 @@ class ExerciseConstants {
         name: "FLUTTER KICKS",
         image: "Half Crunches.jpg",
         type: 'time',
+        kcal: 0.153,
         description: "Lie on your back with your arms at your sides. Lift your legs and keep them as straight as you can."
             "\n\n"
             "Then quickly raise your right leg up, and simultaneously lower your left leg. Switch legs and repeat.",
@@ -30458,6 +30470,7 @@ class ExerciseConstants {
         "SKIPPING WITHOUT ROPE",
         image: "Wheel Stretch.jpg",
         type: 'time',
+        kcal: 0.293,
         description: "Place your arms at your sides and pretend to hold a skipping rope handle in each hand."
             "\n\n"
             "Jump and alternately land on the balls of your feet, rotating your wrists at the same time as if you were spinning a rope.",
@@ -30467,6 +30480,7 @@ class ExerciseConstants {
         name: "LUNGES",
         image: "Full Crunches.jpg",
         type: 'time',
+        kcal: 0.124,
         description: "Stand with your feet shoulder width apart and your hands on your hips."
             "\n\n"
             "Take a step forward with your right leg and lower your body until your right thigh is parallel with the floor."
@@ -30478,6 +30492,7 @@ class ExerciseConstants {
         name: "SQUAT PULSES",
         image: "Side Crunches.jpg",
         type: 'time',
+        kcal: 0.153,
         description: "Stand with your feet shoulder width apart. Bend your arms in front of you to keep balance."
             "\n\n"
             "Lower your body until your thighs are parallel with the floor. Come half way up instead of coming all the way up, then squat down again. Repeat.",
@@ -30487,6 +30502,7 @@ class ExerciseConstants {
         name: "PLANK JACKS",
         image: "Battle Rope.jpg",
         type: 'time',
+        kcal: 0.293,
         description: "Start in the straight arm plank position with your hands under your shoulders and feet together."
             "\n\n"
             "Hop your feet apart and land on your toes, then hop back. Repeat the exercise.",
@@ -30496,6 +30512,7 @@ class ExerciseConstants {
         name: "LEG RAISES",
         image: "Half Crunches.jpg",
         type: 'rap',
+        kcal: 0.0545,
         description: "Lie down on your back, and put your hands beneath your hips for support."
             "\n\n"
             "Then lift your legs up until they form a right angle with the floor."
@@ -30507,6 +30524,7 @@ class ExerciseConstants {
         name: "LATERAL PLANK WALK",
         image: "Battle Rope.jpg",
         type: 'time',
+        kcal: 0.196,
         description: "Start in a straight arm plank position with your hands underneath your shoulders."
             "\n\n"
             "Walk your hands and feet to the left at the same time. Take a few steps to the left, then a few steps to the right. Repeat the exercise.",
@@ -30516,6 +30534,7 @@ class ExerciseConstants {
         name: "STEP-UP ONTO CHAIR",
         image: "Battle Rope.jpg",
         type: 'rap',
+        kcal: 0.069,
         description: "Stand in front of a chair. Then step up on the chair and step back down."
             "\n\n"
             "The exercise works to strengthen the legs and buttocks.",
@@ -30525,6 +30544,7 @@ class ExerciseConstants {
         name: "BUTT BRIDGE",
         image: "Half Crunches.jpg",
         type: 'rap',
+        kcal: 0.106,
         description: "Lie on your back with knees bent and feet flat on the floor. Put your arms flat at your sides."
             "\n\n"
             "Then lift your butt up and down.",
@@ -30534,6 +30554,7 @@ class ExerciseConstants {
         name: "RECLINED OBLIQUE TWIST",
         image: "Wheel Stretch.jpg",
         type: 'rap',
+        kcal: 0.0846,
         description: "Lie on your back with your legs extended and your elbows directly under your shoulders."
             "\n\n"
             "Lift your left leg up at a 45 degree angle while reaching your right arm over to your left side."
@@ -30545,6 +30566,7 @@ class ExerciseConstants {
         name: "BURPEES",
         image: "Battle Rope.jpg",
         type: 'rap',
+        kcal: 0.268,
         description: "Stand with your feet shoulder width apart, then put your hands on the ground and kick your feet backward. Do a quick push-up and then jump up.",
       ),
       ExercisesModel(
@@ -30552,6 +30574,7 @@ class ExerciseConstants {
         name: "CRUNCHES WITH LEGS RAISED",
         image: "Wheel Stretch.jpg",
         type: 'rap',
+        kcal: 0.138,
         description: "Lie on your back with your legs straight up towards the ceiling and your hands behind your ears."
             "\n\n"
             "Lift your shoulders up off the floor,then slowly go back to the starting position. Repeat the exercise.",
@@ -30562,6 +30585,7 @@ class ExerciseConstants {
         name: "ROUNDHOUSE SQUAT KICKS",
         image: "Wheel Stretch.jpg",
         type: 'time',
+        kcal: 0.1318,
         description: "Stand with feet shoulder width apart. Put your arms in front of your chest to keep your balance."
             "\n\n"
             "Then do a squat, and when you come up, kick your left leg to the side. Repeat the exercise and then switch to the right leg."
@@ -30575,6 +30599,7 @@ class ExerciseConstants {
         name: "SQUAT REACH UPS",
         image: "Wheel Stretch.jpg",
         type: 'time',
+        kcal: 0.1533,
         description: "Stand with your feet a little wider than shoulder width apart, elbows bent, palms facing each other and fingers pointed toward the ceiling."
             "\n\n"
             "Lower your body until your thighs are parallel to the floor. When you come up, turn your body to the left, straighten your right leg, lift your right heel and stretch and reach your right arm to the left."
@@ -30586,6 +30611,7 @@ class ExerciseConstants {
         name: "STANDING BICYCLE CRUNCHES",
         image: "Wheel Stretch.jpg",
         type: 'time',
+        kcal: 0.1473,
         description: "Stand with your feet shoulder width apart. Bring your knee to your opposite elbow."
             "\n\n"
             "Return to the start position and repeat with the other side.",
@@ -30595,6 +30621,7 @@ class ExerciseConstants {
         name: "SCISSORS",
         image: "Wheel Stretch.jpg",
         type: 'time',
+        kcal: 0.1966,
         description: "Lie on your back with arms at sides, palms down and legs extended."
             "\n\n"
             "Lift your legs and cross the right thigh over the left, then reverse the exercise."
@@ -30608,6 +30635,7 @@ class ExerciseConstants {
         name: "INCHWORMS",
         image: "Wheel Stretch.jpg",
         type: 'time',
+        kcal: 0.14,
         description: "Start with your feet shoulder width apart."
             "\n\n"
             "Bend your body and walk your hands in front of you as far as you can, then walk your hands back. Repeat the exercise.",
@@ -30617,6 +30645,7 @@ class ExerciseConstants {
         name: "V-UP",
         image: "Wheel Stretch.jpg",
         type: 'rap',
+        kcal: 0.0846,
         description: "Lie on your back with your arms and legs extended and your legs squeezed together."
             "\n\n"
             "Raise your upper body and legs, use your arms to touch your toes, then go back to the start position and repeat the exercise.",
@@ -30626,6 +30655,7 @@ class ExerciseConstants {
         name: "KNEE TO ELBOW CRUNCHES",
         image: "Wheel Stretch.jpg",
         type: 'time',
+        kcal: 0.1632,
         description: "Stand with your feet shoulder width apart and your hands behind your ears."
             "\n\n"
             "Raise your right knee, and use your left elbow to touch your right knee. Change sides and repeat.",
@@ -30635,6 +30665,7 @@ class ExerciseConstants {
         name: "BACKWARD LUNGE",
         image: "Wheel Stretch.jpg",
         type: 'rap',
+        kcal: 0.1744,
         description: "Stand with your feet shoulder width apart and your hands on your hips."
             "\n\n"
             "Step a big step backward with your right leg and lower your body until your left thigh is parallel to the floor. Return and repeat with the other side.",
@@ -30644,6 +30675,7 @@ class ExerciseConstants {
         name: "TOY SOLDIERS",
         image: "Wheel Stretch.jpg",
         type: 'time',
+        kcal: 0.1111,
         description: "Start with your feet shoulder width apart. Keep your legs and arms straight."
             "\n\n"
             "Kick your left leg up to touch your right hand to your toes. Repeat with the other side.",
@@ -30653,6 +30685,7 @@ class ExerciseConstants {
         name: "GLUTE KICK BACK",
         image: "Wheel Stretch.jpg",
         type: 'rap',
+        kcal: 0.1548,
         description: "Start on all fours with your knees under your butt and your hands directly under your shoulders."
             "\n\n"
             "Then kick one leg back until it is parallel with the ground. Switch to the other side after several sets.",
@@ -30662,6 +30695,7 @@ class ExerciseConstants {
         name: "INCLINE PUSH-UPS",
         image: "Wheel Stretch.jpg",
         type: 'rap',
+        kcal: 0.1419,
         description: "Start in the regular push-up position but with your hands elevated on a chair or bench."
             "\n\n"
             "Then push your body up down using your arm strength."

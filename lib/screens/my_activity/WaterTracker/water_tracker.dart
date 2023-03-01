@@ -7,7 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 
 import 'dart:async';
 import 'dart:math';
@@ -16,6 +18,7 @@ import 'package:fl_chart/fl_chart.dart';
 import '../../../Helper/DBModels/day_model.dart';
 import '../../../Utils/app_global.dart';
 import '../../../Utils/modal_progress_hud.dart';
+import '../../../widgets/switch_button.dart';
 
 class WaterTracker extends StatefulWidget {
   final List<Color> availableColors = const [
@@ -48,6 +51,11 @@ class _WaterTrackerState extends State<WaterTracker> {
   late MyActivityBloc _activityBloc;
   RequestDayData? requestDayData;
 
+  void saveWaterTracker() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    status = prefs.getBool("watertracker")!;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -55,6 +63,8 @@ class _WaterTrackerState extends State<WaterTracker> {
 
     _activityBloc
         .add(GetASpecificDaysEvent(day: 'Day ${AppGlobal.currentDay + 1}'));
+
+    saveWaterTracker();
   }
 
   @override
@@ -142,16 +152,14 @@ class _WaterTrackerState extends State<WaterTracker> {
                           padding: EdgeInsets.only(top: 10),
                           child: Text(
                             "Today",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17,
-                                color: Colors.white),
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: Colors.white),
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.only(
                               left: MediaQuery.of(context).size.width * 0.085,
-                              right: MediaQuery.of(context).size.width * 0.085),
+                              right: MediaQuery.of(context).size.width * 0.085
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -226,20 +234,13 @@ class _WaterTrackerState extends State<WaterTracker> {
                                           ),
                                           Text(
                                             requestDayData != null
-                                                ? requestDayData!.exerciseList![0]
-                                                    .noOfGlassWaterDrank
-                                                    .toString()
+                                                ? requestDayData!.exerciseList![0].noOfGlassWaterDrank.toString()
                                                 : '0',
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 25,
-                                                fontWeight: FontWeight.bold),
+                                            style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
                                           ),
                                           const Text(
                                             ' /8 Cups',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15),
+                                            style: TextStyle(color: Colors.white, fontSize: 15),
                                           ),
                                         ],
                                       ),
@@ -292,6 +293,96 @@ class _WaterTrackerState extends State<WaterTracker> {
                             color: Colors.white,
                           ),
                         ),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(bottom: 10),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //     children: [
+                        //       Column(
+                        //         crossAxisAlignment: CrossAxisAlignment.start,
+                        //         children: [
+                        //           Text(
+                        //             "Drink notification",
+                        //             style: TextStyle(
+                        //                 fontSize: 17, fontWeight: FontWeight.bold, color: Colors.white),
+                        //           ),
+                        //           Text(
+                        //             "Remind me to drink",
+                        //             style: TextStyle(
+                        //                 fontSize: 13, color: Colors.white),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //       // FlutterSwitch(
+                        //       //   width: 50,
+                        //       //   height: 25,
+                        //       //   toggleSize: 10,
+                        //       //   value: status,
+                        //       //   borderRadius: 30,
+                        //       //   padding: 8.0,
+                        //       //   showOnOff: false,
+                        //       //   activeColor: kColorPrimary,
+                        //       //   onToggle: (val) {
+                        //       //     status = val;
+                        //       //     _activityBloc.add(RefreshScreenEvent());
+                        //       //   },
+                        //       // ),
+                        //       FlutterSwitch(
+                        //         activeColor: kColorPrimary,
+                        //         width: 50,
+                        //         height: 25,
+                        //         toggleSize: 10,
+                        //         value: status,
+                        //         borderRadius: 30,
+                        //         padding: 8.0,
+                        //         showOnOff: false,
+                        //         onToggle: (val) async {
+                        //           setState(() {
+                        //             status = val;
+                        //           });
+                        //           if(status) {
+                        //             bool isallowed = await AwesomeNotifications().isNotificationAllowed();
+                        //             if (!isallowed) {
+                        //               //no permission of local notification
+                        //               AwesomeNotifications().requestPermissionToSendNotifications();
+                        //             }else{
+                        //               //show notification
+                        //               AwesomeNotifications().createNotification(
+                        //                 content: NotificationContent( //simgple notification
+                        //                   id: 123,
+                        //                   channelKey: 'basic', //set configuration wuth key "basic"
+                        //                   title: 'It\'s time to hydrate!',
+                        //                   body: 'Water helps flush toxins from your kidneys.',
+                        //                   payload: {"name":"FlutterCampus"},
+                        //                   notificationLayout: NotificationLayout.BigText,
+                        //                 ),
+                        //                 // schedule: NotificationCalendar.fromDate(
+                        //                 //     date: DateTime.now().add(
+                        //                 //         const Duration(seconds: 10)
+                        //                 //     ),
+                        //                 //     repeats: true,
+                        //                 //     allowWhileIdle: false,
+                        //                 //     preciseAlarm: true
+                        //                 // ),
+                        //
+                        //                 schedule: NotificationInterval(
+                        //                   interval: 3600,
+                        //                   repeats: false,
+                        //                 ),
+                        //               );
+                        //             }
+                        //           } else{
+                        //             AwesomeNotifications().dismiss(123);
+                        //             // AwesomeNotifications().dismissAllNotifications();
+                        //           }
+                        //           SharedPreferences prefs = await SharedPreferences.getInstance();
+                        //           prefs.setBool("watertracker", status);
+                        //         },
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+
                         Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: Row(
@@ -312,18 +403,12 @@ class _WaterTrackerState extends State<WaterTracker> {
                                   ),
                                 ],
                               ),
-                              FlutterSwitch(
-                                width: 50,
-                                height: 25,
-                                toggleSize: 10,
-                                value: status,
-                                borderRadius: 30,
-                                padding: 8.0,
-                                showOnOff: false,
-                                activeColor: kColorPrimary,
-                                onToggle: (val) {
-                                  status = val;
-                                  _activityBloc.add(RefreshScreenEvent());
+                              SwitchButton(
+                                status: status,
+                                whenpress: (bool val) {
+                                  setState(() {
+                                    status = val;
+                                  });
                                 },
                               ),
                             ],

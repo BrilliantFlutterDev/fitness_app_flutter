@@ -1,4 +1,5 @@
 import 'package:fitness_app/Utils/app_global.dart';
+import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/plan_screen/push_ups_spinner_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
@@ -23,36 +24,30 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
   late HomeBloc _homeBloc;
   FlutterSecureStorage storage = const FlutterSecureStorage();
 
-  BannerAd myBanner = BannerAd(
-    adUnitId: 'ca-app-pub-3940256099942544/6300978111',   //'<ad unit ID>'
-    size: AdSize.banner,
-    request: AdRequest(),
-    listener: BannerAdListener(
-      onAdLoaded: (Ad ad){
-        print('Ad Loaded Sucessfully');
-
-      },
-      onAdFailedToLoad: (Ad ad, LoadAdError error){
-        print('Ad Loaded Failed');
-        ad.dispose();
-      },
-      onAdOpened: (Ad ad){
-        print('Ad Opened');
-      },
-    ),
-  );
+  // BannerAd myBanner = BannerAd(
+  //   adUnitId: 'ca-app-pub-3940256099942544/6300978111',   //'<ad unit ID>'
+  //   size: AdSize.banner,
+  //   request: AdRequest(),
+  //   listener: BannerAdListener(
+  //     onAdLoaded: (Ad ad){
+  //       print('Ad Loaded Sucessfully');
+  //
+  //     },
+  //     onAdFailedToLoad: (Ad ad, LoadAdError error){
+  //       print('Ad Loaded Failed');
+  //       ad.dispose();
+  //     },
+  //     onAdOpened: (Ad ad){
+  //       print('Ad Opened');
+  //     },
+  //   ),
+  // );
 
   @override
   void initState() {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     addUserData();
-  }
-
-  @override
-  void dispose() {
-    myBanner.dispose();
-    super.dispose();
   }
 
   void addUserData() async {
@@ -76,15 +71,12 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
       } else if (state is RefreshScreenState) {}
     }, builder: (context, state) {
       return Scaffold(
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10),
-          child: SizedBox(
-            height: myBanner.size.height.toDouble(),  //MediaQuery.of(context).size.height*0.08,
-            width: myBanner.size.width.toDouble(), //double.infinity,
-            child: AdWidget(
-              ad: myBanner..load(),
-              key: UniqueKey(),
-            ),
+        bottomNavigationBar: SizedBox(
+          height: MediaQuery.of(context).size.height*0.07,
+          width: AdmobHelper.getBannerAd().size.width.toDouble(), //double.infinity,
+          child: AdWidget(
+            ad:  AdmobHelper.getBannerAd()..load(),                 //myBanner..load(),
+            key: UniqueKey(),
           ),
         ),
         body: ColorRemover(
@@ -95,7 +87,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                   Stack(
                     children: [
                       Container(
-                        height: MediaQuery.of(context).size.height,
+                        height: MediaQuery.of(context).size.height*0.93,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage("assets/images/Bell Magic Workout.jpg"),
@@ -114,7 +106,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                             ],
                           ),
                         ),
-                        height: MediaQuery.of(context).size.height,
+                        height: MediaQuery.of(context).size.height*0.93,
                         width: MediaQuery.of(context).size.width,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -189,20 +181,13 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                   Text(
                                     "CHOOSE YOUR PLAN",
                                     maxLines: 1,
-                                    style: TextStyle(
-                                      fontSize: 25,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                    style: TextStyle(fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold,),
                                   ),
                                   SizedBox(height: 5),
                                   Text(
                                     "Lose weight with the plan that suits you best",
                                     maxLines: 1,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: kColorPrimary,
-                                    ),
+                                    style: TextStyle(fontSize: 15, color: kColorPrimary,),
                                   ),
                                 ],
                               ),

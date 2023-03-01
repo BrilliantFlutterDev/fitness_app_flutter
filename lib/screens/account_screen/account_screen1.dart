@@ -8,6 +8,7 @@ import 'package:fitness_app/screens/account_screen/Workout/training_rest_popup.d
 import 'package:fitness_app/screens/reminder_screen/notification_service.dart';
 import 'package:fitness_app/screens/reminder_screen/reminder_screen.dart';
 import 'package:fitness_app/widgets/coming_soon_popup.dart';
+import 'package:fitness_app/widgets/switch_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/screens/account_screen/term_and_condition/term_and_condition.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
@@ -673,26 +674,34 @@ class _AccountScreen1State extends State<AccountScreen1> {
                                     ),
                                   ],
                                 ),
-                                FlutterSwitch(
-                                  activeColor: kColorPrimary,
-                                  width: 50,
-                                  height: 25,
-                                  toggleSize: 10,
-                                  value: status1,
-                                  borderRadius: 30,
-                                  padding: 8.0,
-                                  showOnOff: false,
-                                  onToggle: (val) {
+                                SwitchButton(
+                                  status: status,
+                                  whenpress: (bool val) {
                                     setState(() {
-                                      status1 = val;
+                                      status = val;
                                     });
-                                    if (status1){
-                                      notificationServices.sheduleNotification("Reminder", "Drink Water");
-                                    }else{
-                                      notificationServices.stopNotification();
-                                    }
                                   },
                                 ),
+                                // FlutterSwitch(
+                                //   activeColor: kColorPrimary,
+                                //   width: 50,
+                                //   height: 25,
+                                //   toggleSize: 10,
+                                //   value: status1,
+                                //   borderRadius: 30,
+                                //   padding: 8.0,
+                                //   showOnOff: false,
+                                //   onToggle: (val) {
+                                //     setState(() {
+                                //       status1 = val;
+                                //     });
+                                //     if (status1){
+                                //       notificationServices.sheduleNotification("Reminder", "Drink Water");
+                                //     }else{
+                                //       notificationServices.stopNotification();
+                                //     }
+                                //   },
+                                // ),
                               ],
                             ),
                           ),

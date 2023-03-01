@@ -1,7 +1,9 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:fitness_app/constants.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/account_screen/AccountScreenBloc/account_screen_bloc.dart';
 import 'package:fitness_app/screens/account_screen/Workout/notification_service.dart';
+import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/splash_screen/splash_screen.dart';
 import 'package:fitness_app/screens/my_activity/MyActivityBloc/my_activity_bloc.dart';
@@ -14,9 +16,40 @@ import 'package:sizer/sizer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if(MobileAds.instance == null){
-    MobileAds.instance.initialize();
-  }
+  AdmobHelper.initialization();AwesomeNotifications().initialize(
+      'resource://drawable/splash',
+      [            // notification icon
+        NotificationChannel(
+          channelGroupKey: 'basic_test',
+          channelKey: 'basic',
+          channelName: 'Basic notifications',
+          channelDescription: 'Notification channel for basic tests',
+          channelShowBadge: true,
+          importance: NotificationImportance.High,
+          enableVibration: true,
+        ),
+
+        NotificationChannel(
+            channelGroupKey: 'image_test',
+            channelKey: 'image',
+            channelName: 'image notifications',
+            channelDescription: 'Notification channel for image tests',
+            defaultColor: Colors.redAccent,
+            ledColor: Colors.white,
+            channelShowBadge: true,
+            importance: NotificationImportance.High
+        )
+
+        //add more notification type with different configuration
+
+      ]
+  );
+  //tap listiner on notification
+  // AwesomeNotifications().actionStream.listen((ReceivedNotification receivedNotification){
+  //   print(receivedNotification.payload!['name']);
+  //   //output from first notification:  FlutterCampus
+  // });
+
   await NotificationService().init();
   await NotificationService().requestIOSPermissions();
   runApp(const MyApp());

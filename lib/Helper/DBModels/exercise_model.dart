@@ -29,9 +29,10 @@ class ExerciseDetailModel{
   late final String name;
   late final String image;
   late final String type;
+  late final double kcal;
   late final String description;
 
-  ExerciseDetailModel( {this.columnsId, required this.id, required this.name, required this.image, required this.type, required this.description,});
+  ExerciseDetailModel( {this.columnsId, required this.id, required this.name, required this.image, required this.type, required this.kcal, required this.description,});
 
 
   ExerciseDetailModel.fromJson(Map<String, dynamic> json) {
@@ -40,6 +41,7 @@ class ExerciseDetailModel{
     image = json['image'];
     name = json['name'];
     type = json['type'];
+    kcal = json['kcal'];
     description = json['description'];
   }
 
@@ -50,6 +52,7 @@ class ExerciseDetailModel{
     data['image'] = image;
     data['name'] = name;
     data['type'] = type;
+    data['kcal'] = kcal;
     data['description'] = description;
 
     return data;

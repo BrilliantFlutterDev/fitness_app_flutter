@@ -100,6 +100,7 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
           name: constants.AllExercises[i].name,
           image: constants.AllExercises[i].image,
           type: constants.AllExercises[i].type,
+          kcal: constants.AllExercises[i].kcal,
           description: constants.AllExercises[i].description,
         );
         await dbHelper.insertExerciseDetail(exerciseDetailModel.toJson());
@@ -195,11 +196,11 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
     else if (event is WaterGlassIncrementDecrementEvent) {
       try {
         if (event.isIncrementing == true) {
-          event.dayData.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank =
-              event.dayData.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank + 1;
+          event.dayData.exerciseList![0].noOfGlassWaterDrank =
+              event.dayData.exerciseList![0].noOfGlassWaterDrank + 1;
         } else {
-          event.dayData.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank =
-              event.dayData.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank - 1;
+          event.dayData.exerciseList![0].noOfGlassWaterDrank =
+              event.dayData.exerciseList![0].noOfGlassWaterDrank - 1;
         }
         var data =
             await dbHelper.updateADay(event.dayData.exerciseList![AppGlobal.currentDay].toJson());

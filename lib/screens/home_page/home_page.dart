@@ -50,8 +50,6 @@ class _HomePageState extends State<HomePage> {
     }
     AppGlobal.selectedPlan;
     AppGlobal.selectedKneeIssueOption;
-    // dayModelLocalDB!.exerciseNumInProgress;
-    print("Exercise Number in Progress>>>> ${dayModelLocalDB?.exerciseNumInProgress}");
   }
 
   @override

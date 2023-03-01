@@ -26,6 +26,7 @@ class _DrinkAcknowledgeState extends State<DrinkAcknowledge> {
         leading: InkWell(
           onTap: (){
             Navigator.pop(context);
+            Navigator.pop(context);
           },
             child: Icon(Icons.arrow_back_sharp)
         ),

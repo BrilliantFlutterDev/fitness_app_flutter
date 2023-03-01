@@ -29,6 +29,7 @@ class DatabaseHelper {
   static const completeStatus = 'completeStatus';
   static const isRest = 'isRest';
   static const description = 'description';
+  static const kcal = 'kcal';
 
   ///Day variables
   // static const dayTitle = 'dayTitle';
@@ -97,6 +98,7 @@ class DatabaseHelper {
             $exercise_id INTEGER,
             $image TEXT,
             $type TEXT,
+            $kcal REAL,
             $description TEXT
           )
           ''');

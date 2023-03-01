@@ -196,6 +196,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           name: constants.AllExercises[i].name,
           image: constants.AllExercises[i].image,
           type: constants.AllExercises[i].type,
+          kcal: constants.AllExercises[i].kcal,
           description: constants.AllExercises[i].description,
         );
         await dbHelper.insertExerciseDetail(exerciseDetailModel.toJson());
