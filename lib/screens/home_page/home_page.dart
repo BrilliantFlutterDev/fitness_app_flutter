@@ -2,6 +2,7 @@ import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/constants/constants.dart';
+import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/rest_screen/dayrest_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
@@ -35,6 +36,8 @@ class _HomePageState extends State<HomePage> {
   RequestDayData? requestDayData;
   DayModelLocalDB? dayModelLocalDB;
   RequestExerciseData? exerciseData;
+
+  AdmobHelper admobHelper = AdmobHelper();
 
   @override
   void initState() {
@@ -144,6 +147,7 @@ class _HomePageState extends State<HomePage> {
                 // ),
                 InkWell(
                   onTap: () {
+                    admobHelper.loadInterstatialAd();
                     // Navigator.push(
                     //     context,
                     //     MaterialPageRoute(

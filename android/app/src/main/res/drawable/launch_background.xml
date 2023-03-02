@@ -3,7 +3,7 @@
 <!--    <item android:drawable="@android:color/F77F00" />-->
 <!--    <item android:drawable="@color/brandcolor" />-->
     <item>
-        <bitmap android:gravity="fill" android:src="@drawable/splash"/>
+        <bitmap android:gravity="fill" android:src="@drawable/splashwithopacity"/>
     </item>
 <!--    <item>-->
 <!--        <bitmap android:gravity="center" android:src="@drawable/splash"/>-->

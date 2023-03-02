@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fitness_app/constants/colors.dart';
+import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/plan_screen/plan_screen.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +22,12 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
   FlutterSecureStorage storage = const FlutterSecureStorage();
+
+  AdmobHelper admobHelper = AdmobHelper();
 
   @override
   void initState() {
@@ -48,12 +50,14 @@ class _SplashScreenState extends State<SplashScreen>
     _animation.addListener(() => setState(() {}));
     _animationController.forward();
 
-    Timer(const Duration(seconds: 6), () {
+    Timer(const Duration(seconds: 5), () {
       if (AppGlobal.dataStoreFromConstantToLDB == 'true') {
+        admobHelper.loadAppOpenAd();
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => const CusBottomBar()),
             (Route<dynamic> route) => false);
       } else {
+        admobHelper.loadAppOpenAd();
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -120,9 +124,9 @@ class _SplashScreenState extends State<SplashScreen>
               //   height: 20,
               // ),
               Image.asset(
-                'assets/images/splash.png',
+                'assets/images/splashwithopacity.png',
                 height: MediaQuery.of(context).size.height,
-                opacity: AlwaysStoppedAnimation(0.4),
+                opacity: AlwaysStoppedAnimation(0.8),
                 // kColorBG.withOpacity(0.8),
                 // color: kColorBG.withOpacity(0.2),
                 // width: _animation.value * 300,

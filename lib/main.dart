@@ -16,7 +16,8 @@ import 'package:sizer/sizer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  AdmobHelper.initialization();AwesomeNotifications().initialize(
+  AdmobHelper.initialization();
+  AwesomeNotifications().initialize(
       'resource://drawable/splash',
       [            // notification icon
         NotificationChannel(
@@ -29,26 +30,10 @@ void main() async {
           enableVibration: true,
         ),
 
-        NotificationChannel(
-            channelGroupKey: 'image_test',
-            channelKey: 'image',
-            channelName: 'image notifications',
-            channelDescription: 'Notification channel for image tests',
-            defaultColor: Colors.redAccent,
-            ledColor: Colors.white,
-            channelShowBadge: true,
-            importance: NotificationImportance.High
-        )
-
         //add more notification type with different configuration
 
       ]
   );
-  //tap listiner on notification
-  // AwesomeNotifications().actionStream.listen((ReceivedNotification receivedNotification){
-  //   print(receivedNotification.payload!['name']);
-  //   //output from first notification:  FlutterCampus
-  // });
 
   await NotificationService().init();
   await NotificationService().requestIOSPermissions();

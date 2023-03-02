@@ -54,7 +54,6 @@ class _AccountScreen1State extends State<AccountScreen1> {
 
   bool status = false;
   bool status1 = false;
-  bool status2 = false;
 
   int countresult = 10;
   int restresult = 10;
@@ -624,23 +623,26 @@ class _AccountScreen1State extends State<AccountScreen1> {
                                 width: 50,
                                 height: 25,
                                 toggleSize: 10,
-                                value: status,
+                                value: status1,
                                 borderRadius: 30,
                                 padding: 8.0,
                                 showOnOff: false,
                                 onToggle: (val) async {
                                   setState(() {
-                                    status = val;
+                                    status1 = val;
+                                    if(status){
+                                      status1 = true;
+                                    }
                                   });
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
-                                  prefs.setBool("watertracker", status);
+                                  prefs.setBool("watertracker", status1);
                                 },
                               ),
                             ],
                           ),
                         ),
                         Visibility(
-                          visible: status,
+                          visible: status1,
                           child: Padding(
                             padding: const EdgeInsets.only(top: 10,bottom: 10),
                             child: Row(

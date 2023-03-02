@@ -36,6 +36,8 @@ class _OpenActivityState extends State<OpenActivity> {
   final List<bool> _selectedPlan = <bool>[true, false, false];
   FlutterSecureStorage storage = const FlutterSecureStorage();
 
+  double calories = 0;
+
   // int pushUp = 10;
   // int plank = 15;
   @override
@@ -44,14 +46,11 @@ class _OpenActivityState extends State<OpenActivity> {
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     _homeBloc.add(GetAllExerciseOfDayEvent(day: widget.dayModelLocalDB!.name));
 
-    print('Exercise in progress>>111111> ${widget.dayModelLocalDB!.exerciseNumInProgress}');
-
     // pushUp = int.parse(AppGlobal.selectedPushUpOption!);
     // print(AppGlobal.selectedPushUpOption);
     //
     // plank = int.parse(AppGlobal.selectedPlankOption!);
     // print(AppGlobal.selectedPlankOption);
-
   }
 
   @override
@@ -72,6 +71,7 @@ class _OpenActivityState extends State<OpenActivity> {
       } else if (state is RefreshScreenState) {
       } else if (state is GetAllExerciseState) {
         exerciseData = state.exerciseData;
+        calories = state.calories!;
 
       }
     }, builder: (context, state) {
@@ -673,7 +673,8 @@ class _OpenActivityState extends State<OpenActivity> {
                     Padding(
                       padding: EdgeInsets.only(
                           top: MediaQuery.of(context).size.width * 0.025,
-                          right: MediaQuery.of(context).size.width * 0.15),
+                          right: MediaQuery.of(context).size.width * 0.15
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -694,9 +695,10 @@ class _OpenActivityState extends State<OpenActivity> {
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
-                                "≈59.7",
+                                "≈${calories}",
+                                // "≈59.7",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 17),
                               ),

@@ -8,7 +8,6 @@ class SwitchButton extends StatefulWidget {
 
   bool status;
   final Function(bool)? whenpress;
-
   SwitchButton({Key? key, required this.status, required this.whenpress,}) : super(key: key);
 
   @override
@@ -17,15 +16,15 @@ class SwitchButton extends StatefulWidget {
 
 class _SwitchButtonState extends State<SwitchButton> {
 
-  void saveWaterTracker() async {
+  void saveDrinkNotification() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.status = prefs.getBool("watertracker")!;
+    widget.status = prefs.getBool("drinknotification")!;
   }
 
   @override
   void initState() {
     super.initState();
-    saveWaterTracker();
+    saveDrinkNotification();
   }
 
   @override
@@ -79,22 +78,8 @@ class _SwitchButtonState extends State<SwitchButton> {
           // AwesomeNotifications().dismissAllNotifications();
         }
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setBool("watertracker", widget.status);
+        prefs.setBool("drinknotification", widget.status);
       },
     );
-    //   SizedBox(
-    //   height: 6.h,
-    //   width: double.infinity,
-    //   child: MaterialButton(
-    //     shape: const StadiumBorder(),
-    //     textColor: Colors.white,
-    //     color: kColorPrimary,
-    //     onPressed: whenpress,
-    //     child: Text(
-    //       name,
-    //       style: TextStyle(fontSize: 15.sp),
-    //     ),
-    //   ),
-    // );
   }
 }

@@ -256,13 +256,24 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       try {
         var data = await dbHelper.queryAllExerciseOfDay(event.day);
         RequestExerciseData exerciseData = RequestExerciseData.fromJson(data);
-        for(int i=0;i< exerciseData.exerciseList!.length; i++){
+        for(int i=0; i< exerciseData.exerciseList!.length; i++){
           var mExercise = await dbHelper.queryASpecificExercise(exerciseData.exerciseList![i].exerciseID);
           exerciseData.exerciseList![i].exercise = ExerciseDetailModel.fromJson(mExercise[0]);
           print(exerciseData);
         }
 
-        yield GetAllExerciseState(exerciseData: exerciseData);
+        double calories = 0.0;
+        for(int index=0; index<exerciseData.exerciseList!.length; index++){
+            print('Exercise Length>>>> ${exerciseData.exerciseList!.length}');
+            double cal1 = exerciseData.exerciseList![index].exercise.type == 'time'?
+            exerciseData.exerciseList![index].exercise.kcal * exerciseData.exerciseList![index].time.toDouble() :
+            exerciseData.exerciseList![index].exercise.kcal * exerciseData.exerciseList![index].raps.toDouble();
+            print('Calories>>> $cal1');
+            calories = calories + cal1;
+            print('Calories $calories');
+          }
+
+        yield GetAllExerciseState(exerciseData: exerciseData, calories: calories);
       } catch (e) {
         yield ErrorState(error: 'No Exercise found!');
       }
