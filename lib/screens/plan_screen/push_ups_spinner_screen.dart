@@ -51,15 +51,13 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
       } else if (state is RefreshScreenState) {}
     }, builder: (context, state) {
       return Scaffold(
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10),
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height*0.07,
-            width: AdmobHelper.getBannerAd().size.width.toDouble(), //double.infinity,
-            child: AdWidget(
-              ad:  AdmobHelper.getBannerAd()..load(),                 //myBanner..load(),
-              key: UniqueKey(),
-            ),
+        backgroundColor: kColorBG,
+        bottomNavigationBar: SizedBox(
+          height: MediaQuery.of(context).size.height*0.07,
+          width: AdmobHelper.getBannerAd().size.width.toDouble(), //double.infinity,
+          child: AdWidget(
+            ad:  AdmobHelper.getBannerAd()..load(),                 //myBanner..load(),
+            key: UniqueKey(),
           ),
         ),
         body: ColorRemover(

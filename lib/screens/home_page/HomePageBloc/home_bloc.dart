@@ -332,6 +332,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
         yield UpdateAllExerciseState(exerciseModelLocalDB: event.exerciseModelLocalDB);
       } catch (e) {
+        print("Error State: $e");
         yield ErrorState(error: 'No Exercise found!');
       }
     }

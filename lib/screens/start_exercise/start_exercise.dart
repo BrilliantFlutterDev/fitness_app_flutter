@@ -135,7 +135,7 @@ class _StartExerciseState extends State<StartExercise> {
       }else if (state is UpdateAllExerciseState) {
         widget.exerciseData!.exerciseList![index]=state.exerciseModelLocalDB;
         double progress;
-        if(index<widget.exerciseData!.exerciseList!.length-1) {
+        if(index<widget.exerciseData!.exerciseList!.length) {
           if (widget.dayModelLocalDB!.completedPercentage == 0) {
             progress = (1 / widget.exerciseData!.exerciseList!.length);
             progress = (progress * 100);
@@ -177,11 +177,16 @@ class _StartExerciseState extends State<StartExercise> {
           });
         }
         else if(index==(widget.exerciseData!.exerciseList!.length-1)) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (ctx) => CusBottomBar(),
-            )
-          );
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (context) =>
+                  const CusBottomBar()),
+                  (Route<dynamic> route) => false);
+          // Navigator.of(context).pushReplacement(
+          //   MaterialPageRoute(
+          //     builder: (ctx) => CusBottomBar(),
+          //   )
+          // );
         }
       }
     }, builder: (context, state) {
@@ -334,6 +339,7 @@ class _StartExerciseState extends State<StartExercise> {
                         if(widget.exerciseData!.exerciseList![index].exercise.type=='time'){
                           _timer.cancel();
                         }
+
                         widget.dayModelLocalDB!.exerciseNumInProgress = index + 1;
 
                         _homeBloc.add(ChangeExerciseStatusToDoneEvent(

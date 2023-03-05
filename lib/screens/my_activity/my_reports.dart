@@ -1,7 +1,6 @@
 import 'package:calender_picker/date_picker_widget.dart';
 import 'package:fitness_app/constants/constants.dart';
 import 'package:fitness_app/screens/my_activity/WaterTracker/animated_drinking_screen.dart';
-import 'package:fitness_app/screens/my_activity/WaterTracker/drink_acknowledge_screen.dart';
 import 'package:fitness_app/screens/my_activity/Wikipedia_direct.dart';
 import 'package:fitness_app/screens/my_activity/bmi_popup.dart';
 import 'package:fitness_app/screens/my_activity/WaterTracker/water_tracker.dart';
@@ -50,6 +49,7 @@ class _MyReportsState extends State<MyReports> {
   RequestDayData? requestDayData;
   DayModelLocalDB? dayModelLocalDB;
   int totalWorkout = 0;
+  int totalTime = 0;
 
   String _message = 'Please enter your height and weight';
   double? _bmi;
@@ -137,6 +137,7 @@ class _MyReportsState extends State<MyReports> {
 
         totalWorkout = int.parse('${requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress}');
         print("Exercise Number>>>>>>>>> $totalWorkout");
+
         previousValue = double.parse(requestDayData!.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank.toString());
         value = requestDayData!.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank * 12.5;
       }
@@ -274,7 +275,32 @@ class _MyReportsState extends State<MyReports> {
                             //   child: Center(
                             //       child:
                               Text(
-                                '01:00',
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 1? "0 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 2? "1 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 3? "1 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 4? "2 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 5? "2 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 6? "3 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 7? "3 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 8? "4 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 9? "4 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 10? "5 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 11? "5 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 12? "6 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 13? "6 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 14? "7 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 15? "7 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 16? "8 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 17? "8 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 18? "9 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 19? "9 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 20? "10 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 21? "10 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 22? "11 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 23? "11 min" :
+                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 24? "12 min" :
+                                "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min",
+                                // '01:00',
                                 style: TextStyle(color: kColorPrimary, fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                             //   ),
