@@ -278,6 +278,7 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               GestureDetector(
                                 onTap: () {
+                                  admobHelper.loadInterstatialAd();
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (ctx) => DayRestScreen()
                                   ));
@@ -438,13 +439,6 @@ class _HomePageState extends State<HomePage> {
                                             radius: 15,
                                             backgroundColor: kColorBG,
                                             child:
-                                            // Image.asset(
-                                            //   'assets/icons/change_plan_icon.png',
-                                            // ),
-                                            // Icon(
-                                            //     Icons.change_circle_outlined,
-                                            //     color: kColorFG
-                                            // ),
                                             Container(
                                               child: SvgPicture.asset(
                                                 "assets/icons/changeplanbottom.svg",
@@ -465,12 +459,86 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        // requestDayData!.exerciseList![index].completedPercentage.truncate();
-                                        // Navigator.push(
-                                        //     context,
-                                        //     MaterialPageRoute(
-                                        //         builder: (BuildContext context) =>
-                                        //         const SelectPlanScreen()));
+                                        showModalBottomSheet(
+                                          // backgroundColor: kColorBG,
+                                          isScrollControlled: true,
+                                          context: context,
+                                          builder: (context) {
+                                            return StatefulBuilder(builder: (BuildContext context,
+                                                StateSetter setState /*You can rename this!*/) {
+                                              return Padding(
+                                                padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
+                                                child: Container(
+                                                  height: MediaQuery.of(context).size.height * 0.35,
+                                                  child: Wrap(
+                                                    children: [
+                                                      const Text(
+                                                        "Reset this plan",
+                                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                                                      ),
+                                                      SizedBox(height: MediaQuery.of(context).size.height*0.05),
+                                                      const Text(
+                                                        "Would you like to clear your progress and restart from Day 1?",
+                                                        style: TextStyle(fontSize: 16, color: Colors.white),
+                                                      ),
+                                                      SizedBox(height: MediaQuery.of(context).size.height*0.15),
+                                                      Row(
+                                                        children: [
+                                                          Padding(
+                                                            padding: const EdgeInsets.only(left: 10, top: 10),
+                                                            child: InkWell(
+                                                              onTap: () {
+                                                                Navigator.pop(context);
+                                                              },
+                                                              child: Container(
+                                                                height: MediaQuery.of(context).size.height * 0.08,
+                                                                width: MediaQuery.of(context).size.width * 0.4,
+                                                                decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.circular(50),
+                                                                  color: Colors.white,
+                                                                ),
+                                                                child: const Center(
+                                                                  child: Text(
+                                                                    "CANCEL",
+                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding: const EdgeInsets.only(left: 10, top: 10),
+                                                            child: InkWell(
+                                                              onTap: () {
+                                                                Navigator.pop(context);
+                                                                _homeBloc.add(ChangeExerciseStatusToResetEvent());
+                                                                _homeBloc.add(GetAllDaysEvent());
+                                                              },
+                                                              child: Container(
+                                                                height: MediaQuery.of(context).size.height * 0.08,
+                                                                width: MediaQuery.of(context).size.width * 0.4,
+                                                                decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.circular(50),
+                                                                  color: kColorPrimary,
+                                                                ),
+                                                                child: const Center(
+                                                                  child: Text(
+                                                                    "OK",
+                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            });
+                                          },
+                                        );
                                       },
                                       child: Column(
                                         children: [
@@ -513,6 +581,7 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               GestureDetector(
                                 onTap: () {
+                                  admobHelper.loadInterstatialAd();
                                   Navigator.of(context).push(MaterialPageRoute(
                                     builder: (ctx) => OpenActivity(
                                       dayModelLocalDB: requestDayData!.exerciseList![index],
@@ -663,8 +732,86 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        _homeBloc.add(ChangeExerciseStatusToResetEvent());
-                                        _homeBloc.add(GetAllDaysEvent());
+                                        showModalBottomSheet(
+                                          // backgroundColor: kColorBG,
+                                          isScrollControlled: true,
+                                          context: context,
+                                          builder: (context) {
+                                            return StatefulBuilder(builder: (BuildContext context,
+                                              StateSetter setState /*You can rename this!*/) {
+                                                return Padding(
+                                                  padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
+                                                  child: Container(
+                                                    height: MediaQuery.of(context).size.height * 0.35,
+                                                    child: Wrap(
+                                                      children: [
+                                                        const Text(
+                                                          "Reset this plan",
+                                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                                                        ),
+                                                        SizedBox(height: MediaQuery.of(context).size.height*0.05),
+                                                        const Text(
+                                                          "Would you like to clear your progress and restart from Day 1?",
+                                                          style: TextStyle(fontSize: 16, color: Colors.white),
+                                                        ),
+                                                        SizedBox(height: MediaQuery.of(context).size.height*0.15),
+                                                        Row(
+                                                          children: [
+                                                            Padding(
+                                                              padding: const EdgeInsets.only(left: 10, top: 10),
+                                                              child: InkWell(
+                                                                onTap: () {
+                                                                  Navigator.pop(context);
+                                                                },
+                                                                child: Container(
+                                                                  height: MediaQuery.of(context).size.height * 0.08,
+                                                                  width: MediaQuery.of(context).size.width * 0.4,
+                                                                  decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular(50),
+                                                                    color: Colors.white,
+                                                                  ),
+                                                                  child: const Center(
+                                                                    child: Text(
+                                                                      "CANCEL",
+                                                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding: const EdgeInsets.only(left: 10, top: 10),
+                                                              child: InkWell(
+                                                                onTap: () {
+                                                                  Navigator.pop(context);
+                                                                  _homeBloc.add(ChangeExerciseStatusToResetEvent());
+                                                                  _homeBloc.add(GetAllDaysEvent());
+                                                                },
+                                                                child: Container(
+                                                                  height: MediaQuery.of(context).size.height * 0.08,
+                                                                  width: MediaQuery.of(context).size.width * 0.4,
+                                                                  decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular(50),
+                                                                    color: kColorPrimary,
+                                                                  ),
+                                                                  child: const Center(
+                                                                    child: Text(
+                                                                      "OK",
+                                                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                        ),
+                                                    ],
+                                                  ),
+                                                ),
+                                            );
+                                            });
+                                        },
+                                      );
                                       },
                                       child: Column(
                                         children: [

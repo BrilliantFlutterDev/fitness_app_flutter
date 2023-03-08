@@ -1,6 +1,8 @@
+import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/my_activity/WaterTracker/water_tracker.dart';
 import 'package:fitness_app/widgets/cus_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../../constants/colors.dart';
 
@@ -20,6 +22,14 @@ class _DrinkAcknowledgeState extends State<DrinkAcknowledge> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kColorBG,
+      bottomNavigationBar: SizedBox(
+        height: MediaQuery.of(context).size.height*0.07,
+        width: AdmobHelper.getBannerAd().size.width.toDouble(),//double.infinity,
+        child: AdWidget(
+          ad:  AdmobHelper.getBannerAd()..load(),                 //myBanner..load(),
+          key: UniqueKey(),
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: kColorBG,
         // backgroundColor: const Color(0xff1c1b20),

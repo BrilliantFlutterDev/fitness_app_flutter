@@ -25,6 +25,8 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
   FlutterSecureStorage storage = const FlutterSecureStorage();
   late HomeBloc _homeBloc;
 
+  AdmobHelper admobHelper = AdmobHelper();
+
   @override
   void initState() {
     super.initState();
@@ -356,6 +358,7 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                               ),
                               InkWell(
                                 onTap: () {
+                                  admobHelper.loadInterstatialAd();
                                   Navigator.of(context).pushAndRemoveUntil(
                                       MaterialPageRoute(
                                           builder: (context) =>

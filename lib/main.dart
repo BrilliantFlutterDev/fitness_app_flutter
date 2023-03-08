@@ -10,10 +10,11 @@ import 'package:fitness_app/screens/my_activity/MyActivityBloc/my_activity_bloc.
 import 'package:fitness_app/screens/plan_screen/plan_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   AdmobHelper.initialization();
@@ -29,14 +30,27 @@ void main() async {
           importance: NotificationImportance.High,
           enableVibration: true,
         ),
-
         //add more notification type with different configuration
-
       ]
   );
 
   await NotificationService().init();
   await NotificationService().requestIOSPermissions();
+
+  var initializationSettingsAndroid = const AndroidInitializationSettings('splash');
+  var initializationSettingsIOS = DarwinInitializationSettings(
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
+      onDidReceiveLocalNotification: (int id, String? title, String? body, String? payload) async {});
+  var initializationSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+  await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: (payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: ' + payload.toString());
+    }
+  });
   runApp(const MyApp());
 }
 

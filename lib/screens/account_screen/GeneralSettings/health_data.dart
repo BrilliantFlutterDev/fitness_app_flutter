@@ -1,3 +1,4 @@
+import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:enum_to_string/enum_to_string.dart';
@@ -55,7 +57,7 @@ class _HealthDataState extends State<HealthData> {
       context,
       initialDate: DateTime.now(),
       firstDate: DateTime(1923),
-      lastDate: DateTime(2023, 12, 31),
+      lastDate: DateTime.now(),//DateTime(2023, 12, 31),
       dateFormat: "yyyy-MMMM-dd",
       locale: DateTimePickerLocale.en_us,
       backgroundColor: kColorFG,
@@ -92,6 +94,14 @@ class _HealthDataState extends State<HealthData> {
     }, builder: (context, state) {
       return Scaffold(
         backgroundColor: kColorBG,
+        bottomNavigationBar: SizedBox(
+          height: MediaQuery.of(context).size.height*0.07,
+          width: AdmobHelper.getBannerAd().size.width.toDouble(),//double.infinity,
+          child: AdWidget(
+            ad:  AdmobHelper.getBannerAd()..load(),                 //myBanner..load(),
+            key: UniqueKey(),
+          ),
+        ),
         appBar: AppBar(
           backgroundColor: kColorBG,
           // backgroundColor: const Color(0xff1c1b20),

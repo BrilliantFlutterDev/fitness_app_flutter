@@ -1,6 +1,8 @@
 import 'package:fitness_app/constants/colors.dart';
+import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class FAQ extends StatefulWidget {
   @override
@@ -13,6 +15,14 @@ class _FAQState extends State<FAQ> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kColorBG,
+      bottomNavigationBar: SizedBox(
+        height: MediaQuery.of(context).size.height*0.07,
+        width: AdmobHelper.getBannerAd().size.width.toDouble(),//double.infinity,
+        child: AdWidget(
+          ad:  AdmobHelper.getBannerAd()..load(),                 //myBanner..load(),
+          key: UniqueKey(),
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: kColorBG,
         title: const Text("Common Questions"),
@@ -57,7 +67,7 @@ class _FAQState extends State<FAQ> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: ExpansionTile(
-                      title: Text('Is it too easy for me?'),
+                      title: Text('It\'s too easy for me?'),
                       children: [
                         Text('We provide workout plans with 3 difficulty levels for you, you can adjust to a higher level by tapping + in the upper right corner of the home page.\n'),
                         Text('Besides, you can use weight, such as holding dumbbells or water bottles when performing workouts.\n'),
@@ -68,7 +78,7 @@ class _FAQState extends State<FAQ> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: ExpansionTile(
-                      title: Text('Is it too hard for me?'),
+                      title: Text('It\'s too hard for me?'),
                       children: [
                         Text('Don\'t be anxious, you don\'t have to strictly follow the scheduled workout day by day.\n'),
                         Text('If you feel the workout is too hard to go on, you can repeat the day that you feel appropriate, and move to the next day when you\'re ready.\n'),

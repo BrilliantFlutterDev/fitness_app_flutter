@@ -401,17 +401,30 @@ class _StartExerciseState extends State<StartExercise> {
                         index<widget.exerciseData!.exerciseList!.length-1?
                         GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pushReplacement(
+                            if(widget.exerciseData!.exerciseList![index].exercise.type=='time'){
+                              _timer.cancel();
+                            }
+
+                            widget.dayModelLocalDB!.exerciseNumInProgress = index + 1;
+                            Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (ctx) =>
                                   ExerciseRestScreen(dayModelLocalDB: widget.dayModelLocalDB, exerciseData: widget.exerciseData,)
                               )
-                            );
-                            if(index<widget.exerciseData!.exerciseList!.length){
+                            ).then((val){
                               setState(() {
-                                index=index+1;
+                                index = index + 1;
+                                value = double.parse(widget.exerciseData!.exerciseList![index].time.toString());
+                                if(widget.exerciseData!.exerciseList![index].exercise.type !='rap'){
+                                  startTimer();
+                                }
                               });
-                            }
+                            });
+                            // if(index<widget.exerciseData!.exerciseList!.length){
+                            //   setState(() {
+                            //     index=index+1;
+                            //   });
+                            // }
                           },
                           child: Row(
                             children: [

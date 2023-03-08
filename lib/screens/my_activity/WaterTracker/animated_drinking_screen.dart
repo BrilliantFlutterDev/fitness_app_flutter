@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:countup/countup.dart';
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/Utils/app_global.dart';
+import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/my_activity/MyActivityBloc/my_activity_bloc.dart';
 import 'package:fitness_app/screens/my_activity/WaterTracker/drink_acknowledge_screen.dart';
 import 'package:fitness_app/screens/my_activity/WaterTracker/water_tracker.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../../constants/colors.dart';
 
@@ -68,6 +70,14 @@ class _AnimatedDrinkAcknowledgeState extends State<AnimatedDrinkAcknowledge> {
     }, builder: (context, state) {
     return Scaffold(
       backgroundColor: kColorBG,
+      bottomNavigationBar: SizedBox(
+        height: MediaQuery.of(context).size.height*0.07,
+        width: AdmobHelper.getBannerAd().size.width.toDouble(),//double.infinity,
+        child: AdWidget(
+          ad:  AdmobHelper.getBannerAd()..load(),                 //myBanner..load(),
+          key: UniqueKey(),
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: kColorBG,
         // backgroundColor: const Color(0xff1c1b20),

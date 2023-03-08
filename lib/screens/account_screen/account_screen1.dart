@@ -4,10 +4,13 @@ import 'package:fitness_app/screens/account_screen/CommonQuestions/common_questi
 import 'package:fitness_app/screens/account_screen/Feedback/feedback.dart';
 import 'package:fitness_app/screens/account_screen/GeneralSettings/health_data.dart';
 import 'package:fitness_app/screens/account_screen/GeneralSettings/metric_imperial_units.dart';
+import 'package:fitness_app/screens/account_screen/InAppPurchase/in_app_purchase.dart';
 import 'package:fitness_app/screens/account_screen/Workout/training_rest_popup.dart';
+import 'package:fitness_app/screens/reminder_screen/alarm_screen.dart';
 import 'package:fitness_app/screens/reminder_screen/notification_service.dart';
 import 'package:fitness_app/screens/reminder_screen/reminder_screen.dart';
 import 'package:fitness_app/widgets/coming_soon_popup.dart';
+import 'package:fitness_app/widgets/reset_popup.dart';
 import 'package:fitness_app/widgets/switch_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/screens/account_screen/term_and_condition/term_and_condition.dart';
@@ -60,7 +63,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
 
   void saveWaterTracker() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    status = prefs.getBool("watertracker")!;
+    status1 = prefs.getBool("watertracker")!;
   }
 
   final Uri _url = Uri.parse('https://gamescapesinc.com/privacy');
@@ -302,59 +305,68 @@ class _AccountScreen1State extends State<AccountScreen1> {
                           "WORKOUT",
                           style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: kColorPrimary),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 18,bottom: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    child: SvgPicture.asset(
-                                      "assets/icons/ads.svg",
-                                      height: MediaQuery.of(context).size.height*0.03,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(width: MediaQuery.of(context).size.width*0.035),
-                                  Text(
-                                    "Remove ads",
-                                    style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
-                                  ),
-                                ],
+                        InkWell(
+                          onTap: (){
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (ctx) => RemoveAd(),
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "3950.00",
-                                    style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.043, color: Colors.grey, decoration: TextDecoration.lineThrough),
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Container(
-                                    alignment: Alignment.center,
-                                    height: 28,
-                                    width: MediaQuery.of(context).size.width*0.22,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      gradient: const LinearGradient(
-                                        begin: Alignment.topRight,
-                                        end: Alignment.topLeft,
-                                        colors: [
-                                          kColorPrimary,
-                                          kColorPrimary,
-                                          // Color(0xff1ce5c1).withOpacity(0.9),
-                                          // Color(0xff1ce5c1).withOpacity(0.9),
-                                        ],
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 18,bottom: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      child: SvgPicture.asset(
+                                        "assets/icons/ads.svg",
+                                        height: MediaQuery.of(context).size.height*0.03,
+                                        color: Colors.white,
                                       ),
                                     ),
-                                    child: const Text(
-                                      "Rs 790.00",
-                                      style: TextStyle(fontSize: 15, color: Colors.white),
+                                    SizedBox(width: MediaQuery.of(context).size.width*0.035),
+                                    Text(
+                                      "Remove ads",
+                                      style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
                                     ),
-                                  )
-                                ],
-                              ),
-                            ],
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "3950.00",
+                                      style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.043, color: Colors.grey, decoration: TextDecoration.lineThrough),
+                                    ),
+                                    const SizedBox(width: 5),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      height: 28,
+                                      width: MediaQuery.of(context).size.width*0.22,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8.0),
+                                        gradient: const LinearGradient(
+                                          begin: Alignment.topRight,
+                                          end: Alignment.topLeft,
+                                          colors: [
+                                            kColorPrimary,
+                                            kColorPrimary,
+                                            // Color(0xff1ce5c1).withOpacity(0.9),
+                                            // Color(0xff1ce5c1).withOpacity(0.9),
+                                          ],
+                                        ),
+                                      ),
+                                      child: const Text(
+                                        "Rs 790.00",
+                                        style: TextStyle(fontSize: 15, color: Colors.white),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         InkWell(
@@ -362,7 +374,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 // builder: (ctx) => ReminderScreen(),
-                                builder: (ctx) => ReminderScreen(),
+                                builder: (ctx) => const AlarmScreen(),//ReminderScreen
                               ),
                             );
                           },
@@ -865,9 +877,15 @@ class _AccountScreen1State extends State<AccountScreen1> {
                         // ),
                         InkWell(
                           onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (_) => Dialog(
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height * 0.15,
+                                    child: ResetPopup(),
+                                  ),
+                                ));
                             _accountScreenBloc.add(ChangeExerciseStatusToResetEvent());
-                            // requestDayData!.exerciseList!.setAll(index, iterable);
-                            // requestDayData!.exerciseList![index].completedPercentage.truncate();
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(top: 10,bottom: 10),
@@ -1033,13 +1051,15 @@ class _AccountScreen1State extends State<AccountScreen1> {
                         InkWell(
                         onTap: () async{
                           String email = Uri.encodeComponent("gamescapes234@gmail.com");
-                          String subject = Uri.encodeComponent("Fitness App Feedback");
+                          String subject = Uri.encodeComponent("Daily Weight Loss Home Workout Feedback");
                           String body = Uri.encodeComponent("Write your feedback here...........");
                           Uri mail = Uri.parse("mailto:$email?subject=$subject&body=$body");
                           if (await launchUrl(mail)) {
                             //email app opened
+                            await launchUrl(mail);
                           }else{
                             //email app is not opened
+                            throw Exception("Unable to open the email");
                           }
                         },
 

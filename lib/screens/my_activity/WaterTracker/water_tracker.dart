@@ -1,5 +1,6 @@
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/constants/constants.dart';
+import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/my_activity/MyActivityBloc/my_activity_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
@@ -92,6 +94,14 @@ class _WaterTrackerState extends State<WaterTracker> {
         inAsyncCall: state is LoadingState,
         child: Scaffold(
           backgroundColor: kColorBG,
+          bottomNavigationBar: SizedBox(
+            height: MediaQuery.of(context).size.height*0.07,
+            width: AdmobHelper.getBannerAd().size.width.toDouble(),//double.infinity,
+            child: AdWidget(
+              ad:  AdmobHelper.getBannerAd()..load(),                 //myBanner..load(),
+              key: UniqueKey(),
+            ),
+          ),
           appBar: AppBar(
             backgroundColor: kColorBG,
             // leading: InkWell(

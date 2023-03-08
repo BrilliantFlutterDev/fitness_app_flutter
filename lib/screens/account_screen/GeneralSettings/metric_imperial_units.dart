@@ -1,10 +1,12 @@
 import 'package:fitness_app/constants/colors.dart';
+import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/coming_soon_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 enum Weight {lbs, kg}
 enum Height {cm, inch}
@@ -41,6 +43,14 @@ class _MetricImperialUnitsState extends State<MetricImperialUnits> {
     }, builder: (context, state) {
       return Scaffold(
         backgroundColor: kColorBG,
+        bottomNavigationBar: SizedBox(
+          height: MediaQuery.of(context).size.height*0.07,
+          width: AdmobHelper.getBannerAd().size.width.toDouble(),//double.infinity,
+          child: AdWidget(
+            ad:  AdmobHelper.getBannerAd()..load(),                 //myBanner..load(),
+            key: UniqueKey(),
+          ),
+        ),
         appBar: AppBar(
           backgroundColor: kColorBG,
           title: const Text("METRIC & IMPERIAL UNITS"),

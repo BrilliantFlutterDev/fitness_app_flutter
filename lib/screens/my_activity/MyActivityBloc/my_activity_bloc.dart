@@ -203,7 +203,7 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
               event.dayData.exerciseList![0].noOfGlassWaterDrank - 1;
         }
         var data =
-            await dbHelper.updateADay(event.dayData.exerciseList![AppGlobal.currentDay].toJson());
+            await dbHelper.updateADay(event.dayData.exerciseList![0].toJson());
 
         yield GetAllDaysState(dayData: event.dayData);
       } catch (e) {

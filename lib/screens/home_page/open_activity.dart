@@ -1,15 +1,18 @@
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/constants/colors.dart';
+import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/rest_screen/ready_to_go.dart';
 import 'package:fitness_app/screens/select_exercise/select_exercise.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/coming_soon_popup.dart';
 import 'package:fitness_app/widgets/cus_bottom_bar.dart';
+import 'package:fitness_app/widgets/exercise_completed_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Helper/DBModels/day_model.dart';
@@ -81,6 +84,14 @@ class _OpenActivityState extends State<OpenActivity> {
         child: SafeArea(
           child: Scaffold(
             backgroundColor: kColorBG,
+            bottomNavigationBar: SizedBox(
+              height: MediaQuery.of(context).size.height*0.07,
+              width: AdmobHelper.getBannerAd().size.width.toDouble(),//double.infinity,
+              child: AdWidget(
+                ad:  AdmobHelper.getBannerAd()..load(),                 //myBanner..load(),
+                key: UniqueKey(),
+              ),
+            ),
             // backgroundColor: Colors.black,
             appBar: AppBar(
               backgroundColor: kColorBG,
@@ -152,7 +163,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                       height: MediaQuery.of(context).size.height * 0.7,
                                       child: Wrap(
                                         children: [
-                                          ListTile(
+                                          const ListTile(
                                             title: Text(
                                               "Workout Settings",
                                               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: Colors.white),
@@ -176,12 +187,12 @@ class _OpenActivityState extends State<OpenActivity> {
                                                         _selectedPlan[1] = false;
                                                         _selectedPlan[0] = true;
                                                       });
-                                                      if (AppGlobal.selectedKneeIssueOption != "1"){
-                                                        AppGlobal.selectedKneeIssueOption = "1";
-                                                        AppGlobal.dataStoreFromConstantToLDB = "false";
-                                                        _homeBloc.add(ClearExerciseEvent());
-                                                        _homeBloc.add(RemoveDaysEvent());
-                                                      }
+                                                      // if (AppGlobal.selectedKneeIssueOption != "1"){
+                                                      //   AppGlobal.selectedKneeIssueOption = "1";
+                                                      //   AppGlobal.dataStoreFromConstantToLDB = "false";
+                                                      //   _homeBloc.add(ClearExerciseEvent());
+                                                      //   _homeBloc.add(RemoveDaysEvent());
+                                                      // }
                                                       await storage.write(
                                                           key: 'selectedKneeIssueOption', value: '1'
                                                       );
@@ -257,12 +268,12 @@ class _OpenActivityState extends State<OpenActivity> {
                                                         _selectedPlan[2] = false;
                                                         _selectedPlan[1] = true;
                                                       });
-                                                      if (AppGlobal.selectedKneeIssueOption != "2"){
-                                                        AppGlobal.selectedKneeIssueOption = "2";
-                                                        AppGlobal.dataStoreFromConstantToLDB = "false";
-                                                        _homeBloc.add(ClearExerciseEvent());
-                                                        _homeBloc.add(RemoveDaysEvent());
-                                                      }
+                                                      // if (AppGlobal.selectedKneeIssueOption != "2"){
+                                                      //   AppGlobal.selectedKneeIssueOption = "2";
+                                                      //   AppGlobal.dataStoreFromConstantToLDB = "false";
+                                                      //   _homeBloc.add(ClearExerciseEvent());
+                                                      //   _homeBloc.add(RemoveDaysEvent());
+                                                      // }
                                                       await storage.write(
                                                           key: 'selectedKneeIssueOption', value: '2'
                                                       );
@@ -337,12 +348,12 @@ class _OpenActivityState extends State<OpenActivity> {
                                                         _selectedPlan[1] = false;
                                                         _selectedPlan[2] = true;
                                                       });
-                                                      if (AppGlobal.selectedKneeIssueOption != "3"){
-                                                        AppGlobal.selectedKneeIssueOption = "3";
-                                                        AppGlobal.dataStoreFromConstantToLDB = "false";
-                                                        _homeBloc.add(ClearExerciseEvent());
-                                                        _homeBloc.add(RemoveDaysEvent());
-                                                      }
+                                                      // if (AppGlobal.selectedKneeIssueOption != "3"){
+                                                      //   AppGlobal.selectedKneeIssueOption = "3";
+                                                      //   AppGlobal.dataStoreFromConstantToLDB = "false";
+                                                      //   _homeBloc.add(ClearExerciseEvent());
+                                                      //   _homeBloc.add(RemoveDaysEvent());
+                                                      // }
                                                       await storage.write(
                                                           key: 'selectedKneeIssueOption', value: '3'
                                                       );
@@ -473,15 +484,46 @@ class _OpenActivityState extends State<OpenActivity> {
                                             ),
                                           ),
                                           Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 10, top: 10),
+                                            padding: const EdgeInsets.only(left: 10, top: 10),
                                             child: InkWell(
                                               onTap: () {
-                                                Navigator.of(context).pushAndRemoveUntil(
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                        const CusBottomBar()),
-                                                        (Route<dynamic> route) => false);
+                                                if (AppGlobal.selectedKneeIssueOption != "1"){
+                                                  AppGlobal.selectedKneeIssueOption = "1";
+                                                  AppGlobal.dataStoreFromConstantToLDB = "false";
+                                                  _homeBloc.add(ClearExerciseEvent());
+                                                  _homeBloc.add(RemoveDaysEvent());
+                                                  Navigator.of(context).pushAndRemoveUntil(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                          const CusBottomBar()),
+                                                          (Route<dynamic> route) => false);
+                                                }
+                                                else if (AppGlobal.selectedKneeIssueOption != "2"){
+                                                  AppGlobal.selectedKneeIssueOption = "2";
+                                                  AppGlobal.dataStoreFromConstantToLDB = "false";
+                                                  _homeBloc.add(ClearExerciseEvent());
+                                                  _homeBloc.add(RemoveDaysEvent());
+                                                  Navigator.of(context).pushAndRemoveUntil(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                          const CusBottomBar()),
+                                                          (Route<dynamic> route) => false);
+                                                }
+                                                else if (AppGlobal.selectedKneeIssueOption != "3"){
+                                                  AppGlobal.selectedKneeIssueOption = "3";
+                                                  AppGlobal.dataStoreFromConstantToLDB = "false";
+                                                  _homeBloc.add(ClearExerciseEvent());
+                                                  _homeBloc.add(RemoveDaysEvent());
+                                                  Navigator.of(context).pushAndRemoveUntil(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                          const CusBottomBar()),
+                                                          (Route<dynamic> route) => false);
+                                                }
+                                                else{
+                                                  Navigator.pop(context);
+                                                }
+
                                                 // Navigator.pop(context);
                                                 // Navigator.of(context).push(
                                                 //     MaterialPageRoute(
@@ -535,8 +577,20 @@ class _OpenActivityState extends State<OpenActivity> {
                       //SizedBox(width: MediaQuery.of(context).size.width*0.08),
                       InkWell(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (ctx) =>  ReadyToGo(exerciseData: exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)));
+                          if(widget.dayModelLocalDB!.completedPercentage != 100){
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (ctx) =>  ReadyToGo(exerciseData: exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)));
+                          } else {
+                            showDialog(
+                                context: context,
+                                builder: (_) => Dialog(
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height * 0.3,
+                                    child: const ExerciseCompletedPopup(),
+                                  ),
+                                ));
+                          }
+
 
                           // Navigator.of(context).push(MaterialPageRoute(
                           //     builder: (ctx) =>  StartExercise(exerciseData: exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)));
@@ -546,7 +600,7 @@ class _OpenActivityState extends State<OpenActivity> {
                           width: MediaQuery.of(context).size.width * 0.7,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            color: kColorPrimary,
+                            color: widget.dayModelLocalDB!.completedPercentage != 100? kColorPrimary: Colors.grey,
                           ),
                           child: const Center(
                             child: Text(
@@ -697,7 +751,7 @@ class _OpenActivityState extends State<OpenActivity> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "≈${calories}",
+                                "≈${calories.toStringAsFixed(2)}",
                                 // "≈59.7",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 17),

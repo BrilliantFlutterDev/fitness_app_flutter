@@ -1,8 +1,10 @@
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/account_screen/Feedback/feedback.dart';
+import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/home_page/home_page.dart';
 import 'package:fitness_app/widgets/cus_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class QuitReasonScreen extends StatefulWidget {
   const QuitReasonScreen({Key? key}) : super(key: key);
@@ -17,6 +19,14 @@ class _QuitReasonScreenState extends State<QuitReasonScreen> {
   Widget build(BuildContext context){
     return Scaffold(
       backgroundColor: Colors.transparent,
+      bottomNavigationBar: SizedBox(
+        height: MediaQuery.of(context).size.height*0.07,
+        width: AdmobHelper.getBannerAd().size.width.toDouble(),//double.infinity,
+        child: AdWidget(
+          ad:  AdmobHelper.getBannerAd()..load(),                 //myBanner..load(),
+          key: UniqueKey(),
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: IconButton(

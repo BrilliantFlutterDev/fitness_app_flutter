@@ -135,11 +135,11 @@ class _MyReportsState extends State<MyReports> {
       } else if (state is GetAllDaysState) {
         requestDayData = state.dayData;
 
-        totalWorkout = int.parse('${requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress}');
+        totalWorkout = int.parse('${requestDayData!.exerciseList![0].exerciseNumInProgress}');
         print("Exercise Number>>>>>>>>> $totalWorkout");
 
-        previousValue = double.parse(requestDayData!.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank.toString());
-        value = requestDayData!.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank * 12.5;
+        previousValue = double.parse(requestDayData!.exerciseList![0].noOfGlassWaterDrank.toString());
+        value = requestDayData!.exerciseList![0].noOfGlassWaterDrank * 12.5;
       }
     }, builder: (context, state) {
       return ModalProgressHUD(
@@ -275,38 +275,38 @@ class _MyReportsState extends State<MyReports> {
                             //   child: Center(
                             //       child:
                               Text(
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 1? "0 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 2? "1 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 3? "1 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 4? "2 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 5? "2 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 6? "3 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 7? "3 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 8? "4 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 9? "4 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 10? "5 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 11? "5 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 12? "6 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 13? "6 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 14? "7 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 15? "7 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 16? "8 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 17? "8 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 18? "9 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 19? "9 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 20? "10 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 21? "10 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 22? "11 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 23? "11 min" :
-                                requestDayData!=null? requestDayData!.exerciseList![AppGlobal.currentDay].exerciseNumInProgress == 24? "12 min" :
-                                "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min",
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 1? "0" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 2? "1" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 3? "2" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 4? "3" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 5? "3" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 6? "4" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 7? "5" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 8? "6" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 9? "7" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 10? "8" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 11? "9" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 12? "10" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 13? "11" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 14? "12" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 15? "13" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 16? "14" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 17? "15" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 18? "16" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 19? "17" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 20? "18" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 21? "19" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 22? "20" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 23? "21" :
+                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 24? "21" :
+                                "0": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min",
                                 // '01:00',
                                 style: TextStyle(color: kColorPrimary, fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                             //   ),
                             // ),
                             Text(
-                              'TIME(MIN)',
+                              'TIME (MIN)',
                               style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
                             )
                           ],
