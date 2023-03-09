@@ -49,6 +49,7 @@ class _MyReportsState extends State<MyReports> {
   RequestDayData? requestDayData;
   DayModelLocalDB? dayModelLocalDB;
   int totalWorkout = 0;
+  double totalCalories = 0;
   int totalTime = 0;
 
   String _message = 'Please enter your height and weight';
@@ -137,6 +138,8 @@ class _MyReportsState extends State<MyReports> {
 
         totalWorkout = int.parse('${requestDayData!.exerciseList![0].exerciseNumInProgress}');
         print("Exercise Number>>>>>>>>> $totalWorkout");
+
+        totalCalories = state.totalCalories!;
 
         previousValue = double.parse(requestDayData!.exerciseList![0].noOfGlassWaterDrank.toString());
         value = requestDayData!.exerciseList![0].noOfGlassWaterDrank * 12.5;
@@ -243,7 +246,8 @@ class _MyReportsState extends State<MyReports> {
                             //   child: Center(
                             //       child:
                               Text(
-                                '31.0',
+                                totalCalories.toStringAsFixed(1).toString(),
+                                // '31.0',
                                 style: TextStyle(color: kColorPrimary, fontSize: 21, fontWeight: FontWeight.bold),
                               ),
                             //  ),

@@ -7248,7 +7248,7 @@ class ExerciseConstants {
     GymModel(
       dayTitle: "Day 15",
       exercise_id: 31,
-      raps: 18,
+      raps: 16,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -7308,7 +7308,7 @@ class ExerciseConstants {
     ),
     GymModel(
       dayTitle: "Day 15",
-      exercise_id: 23,
+      exercise_id: 31,
       raps: 16,
       time: 0,
       kneeIssue: 'N',
@@ -7400,7 +7400,7 @@ class ExerciseConstants {
     GymModel(
       dayTitle: "Day 17",
       exercise_id: 31,
-      raps: 18,
+      raps: 16,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -7470,7 +7470,7 @@ class ExerciseConstants {
     ),
     GymModel(
       dayTitle: "Day 17",
-      exercise_id: 23,
+      exercise_id: 31,
       raps: 16,
       time: 0,
       kneeIssue: 'N',
@@ -7794,7 +7794,7 @@ class ExerciseConstants {
     ),
     GymModel(
       dayTitle: "Day 19",
-      exercise_id: 23,
+      exercise_id: 31,
       raps: 16,
       time: 0,
       kneeIssue: 'N',
@@ -7956,8 +7956,8 @@ class ExerciseConstants {
     ),
     GymModel(
       dayTitle: "Day 21",
-      exercise_id: 23,
-      raps: 18,
+      exercise_id: 31,
+      raps: 16,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -8281,7 +8281,7 @@ class ExerciseConstants {
     GymModel(
       dayTitle: "Day 23",
       exercise_id: 25,
-      raps: 18,
+      raps: 16,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -8441,8 +8441,8 @@ class ExerciseConstants {
     ),
     GymModel(
       dayTitle: "Day 25",
-      exercise_id: 23,
-      raps: 18,
+      exercise_id: 31,
+      raps: 16,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -8532,8 +8532,8 @@ class ExerciseConstants {
     ),
     GymModel(
       dayTitle: "Day 26",
-      exercise_id: 23,
-      raps: 18,
+      exercise_id: 31,
+      raps: 16,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -8603,8 +8603,8 @@ class ExerciseConstants {
     ),
     GymModel(
       dayTitle: "Day 26",
-      exercise_id: 23,
-      raps: 18,
+      exercise_id: 31,
+      raps: 16,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -18874,7 +18874,7 @@ class ExerciseConstants {
     GymModel(
       dayTitle: "Day 21",
       exercise_id: 31,
-      raps: 18,
+      raps: 16,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -18945,7 +18945,7 @@ class ExerciseConstants {
     GymModel(
       dayTitle: "Day 21",
       exercise_id: 31,
-      raps: 18,
+      raps: 16,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -19016,7 +19016,7 @@ class ExerciseConstants {
     GymModel(
       dayTitle: "Day 21",
       exercise_id: 31,
-      raps: 18,
+      raps: 16,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -19573,7 +19573,7 @@ class ExerciseConstants {
     GymModel(
       dayTitle: "Day 25",
       exercise_id: 31,
-      raps: 18,
+      raps: 16,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -19644,7 +19644,7 @@ class ExerciseConstants {
     GymModel(
       dayTitle: "Day 25",
       exercise_id: 31,
-      raps: 18,
+      raps: 16,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -19715,7 +19715,7 @@ class ExerciseConstants {
     GymModel(
       dayTitle: "Day 25",
       exercise_id: 31,
-      raps: 18,
+      raps: 16,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -19806,7 +19806,7 @@ class ExerciseConstants {
     GymModel(
       dayTitle: "Day 26",
       exercise_id: 31,
-      raps: 18,
+      raps: 16,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -19877,7 +19877,7 @@ class ExerciseConstants {
     GymModel(
       dayTitle: "Day 26",
       exercise_id: 31,
-      raps: 18,
+      raps: 16,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -19948,7 +19948,7 @@ class ExerciseConstants {
     GymModel(
       dayTitle: "Day 26",
       exercise_id: 31,
-      raps: 18,
+      raps: 16,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -29681,7 +29681,7 @@ class ExerciseConstants {
     GymModel(
       dayTitle: "Day 27",
       exercise_id: 25,
-      raps: 16,
+      raps: 18,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -29752,7 +29752,7 @@ class ExerciseConstants {
     GymModel(
       dayTitle: "Day 27",
       exercise_id: 25,
-      raps: 16,
+      raps: 18,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -29823,7 +29823,7 @@ class ExerciseConstants {
     GymModel(
       dayTitle: "Day 27",
       exercise_id: 25,
-      raps: 16,
+      raps: 18,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -30332,7 +30332,7 @@ class ExerciseConstants {
       ExercisesModel(
         id: 2,
         name: "SQUATS",
-        image: "Full Crunches.jpg",
+        image: "testgif2.gif",//"Full Crunches.jpg",
         type: "rap",
         kcal: 0.0866,
         description: "Stand with your feet shoulder width apart and your arms stretched forward, then lower your body until your thighs are parallel with the floor."

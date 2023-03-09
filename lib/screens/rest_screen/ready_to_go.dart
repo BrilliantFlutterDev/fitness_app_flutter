@@ -53,7 +53,13 @@ class _ReadyToGoState extends State<ReadyToGo> {
   @override
   void initState() {
     super.initState();
-    index=widget.dayModelLocalDB!.exerciseNumInProgress;
+    if(widget.dayModelLocalDB!.exerciseNumInProgress < (widget.exerciseData!.exerciseList!.length-1)){
+      index=widget.dayModelLocalDB!.exerciseNumInProgress;
+    }
+    // else{
+    //   widget.dayModelLocalDB!.exerciseNumInProgress=0;
+    //   index=widget.dayModelLocalDB!.exerciseNumInProgress;
+    // }
 
     startTimer();
   }
@@ -61,8 +67,6 @@ class _ReadyToGoState extends State<ReadyToGo> {
   @override
   void dispose() {
     _timer.cancel();
-    // Navigator.of(context).push(MaterialPageRoute(
-    //     builder: (ctx) =>  StartExercise(exerciseData: exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)));
     super.dispose();
   }
 
@@ -138,7 +142,7 @@ class _ReadyToGoState extends State<ReadyToGo> {
                                 widget.exerciseData!.exerciseList![index].exercise.name,
                                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,),
                               ),
-                              Icon(Icons.question_mark_outlined),
+                              // Icon(Icons.question_mark_outlined),
                             ],
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height*0.05),

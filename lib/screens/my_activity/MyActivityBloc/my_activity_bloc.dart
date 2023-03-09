@@ -184,12 +184,33 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
     } else if (event is GetASpecificDaysEvent) {
       yield LoadingState();
 
-      try {
-        var data = await dbHelper.queryASpecificDay(event.day);
-        RequestDayData dayData = RequestDayData.fromJson(data);
+      var data = await dbHelper.queryASpecificDay(event.day);
+      var data1 = await dbHelper.queryAllExerciseOfDay(event.day);
 
-        yield GetAllDaysState(dayData: dayData);
+      RequestDayData dayData = RequestDayData.fromJson(data);
+      RequestExerciseData exerciseData = RequestExerciseData.fromJson(data1);
+
+      double totalCalories = 0.0;
+      for(int index=0; index<dayData.exerciseList![0].exerciseNumInProgress; index++){
+        print('Exercise Length>>>> ${dayData.exerciseList![0].exerciseNumInProgress}');
+
+        var mExerciseResponse = await dbHelper.queryASpecificExercise(exerciseData.exerciseList![index].exerciseID);
+
+        var exercise = ExerciseDetailModel.fromJson(mExerciseResponse[0]);
+        double cal1 = exercise.type == 'time'?
+        exercise.kcal * exerciseData.exerciseList![index].time.toDouble() :
+        exercise.kcal * exerciseData.exerciseList![index].raps.toDouble();
+        print('Calories>>> $cal1');
+        totalCalories = totalCalories + cal1;
+        print('Calories $totalCalories');
+      }
+
+      yield GetAllDaysState(dayData: dayData, totalCalories: totalCalories);
+
+      try {
+
       } catch (e) {
+        print("Error $e");
         yield ErrorState(error: 'No Days found!');
       }
     }

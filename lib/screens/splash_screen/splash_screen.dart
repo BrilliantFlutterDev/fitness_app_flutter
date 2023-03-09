@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:simple_progress_indicators/simple_progress_indicators.dart';
 
 import '../../Utils/app_global.dart';
 import '../../Utils/common_functions.dart';
@@ -34,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     super.initState();
     checkUserData();
     _animationController = AnimationController(
-        vsync: this, duration: const Duration(seconds: 6));
+        vsync: this, duration: const Duration(seconds: 5));
     _animation = CurvedAnimation(
       parent: _animationController,
       curve: Curves.easeOut,

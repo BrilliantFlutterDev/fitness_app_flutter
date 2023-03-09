@@ -150,413 +150,421 @@ class _OpenActivityState extends State<OpenActivity> {
                       padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.1),
                       child: InkWell(
                         onTap: () {
-                          showModalBottomSheet(
-                            // backgroundColor: kColorBG,
-                            isScrollControlled: true,
-                            context: context,
-                            builder: (context) {
-                              return StatefulBuilder(builder: (BuildContext context,
-                                StateSetter setState /*You can rename this!*/) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(top: 18, left: 18, right: 18),
-                                    child: Container(
-                                      height: MediaQuery.of(context).size.height * 0.7,
-                                      child: Wrap(
-                                        children: [
-                                          const ListTile(
-                                            title: Text(
-                                              "Workout Settings",
-                                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: Colors.white),
-                                            ),
-                                            subtitle: Text(
-                                              "Choose workout based on your condition",
-                                              style: TextStyle(fontSize: 13, color: Colors.white),
-                                            ),
-                                          ),
-                                          Container(
-                                            // height: MediaQuery.of(context).size.height * 0.38,
-                                            width: MediaQuery.of(context).size.width,
-                                            child: Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 10),
-                                              child: Column(
-                                                children: [
-                                                  GestureDetector(
-                                                    onTap: () async {
-                                                      setState(() {
-                                                        _selectedPlan[2] = false;
-                                                        _selectedPlan[1] = false;
-                                                        _selectedPlan[0] = true;
-                                                      });
-                                                      // if (AppGlobal.selectedKneeIssueOption != "1"){
-                                                      //   AppGlobal.selectedKneeIssueOption = "1";
-                                                      //   AppGlobal.dataStoreFromConstantToLDB = "false";
-                                                      //   _homeBloc.add(ClearExerciseEvent());
-                                                      //   _homeBloc.add(RemoveDaysEvent());
-                                                      // }
-                                                      await storage.write(
-                                                          key: 'selectedKneeIssueOption', value: '1'
-                                                      );
-                                                      _homeBloc.add(RefreshScreenEvent());
-                                                    },
-                                                    child: Container(
-                                                      margin: const EdgeInsets.all(12),
-                                                      child: Container(
-                                                        height: 9.h,
-                                                        alignment: Alignment.bottomLeft,
-                                                        padding: const EdgeInsets.only(left: 20.0),
-                                                        child: Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: [
-                                                            Text(
-                                                              'I\'m fine',
-                                                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0,
-                                                                  color: AppGlobal.selectedKneeIssueOption == '1'
-                                                                  // _selectedPlan[0] == false
-                                                                      ? Colors.black
-                                                                      : Colors.white
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              'All workout are OK for me',
-                                                              style: TextStyle(fontSize: 15.0,
-                                                                  color: AppGlobal.selectedKneeIssueOption == '1'
-                                                                  // _selectedPlan[0] == false
-                                                                      ? Colors.black
-                                                                      : Colors.white
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        decoration: BoxDecoration(
-                                                          borderRadius:
-                                                          BorderRadius.circular(35.0),
-                                                          // image: DecorationImage(
-                                                          //   image: AssetImage(
-                                                          //       "assets/images/${constants.standard[index].image}"),
-                                                          //   fit: BoxFit.cover,
-                                                          // ),
-                                                          gradient: LinearGradient(
-                                                            // begin: Alignment.bottomCenter,
-                                                            // end: Alignment.topCenter,
-                                                            colors: [
-                                                              AppGlobal.selectedKneeIssueOption == '1'
-                                                            // _selectedPlan[0] == false
-                                                                ? Colors.white60
-                                                                : const Color(0xff1c1b20),
-                                                              AppGlobal.selectedKneeIssueOption == '1'
-                                                              // _selectedPlan[0] == false
-                                                                  ? Colors.white
-                                                                  : Colors.transparent,
-                                                              // _selectedPlan[0] == false
-                                                              //     ? const Color(0xff1c1b20)
-                                                              //     : Colors.white60,
-                                                              // _selectedPlan[0] == false
-                                                              //     ? Colors.transparent
-                                                              //     : Colors.white,
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 5),
-                                                  GestureDetector(
-                                                    onTap: () async {
-                                                      setState(() {
-                                                        _selectedPlan[0] = false;
-                                                        _selectedPlan[2] = false;
-                                                        _selectedPlan[1] = true;
-                                                      });
-                                                      // if (AppGlobal.selectedKneeIssueOption != "2"){
-                                                      //   AppGlobal.selectedKneeIssueOption = "2";
-                                                      //   AppGlobal.dataStoreFromConstantToLDB = "false";
-                                                      //   _homeBloc.add(ClearExerciseEvent());
-                                                      //   _homeBloc.add(RemoveDaysEvent());
-                                                      // }
-                                                      await storage.write(
-                                                          key: 'selectedKneeIssueOption', value: '2'
-                                                      );
-                                                      _homeBloc.add(RefreshScreenEvent());
-                                                    },
-                                                    child: Container(
-                                                      margin: const EdgeInsets.only(left: 12, right: 12),
-                                                      child: Container(
-                                                        height: 9.h,
-                                                        alignment: Alignment.bottomLeft,
-                                                        padding: const EdgeInsets.only(left: 20.0),
-                                                        child: Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: [
-                                                            Text(
-                                                              'No jumping',
-                                                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0,
-                                                                  color: AppGlobal.selectedKneeIssueOption == '2'
-                                                                  // _selectedPlan[1] == false
-                                                                      ? Colors.black
-                                                                      : Colors.white
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              'No noise, apartment friendly',
-                                                              style: TextStyle(fontSize: 15.0,
-                                                                  color: AppGlobal.selectedKneeIssueOption == '2'
-                                                                  // _selectedPlan[1] == false
-                                                                      ? Colors.black
-                                                                      : Colors.white
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(35.0),
-                                                          // image: DecorationImage(
-                                                          //   image: AssetImage(
-                                                          //       "assets/images/${constants.standard[index].image}"),
-                                                          //   fit: BoxFit.cover,
-                                                          // ),
-                                                          gradient: LinearGradient(
-                                                            // begin: Alignment.b,
-                                                            // end: Alignment.topCenter,
-                                                            colors: [
-                                                              AppGlobal.selectedKneeIssueOption == '2'
-                                                              // _selectedPlan[0] == false
-                                                                  ? Colors.white60
-                                                                  : const Color(0xff1c1b20),
-                                                              AppGlobal.selectedKneeIssueOption == '2'
-                                                              // _selectedPlan[0] == false
-                                                                  ? Colors.white
-                                                                  : Colors.transparent,
-                                                              // _selectedPlan[1] == false
-                                                              //     ? const Color(0xff1c1b20)
-                                                              //     : Colors.white60,
-                                                              // _selectedPlan[1] == false
-                                                              //     ? Colors.transparent
-                                                              //     : Colors.white,
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 5),
-                                                  GestureDetector(
-                                                    onTap: () async {
-                                                      setState(() {
-                                                        _selectedPlan[0] = false;
-                                                        _selectedPlan[1] = false;
-                                                        _selectedPlan[2] = true;
-                                                      });
-                                                      // if (AppGlobal.selectedKneeIssueOption != "3"){
-                                                      //   AppGlobal.selectedKneeIssueOption = "3";
-                                                      //   AppGlobal.dataStoreFromConstantToLDB = "false";
-                                                      //   _homeBloc.add(ClearExerciseEvent());
-                                                      //   _homeBloc.add(RemoveDaysEvent());
-                                                      // }
-                                                      await storage.write(
-                                                          key: 'selectedKneeIssueOption', value: '3'
-                                                      );
-                                                      _homeBloc.add(RefreshScreenEvent());
-                                                    },
-                                                    child: Container(
-                                                      margin: const EdgeInsets.all(12),
-                                                      child: Container(
-                                                        height: 9.h,
-                                                        alignment: Alignment.bottomLeft,
-                                                        padding: const EdgeInsets.only(left: 20.0),
-                                                        child: Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: [
-                                                            Text(
-                                                              'Low impact',
-                                                              style: TextStyle(fontWeight: FontWeight.bold,
-                                                                  fontSize: 20.0,
-                                                                  color: AppGlobal.selectedKneeIssueOption == '3'
-                                                                  // _selectedPlan[2] == false
-                                                                      ? Colors.black
-                                                                      : Colors.white
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              'Friendly to overweight people',
-                                                              style: TextStyle(
-                                                                  fontSize: 15.0,
-                                                                  color: AppGlobal.selectedKneeIssueOption == '3'
-                                                                  // _selectedPlan[2] == false
-                                                                      ? Colors.black
-                                                                      : Colors.white
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(35.0),
-                                                          // image: DecorationImage(
-                                                          //   image: AssetImage(
-                                                          //       "assets/images/${constants.standard[index].image}"),
-                                                          //   fit: BoxFit.cover,
-                                                          // ),
-                                                          gradient: LinearGradient(
-                                                            // begin: Alignment.bottomCenter,
-                                                            // end: Alignment.topCenter,
-                                                            colors: [
-                                                              AppGlobal.selectedKneeIssueOption == '3'
-                                                              // _selectedPlan[0] == false
-                                                                  ? Colors.white60
-                                                                  : const Color(0xff1c1b20),
-                                                              AppGlobal.selectedKneeIssueOption == '3'
-                                                              // _selectedPlan[0] == false
-                                                                  ? Colors.white
-                                                                  : Colors.transparent,
-                                                              // _selectedPlan[2] == false
-                                                              //     ? const Color(0xff1c1b20)
-                                                              //     : Colors.white60,
-                                                              // _selectedPlan[2] == false
-                                                              //     ? Colors.transparent
-                                                              //     : Colors.white,
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Container(
-                                                height: 1, color: Colors.white),
-                                          ),
-                                          InkWell(
-                                            onTap: (){
-                                            showDialog(
-                                                context: context,
-                                                builder: (_) => Dialog(
-                                                  child: Container(
-                                                    height: MediaQuery.of(context).size.height * 0.3,
-                                                    child: ComingSoonPopup(),
-                                                  ),
-                                                ));
-                                              // showDialog(
-                                              //   context: context,
-                                              //   builder: (_) => Dialog(
-                                              //     child: Container(
-                                              //       height: MediaQuery.of(context).size.height*0.4,
-                                              //       child: TrainingRestPopup()
-                                              //     ),
-                                              //   )
-                                              // );//CountdownPopup(),
-                                            },
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(top: 10,bottom: 10),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.restaurant, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
-                                                      ),
-                                                      SizedBox(width: MediaQuery.of(context).size.width*0.035),
-                                                      Text(
-                                                        "Training rest",
-                                                        style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        "10 sec",
-                                                        style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.043, color: kColorPrimary),
-                                                      ),
-                                                      Icon(
-                                                          Icons.arrow_drop_down, color: kColorPrimary, size: MediaQuery.of(context).size.width*0.065
-                                                      )
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(left: 10, top: 10),
-                                            child: InkWell(
-                                              onTap: () {
-                                                if (AppGlobal.selectedKneeIssueOption != "1"){
-                                                  AppGlobal.selectedKneeIssueOption = "1";
-                                                  AppGlobal.dataStoreFromConstantToLDB = "false";
-                                                  _homeBloc.add(ClearExerciseEvent());
-                                                  _homeBloc.add(RemoveDaysEvent());
-                                                  Navigator.of(context).pushAndRemoveUntil(
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                          const CusBottomBar()),
-                                                          (Route<dynamic> route) => false);
-                                                }
-                                                else if (AppGlobal.selectedKneeIssueOption != "2"){
-                                                  AppGlobal.selectedKneeIssueOption = "2";
-                                                  AppGlobal.dataStoreFromConstantToLDB = "false";
-                                                  _homeBloc.add(ClearExerciseEvent());
-                                                  _homeBloc.add(RemoveDaysEvent());
-                                                  Navigator.of(context).pushAndRemoveUntil(
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                          const CusBottomBar()),
-                                                          (Route<dynamic> route) => false);
-                                                }
-                                                else if (AppGlobal.selectedKneeIssueOption != "3"){
-                                                  AppGlobal.selectedKneeIssueOption = "3";
-                                                  AppGlobal.dataStoreFromConstantToLDB = "false";
-                                                  _homeBloc.add(ClearExerciseEvent());
-                                                  _homeBloc.add(RemoveDaysEvent());
-                                                  Navigator.of(context).pushAndRemoveUntil(
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                          const CusBottomBar()),
-                                                          (Route<dynamic> route) => false);
-                                                }
-                                                else{
-                                                  Navigator.pop(context);
-                                                }
-
-                                                // Navigator.pop(context);
-                                                // Navigator.of(context).push(
-                                                //     MaterialPageRoute(
-                                                //         builder: (ctx) =>
-                                                //          StartExercise(exerciseData: exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)
-                                                //     ));
-                                              },
-                                              child: Container(
-                                                height: MediaQuery.of(context).size.height * 0.08,
-                                                width: MediaQuery.of(context).size.width * 0.85,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius.circular(50),
-                                                  color: kColorPrimary,
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "Done",
-                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
-                                                    //Icons.play_arrow,
-                                                    //color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                });
-                              },
-                            );
+                          showDialog(
+                              context: context,
+                              builder: (_) => Dialog(
+                                child: Container(
+                                  height: MediaQuery.of(context).size.height * 0.3,
+                                  child: ComingSoonPopup(),
+                                ),
+                              ));
+                          // showModalBottomSheet(
+                          //   // backgroundColor: kColorBG,
+                          //   isScrollControlled: true,
+                          //   context: context,
+                          //   builder: (context) {
+                          //     return StatefulBuilder(builder: (BuildContext context,
+                          //       StateSetter setState /*You can rename this!*/) {
+                          //         return Padding(
+                          //           padding: const EdgeInsets.only(top: 18, left: 18, right: 18),
+                          //           child: Container(
+                          //             height: MediaQuery.of(context).size.height * 0.7,
+                          //             child: Wrap(
+                          //               children: [
+                          //                 const ListTile(
+                          //                   title: Text(
+                          //                     "Workout Settings",
+                          //                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: Colors.white),
+                          //                   ),
+                          //                   subtitle: Text(
+                          //                     "Choose workout based on your condition",
+                          //                     style: TextStyle(fontSize: 13, color: Colors.white),
+                          //                   ),
+                          //                 ),
+                          //                 Container(
+                          //                   // height: MediaQuery.of(context).size.height * 0.38,
+                          //                   width: MediaQuery.of(context).size.width,
+                          //                   child: Padding(
+                          //                     padding: const EdgeInsets.symmetric(vertical: 10),
+                          //                     child: Column(
+                          //                       children: [
+                          //                         GestureDetector(
+                          //                           onTap: () async {
+                          //                             setState(() {
+                          //                               _selectedPlan[2] = false;
+                          //                               _selectedPlan[1] = false;
+                          //                               _selectedPlan[0] = true;
+                          //                             });
+                          //                             // if (AppGlobal.selectedKneeIssueOption != "1"){
+                          //                             //   AppGlobal.selectedKneeIssueOption = "1";
+                          //                             //   AppGlobal.dataStoreFromConstantToLDB = "false";
+                          //                             //   _homeBloc.add(ClearExerciseEvent());
+                          //                             //   _homeBloc.add(RemoveDaysEvent());
+                          //                             // }
+                          //                             await storage.write(
+                          //                                 key: 'selectedKneeIssueOption', value: '1'
+                          //                             );
+                          //                             _homeBloc.add(RefreshScreenEvent());
+                          //                           },
+                          //                           child: Container(
+                          //                             margin: const EdgeInsets.all(12),
+                          //                             child: Container(
+                          //                               height: 9.h,
+                          //                               alignment: Alignment.bottomLeft,
+                          //                               padding: const EdgeInsets.only(left: 20.0),
+                          //                               child: Column(
+                          //                                 crossAxisAlignment: CrossAxisAlignment.start,
+                          //                                 mainAxisAlignment: MainAxisAlignment.center,
+                          //                                 children: [
+                          //                                   Text(
+                          //                                     'I\'m fine',
+                          //                                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0,
+                          //                                         color: AppGlobal.selectedKneeIssueOption == '1'
+                          //                                         // _selectedPlan[0] == false
+                          //                                             ? Colors.black
+                          //                                             : Colors.white
+                          //                                     ),
+                          //                                   ),
+                          //                                   Text(
+                          //                                     'All workout are OK for me',
+                          //                                     style: TextStyle(fontSize: 15.0,
+                          //                                         color: AppGlobal.selectedKneeIssueOption == '1'
+                          //                                         // _selectedPlan[0] == false
+                          //                                             ? Colors.black
+                          //                                             : Colors.white
+                          //                                     ),
+                          //                                   ),
+                          //                                 ],
+                          //                               ),
+                          //                               decoration: BoxDecoration(
+                          //                                 borderRadius:
+                          //                                 BorderRadius.circular(35.0),
+                          //                                 // image: DecorationImage(
+                          //                                 //   image: AssetImage(
+                          //                                 //       "assets/images/${constants.standard[index].image}"),
+                          //                                 //   fit: BoxFit.cover,
+                          //                                 // ),
+                          //                                 gradient: LinearGradient(
+                          //                                   // begin: Alignment.bottomCenter,
+                          //                                   // end: Alignment.topCenter,
+                          //                                   colors: [
+                          //                                     AppGlobal.selectedKneeIssueOption == '1'
+                          //                                   // _selectedPlan[0] == false
+                          //                                       ? Colors.white60
+                          //                                       : const Color(0xff1c1b20),
+                          //                                     AppGlobal.selectedKneeIssueOption == '1'
+                          //                                     // _selectedPlan[0] == false
+                          //                                         ? Colors.white
+                          //                                         : Colors.transparent,
+                          //                                     // _selectedPlan[0] == false
+                          //                                     //     ? const Color(0xff1c1b20)
+                          //                                     //     : Colors.white60,
+                          //                                     // _selectedPlan[0] == false
+                          //                                     //     ? Colors.transparent
+                          //                                     //     : Colors.white,
+                          //                                   ],
+                          //                                 ),
+                          //                               ),
+                          //                             ),
+                          //                           ),
+                          //                         ),
+                          //                         const SizedBox(height: 5),
+                          //                         GestureDetector(
+                          //                           onTap: () async {
+                          //                             setState(() {
+                          //                               _selectedPlan[0] = false;
+                          //                               _selectedPlan[2] = false;
+                          //                               _selectedPlan[1] = true;
+                          //                             });
+                          //                             // if (AppGlobal.selectedKneeIssueOption != "2"){
+                          //                             //   AppGlobal.selectedKneeIssueOption = "2";
+                          //                             //   AppGlobal.dataStoreFromConstantToLDB = "false";
+                          //                             //   _homeBloc.add(ClearExerciseEvent());
+                          //                             //   _homeBloc.add(RemoveDaysEvent());
+                          //                             // }
+                          //                             await storage.write(
+                          //                                 key: 'selectedKneeIssueOption', value: '2'
+                          //                             );
+                          //                             _homeBloc.add(RefreshScreenEvent());
+                          //                           },
+                          //                           child: Container(
+                          //                             margin: const EdgeInsets.only(left: 12, right: 12),
+                          //                             child: Container(
+                          //                               height: 9.h,
+                          //                               alignment: Alignment.bottomLeft,
+                          //                               padding: const EdgeInsets.only(left: 20.0),
+                          //                               child: Column(
+                          //                                 crossAxisAlignment: CrossAxisAlignment.start,
+                          //                                 mainAxisAlignment: MainAxisAlignment.center,
+                          //                                 children: [
+                          //                                   Text(
+                          //                                     'No jumping',
+                          //                                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0,
+                          //                                         color: AppGlobal.selectedKneeIssueOption == '2'
+                          //                                         // _selectedPlan[1] == false
+                          //                                             ? Colors.black
+                          //                                             : Colors.white
+                          //                                     ),
+                          //                                   ),
+                          //                                   Text(
+                          //                                     'No noise, apartment friendly',
+                          //                                     style: TextStyle(fontSize: 15.0,
+                          //                                         color: AppGlobal.selectedKneeIssueOption == '2'
+                          //                                         // _selectedPlan[1] == false
+                          //                                             ? Colors.black
+                          //                                             : Colors.white
+                          //                                     ),
+                          //                                   ),
+                          //                                 ],
+                          //                               ),
+                          //                               decoration: BoxDecoration(
+                          //                                 borderRadius: BorderRadius.circular(35.0),
+                          //                                 // image: DecorationImage(
+                          //                                 //   image: AssetImage(
+                          //                                 //       "assets/images/${constants.standard[index].image}"),
+                          //                                 //   fit: BoxFit.cover,
+                          //                                 // ),
+                          //                                 gradient: LinearGradient(
+                          //                                   // begin: Alignment.b,
+                          //                                   // end: Alignment.topCenter,
+                          //                                   colors: [
+                          //                                     AppGlobal.selectedKneeIssueOption == '2'
+                          //                                     // _selectedPlan[0] == false
+                          //                                         ? Colors.white60
+                          //                                         : const Color(0xff1c1b20),
+                          //                                     AppGlobal.selectedKneeIssueOption == '2'
+                          //                                     // _selectedPlan[0] == false
+                          //                                         ? Colors.white
+                          //                                         : Colors.transparent,
+                          //                                     // _selectedPlan[1] == false
+                          //                                     //     ? const Color(0xff1c1b20)
+                          //                                     //     : Colors.white60,
+                          //                                     // _selectedPlan[1] == false
+                          //                                     //     ? Colors.transparent
+                          //                                     //     : Colors.white,
+                          //                                   ],
+                          //                                 ),
+                          //                               ),
+                          //                             ),
+                          //                           ),
+                          //                         ),
+                          //                         const SizedBox(height: 5),
+                          //                         GestureDetector(
+                          //                           onTap: () async {
+                          //                             setState(() {
+                          //                               _selectedPlan[0] = false;
+                          //                               _selectedPlan[1] = false;
+                          //                               _selectedPlan[2] = true;
+                          //                             });
+                          //                             // if (AppGlobal.selectedKneeIssueOption != "3"){
+                          //                             //   AppGlobal.selectedKneeIssueOption = "3";
+                          //                             //   AppGlobal.dataStoreFromConstantToLDB = "false";
+                          //                             //   _homeBloc.add(ClearExerciseEvent());
+                          //                             //   _homeBloc.add(RemoveDaysEvent());
+                          //                             // }
+                          //                             await storage.write(
+                          //                                 key: 'selectedKneeIssueOption', value: '3'
+                          //                             );
+                          //                             _homeBloc.add(RefreshScreenEvent());
+                          //                           },
+                          //                           child: Container(
+                          //                             margin: const EdgeInsets.all(12),
+                          //                             child: Container(
+                          //                               height: 9.h,
+                          //                               alignment: Alignment.bottomLeft,
+                          //                               padding: const EdgeInsets.only(left: 20.0),
+                          //                               child: Column(
+                          //                                 crossAxisAlignment: CrossAxisAlignment.start,
+                          //                                 mainAxisAlignment: MainAxisAlignment.center,
+                          //                                 children: [
+                          //                                   Text(
+                          //                                     'Low impact',
+                          //                                     style: TextStyle(fontWeight: FontWeight.bold,
+                          //                                         fontSize: 20.0,
+                          //                                         color: AppGlobal.selectedKneeIssueOption == '3'
+                          //                                         // _selectedPlan[2] == false
+                          //                                             ? Colors.black
+                          //                                             : Colors.white
+                          //                                     ),
+                          //                                   ),
+                          //                                   Text(
+                          //                                     'Friendly to overweight people',
+                          //                                     style: TextStyle(
+                          //                                         fontSize: 15.0,
+                          //                                         color: AppGlobal.selectedKneeIssueOption == '3'
+                          //                                         // _selectedPlan[2] == false
+                          //                                             ? Colors.black
+                          //                                             : Colors.white
+                          //                                     ),
+                          //                                   ),
+                          //                                 ],
+                          //                               ),
+                          //                               decoration: BoxDecoration(
+                          //                                 borderRadius: BorderRadius.circular(35.0),
+                          //                                 // image: DecorationImage(
+                          //                                 //   image: AssetImage(
+                          //                                 //       "assets/images/${constants.standard[index].image}"),
+                          //                                 //   fit: BoxFit.cover,
+                          //                                 // ),
+                          //                                 gradient: LinearGradient(
+                          //                                   // begin: Alignment.bottomCenter,
+                          //                                   // end: Alignment.topCenter,
+                          //                                   colors: [
+                          //                                     AppGlobal.selectedKneeIssueOption == '3'
+                          //                                     // _selectedPlan[0] == false
+                          //                                         ? Colors.white60
+                          //                                         : const Color(0xff1c1b20),
+                          //                                     AppGlobal.selectedKneeIssueOption == '3'
+                          //                                     // _selectedPlan[0] == false
+                          //                                         ? Colors.white
+                          //                                         : Colors.transparent,
+                          //                                     // _selectedPlan[2] == false
+                          //                                     //     ? const Color(0xff1c1b20)
+                          //                                     //     : Colors.white60,
+                          //                                     // _selectedPlan[2] == false
+                          //                                     //     ? Colors.transparent
+                          //                                     //     : Colors.white,
+                          //                                   ],
+                          //                                 ),
+                          //                               ),
+                          //                             ),
+                          //                           ),
+                          //                         ),
+                          //                       ],
+                          //                     ),
+                          //                   ),
+                          //                 ),
+                          //                 Padding(
+                          //                   padding: const EdgeInsets.all(10),
+                          //                   child: Container(
+                          //                       height: 1, color: Colors.white),
+                          //                 ),
+                          //                 InkWell(
+                          //                   onTap: (){
+                          //                   showDialog(
+                          //                       context: context,
+                          //                       builder: (_) => Dialog(
+                          //                         child: Container(
+                          //                           height: MediaQuery.of(context).size.height * 0.3,
+                          //                           child: ComingSoonPopup(),
+                          //                         ),
+                          //                       ));
+                          //                     // showDialog(
+                          //                     //   context: context,
+                          //                     //   builder: (_) => Dialog(
+                          //                     //     child: Container(
+                          //                     //       height: MediaQuery.of(context).size.height*0.4,
+                          //                     //       child: TrainingRestPopup()
+                          //                     //     ),
+                          //                     //   )
+                          //                     // );//CountdownPopup(),
+                          //                   },
+                          //                   child: Padding(
+                          //                     padding: const EdgeInsets.only(top: 10,bottom: 10),
+                          //                     child: Row(
+                          //                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //                       children: [
+                          //                         Row(
+                          //                           children: [
+                          //                             Icon(
+                          //                               Icons.restaurant, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                          //                             ),
+                          //                             SizedBox(width: MediaQuery.of(context).size.width*0.035),
+                          //                             Text(
+                          //                               "Training rest",
+                          //                               style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
+                          //                             ),
+                          //                           ],
+                          //                         ),
+                          //                         Row(
+                          //                           children: [
+                          //                             Text(
+                          //                               "10 sec",
+                          //                               style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.043, color: kColorPrimary),
+                          //                             ),
+                          //                             Icon(
+                          //                                 Icons.arrow_drop_down, color: kColorPrimary, size: MediaQuery.of(context).size.width*0.065
+                          //                             )
+                          //                           ],
+                          //                         ),
+                          //                       ],
+                          //                     ),
+                          //                   ),
+                          //                 ),
+                          //                 Padding(
+                          //                   padding: const EdgeInsets.only(left: 10, top: 10),
+                          //                   child: InkWell(
+                          //                     onTap: () {
+                          //                       if (AppGlobal.selectedKneeIssueOption != "1"){
+                          //                         AppGlobal.selectedKneeIssueOption = "1";
+                          //                         AppGlobal.dataStoreFromConstantToLDB = "false";
+                          //                         _homeBloc.add(ClearExerciseEvent());
+                          //                         _homeBloc.add(RemoveDaysEvent());
+                          //                         Navigator.of(context).pushAndRemoveUntil(
+                          //                             MaterialPageRoute(
+                          //                                 builder: (context) =>
+                          //                                 const CusBottomBar()),
+                          //                                 (Route<dynamic> route) => false);
+                          //                       }
+                          //                       else if (AppGlobal.selectedKneeIssueOption != "2"){
+                          //                         AppGlobal.selectedKneeIssueOption = "2";
+                          //                         AppGlobal.dataStoreFromConstantToLDB = "false";
+                          //                         _homeBloc.add(ClearExerciseEvent());
+                          //                         _homeBloc.add(RemoveDaysEvent());
+                          //                         Navigator.of(context).pushAndRemoveUntil(
+                          //                             MaterialPageRoute(
+                          //                                 builder: (context) =>
+                          //                                 const CusBottomBar()),
+                          //                                 (Route<dynamic> route) => false);
+                          //                       }
+                          //                       else if (AppGlobal.selectedKneeIssueOption != "3"){
+                          //                         AppGlobal.selectedKneeIssueOption = "3";
+                          //                         AppGlobal.dataStoreFromConstantToLDB = "false";
+                          //                         _homeBloc.add(ClearExerciseEvent());
+                          //                         _homeBloc.add(RemoveDaysEvent());
+                          //                         Navigator.of(context).pushAndRemoveUntil(
+                          //                             MaterialPageRoute(
+                          //                                 builder: (context) =>
+                          //                                 const CusBottomBar()),
+                          //                                 (Route<dynamic> route) => false);
+                          //                       }
+                          //                       else{
+                          //                         Navigator.pop(context);
+                          //                       }
+                          //
+                          //                       // Navigator.pop(context);
+                          //                       // Navigator.of(context).push(
+                          //                       //     MaterialPageRoute(
+                          //                       //         builder: (ctx) =>
+                          //                       //          StartExercise(exerciseData: exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)
+                          //                       //     ));
+                          //                     },
+                          //                     child: Container(
+                          //                       height: MediaQuery.of(context).size.height * 0.08,
+                          //                       width: MediaQuery.of(context).size.width * 0.85,
+                          //                       decoration: BoxDecoration(
+                          //                         borderRadius:
+                          //                         BorderRadius.circular(50),
+                          //                         color: kColorPrimary,
+                          //                       ),
+                          //                       child: Center(
+                          //                         child: Text(
+                          //                           "Done",
+                          //                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                          //                           //Icons.play_arrow,
+                          //                           //color: Colors.white,
+                          //                         ),
+                          //                       ),
+                          //                     ),
+                          //                   ),
+                          //                 ),
+                          //               ],
+                          //             ),
+                          //           ),
+                          //         );
+                          //       });
+                          //     },
+                          //   );
                           },
                           child: Container(
                             height: MediaQuery.of(context).size.height * 0.075,
@@ -577,7 +585,7 @@ class _OpenActivityState extends State<OpenActivity> {
                       //SizedBox(width: MediaQuery.of(context).size.width*0.08),
                       InkWell(
                         onTap: () {
-                          if(widget.dayModelLocalDB!.completedPercentage != 100){
+                          if(widget.dayModelLocalDB!.completedPercentage != 100 && widget.dayModelLocalDB!.exerciseNumInProgress < exerciseData!.exerciseList!.length) {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (ctx) =>  ReadyToGo(exerciseData: exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)));
                           } else {
@@ -600,7 +608,7 @@ class _OpenActivityState extends State<OpenActivity> {
                           width: MediaQuery.of(context).size.width * 0.7,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            color: widget.dayModelLocalDB!.completedPercentage != 100? kColorPrimary: Colors.grey,
+                            color: widget.dayModelLocalDB!.completedPercentage != 100 && widget.dayModelLocalDB!.exerciseNumInProgress < (exerciseData !=null? exerciseData!.exerciseList!.length : int.parse('0'))? kColorPrimary: Colors.grey,
                           ),
                           child: const Center(
                             child: Text(

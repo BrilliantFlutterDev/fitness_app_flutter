@@ -1,3 +1,4 @@
+import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/account_screen/AccountScreenBloc/account_screen_bloc.dart';
 import 'package:fitness_app/screens/my_activity/my_reports.dart';
@@ -15,6 +16,7 @@ class ResetPopup extends StatefulWidget {
 class _ResetPopupState extends State<ResetPopup> {
 
   late AccountScreenBloc _accountScreenBloc;
+  DayModelLocalDB? dayModelLocalDB;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,8 @@ class _ResetPopupState extends State<ResetPopup> {
       } else if (state is RefreshScreenState) {
       } else if (state is DataStoredState) {
         _accountScreenBloc.add(InsertAllUserDataInLocalDBEvent());
+      } else if (state is UpdateDayProgressState) {
+        dayModelLocalDB = state.dayModelLocalDB;
       }
     },
     builder: (context, state) {

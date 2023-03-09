@@ -65,6 +65,10 @@ class _AccountScreen1State extends State<AccountScreen1> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     status1 = prefs.getBool("watertracker")!;
   }
+  void saveDrinkNotification() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    status = pref.getBool("drinknotification")!;
+  }
 
   final Uri _url = Uri.parse('https://gamescapesinc.com/privacy');
 
@@ -78,6 +82,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
   void initState() {
     super.initState();
     saveWaterTracker();
+    saveDrinkNotification();
 
     _accountScreenBloc = BlocProvider.of<AccountScreenBloc>(context);
     // _accountScreenBloc.add(GetASpecificDaysEvent(day: 'Day ${AppGlobal.currentDay + 1}'));

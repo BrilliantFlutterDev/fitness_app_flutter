@@ -26,7 +26,7 @@ class _ExerciseCompletedPopupState extends State<ExerciseCompletedPopup> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "You have already completed \nthis task",
+                    "You have already done for \nthis day!",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height*0.02),

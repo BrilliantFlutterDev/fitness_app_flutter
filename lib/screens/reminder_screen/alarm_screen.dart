@@ -20,7 +20,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
   DateTime? _alarmTime;
   late String _alarmTimeString;
   bool _isRepeatSelected = false;
-  AlarmHelper _alarmHelper = AlarmHelper();
+  final AlarmHelper _alarmHelper = AlarmHelper();
   Future<List<AlarmInfo>>? _alarms;
   List<AlarmInfo>? _currentAlarms;
 
@@ -401,7 +401,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
     if (isRepeating) {
       await flutterLocalNotificationsPlugin.showDailyAtTime(
         0,
-        'Office',
+        'Time to shape your body!',
         alarmInfo.title,
         Time(
           scheduledNotificationDateTime.hour,
@@ -413,7 +413,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
     } else
       await flutterLocalNotificationsPlugin.zonedSchedule(
         0,
-        'Office',
+        'Time to shape your body!',
         alarmInfo.title,
         tz.TZDateTime.from(scheduledNotificationDateTime, tz.local),
         platformChannelSpecifics,

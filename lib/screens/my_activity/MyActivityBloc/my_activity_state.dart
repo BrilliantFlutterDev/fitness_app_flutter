@@ -23,7 +23,8 @@ class GetAllExerciseState extends MyActivityState {
 
 class GetAllDaysState extends MyActivityState {
   final RequestDayData dayData;
-  GetAllDaysState({required this.dayData});
+  final double? totalCalories;
+  GetAllDaysState({required this.dayData, this.totalCalories});
 }
 
 class ProductClickAddedToLocalDBState extends MyActivityState {

@@ -2,12 +2,12 @@ import 'package:fitness_app/alarm_models/models/alarm_info.dart';
 import 'package:sqflite/sqflite.dart';
 
 
-final String tableAlarm = 'alarm';
-final String columnId = 'id';
-final String columnTitle = 'title';
-final String columnDateTime = 'alarmDateTime';
-final String columnPending = 'isPending';
-final String columnColorIndex = 'gradientColorIndex';
+const String tableAlarm = 'alarm';
+const String columnId = 'id';
+const String columnTitle = 'title';
+const String columnDateTime = 'alarmDateTime';
+const String columnPending = 'isPending';
+const String columnColorIndex = 'gradientColorIndex';
 
 class AlarmHelper {
   static Database? _database;
@@ -15,16 +15,12 @@ class AlarmHelper {
 
   AlarmHelper._createInstance();
   factory AlarmHelper() {
-    if (_alarmHelper == null) {
-      _alarmHelper = AlarmHelper._createInstance();
-    }
+    _alarmHelper ??= AlarmHelper._createInstance();
     return _alarmHelper!;
   }
 
   Future<Database> get database async {
-    if (_database == null) {
-      _database = await initializeDatabase();
-    }
+    _database ??= await initializeDatabase();
     return _database!;
   }
 
@@ -50,7 +46,7 @@ class AlarmHelper {
   }
 
   void insertAlarm(AlarmInfo alarmInfo) async {
-    var db = await this.database;
+    var db = await database;
     var result = await db.insert(tableAlarm, alarmInfo.toMap());
     print('result : $result');
   }
@@ -58,18 +54,18 @@ class AlarmHelper {
   Future<List<AlarmInfo>> getAlarms() async {
     List<AlarmInfo> _alarms = [];
 
-    var db = await this.database;
+    var db = await database;
     var result = await db.query(tableAlarm);
-    result.forEach((element) {
+    for (var element in result) {
       var alarmInfo = AlarmInfo.fromMap(element);
       _alarms.add(alarmInfo);
-    });
+    }
 
     return _alarms;
   }
 
   Future<int> delete(int? id) async {
-    var db = await this.database;
+    var db = await database;
     return await db.delete(tableAlarm, where: '$columnId = ?', whereArgs: [id]);
   }
 }

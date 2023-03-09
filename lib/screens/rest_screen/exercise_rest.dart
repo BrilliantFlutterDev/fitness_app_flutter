@@ -91,7 +91,7 @@ class _ExerciseRestScreenState extends State<ExerciseRestScreen> {
                       widget.exerciseData!.exerciseList![index].exercise.name,
                       style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.height*0.03, fontWeight: FontWeight.bold,),
                     ),
-                    Icon(Icons.question_mark_outlined, color: Colors.black, size: MediaQuery.of(context).size.height*0.03),
+                    // Icon(Icons.question_mark_outlined, color: Colors.black, size: MediaQuery.of(context).size.height*0.03),
                   ],
                 ),
                 Text(
