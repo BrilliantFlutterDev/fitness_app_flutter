@@ -28,19 +28,23 @@ class ExerciseDetailModel{
   late final int id;
   late final String name;
   late final String image;
+  // late final String video;
   late final String type;
+  late final double rapTime;
   late final double kcal;
   late final String description;
 
-  ExerciseDetailModel( {this.columnsId, required this.id, required this.name, required this.image, required this.type, required this.kcal, required this.description,});
+  ExerciseDetailModel( {this.columnsId, required this.id, required this.name, required this.image, required this.type, required this.rapTime, required this.kcal, required this.description,});
 
 
   ExerciseDetailModel.fromJson(Map<String, dynamic> json) {
     columnsId=json['id'];
     id=json['exerciseId'];
     image = json['image'];
+    // video = json['video'];
     name = json['name'];
     type = json['type'];
+    rapTime = json['rapTime'];
     kcal = json['kcal'];
     description = json['description'];
   }
@@ -50,8 +54,10 @@ class ExerciseDetailModel{
     data['id'] = columnsId;
     data['exerciseId'] = id;
     data['image'] = image;
+    // data['video'] = video;
     data['name'] = name;
     data['type'] = type;
+    data['rapTime'] = rapTime;
     data['kcal'] = kcal;
     data['description'] = description;
 
@@ -77,14 +83,14 @@ class ExerciseModelLocalDB {
 
   ExerciseModelLocalDB.fromJson(Map<String, dynamic> json) {
     columnsId=json['id'];
-    exerciseID=json['exerciseId'] ?? 0;
+    exerciseID=json['exerciseId'];
 
     dayTitle=json['dayTitle'];
     // image = json['image'];
     // name = json['name'];
-    if(json['raps'] !=null) {
+    // if(json['raps'] !=null) {
       raps = json['raps'];
-    }
+    // }
     final jsonTime = json['time'];
     if(jsonTime is int){
       time = json['time'];
@@ -96,21 +102,21 @@ class ExerciseModelLocalDB {
     }
     // time = int.parse(json['time']);
     // type = json['type'];
-    if(json['kneeIssue'] !=null) {
+    // if(json['kneeIssue'] !=null) {
       kneeIssue = json['kneeIssue'];
-    }
-    if(json['planLevel'] !=null) {
+    // }
+    // if(json['planLevel'] !=null) {
       planLevel = json['planLevel'];
-    }
-    if(json['inPushUpCat'] !=null) {
+    // }
+    // if(json['inPushUpCat'] !=null) {
       inPushUpCat = json['inPushUpCat'];
-    }
-    if(json['inPlankCat'] !=null) {
+    // }
+    // if(json['inPlankCat'] !=null) {
       inPlankCat = json['inPlankCat'];
-    }
-    if(json['completeStatus'] !=null) {
+    // }
+    // if(json['completeStatus'] !=null) {
       completeStatus = json['completeStatus'];
-    }
+    // }
     // description = json['description'];
   }
 

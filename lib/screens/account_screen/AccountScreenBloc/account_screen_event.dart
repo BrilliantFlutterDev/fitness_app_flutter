@@ -23,6 +23,14 @@ class GetUserTrainingDataEvent extends AccountScreenEvent {
   GetUserTrainingDataEvent({required this.trainRest});
 }
 
+// class CountDownEvent extends AccountScreenEvent {
+//   UserDataModelLocalDB? userModelLocalDB;
+//   // final RequestUserData userData;
+//   int value;
+//   CountDownEvent(
+//       {this.userModelLocalDB, required this.value});
+// }
+
 class RefreshScreenEvent extends AccountScreenEvent {
   RefreshScreenEvent();
 }

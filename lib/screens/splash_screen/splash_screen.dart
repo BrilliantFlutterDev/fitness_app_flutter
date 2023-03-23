@@ -39,13 +39,6 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       curve: Curves.easeOut,
     );
 
-    @override
-    void dispose() {
-      _animationController.dispose();
-      _animation.isDismissed; // you need this
-      super.dispose();
-    }
-
     _animation.addListener(() => setState(() {}));
     _animationController.forward();
 
@@ -63,6 +56,13 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                 builder: (BuildContext context) => const SelectPlanScreen()));
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    _animation.isDismissed; // you need this
+    super.dispose();
   }
 
   void checkUserData() async {

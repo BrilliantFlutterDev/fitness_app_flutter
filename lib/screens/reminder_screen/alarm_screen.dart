@@ -49,7 +49,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
         backgroundColor: kColorPrimary,
         onPressed: ()
         {
-          _alarmTimeString = DateFormat('HH:mm').format(DateTime.now());
+          _alarmTimeString = DateFormat('hh:mm aa').format(DateTime.now());   //HH:mm
           showModalBottomSheet(
             useRootNavigator: true,
             context: context,
@@ -63,8 +63,10 @@ class _AlarmScreenState extends State<AlarmScreen> {
               return StatefulBuilder(
                 builder: (context, setModalState) {
                   return Container(
+                    height: MediaQuery.of(context).size.height*0.3,
                     padding: const EdgeInsets.all(20),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextButton(
                           onPressed: () async {
@@ -78,7 +80,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
                                   now.year, now.month, now.day, selectedTime.hour, selectedTime.minute);
                               _alarmTime = selectedDateTime;
                               setModalState(() {
-                                _alarmTimeString = DateFormat('HH:mm').format(selectedDateTime);
+                                _alarmTimeString = DateFormat('hh:mm aa').format(selectedDateTime);
                               });
                             }
                           },
@@ -90,6 +92,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
                         ListTile(
                           title: const Text('Repeat'),
                           trailing: Switch(
+                            activeColor: kColorPrimary,
                             onChanged: (value) {
                               setModalState(() {
                                 _isRepeatSelected = value;
@@ -102,15 +105,15 @@ class _AlarmScreenState extends State<AlarmScreen> {
                         //   title: Text('Sound'),
                         //   trailing: Icon(Icons.arrow_forward_ios),
                         // ),
-                        const ListTile(
-                          title: Text('Title'),
-                          trailing: Icon(Icons.arrow_forward_ios),
-                        ),
+                        // const ListTile(
+                        //   title: Text('Title'),
+                        //   trailing: Icon(Icons.arrow_forward_ios),
+                        // ),
                         FloatingActionButton.extended(
                           onPressed: () {
                             onSaveAlarm(_isRepeatSelected);
                           },
-                          icon: const Icon(Icons.alarm),
+                          // icon: const Icon(Icons.alarm),
                           label: const Text('Save'),
                           backgroundColor: kColorPrimary,
                         ),
@@ -195,31 +198,34 @@ class _AlarmScreenState extends State<AlarmScreen> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  Row(
-                                    children: <Widget>[
-                                      const Icon(
-                                        Icons.label,
-                                        color: Colors.white,
-                                        size: 24,
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                        alarm.title!,
-                                        style: const TextStyle(color: Colors.white, fontFamily: 'avenir'),
-                                      ),
-                                    ],
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 8),
+                                    child: Row(
+                                      children: <Widget>[
+                                        const Icon(
+                                          Icons.label,
+                                          color: Colors.white,
+                                          size: 24,
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Text(
+                                          alarm.title!,
+                                          style: const TextStyle(color: Colors.white, fontFamily: 'avenir'),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  Switch(
-                                    value: true,
-                                    onChanged: (bool value) {
-                                      if(value == true){
-                                        value = false;
-                                      } else{
-                                        value = true;
-                                      }
-                                    },
-                                    activeColor: kColorPrimary,
-                                  ),
+                                  // Switch(
+                                  //   value: true,
+                                  //   onChanged: (bool value) {
+                                  //     if(value == true){
+                                  //       value = false;
+                                  //     } else{
+                                  //       value = true;
+                                  //     }
+                                  //   },
+                                  //   activeColor: kColorPrimary,
+                                  // ),
                                 ],
                               ),
                               const Text(

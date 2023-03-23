@@ -27,7 +27,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class MyReports extends StatefulWidget {
 
-  MyReports({Key? key,}) : super(key: key);
+  const MyReports({Key? key,}) : super(key: key);
 
   @override
   State<MyReports> createState() => _MyReportsState();
@@ -50,7 +50,7 @@ class _MyReportsState extends State<MyReports> {
   DayModelLocalDB? dayModelLocalDB;
   int totalWorkout = 0;
   double totalCalories = 0;
-  int totalTime = 0;
+  double timeSpent = 0;
 
   String _message = 'Please enter your height and weight';
   double? _bmi;
@@ -60,7 +60,8 @@ class _MyReportsState extends State<MyReports> {
     // final double? weight = double.tryParse(_weightController.value.text);
 
     // Check if the inputs are valid
-    if (user.height == null || user.height <= 0 || user.weight == null || user.weight <= 0) {
+    //user.height == null ||  || user.weight == null
+    if (user.height <= 0 || user.weight <= 0) {
       setState(() {
         _message = "Your height and weigh must be positive numbers";
       });
@@ -140,6 +141,7 @@ class _MyReportsState extends State<MyReports> {
         print("Exercise Number>>>>>>>>> $totalWorkout");
 
         totalCalories = state.totalCalories!;
+        timeSpent = state.timeSpent!;
 
         previousValue = double.parse(requestDayData!.exerciseList![0].noOfGlassWaterDrank.toString());
         value = requestDayData!.exerciseList![0].noOfGlassWaterDrank * 12.5;
@@ -154,7 +156,7 @@ class _MyReportsState extends State<MyReports> {
           appBar: AppBar(
             toolbarHeight: MediaQuery.of(context).size.height*0.1,
             backgroundColor: kColorBG,
-            title: Padding(
+            title: const Padding(
               padding: EdgeInsets.only(left: 15, top: 20),
               child: Text(
                 "KEEP IT UP!",
@@ -163,7 +165,7 @@ class _MyReportsState extends State<MyReports> {
             ),
             actions: [
               Image.asset("assets/images/wt_drink_report.png"),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
             ],
           ),
           body: ColorRemover(
@@ -219,7 +221,7 @@ class _MyReportsState extends State<MyReports> {
                             ),
                               // ),
                             // ),
-                            Text(
+                            const Text(
                               'WORKOUTS',
                               style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
                             )
@@ -252,7 +254,7 @@ class _MyReportsState extends State<MyReports> {
                               ),
                             //  ),
                             // ),
-                            Text(
+                            const Text(
                               'KCAL',
                               style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
                             )
@@ -279,37 +281,12 @@ class _MyReportsState extends State<MyReports> {
                             //   child: Center(
                             //       child:
                               Text(
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 1? "0" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 2? "1" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 3? "2" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 4? "3" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 5? "3" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 6? "4" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 7? "5" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 8? "6" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 9? "7" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 10? "8" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 11? "9" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 12? "10" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 13? "11" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 14? "12" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 15? "13" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 16? "14" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 17? "15" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 18? "16" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 19? "17" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 20? "18" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 21? "19" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 22? "20" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 23? "21" :
-                                requestDayData!=null? requestDayData!.exerciseList![0].exerciseNumInProgress == 24? "21" :
-                                "0": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min": "0 min",
-                                // '01:00',
+                                timeSpent.ceil().toString(),
                                 style: TextStyle(color: kColorPrimary, fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                             //   ),
                             // ),
-                            Text(
+                            const Text(
                               'TIME (MIN)',
                               style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
                             )
@@ -457,7 +434,13 @@ class _MyReportsState extends State<MyReports> {
                         context,
                         MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                const WaterTracker()));
+                                const WaterTracker()
+                        )
+                    ).then((ma){
+                      print("Value is updated");
+                      _activityBloc.add(GetASpecificDaysEvent(day: 'Day ${AppGlobal.currentDay + 1}'));
+                      print(value);
+                    });
                   },
                   child: Container(
                     //height: 25.h,
@@ -511,17 +494,11 @@ class _MyReportsState extends State<MyReports> {
                                               .noOfGlassWaterDrank
                                               .toString()
                                           : '0',
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold),
+                                      style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
                                     ),
                                     const Text(
                                       '  /8 Cups',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                      ),
+                                      style: TextStyle(color: Colors.white, fontSize: 16,),
                                     ),
                                   ],
                                 ),
@@ -584,21 +561,25 @@ class _MyReportsState extends State<MyReports> {
                                         dayData: requestDayData!,
                                         isIncrementing: true));
                               }
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        AnimatedDrinkAcknowledge(previousValue: previousValue)));
+                              if(value < 100){
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            AnimatedDrinkAcknowledge(previousValue: previousValue)
+                                    )
+                                );
+                              }
                             },
                             child: Container(
                               height: 40,
                               width: MediaQuery.of(context).size.width * 0.7,
-                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(25.0),
-                                  color: Colors.blue
+                                  color: value<100? Colors.blue: Colors.grey,
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                   'DRINK',
                                   style: TextStyle(
@@ -614,7 +595,7 @@ class _MyReportsState extends State<MyReports> {
                     ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.0),
-                      image: DecorationImage(
+                      image: const DecorationImage(
                         image: AssetImage(
                             "assets/images/Bell Magic Workout.jpg",),
                             // "assets/images/${constants.dailyExercises[3].image}"),
@@ -826,8 +807,7 @@ class _MyReportsState extends State<MyReports> {
                   child: Container(
                     // height: 15.h,
                     width: MediaQuery.of(context).size.width * 2,
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.0),
                       gradient: const LinearGradient(
@@ -848,7 +828,7 @@ class _MyReportsState extends State<MyReports> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
+                              const Text(
                                 'BMI',
                                 style: TextStyle(
                                     color: Colors.white,
@@ -867,7 +847,7 @@ class _MyReportsState extends State<MyReports> {
                                       )); //CountdownPopup(),
                                 },
                                 child: Row(
-                                  children: [
+                                  children: const [
                                     Text("Edit"),
                                     SizedBox(width: 5),
                                     Icon(Icons.edit_outlined, size: 18, color: Colors.white),
@@ -895,7 +875,7 @@ class _MyReportsState extends State<MyReports> {
                           ),
                           Row(
                             children: [
-                              Text("BMI range and categories come from "),
+                              const Text("BMI range and categories come from "),
                               InkWell(
                                 onTap: (){
                                   // _launchUrl();
@@ -905,12 +885,12 @@ class _MyReportsState extends State<MyReports> {
                                           builder: (BuildContext context) =>
                                               WikiScreen()));
                                 },
-                                child: Text(
+                                child: const Text(
                                   "Wiki",
                                   style: TextStyle(color: kColorPrimary, decoration: TextDecoration.underline),
                                 )
                               ),
-                              Text("."),
+                              const Text("."),
                             ],
                           ),
                           const SizedBox(
@@ -926,7 +906,7 @@ class _MyReportsState extends State<MyReports> {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(fontWeight: FontWeight.bold),
                                     ),
-                                  SizedBox(height: 5),
+                                  const SizedBox(height: 5),
                                   Row(
                                     children: [
                                       Container(
@@ -944,7 +924,7 @@ class _MyReportsState extends State<MyReports> {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 5),
+                                      const SizedBox(width: 5),
                                       Container(
                                         width: MediaQuery.of(context).size.width*0.09,
                                         height: 10,
@@ -960,7 +940,7 @@ class _MyReportsState extends State<MyReports> {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 5),
+                                      const SizedBox(width: 5),
                                       Container(
                                         width: MediaQuery.of(context).size.width*0.18,
                                         height: 10,
@@ -977,7 +957,7 @@ class _MyReportsState extends State<MyReports> {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 5),
+                                      const SizedBox(width: 5),
                                       Container(
                                         width: MediaQuery.of(context).size.width*0.15,
                                         height: 10,
@@ -993,7 +973,7 @@ class _MyReportsState extends State<MyReports> {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 5),
+                                      const SizedBox(width: 5),
                                       Container(
                                         width: MediaQuery.of(context).size.width*0.15,
                                         height: 10,
@@ -1009,7 +989,7 @@ class _MyReportsState extends State<MyReports> {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 5),
+                                      const SizedBox(width: 5),
                                       Container(
                                         width: MediaQuery.of(context).size.width*0.15,
                                         height: 10,
@@ -1027,22 +1007,22 @@ class _MyReportsState extends State<MyReports> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(height: 7),
+                                  const SizedBox(height: 7),
                                   Row(
                                     children: [
-                                      Text("15", style: TextStyle(fontSize: 12)),
+                                      const Text("15", style: TextStyle(fontSize: 12)),
                                       SizedBox(width: MediaQuery.of(context).size.width*0.005),
-                                      Text("16", style: TextStyle(fontSize: 12)),
+                                      const Text("16", style: TextStyle(fontSize: 12)),
                                       SizedBox(width: MediaQuery.of(context).size.width*0.05),
-                                      Text("18.5", style: TextStyle(fontSize: 12)),
+                                      const Text("18.5", style: TextStyle(fontSize: 12)),
                                       SizedBox(width: MediaQuery.of(context).size.width*0.135),
-                                      Text("25", style: TextStyle(fontSize: 12)),
+                                      const Text("25", style: TextStyle(fontSize: 12)),
                                       SizedBox(width: MediaQuery.of(context).size.width*0.125),
-                                      Text("30", style: TextStyle(fontSize: 12)),
+                                      const Text("30", style: TextStyle(fontSize: 12)),
                                       SizedBox(width: MediaQuery.of(context).size.width*0.125),
-                                      Text("35", style: TextStyle(fontSize: 12)),
+                                      const Text("35", style: TextStyle(fontSize: 12)),
                                       SizedBox(width: MediaQuery.of(context).size.width*0.1),
-                                      Text("40", style: TextStyle(fontSize: 12)),
+                                      const Text("40", style: TextStyle(fontSize: 12)),
                                     ],
                                   ),
                                 ],
@@ -1054,7 +1034,7 @@ class _MyReportsState extends State<MyReports> {
                           ),
                           Text(
                             _message,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold),

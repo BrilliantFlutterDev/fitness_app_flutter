@@ -4,6 +4,7 @@ import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/constants/constants.dart';
 import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
+import 'package:fitness_app/screens/my_activity/WaterTracker/animated_drinking_screen.dart';
 import 'package:fitness_app/screens/rest_screen/dayrest_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/coming_soon_popup.dart';
@@ -30,6 +31,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   double value = 0;
+  double previousValue = 0;
 
   late String statusValueChoose;
   late HomeBloc _homeBloc;
@@ -75,6 +77,7 @@ class _HomePageState extends State<HomePage> {
         _homeBloc.add(GetAllDaysEvent());
       } else if (state is GetAllDaysState) {
         requestDayData = state.dayData;
+        previousValue = double.parse(requestDayData!.exerciseList![0].noOfGlassWaterDrank.toString());
         value = requestDayData!.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank * 12.5;
       } else if (state is UpdateDayProgressState) {
         dayModelLocalDB = state.dayModelLocalDB;
@@ -98,7 +101,7 @@ class _HomePageState extends State<HomePage> {
           child: Scaffold(
             backgroundColor: kColorBG,
             appBar: AppBar(
-              toolbarHeight: MediaQuery.of(context).size.height*0.1,
+              toolbarHeight: MediaQuery.of(context).size.height*0.11,
               // backgroundColor: const Color(0xff1c1b20),
               backgroundColor: kColorBG,
               title: Column(
@@ -148,11 +151,6 @@ class _HomePageState extends State<HomePage> {
                 InkWell(
                   onTap: () {
                     admobHelper.loadInterstatialAd();
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (BuildContext context) =>
-                    //             SimpleProgressIndicatorsApp()));
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.03),
@@ -182,15 +180,40 @@ class _HomePageState extends State<HomePage> {
                 // ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                          const WaterTracker())).then((ma){
-                            print("Value is updated");
-                            _homeBloc.add(GetAllDaysEvent());
-                            print(value);
-                          });
+                    if (value == 100 || value > 100) {
+                      value = 100;
+                    } else {
+                      _homeBloc.add(
+                          WaterGlassIncrementDecrementEvent(
+                              dayData: requestDayData!, isIncrementing: true)
+                      );
+                    }
+                    if(value == 100){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                              const WaterTracker()
+                          )
+                      ).then((ma){
+                        print("Value is updated");
+                        _homeBloc.add(GetAllDaysEvent());
+                        print(value);
+                      });
+                    }
+                    else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  AnimatedDrinkAcknowledge(previousValue: previousValue)
+                          )
+                      ).then((ma){
+                        print("Value is updated");
+                        _homeBloc.add(GetAllDaysEvent());
+                        print(value);
+                      });
+                    }
                   },
                   child: Container(
                     // height: 8.h,

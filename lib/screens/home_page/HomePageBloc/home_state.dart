@@ -19,7 +19,8 @@ class ErrorState extends HomeState {
 class GetAllExerciseState extends HomeState {
   final RequestExerciseData exerciseData;
   final double? calories;
-  GetAllExerciseState({required this.exerciseData, this.calories});       // this.calories
+  final double? totalTime;
+  GetAllExerciseState({required this.exerciseData, this.calories, this.totalTime});       // this.calories
 }
 
 class UpdateAllExerciseState extends HomeState {

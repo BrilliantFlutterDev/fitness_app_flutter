@@ -41,7 +41,9 @@ class _AnimatedDrinkAcknowledgeState extends State<AnimatedDrinkAcknowledge> {
         Duration(seconds: 2),
             () => setState(() {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => DrinkAcknowledge()),
+                  MaterialPageRoute(
+                      builder: (context) => DrinkAcknowledge()
+                  ),
               );
         })
     );

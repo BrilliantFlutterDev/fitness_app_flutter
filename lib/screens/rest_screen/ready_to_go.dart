@@ -8,7 +8,9 @@ import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/start_exercise/start_exercise.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+import 'package:video_player/video_player.dart';
 
 class ReadyToGo extends StatefulWidget {
 
@@ -28,26 +30,37 @@ class _ReadyToGoState extends State<ReadyToGo> {
   int index=0;
 
   late Timer _timer;
-  double _start = 10;
+  double start = 10;
+  double value = 10;
+  // late VideoPlayerController _controller;
 
   startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(
       oneSec,
       (Timer timer) {
-        if (_start == 0) {
+        if (start == 0) {
           setState(() {
             timer.cancel();
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (ctx) =>  StartExercise(exerciseData: widget.exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)));
+                builder: (ctx) =>  StartExercise(exerciseData: widget.exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)
+            ));
           });
         } else {
           setState(() {
-            _start--;
+            start--;
           });
         }
       },
     );
+  }
+
+  void saveCountDown() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    start = pref.getDouble('countdown')!;
+    setState(() {
+      value = start;
+    });
   }
 
   @override
@@ -61,11 +74,22 @@ class _ReadyToGoState extends State<ReadyToGo> {
     //   index=widget.dayModelLocalDB!.exerciseNumInProgress;
     // }
 
+    // _controller = VideoPlayerController.asset('assets/images/${widget.exerciseData!.exerciseList![index].exercise.video}');
+    //
+    // _controller.addListener(() {
+    //   setState(() {});
+    // });
+    // _controller.setLooping(true);
+    // _controller.initialize().then((_) => setState(() {}));
+    // _controller.play();
+
+    saveCountDown();
     startTimer();
   }
 
   @override
   void dispose() {
+    // _controller.dispose();
     _timer.cancel();
     super.dispose();
   }
@@ -83,6 +107,13 @@ class _ReadyToGoState extends State<ReadyToGo> {
                 children: [
                   Stack(
                     children: [
+                      // Container(
+                      //   height: MediaQuery.of(context).size.height * 0.40,
+                      //   child: AspectRatio(
+                      //     aspectRatio: _controller.value.aspectRatio,
+                      //     child: VideoPlayer(_controller),
+                      //   ),
+                      // ),
                       Container(
                         height: MediaQuery.of(context).size.height * 0.40,
                         decoration:  BoxDecoration(
@@ -151,9 +182,9 @@ class _ReadyToGoState extends State<ReadyToGo> {
                             children: [
                               SizedBox(width: MediaQuery.of(context).size.width*0.1),
                               SleekCircularSlider(
-                                initialValue: _start,
+                                initialValue: start,
                                 min: 0,
-                                max: 10,
+                                max: value,
                                 appearance: CircularSliderAppearance(
                                   startAngle: 270,
                                   angleRange: 360,
@@ -176,14 +207,14 @@ class _ReadyToGoState extends State<ReadyToGo> {
                                 innerWidget: (re) {
                                   return Center(
                                     child: Text(
-                                      "${_start.ceil()}",
+                                      "${start.ceil()}",
                                       style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.1),
                                     ),
                                   );
                                 },
                                 onChange: (e) {
                                   setState(() {
-                                    _start = e;
+                                    start = e;
                                   });
                                 },
                               ),

@@ -1,10 +1,11 @@
-import 'package:fitness_app/Helper/DBModels/user_data_model.dart';
+import 'package:fitness_app/Helper/DBModels/user_model.dart';
 import 'package:fitness_app/constants.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/account_screen/AccountScreenBloc/account_screen_bloc.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../account_screen1.dart';
 
@@ -17,15 +18,24 @@ class TrainingRestPopup extends StatefulWidget{
 
 class _TrainingRestPopupState extends State<TrainingRestPopup> {
 
-  int _counter = 10;
+  late AccountScreenBloc _accountScreenBloc;
+  RequestUserData? requestUserData;
+  int counter = 10;
   @override
   void initState() {
     super.initState();
+    saveTrainingRest();
     _accountScreenBloc = BlocProvider.of<AccountScreenBloc>(context);
   }
 
-  late AccountScreenBloc _accountScreenBloc;
-  RequestUserData? requestUserData;
+  void saveTrainingRest() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    counter = pref.getInt('trainingrest')!;
+    setState(() {
+
+    });
+  }
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -52,20 +62,20 @@ class _TrainingRestPopupState extends State<TrainingRestPopup> {
                         child: InkWell(
                             onTap: () {
                               setState(() {
-                                if(_counter == 5 || _counter <= 5){
-                                  _counter = 5;
+                                if(counter == 5 || counter <= 5){
+                                  counter = 5;
                                 }else{
-                                  _counter -= 5;
+                                  counter -= 5;
                                 }
                               });
                             },
-                            child: Icon(Icons.arrow_back_ios, color: Colors.grey, size: 20)),
+                            child: const Icon(Icons.arrow_back_ios, color: Colors.grey, size: 20)),
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width*0.05),
                       Column(
                         children: [
                           Text(
-                          '$_counter',
+                            counter.toString(),
                             style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.height*0.075),
                           ),
                           Text(
@@ -80,14 +90,14 @@ class _TrainingRestPopupState extends State<TrainingRestPopup> {
                         child: InkWell(
                             onTap: () {
                               setState(() {
-                                if(_counter == 180 || _counter>=180){
-                                  _counter = 180;
+                                if(counter == 180 || counter>=180){
+                                  counter = 180;
                                 }else{
-                                  _counter += 5;
+                                  counter += 5;
                                 }
                               });
                             },
-                            child: Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 20)),
+                            child: const Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 20)),
                       ),
                     ],
                   ),
@@ -100,22 +110,24 @@ class _TrainingRestPopupState extends State<TrainingRestPopup> {
                           onTap: (){
                             Navigator.pop(context);
                           },
-                          child: Text(
+                          child: const Text(
                             "CANCEL",
                             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width*0.1),
                         InkWell(
-                          onTap: (){
-                            _accountScreenBloc.add(
-                                InsertAllUserDataInLocalDBEvent(
-                                  trainingRest: _counter
-                                ),
-                            );
-                            Navigator.pop(context, _counter);
+                          onTap: () async {
+                            SharedPreferences pref = await SharedPreferences.getInstance();
+                            pref.setInt('trainingrest', counter);
+                            // _accountScreenBloc.add(
+                            //     InsertAllUserDataInLocalDBEvent(
+                            //       trainingRest: _counter
+                            //     ),
+                            // );
+                            Navigator.pop(context, counter);
                           },
-                          child: Text(
+                          child: const Text(
                             "SET",
                             style: TextStyle(color: kColorPrimary, fontWeight: FontWeight.bold),
                           ),

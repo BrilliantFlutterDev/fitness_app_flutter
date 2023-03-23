@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdmobHelper{
-  static String get bannerUnit => 'ca-app-pub-3940256099942544/6300978111';
+  static String get bannerUnit => 'ca-app-pub-6673065583073717/8455099111';
 
   InterstitialAd? _interstitialAd;
   int loadingAttempt = 0;
@@ -19,7 +19,7 @@ class AdmobHelper{
   static BannerAd getBannerAd(){
     BannerAd myBanner = BannerAd(
       adUnitId: Platform.isAndroid
-          ? 'ca-app-pub-3940256099942544/6300978111'
+          ? 'ca-app-pub-6673065583073717/8455099111'
           : 'ca-app-pub-3940256099942544/2934735716',   //'<ad unit ID>'
       size: AdSize.banner,
       request: AdRequest(),
@@ -43,7 +43,7 @@ class AdmobHelper{
   void loadInterstatialAd() {
     InterstitialAd.load(
         adUnitId: Platform.isAndroid
-            ? 'ca-app-pub-3940256099942544/1033173712'
+            ? 'ca-app-pub-6673065583073717/2926891522'
             : 'ca-app-pub-3940256099942544/4411468910',
         request: AdRequest(),
         adLoadCallback: InterstitialAdLoadCallback(
@@ -89,7 +89,7 @@ class AdmobHelper{
   void loadAppOpenAd() {
     AppOpenAd.load(
         adUnitId: Platform.isAndroid
-            ? 'ca-app-pub-3940256099942544/3419835294'
+            ? 'ca-app-pub-6673065583073717/5637364088'
             : 'ca-app-pub-3940256099942544/5662855259',
         request: AdRequest(),
         adLoadCallback: AppOpenAdLoadCallback(

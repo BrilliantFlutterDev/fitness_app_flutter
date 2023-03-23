@@ -1,5 +1,5 @@
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
-import 'package:fitness_app/Helper/DBModels/user_data_model.dart';
+import 'package:fitness_app/Helper/DBModels/user_model.dart';
 import 'package:fitness_app/screens/account_screen/CommonQuestions/common_questions.dart';
 import 'package:fitness_app/screens/account_screen/Feedback/feedback.dart';
 import 'package:fitness_app/screens/account_screen/GeneralSettings/health_data.dart';
@@ -58,7 +58,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
   bool status = false;
   bool status1 = false;
 
-  int countresult = 10;
+  double countresult = 10;
   int restresult = 10;
 
   void saveWaterTracker() async {
@@ -68,6 +68,22 @@ class _AccountScreen1State extends State<AccountScreen1> {
   void saveDrinkNotification() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     status = pref.getBool("drinknotification")!;
+  }
+
+  void saveCountDown() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    countresult = pref.getDouble('countdown')!;
+    setState(() {
+
+    });
+  }
+
+  void saveTrainingRest() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    restresult = pref.getInt('trainingrest')!;
+    setState(() {
+
+    });
   }
 
   final Uri _url = Uri.parse('https://gamescapesinc.com/privacy');
@@ -83,6 +99,8 @@ class _AccountScreen1State extends State<AccountScreen1> {
     super.initState();
     saveWaterTracker();
     saveDrinkNotification();
+    saveCountDown();
+    saveTrainingRest();
 
     _accountScreenBloc = BlocProvider.of<AccountScreenBloc>(context);
     // _accountScreenBloc.add(GetASpecificDaysEvent(day: 'Day ${AppGlobal.currentDay + 1}'));
@@ -180,24 +198,6 @@ class _AccountScreen1State extends State<AccountScreen1> {
         dayModelLocalDB = state.dayModelLocalDB;
       }
     },
-    //   BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
-    //   if (state is LoadingState) {
-    //   } else if (state is ErrorState) {
-    //     Fluttertoast.showToast(
-    //         msg: state.error,
-    //         toastLength: Toast.LENGTH_SHORT,
-    //         gravity: ToastGravity.BOTTOM,
-    //         timeInSecForIosWeb: 1,
-    //         backgroundColor: Colors.grey.shade400,
-    //         textColor: Colors.white,
-    //         fontSize: 12.0);
-    //   } else if (state is RefreshScreenState) {
-    //   }else if (state is DataStoredState) {
-    //     _homeBloc.add(GetAllDaysEvent());
-    //   }else if (state is GetAllDaysState) {
-    //     requestDayData = state.dayData;
-    //   }
-    // },
     builder: (context, state) {
      return Scaffold(
        backgroundColor: kColorBG,
@@ -312,11 +312,19 @@ class _AccountScreen1State extends State<AccountScreen1> {
                         ),
                         InkWell(
                           onTap: (){
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (ctx) => RemoveAd(),
-                              ),
-                            );
+                            showDialog(
+                                context: context,
+                                builder: (_) => Dialog(
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height * 0.3,
+                                    child: ComingSoonPopup(),
+                                  ),
+                                ));
+                            // Navigator.of(context).push(
+                            //   MaterialPageRoute(
+                            //     builder: (ctx) => RemoveAd(),
+                            //   ),
+                            // );
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(top: 18,bottom: 10),
@@ -426,15 +434,15 @@ class _AccountScreen1State extends State<AccountScreen1> {
                         ),
                         InkWell(
                           onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (_) => Dialog(
-                                  child: Container(
-                                    height: MediaQuery.of(context).size.height * 0.3,
-                                    child: ComingSoonPopup(),
-                                  ),
-                                ));
-                            // _navigatecount(context);
+                            // showDialog(
+                            //     context: context,
+                            //     builder: (_) => Dialog(
+                            //       child: Container(
+                            //         height: MediaQuery.of(context).size.height * 0.3,
+                            //         child: ComingSoonPopup(),
+                            //       ),
+                            //     ));
+                            _navigatecount(context);
                           },
                           // {
                           //   Future<void> _navigatecount(BuildContext context) async {
@@ -479,7 +487,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                                     Text(
                                       // '${_accountScreenBloc.add(InsertAllUserDataInLocalDBEvent())}',
                                       // '${requestUserData?.userDataList?[0].countDownTime}',
-                                      '$countresult sec',
+                                      '${countresult.toDouble().ceil()} sec',
                                       // "10 sec",
                                       style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.043, color: kColorPrimary),
                                     ),
@@ -494,17 +502,16 @@ class _AccountScreen1State extends State<AccountScreen1> {
                           ),
                         ),
                         InkWell(
-                          onTap: ()
-                          {
-                            showDialog(
-                                context: context,
-                                builder: (_) => Dialog(
-                                  child: Container(
-                                    height: MediaQuery.of(context).size.height * 0.3,
-                                    child: ComingSoonPopup(),
-                                  ),
-                                ));
-                            // _navigaterest(context);
+                          onTap: () {
+                            // showDialog(
+                            //     context: context,
+                            //     builder: (_) => Dialog(
+                            //       child: Container(
+                            //         height: MediaQuery.of(context).size.height * 0.3,
+                            //         child: ComingSoonPopup(),
+                            //       ),
+                            //     ));
+                            _navigaterest(context);
                             // showDialog(
                             //     context: context,
                             //     builder: (_) => Dialog(
@@ -966,61 +973,61 @@ class _AccountScreen1State extends State<AccountScreen1> {
                           "SUPPORT US",
                           style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: kColorPrimary),
                         ),
-                        InkWell(
-                          onTap: () {
-                            Share.share('check out my App https://example.com', subject: 'Look what I made!');
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 18,bottom: 10),
-                            child: Row(
-                              children: [
-                                Container(
-                                  child: SvgPicture.asset(
-                                    "assets/icons/Share.svg",
-                                    height: MediaQuery.of(context).size.height*0.025,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                // Icon(
-                                //     Icons.share, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
-                                // ),
-                                SizedBox(width: MediaQuery.of(context).size.width*0.035),
-                                Text(
-                                  "Share with friends",
-                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            _requestReview();
-                            _openStoreListing();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 10,bottom: 10),
-                            child: Row(
-                              children: [
-                                Container(
-                                  child: SvgPicture.asset(
-                                    "assets/icons/star.svg",
-                                    height: MediaQuery.of(context).size.height*0.025,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                // Icon(
-                                //     Icons.star_rate_outlined, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
-                                // ),
-                                SizedBox(width: MediaQuery.of(context).size.width*0.035),
-                                Text(
-                                  "Rate us",
-                                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        // InkWell(
+                        //   onTap: () {
+                        //     Share.share('check out my App https://example.com', subject: 'Look what I made!');
+                        //   },
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.only(top: 18,bottom: 10),
+                        //     child: Row(
+                        //       children: [
+                        //         Container(
+                        //           child: SvgPicture.asset(
+                        //             "assets/icons/Share.svg",
+                        //             height: MediaQuery.of(context).size.height*0.025,
+                        //             color: Colors.white,
+                        //           ),
+                        //         ),
+                        //         // Icon(
+                        //         //     Icons.share, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                        //         // ),
+                        //         SizedBox(width: MediaQuery.of(context).size.width*0.035),
+                        //         Text(
+                        //           "Share with friends",
+                        //           style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        // InkWell(
+                        //   onTap: () {
+                        //     _requestReview();
+                        //     _openStoreListing();
+                        //   },
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.only(top: 10,bottom: 10),
+                        //     child: Row(
+                        //       children: [
+                        //         Container(
+                        //           child: SvgPicture.asset(
+                        //             "assets/icons/star.svg",
+                        //             height: MediaQuery.of(context).size.height*0.025,
+                        //             color: Colors.white,
+                        //           ),
+                        //         ),
+                        //         // Icon(
+                        //         //     Icons.star_rate_outlined, color: Colors.white, size: MediaQuery.of(context).size.width*0.065,
+                        //         // ),
+                        //         SizedBox(width: MediaQuery.of(context).size.width*0.035),
+                        //         Text(
+                        //           "Rate us",
+                        //           style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.045, color: Colors.white),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                         InkWell(
                           onTap: () {
                             Navigator.of(context).push(

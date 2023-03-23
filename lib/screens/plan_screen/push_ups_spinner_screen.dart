@@ -90,7 +90,7 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
                         height: MediaQuery.of(context).size.height*0.93,
                         width: MediaQuery.of(context).size.width,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                           child: Column(
                             children: [
                               Align(
@@ -109,7 +109,7 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                               Align(
                                 alignment: Alignment.center,
                                 child: Padding(
@@ -149,7 +149,7 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
                                   ],
                                 ),
                               ),
-                              const SizedBox(height: 20),
+                              SizedBox(height: MediaQuery.of(context).size.height*0.01),
                               Container(
                                 margin: const EdgeInsets.all(12),
                                 child: Container(
@@ -210,7 +210,7 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 25),
+                              const SizedBox(height: 24),
                               InkWell(
                                 onTap: () {
                                   Navigator.push(

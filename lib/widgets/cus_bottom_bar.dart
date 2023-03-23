@@ -102,6 +102,8 @@ class CusBottomBarState extends State<CusBottomBar> {
 
                   fixedColor: kColorPrimary,
                   onTap: onItemTapped,
+                  selectedFontSize: 12,
+                  unselectedFontSize: 12,
                 ),
             ),
           ),

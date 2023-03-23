@@ -1,30 +1,28 @@
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 import 'package:fitness_app/constants/colors.dart';
-import 'package:fitness_app/screens/home_page/open_activity.dart';
-import 'package:fitness_app/screens/home_page/quit_screens/quit_screen.dart';
-import 'package:fitness_app/screens/start_exercise/start_exercise.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../Utils/modal_progress_hud.dart';
 import '../home_page/HomePageBloc/home_bloc.dart';
 
 class SelectExercise extends StatefulWidget {
-  ExerciseModelLocalDB exerciseModelLocalDB;
 
+  ExerciseModelLocalDB exerciseModelLocalDB;
   int current_index;
-  SelectExercise({
-    Key? key,
-    required this.exerciseModelLocalDB, this.exerciseData, this.dayModelLocalDB, required this.current_index
-  }) : super(key: key);
 
   RequestExerciseData? exerciseData;
   DayModelLocalDB? dayModelLocalDB;
+
+  SelectExercise({Key? key,
+    required this.exerciseModelLocalDB, this.exerciseData, this.dayModelLocalDB, required this.current_index
+  }) : super(key: key);
 
   @override
   State<SelectExercise> createState() => _SelectExerciseState();
@@ -34,6 +32,7 @@ class _SelectExerciseState extends State<SelectExercise> {
 
   late HomeBloc _homeBloc;
   int index = 0;
+  late VideoPlayerController _controller;
 
   // RequestExerciseData? exerciseData;
   void previousclick() {
@@ -42,6 +41,13 @@ class _SelectExerciseState extends State<SelectExercise> {
           ? widget.current_index = widget.current_index-1
           : widget.current_index=1;
       widget.exerciseModelLocalDB = widget.exerciseData!.exerciseList![widget.current_index-1];
+      // _controller = VideoPlayerController.asset('assets/images/${widget.exerciseModelLocalDB.exercise.video}');
+      // _controller.addListener(() {
+      //   setState(() {});
+      // });
+      // _controller.setLooping(true);
+      // _controller.initialize().then((_) => setState(() {}));
+      // _controller.play();
     });
     print(widget.current_index);
   }
@@ -52,6 +58,13 @@ class _SelectExerciseState extends State<SelectExercise> {
           ? widget.current_index = widget.current_index+1
           : widget.current_index = widget.exerciseData!.exerciseList!.length;
       widget.exerciseModelLocalDB = widget.exerciseData!.exerciseList![widget.current_index+1-2];
+      // _controller = VideoPlayerController.asset('assets/images/${widget.exerciseModelLocalDB.exercise.video}');
+      // _controller.addListener(() {
+      //   setState(() {});
+      // });
+      // _controller.setLooping(true);
+      // _controller.initialize().then((_) => setState(() {}));
+      // _controller.play();
     });
     print(widget.current_index);
   }
@@ -60,8 +73,23 @@ class _SelectExerciseState extends State<SelectExercise> {
   void initState() {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
-    print('>>>>>>>>>>>>>Excercise ID: ${widget.exerciseModelLocalDB.columnsId}');
+
+    // _controller = VideoPlayerController.asset('assets/images/${widget.exerciseModelLocalDB.exercise.video}');
+    //
+    // _controller.addListener(() {
+    //   setState(() {});
+    // });
+    // _controller.setLooping(true);
+    // _controller.initialize().then((_) => setState(() {}));
+    // _controller.play();
   }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -77,9 +105,9 @@ class _SelectExerciseState extends State<SelectExercise> {
             textColor: Colors.white,
             fontSize: 12.0);
       } else if (state is RefreshScreenState) {
-      }else if (state is UpdateAllExerciseState) {
+      } else if (state is UpdateAllExerciseState) {
         widget.exerciseModelLocalDB=state.exerciseModelLocalDB;
-      }else if (state is GetAllExerciseState) {
+      } else if (state is GetAllExerciseState) {
         widget.exerciseData = state.exerciseData;
       }
     }, builder: (context, state) {
@@ -143,21 +171,42 @@ class _SelectExerciseState extends State<SelectExercise> {
             title: const Text("Exercise Detail"),
           ),
           body: Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(10),
             child: ColorRemover(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height*0.3,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      image:  DecorationImage(
-                          image: AssetImage('assets/images/${widget.exerciseModelLocalDB.exercise.image}'),
-                          fit: BoxFit.cover),
-                    ),
+                  Stack(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.3,
+                        child: AspectRatio(
+                          aspectRatio: _controller.value.aspectRatio,
+                          child: VideoPlayer(_controller),//VideoPlayerController.asset('assets/images/${widget.exerciseModelLocalDB.exercise.image}')
+                        ),
+                      ),
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.3,
+                        decoration:  BoxDecoration(
+                          color: Colors.white,
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/${widget.exerciseModelLocalDB.exercise.image}'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
+                  // Container(
+                  //   width: double.infinity,
+                  //   height: MediaQuery.of(context).size.height*0.3,
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(12.0),
+                  //     image:  DecorationImage(
+                  //         image: AssetImage('assets/images/${widget.exerciseModelLocalDB.exercise.image}'),
+                  //         fit: BoxFit.cover),
+                  //   ),
+                  // ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height*0.02,
                   ),
@@ -172,7 +221,7 @@ class _SelectExerciseState extends State<SelectExercise> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        widget.exerciseModelLocalDB.exercise.type!='rap'? "Duration":'Raps',
+                        widget.exerciseModelLocalDB.exercise.type!='rap'? "Duration":'Reps',
                         style: const TextStyle(fontSize: 20),
                       ),
                       Row(
@@ -195,7 +244,7 @@ class _SelectExerciseState extends State<SelectExercise> {
                                   ),
                                   // height:20,
                                   // width:20,
-                                  child: Center(
+                                  child: const Center(
                                     child: Icon(
                                       Icons.remove,
                                       color: kColorPrimary,
@@ -204,12 +253,12 @@ class _SelectExerciseState extends State<SelectExercise> {
                                   )
                               ),
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Text(
                             widget.exerciseModelLocalDB.exercise.type!='rap'? widget.exerciseModelLocalDB.time.toString():widget.exerciseModelLocalDB.raps.toString(),
                             style: const TextStyle(fontSize: 20),
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           InkWell(onTap: (){
                             if(widget.exerciseModelLocalDB.exercise.type=='rap'){
                               _homeBloc.add(RapsIncrementDecrementEvent(exerciseModelLocalDB: widget.exerciseModelLocalDB, isIncrementing: true, isDecrementing: false));

@@ -16,6 +16,8 @@ import '../../../constants/colors.dart';
 enum Gender {Male, Female}
 
 class HealthData extends StatefulWidget {
+  const HealthData({Key? key}) : super(key: key);
+
 
   @override
   State<HealthData> createState() => _HealthDataState();
@@ -58,17 +60,18 @@ class _HealthDataState extends State<HealthData> {
       initialDate: DateTime.now(),
       firstDate: DateTime(1923),
       lastDate: DateTime.now(),//DateTime(2023, 12, 31),
-      dateFormat: "yyyy-MMMM-dd",
+      dateFormat: "dd-MMMM-yyyy",
       locale: DateTimePickerLocale.en_us,
       backgroundColor: kColorFG,
       looping: false,
       textColor: kColorPrimary,
       confirmText: 'SET',
       cancelText: 'CANCEL',
-      itemTextStyle: TextStyle(color: Colors.white),
+      itemTextStyle: const TextStyle(color: Colors.white),
     );
     setState(() {
-      DOB = _datePicked!.toString();
+      // DOB = _datePicked!.toString();
+      DOB = dateFormat.format(_datePicked!);
     });
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString('birthdate', DOB);
@@ -125,7 +128,7 @@ class _HealthDataState extends State<HealthData> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
-                                      Text(
+                                      const Text(
                                         "Gender",
                                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
                                       ),
@@ -206,7 +209,7 @@ class _HealthDataState extends State<HealthData> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   subtitle: Text(
-                    "$DOB",
+                    DOB,
                     // "$birthdate",
                     // "1990-01-01",
                     style: TextStyle(color: Colors.grey),

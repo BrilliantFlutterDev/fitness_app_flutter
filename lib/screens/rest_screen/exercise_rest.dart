@@ -6,6 +6,7 @@ import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ExerciseRestScreen extends StatefulWidget {
 
@@ -43,11 +44,20 @@ class _ExerciseRestScreenState extends State<ExerciseRestScreen> {
     );
   }
 
+  void saveTrainingRest() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    value = pref.getInt('trainingrest')!.toDouble();
+    setState(() {
+
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     index=(widget.dayModelLocalDB!.exerciseNumInProgress);
 
+    saveTrainingRest();
     startTimer();
   }
 

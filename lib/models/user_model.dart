@@ -12,7 +12,7 @@ class UserModel {
     this.dateOfBirth,
     this.weight,
     this.height,
-    this.countDownTime,
+    this.countDownTime = 10,
     this.trainingRest,
     this.turnOnWaterTracker,
     this.drinkNotification,

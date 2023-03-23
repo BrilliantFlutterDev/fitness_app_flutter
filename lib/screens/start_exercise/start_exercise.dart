@@ -11,6 +11,7 @@ import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../Helper/DBModels/day_model.dart';
 import '../../Helper/DBModels/exercise_model.dart';
@@ -32,13 +33,14 @@ class _StartExerciseState extends State<StartExercise> {
   late double value;
   int index=0;
   late HomeBloc _homeBloc;
+  // late VideoPlayerController _controller;
 
   // int pushUp = 10;
   // double plank = 15;
 
   void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(
       oneSec,
       (Timer timer) {
         if (value == 0) {
@@ -49,6 +51,7 @@ class _StartExerciseState extends State<StartExercise> {
 
             _homeBloc.add(ChangeExerciseStatusToDoneEvent(
                 exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
+
 
             // if(index<(widget.exerciseData!.exerciseList!.length-1)) {
             //
@@ -90,6 +93,16 @@ class _StartExerciseState extends State<StartExercise> {
   void initState() {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
+
+    // _controller = VideoPlayerController.asset('assets/images/${widget.exerciseData!.exerciseList![index].exercise.video}');
+    //
+    // _controller.addListener(() {
+    //   setState(() {});
+    // });
+    // _controller.setLooping(true);
+    // _controller.initialize().then((_) => setState(() {}));
+    // _controller.play();
+
     index=widget.dayModelLocalDB!.exerciseNumInProgress;
     if(widget.exerciseData!.exerciseList![index].exercise.type =='time'){
       value = double.parse(widget.exerciseData!.exerciseList![index].time.toString());
@@ -113,6 +126,7 @@ class _StartExerciseState extends State<StartExercise> {
 
   @override
   void dispose() {
+    // _controller.dispose();
     _timer.cancel();
     super.dispose();
   }
@@ -169,6 +183,16 @@ class _StartExerciseState extends State<StartExercise> {
           ).then((val){
             setState(() {
               index = index + 1;
+
+              // _controller = VideoPlayerController.asset('assets/images/${widget.exerciseData!.exerciseList![index].exercise.video}');
+              //
+              // _controller.addListener(() {
+              //   setState(() {});
+              // });
+              // _controller.setLooping(true);
+              // _controller.initialize().then((_) => setState(() {}));
+              // _controller.play();
+
               value = double.parse(widget.exerciseData!.exerciseList![index].time.toString());
               if(widget.exerciseData!.exerciseList![index].exercise.type !='rap'){
                 startTimer();
@@ -203,6 +227,13 @@ class _StartExerciseState extends State<StartExercise> {
                 children: [
                   Stack(
                     children: [
+                      // SizedBox(
+                      //   height: MediaQuery.of(context).size.height * 0.40,
+                      //   child: AspectRatio(
+                      //     aspectRatio: _controller.value.aspectRatio,
+                      //     child: VideoPlayer(_controller),
+                      //   ),
+                      // ),
                       Container(
                         height: MediaQuery.of(context).size.height * 0.40,
                         decoration:  BoxDecoration(
@@ -226,8 +257,7 @@ class _StartExerciseState extends State<StartExercise> {
                         height: MediaQuery.of(context).size.height * 0.40,
                         width: MediaQuery.of(context).size.width,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 0, vertical: 0),
+                          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                           child: Column(
                             children: [
                               AppBar(
@@ -388,7 +418,7 @@ class _StartExerciseState extends State<StartExercise> {
                             //     exerciseModelLocalDB: widget.exerciseData!.exerciseList![index-1]));
                           },
                           child: Row(
-                            children: [
+                            children: const [
                               Icon(Icons.skip_previous, color: kColorPrimary,),
                               Text(
                                 "PREVIOUS",
@@ -396,7 +426,7 @@ class _StartExerciseState extends State<StartExercise> {
                               ),
                             ],
                           ),
-                        ) : SizedBox(),
+                        ) : const SizedBox(),
                         SizedBox(width: MediaQuery.of(context).size.width*0.28),
                         index<widget.exerciseData!.exerciseList!.length-1?
                         GestureDetector(

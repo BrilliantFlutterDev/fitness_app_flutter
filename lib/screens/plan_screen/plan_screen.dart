@@ -110,7 +110,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                         height: MediaQuery.of(context).size.height*0.93,
                         width: MediaQuery.of(context).size.width,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                           child: Column(
                             children: [
                               SizedBox(height: MediaQuery.of(context).size.height * 0.08),
@@ -193,7 +193,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                                 ],
                               ),
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.09
+                                  height: MediaQuery.of(context).size.height * 0.07
                               ),
                               GestureDetector(
                                 onTap: () async {
@@ -425,15 +425,16 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
                               ),
 
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.11
+                                  height: MediaQuery.of(context).size.height * 0.1
                               ),
                               InkWell(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
+                                  Navigator.of(context).push(
                                       MaterialPageRoute(
                                           builder: (BuildContext context) =>
-                                              const PushUpsSpinnerScreen()));
+                                              const PushUpsSpinnerScreen()
+                                      )
+                                  );
                                 },
                                 child: Container(
                                     width: MediaQuery.of(context).size.width * 0.6,

@@ -188,14 +188,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         }
       }
 
-
       ExerciseDetailModel exerciseDetailModel;
       for (int i = 0; i < constants.AllExercises.length; i++) {
         exerciseDetailModel = ExerciseDetailModel(
           id: constants.AllExercises[i].id,
           name: constants.AllExercises[i].name,
           image: constants.AllExercises[i].image,
+          // video: constants.AllExercises[i].video,
           type: constants.AllExercises[i].type,
+          rapTime: constants.AllExercises[i].rapTime,
           kcal: constants.AllExercises[i].kcal,
           description: constants.AllExercises[i].description,
         );
@@ -264,16 +265,27 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
         double calories = 0.0;
         for(int index=0; index<exerciseData.exerciseList!.length; index++){
-            print('Exercise Length>>>> ${exerciseData.exerciseList!.length}');
-            double cal1 = exerciseData.exerciseList![index].exercise.type == 'time'?
-            exerciseData.exerciseList![index].exercise.kcal * exerciseData.exerciseList![index].time.toDouble() :
-            exerciseData.exerciseList![index].exercise.kcal * exerciseData.exerciseList![index].raps.toDouble();
-            print('Calories>>> $cal1');
-            calories = calories + cal1;
-            print('Calories $calories');
-          }
+          print('Exercise Length>>>> ${exerciseData.exerciseList!.length}');
+          double cal1 = exerciseData.exerciseList![index].exercise.type == 'time'?
+          exerciseData.exerciseList![index].exercise.kcal * exerciseData.exerciseList![index].time.toDouble() :
+          exerciseData.exerciseList![index].exercise.kcal * exerciseData.exerciseList![index].raps.toDouble();
+          print('Calories>>> $cal1');
+          calories = calories + cal1;
+          print('Calories $calories');
+        }
 
-        yield GetAllExerciseState(exerciseData: exerciseData, calories: calories);
+        double totalTime = 0.0;
+        for(int index=0; index<exerciseData.exerciseList!.length; index++){
+          print('Exercise Length>>>> ${exerciseData.exerciseList!.length}');
+          double time1 = exerciseData.exerciseList![index].exercise.type == 'time'?
+          exerciseData.exerciseList![index].time.toDouble() :
+          exerciseData.exerciseList![index].exercise.rapTime * exerciseData.exerciseList![index].raps.toDouble();
+
+          totalTime = totalTime + time1;
+        }
+        totalTime = totalTime/60;
+
+        yield GetAllExerciseState(exerciseData: exerciseData, calories: calories, totalTime: totalTime);
       } catch (e) {
         yield ErrorState(error: 'No Exercise found!');
       }
@@ -405,12 +417,27 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           print('>>>>>>>>>Day Updating');
           print(event.progress);
 
-
-
         var data =
         await dbHelper.updateADay(event.dayModelLocalDB.toJson());
 
         yield UpdateDayProgressState(dayModelLocalDB: event.dayModelLocalDB);
+      } catch (e) {
+        yield ErrorState(error: 'No Days found!');
+      }
+    }
+    else if (event is WaterGlassIncrementDecrementEvent) {
+      try {
+        if (event.isIncrementing == true) {
+          event.dayData.exerciseList![0].noOfGlassWaterDrank =
+              event.dayData.exerciseList![0].noOfGlassWaterDrank + 1;
+        } else {
+          event.dayData.exerciseList![0].noOfGlassWaterDrank =
+              event.dayData.exerciseList![0].noOfGlassWaterDrank - 1;
+        }
+        var data =
+        await dbHelper.updateADay(event.dayData.exerciseList![0].toJson());
+
+        yield GetAllDaysState(dayData: event.dayData);
       } catch (e) {
         yield ErrorState(error: 'No Days found!');
       }

@@ -94,7 +94,7 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                         height: MediaQuery.of(context).size.height*0.93,
                         width: MediaQuery.of(context).size.width,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                           child: Column(
                             children: [
                               Align(
@@ -114,7 +114,7 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                 ),
                               ),
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.02
+                                  height: MediaQuery.of(context).size.height * 0.01
                               ),
                               Align(
                                 alignment: Alignment.center,
@@ -154,7 +154,7 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                 ),
                               ),
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.05
+                                  height: MediaQuery.of(context).size.height * 0.035
                               ),
                               GestureDetector(
                                 onTap: () async {
@@ -354,7 +354,7 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                 ),
                               ),
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.1
+                                  height: MediaQuery.of(context).size.height * 0.05
                               ),
                               InkWell(
                                 onTap: () {

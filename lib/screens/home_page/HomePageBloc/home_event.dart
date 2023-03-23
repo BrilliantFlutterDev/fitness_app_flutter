@@ -82,6 +82,13 @@ class InsertAllExercisesInLocalDBEvent extends HomeEvent {
   InsertAllExercisesInLocalDBEvent();
 }
 
+class WaterGlassIncrementDecrementEvent extends HomeEvent {
+  final RequestDayData dayData;
+  final bool isIncrementing;
+  WaterGlassIncrementDecrementEvent(
+      {required this.dayData, required this.isIncrementing});
+}
+
 class RefreshScreenEvent extends HomeEvent {
   RefreshScreenEvent();
 }

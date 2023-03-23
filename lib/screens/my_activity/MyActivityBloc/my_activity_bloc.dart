@@ -99,7 +99,9 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
           id: constants.AllExercises[i].id,
           name: constants.AllExercises[i].name,
           image: constants.AllExercises[i].image,
+          // video: constants.AllExercises[i].video,
           type: constants.AllExercises[i].type,
+          rapTime: constants.AllExercises[i].rapTime,
           kcal: constants.AllExercises[i].kcal,
           description: constants.AllExercises[i].description,
         );
@@ -184,31 +186,38 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
     } else if (event is GetASpecificDaysEvent) {
       yield LoadingState();
 
-      var data = await dbHelper.queryASpecificDay(event.day);
-      var data1 = await dbHelper.queryAllExerciseOfDay(event.day);
-
-      RequestDayData dayData = RequestDayData.fromJson(data);
-      RequestExerciseData exerciseData = RequestExerciseData.fromJson(data1);
-
-      double totalCalories = 0.0;
-      for(int index=0; index<dayData.exerciseList![0].exerciseNumInProgress; index++){
-        print('Exercise Length>>>> ${dayData.exerciseList![0].exerciseNumInProgress}');
-
-        var mExerciseResponse = await dbHelper.queryASpecificExercise(exerciseData.exerciseList![index].exerciseID);
-
-        var exercise = ExerciseDetailModel.fromJson(mExerciseResponse[0]);
-        double cal1 = exercise.type == 'time'?
-        exercise.kcal * exerciseData.exerciseList![index].time.toDouble() :
-        exercise.kcal * exerciseData.exerciseList![index].raps.toDouble();
-        print('Calories>>> $cal1');
-        totalCalories = totalCalories + cal1;
-        print('Calories $totalCalories');
-      }
-
-      yield GetAllDaysState(dayData: dayData, totalCalories: totalCalories);
-
       try {
+        var data = await dbHelper.queryASpecificDay(event.day);
+        var data1 = await dbHelper.queryAllExerciseOfDay(event.day);
 
+        RequestDayData dayData = RequestDayData.fromJson(data);
+        RequestExerciseData exerciseData = RequestExerciseData.fromJson(data1);
+
+        double totalCalories = 0.0;
+        double timeSpent = 0.0;
+
+        for(int index=0; index<dayData.exerciseList![0].exerciseNumInProgress; index++){
+
+          var mExerciseResponse = await dbHelper.queryASpecificExercise(exerciseData.exerciseList![index].exerciseID);
+
+          var exercise = ExerciseDetailModel.fromJson(mExerciseResponse[0]);
+
+          double cal1 = exercise.type == 'time'?
+          exercise.kcal * exerciseData.exerciseList![index].time.toDouble() :
+          exercise.kcal * exerciseData.exerciseList![index].raps.toDouble();
+          print('Calories>>> $cal1');
+          totalCalories = totalCalories + cal1;
+          print('Calories $totalCalories');
+
+          double time1 = exercise.type == 'time'?
+          exerciseData.exerciseList![index].time.toDouble() :
+          exercise.rapTime * exerciseData.exerciseList![index].raps.toDouble();
+
+          timeSpent = timeSpent + time1;
+        }
+        timeSpent = timeSpent/60;
+
+        yield GetAllDaysState(dayData: dayData, totalCalories: totalCalories, timeSpent: timeSpent);
       } catch (e) {
         print("Error $e");
         yield ErrorState(error: 'No Days found!');

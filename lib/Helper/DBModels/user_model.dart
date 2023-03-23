@@ -20,8 +20,6 @@ class RequestUserData {
 }
 
 class UserDataModelLocalDB {
-  // late  int completedPercentage;
-  // late  int exerciseNumInProgress;
 
   late final String? gender;
   late final String? dateOfBirth;
@@ -33,22 +31,18 @@ class UserDataModelLocalDB {
   late final bool? drinkNotification;
 
   UserDataModelLocalDB({
-    // required this.completedPercentage,
-    // required this.exerciseNumInProgress,
 
     this.gender,
     this.dateOfBirth,
     this.weight,
     this.height,
-    this.countDownTime,
+    this.countDownTime = 10,
     this.trainingRest,
     this.turnOnWaterTracker,
     this.drinkNotification,
   });
 
   UserDataModelLocalDB.fromJson(Map<String, dynamic> json) {
-    // completedPercentage = json['completeExercisePercentage'];
-    // exerciseNumInProgress = json['exerciseNumInProgress'];
 
     gender = json['gender'];
     dateOfBirth = json['dateOfBirth'];
@@ -62,8 +56,6 @@ class UserDataModelLocalDB {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    // data['completeExercisePercentage'] = completedPercentage;
-    // data['exerciseNumInProgress'] = exerciseNumInProgress;
 
     data['gender'] = gender;
     data['dateOfBirth'] = dateOfBirth;

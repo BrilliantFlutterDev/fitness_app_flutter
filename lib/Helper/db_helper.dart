@@ -10,7 +10,7 @@ class DatabaseHelper {
   static const tableExercises = 'AddExercise';
   static const tableExercisesDetail = 'ExerciseDetail';
   static const tableDay = 'AddDay';
-  static const tableUserData = 'AddUserData';
+  // static const tableUserData = 'AddUserData';
 
   static const columnId = 'id';
 
@@ -18,6 +18,7 @@ class DatabaseHelper {
   static const dayTitle = 'dayTitle';
   static const exercise_id = 'exerciseId';
   static const image = 'image';
+  // static const video = 'video';
   static const name = 'name';
   static const raps = 'raps';
   static const time = 'time';
@@ -30,6 +31,7 @@ class DatabaseHelper {
   static const isRest = 'isRest';
   static const description = 'description';
   static const kcal = 'kcal';
+  static const rapTime = 'rapTime';
 
   ///Day variables
   // static const dayTitle = 'dayTitle';
@@ -42,14 +44,14 @@ class DatabaseHelper {
   static const exerciseNumInProgress = 'exerciseNumInProgress';
 
   ///UserData variables
-  static const gender = 'gender';
-  static const dateOfBirth = 'dateOfBirth';
-  static const weight = 'weight';
-  static const height = 'height';
-  static const countDownTime = 'countDownTime';
-  static const trainingRest = 'trainingRest';
-  static const turnOnWaterTracker = 'turnOnWaterTracker';
-  static const drinkNotification = 'drinkNotification';
+  // static const gender = 'gender';
+  // static const dateOfBirth = 'dateOfBirth';
+  // static const weight = 'weight';
+  // static const height = 'height';
+  // static const countDownTime = 'countDownTime';
+  // static const trainingRest = 'trainingRest';
+  // static const turnOnWaterTracker = 'turnOnWaterTracker';
+  // static const drinkNotification = 'drinkNotification';
 
   // make this a singleton class
   DatabaseHelper._privateConstructor();
@@ -98,11 +100,12 @@ class DatabaseHelper {
             $exercise_id INTEGER,
             $image TEXT,
             $type TEXT,
+            $rapTime REAL,
             $kcal REAL,
             $description TEXT
           )
           ''');
-
+          // $video TEXT,
     await db.execute('''
           CREATE TABLE $tableDay (
             $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -118,19 +121,19 @@ class DatabaseHelper {
           )
           ''');
 
-    await db.execute('''
-          CREATE TABLE $tableUserData (
-            $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
-            $gender TEXT,
-            $dateOfBirth TEXT,
-            $weight TEXT,
-            $height TEXT,
-            $countDownTime INTEGER,
-            $trainingRest INTEGER,
-            $turnOnWaterTracker TEXT,
-            $drinkNotification TEXT
-          )
-          ''');
+    // await db.execute('''
+    //       CREATE TABLE $tableUserData (
+    //         $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
+    //         $gender TEXT,
+    //         $dateOfBirth TEXT,
+    //         $weight TEXT,
+    //         $height TEXT,
+    //         $countDownTime INTEGER,
+    //         $trainingRest INTEGER,
+    //         $turnOnWaterTracker TEXT,
+    //         $drinkNotification TEXT
+    //       )
+    //       ''');
   }
 
   // Future<int> insertProductUserClick(Map<String, dynamic> row) async {
@@ -166,12 +169,12 @@ class DatabaseHelper {
     return await db.insert(tableDay, row);
   }
 
-  Future<int> insertUserData(Map<String, dynamic> row) async {
-    Database db = await instance.database;
-    print('>>>>>>>>stored user data in DB');
-
-    return await db.insert(tableUserData, row);
-  }
+  // Future<int> insertUserData(Map<String, dynamic> row) async {
+  //   Database db = await instance.database;
+  //   print('>>>>>>>>stored user data in DB');
+  //
+  //   return await db.insert(tableUserData, row);
+  // }
   //
   // Future<int> insertCartProductCombination(Map<String, dynamic> row) async {
   //   Database db = await instance.database;
@@ -204,10 +207,18 @@ class DatabaseHelper {
     return _database!.query(tableExercisesDetail, where: '$exercise_id = ?', whereArgs: [exerciseId]);
   }
 
-  Future<List<Map<String, dynamic>>> queryUserTrainingData(int trainRest) async {
-    Database db = await instance.database;
-    return await db.query(tableUserData);
-  }
+  // Future<List<Map<String, dynamic>>> queryUserTrainingData(int trainRest) async {
+  //   Database db = await instance.database;
+  //   return await db.query(tableUserData);
+  // }
+
+  // Future<int> updateCountDown(Map<String, dynamic> row, int value) async {
+  //   Database db = await instance.database;
+  //   int id = row[columnId];
+  //   print('>>>>>>>>>>>>Column ID: $id');
+  //   return await db
+  //       .update(tableUserData, {countDownTime: value}, where: '$columnId = ?', whereArgs: [id]);
+  // }
 
   Future<int> updateADay(Map<String, dynamic> row) async {
     Database db = await instance.database;

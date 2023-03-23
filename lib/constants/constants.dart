@@ -22975,8 +22975,8 @@ class ExerciseConstants {
     ),
     GymModel(
       dayTitle: "Day 17",
-      exercise_id: 25,
-      raps: 16,
+      exercise_id: 5,
+      raps: 18,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -22985,8 +22985,8 @@ class ExerciseConstants {
     ),
     GymModel(
       dayTitle: "Day 17",
-      exercise_id: 5,
-      raps: 18,
+      exercise_id: 25,
+      raps: 16,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -23046,8 +23046,8 @@ class ExerciseConstants {
     ),
     GymModel(
       dayTitle: "Day 17",
-      exercise_id: 25,
-      raps: 16,
+      exercise_id: 5,
+      raps: 18,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -23056,8 +23056,8 @@ class ExerciseConstants {
     ),
     GymModel(
       dayTitle: "Day 17",
-      exercise_id: 5,
-      raps: 18,
+      exercise_id: 25,
+      raps: 16,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -23117,8 +23117,8 @@ class ExerciseConstants {
     ),
     GymModel(
       dayTitle: "Day 17",
-      exercise_id: 25,
-      raps: 16,
+      exercise_id: 5,
+      raps: 18,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -23127,8 +23127,8 @@ class ExerciseConstants {
     ),
     GymModel(
       dayTitle: "Day 17",
-      exercise_id: 5,
-      raps: 18,
+      exercise_id: 25,
+      raps: 16,
       time: 0,
       kneeIssue: 'N',
       planLevel: "B",
@@ -30322,8 +30322,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 1,
         name: "MOUNTAIN CLIMBER",
-        image: "testgiff.gif",  //Wheel Stretch.jpg
+        image: "MountainClimber.gif",
+        // video: "",
         type: "time",
+        rapTime: 0,
         kcal: 0.23,
         description: "Start in the push-up position. Bend your right knee towards your chest and keep your left leg straight, then quickly switch from one leg to the other."
             "\n\n"
@@ -30332,8 +30334,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 2,
         name: "SQUATS",
-        image: "testgif2.gif",//"Full Crunches.jpg",
+        image: "Squats.gif",
+        // video: "",
         type: "rap",
+        rapTime: 3,
         kcal: 0.0866,
         description: "Stand with your feet shoulder width apart and your arms stretched forward, then lower your body until your thighs are parallel with the floor."
             "\n\n"
@@ -30344,8 +30348,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 3,
         name: "HIGH STEPPING",
-        image: "Battle Rope.jpg",
+        image: "HighStepping.gif",
+        // video: "",
         type: 'time',
+        rapTime: 0,
         kcal: 0.23,
         description: "Run in place while pulling your knees as high as possible with each step."
             "\n\n"
@@ -30354,8 +30360,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 4,
         name: "PUSH-UPS",
-        image: "Side Crunches.jpg",
+        image: "PushUp.gif",
+        // video: "",
         type: 'rap',
+        rapTime: 2,
         kcal: 0.1,
         description: "Lay prone on the ground with arms supporting your body."
             "\n\n"
@@ -30366,8 +30374,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 5,
         name: "REVERSE CRUNCHES",
-        image: "Half Crunches.jpg",
+        image: "ReverseCrunch.gif",
+        // video: "",
         type: 'rap',
+        rapTime: 4,
         kcal: 0.043,
         description: "Lie on your back with your knees up at a 90 degree angle and your hands behind your head."
             "\n\n"
@@ -30376,8 +30386,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 6,
         name: "PLANK",
-        image: "Wheel Stretch.jpg",
+        image: "Plank.gif",
+        // video: "",
         type: 'time',
+        rapTime: 0,
         kcal: 0.238,
         description: "Lie on the floor with your toes and forearms on the ground. Keep your body straight and hold this position as long as you can."
             "\n\n"
@@ -30386,8 +30398,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 7,
         name: "COBRA STRETCH",
-        image: "Full Crunches.jpg",
+        image: "CobraStretch.gif",
+        // video: "",
         type: 'time',
+        rapTime: 0,
         kcal: 0.08,
         description: "Lie down on your stomach and bend your elbows with your hands beneath your shoulders."
             "\n\n"
@@ -30396,8 +30410,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 8,
         name: "TRICEPS DIPS",
-        image: "Full Crunches.jpg",
+        image: "TricepsDips.gif",
+        // video: "",
         type: 'rap',
+        rapTime: 3,
         kcal: 0.066,
         description: "For the start position, sit on the chair. Then move your hip off the chair with your hands holding the edge of the chair."
             "\n\n"
@@ -30406,8 +30422,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 9,
         name: "JUMPING JACKS",
-        image: "Battle Rope.jpg",
+        image: "JumpingJack.gif",
+        // video: "",
         type: 'time',
+        rapTime: 0,
         kcal: 0.23,
         description: "Start with your feet together and your arms by your sides, then jump up with your feet apart and your hands overhead."
             "\n\n"
@@ -30416,8 +30434,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 10,
         name: "LONG ARM CRUNCHES",
-        image: "Side Crunches.jpg",
+        image: "LongArmCrunches.gif",
+        // video: "",
         type: 'rap',
+        rapTime: 3,
         kcal: 0.03,
         description: "Lie on your back with knees bent and feet flat on the floor. Put your arms straight over the top of your head."
             "\n\n"
@@ -30426,16 +30446,20 @@ class ExerciseConstants {
       ExercisesModel(
         id: 11,
         name: "BICYCLE CRUNCHES",
-        image: "Half Crunches.jpg",
+        image: "BicyclesCrunches.gif",
+        // video: "",
         type: 'rap',
+        rapTime: 2,
         kcal: 0.03,
         description: "Lie on the floor with your hands behind your ears. Raise your knees and close your right elbow toward your left knee, then close your left elbow toward your right knee. Repeat the exercise.",
       ),
       ExercisesModel(
         id: 12,
         name: "ABDOMINAL CRUNCHES",
-        image: "Battle Rope.jpg",
+        image: "AbdominalCrunch.gif",
+        // video: "",
         type: 'rap',
+        rapTime: 2,
         kcal: 0.03,
         description: "Lie on your back with your knees bent and your arms stretched forward."
             "\n\n"
@@ -30446,8 +30470,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 13,
         name: "HEEL TOUCH",
-        image: "Side Crunches.jpg",
+        image: "HeelTouch.gif",
+        // video: "",
         type: 'rap',
+        rapTime: 2,
         kcal: 0.0545,
         description: "Lie on the ground with your legs bent and your arms by your sides."
             "\n\n"
@@ -30456,8 +30482,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 14,
         name: "FLUTTER KICKS",
-        image: "Half Crunches.jpg",
+        image: "FlutterKicks.gif",
+        // video: "",
         type: 'time',
+        rapTime: 0,
         kcal: 0.153,
         description: "Lie on your back with your arms at your sides. Lift your legs and keep them as straight as you can."
             "\n\n"
@@ -30465,10 +30493,11 @@ class ExerciseConstants {
       ),
       ExercisesModel(
         id: 15,
-        name:
-        "SKIPPING WITHOUT ROPE",
-        image: "Wheel Stretch.jpg",
+        name: "SKIPPING WITHOUT ROPE",
+        image: "SkippingWithoutRope.gif",
+        // video: "",
         type: 'time',
+        rapTime: 0,
         kcal: 0.293,
         description: "Place your arms at your sides and pretend to hold a skipping rope handle in each hand."
             "\n\n"
@@ -30477,8 +30506,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 16,
         name: "LUNGES",
-        image: "Full Crunches.jpg",
+        image: "Lunge.gif",
+        // video: "",
         type: 'rap',
+        rapTime: 2,
         kcal: 0.124,
         description: "Stand with your feet shoulder width apart and your hands on your hips."
             "\n\n"
@@ -30489,8 +30520,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 17,
         name: "SQUAT PULSES",
-        image: "Side Crunches.jpg",
+        image: "SquatPulses.gif",
+        // video: "",
         type: 'time',
+        rapTime: 0,
         kcal: 0.153,
         description: "Stand with your feet shoulder width apart. Bend your arms in front of you to keep balance."
             "\n\n"
@@ -30499,8 +30532,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 18,
         name: "PLANK JACKS",
-        image: "Battle Rope.jpg",
+        image: "PlankJacks.gif",
+        // video: "",
         type: 'time',
+        rapTime: 0,
         kcal: 0.293,
         description: "Start in the straight arm plank position with your hands under your shoulders and feet together."
             "\n\n"
@@ -30509,8 +30544,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 19,
         name: "LEG RAISES",
-        image: "Half Crunches.jpg",
+        image: "LegRaises.gif",
+        // video: "",
         type: 'rap',
+        rapTime: 3,
         kcal: 0.0545,
         description: "Lie down on your back, and put your hands beneath your hips for support."
             "\n\n"
@@ -30518,21 +30555,39 @@ class ExerciseConstants {
             "\n\n"
             "Slowly bring your legs back down and repeat.",
       ),
+      // ExercisesModel(
+      //   id: 20,
+      //   name: "LATERAL PLANK WALK",
+      //   image: "Battle Rope.jpg",
+      //   video: "",
+      //   type: 'time',
+      //   rapTime: 0,
+      //   kcal: 0.196,
+      //   description: "Start in a straight arm plank position with your hands underneath your shoulders."
+      //       "\n\n"
+      //       "Walk your hands and feet to the left at the same time. Take a few steps to the left, then a few steps to the right. Repeat the exercise.",
+      // ),
       ExercisesModel(
         id: 20,
-        name: "LATERAL PLANK WALK",
-        image: "Battle Rope.jpg",
+        name: "CLAP PUSH UP",
+        image: "ClapPushUp.gif",
+        // video: "",
         type: 'time',
+        rapTime: 0,
         kcal: 0.196,
-        description: "Start in a straight arm plank position with your hands underneath your shoulders."
+        description: "Start with a push-up position with your hands on the ground, slightly wider than shoulder-width apart, and your feet together."
             "\n\n"
-            "Walk your hands and feet to the left at the same time. Take a few steps to the left, then a few steps to the right. Repeat the exercise.",
+            "Lower your body towards the ground by bending your elbows, keeping them close to your sides."
+            "\n\n"
+            "When you are about halfway down, explosively push off the ground, using your chest, triceps, and shoulder muscles to propel your body upwards.",
       ),
       ExercisesModel(
         id: 21,
         name: "STEP-UP ONTO CHAIR",
-        image: "Battle Rope.jpg",
+        image: "StepUpOnChair.gif",
+        // video: "",
         type: 'rap',
+        rapTime: 3,
         kcal: 0.069,
         description: "Stand in front of a chair. Then step up on the chair and step back down."
             "\n\n"
@@ -30541,8 +30596,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 22,
         name: "BUTT BRIDGE",
-        image: "Half Crunches.jpg",
+        image: "ButtBridge.gif",
+        // video: "",
         type: 'rap',
+        rapTime: 3,
         kcal: 0.106,
         description: "Lie on your back with knees bent and feet flat on the floor. Put your arms flat at your sides."
             "\n\n"
@@ -30551,8 +30608,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 23,
         name: "RECLINED OBLIQUE TWIST",
-        image: "Wheel Stretch.jpg",
+        image: "ReclinedObliqueTwist.gif",
+        // video: "",
         type: 'rap',
+        rapTime: 3,
         kcal: 0.0846,
         description: "Lie on your back with your legs extended and your elbows directly under your shoulders."
             "\n\n"
@@ -30563,16 +30622,20 @@ class ExerciseConstants {
       ExercisesModel(
         id: 24,
         name: "BURPEES",
-        image: "Battle Rope.jpg",
+        image: "Burpee.gif",
+        // video: "",
         type: 'rap',
+        rapTime: 3,
         kcal: 0.268,
         description: "Stand with your feet shoulder width apart, then put your hands on the ground and kick your feet backward. Do a quick push-up and then jump up.",
       ),
       ExercisesModel(
         id: 25,
         name: "CRUNCHES WITH LEGS RAISED",
-        image: "Wheel Stretch.jpg",
+        image: "CrunchWithLegRaise.gif",
+        // video: "",
         type: 'rap',
+        rapTime: 4,
         kcal: 0.138,
         description: "Lie on your back with your legs straight up towards the ceiling and your hands behind your ears."
             "\n\n"
@@ -30582,8 +30645,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 26,
         name: "ROUNDHOUSE SQUAT KICKS",
-        image: "Wheel Stretch.jpg",
+        image: "RoundHouseSquatKicks.gif",
+        // video: "",
         type: 'time',
+        rapTime: 0,
         kcal: 0.1318,
         description: "Stand with feet shoulder width apart. Put your arms in front of your chest to keep your balance."
             "\n\n"
@@ -30596,8 +30661,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 27,
         name: "SQUAT REACH UPS",
-        image: "Wheel Stretch.jpg",
+        image: "SquatReachUp.gif",
+        // video: "",
         type: 'time',
+        rapTime: 0,
         kcal: 0.1533,
         description: "Stand with your feet a little wider than shoulder width apart, elbows bent, palms facing each other and fingers pointed toward the ceiling."
             "\n\n"
@@ -30608,8 +30675,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 28,
         name: "STANDING BICYCLE CRUNCHES",
-        image: "Wheel Stretch.jpg",
+        image: "StandingBicycleCrunch.gif",
+        // video: "",
         type: 'time',
+        rapTime: 0,
         kcal: 0.1473,
         description: "Stand with your feet shoulder width apart. Bring your knee to your opposite elbow."
             "\n\n"
@@ -30618,8 +30687,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 29,
         name: "SCISSORS",
-        image: "Wheel Stretch.jpg",
+        image: "Scissors.gif",
+        // video: "",
         type: 'time',
+        rapTime: 0,
         kcal: 0.1966,
         description: "Lie on your back with arms at sides, palms down and legs extended."
             "\n\n"
@@ -30632,8 +30703,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 30,
         name: "INCHWORMS",
-        image: "Wheel Stretch.jpg",
+        image: "Inchworm.gif",
+        // video: "",
         type: 'rap',
+        rapTime: 2,
         kcal: 0.14,
         description: "Start with your feet shoulder width apart."
             "\n\n"
@@ -30642,8 +30715,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 31,
         name: "V-UP",
-        image: "Wheel Stretch.jpg",
+        image: "V_Up.gif",
+        // video: "",
         type: 'rap',
+        rapTime: 2,
         kcal: 0.0846,
         description: "Lie on your back with your arms and legs extended and your legs squeezed together."
             "\n\n"
@@ -30652,8 +30727,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 32,
         name: "KNEE TO ELBOW CRUNCHES",
-        image: "Wheel Stretch.jpg",
+        image: "KneeToElbow.gif",
+        // video: "",
         type: 'time',
+        rapTime: 0,
         kcal: 0.1632,
         description: "Stand with your feet shoulder width apart and your hands behind your ears."
             "\n\n"
@@ -30662,8 +30739,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 33,
         name: "BACKWARD LUNGE",
-        image: "Wheel Stretch.jpg",
+        image: "BackwardLunge.gif",
+        // video: "",
         type: 'rap',
+        rapTime: 3,
         kcal: 0.1744,
         description: "Stand with your feet shoulder width apart and your hands on your hips."
             "\n\n"
@@ -30672,8 +30751,10 @@ class ExerciseConstants {
       ExercisesModel(
         id: 34,
         name: "TOY SOLDIERS",
-        image: "Wheel Stretch.jpg",
+        image: "ToySoldiers.gif",
+        // video: "",
         type: 'time',
+        rapTime: 0,
         kcal: 0.1111,
         description: "Start with your feet shoulder width apart. Keep your legs and arms straight."
             "\n\n"
@@ -30682,29 +30763,41 @@ class ExerciseConstants {
       ExercisesModel(
         id: 35,
         name: "GLUTE KICK BACK",
-        image: "Wheel Stretch.jpg",
+        image: "GluteKickBack.gif",
+        // video: "",
         type: 'rap',
+        rapTime: 2,
         kcal: 0.1548,
         description: "Start on all fours with your knees under your butt and your hands directly under your shoulders."
             "\n\n"
             "Then kick one leg back until it is parallel with the ground. Switch to the other side after several sets.",
       ),
+      // ExercisesModel(
+      //   id: 36,
+      //   name: "INCLINE PUSH-UPS",
+      //   image: "DeclinePushUp.gif",
+      //   video: "",
+      //   type: 'rap',
+      //   rapTime: 3,
+      //   kcal: 0.1419,
+      //   description: "Start in the regular push-up position but with your hands elevated on a chair or bench."
+      //       "\n\n"
+      //       "Then push your body up down using your arm strength."
+      //       "\n\n"
+      //       "Remember to keep your body straight.",
+      // ),
       ExercisesModel(
         id: 36,
-        name: "INCLINE PUSH-UPS",
-        image: "Wheel Stretch.jpg",
+        name: "DECLINE PUSH-UPS",
+        image: "DeclinePushUp.gif",
+        // video: "",
         type: 'rap',
+        rapTime: 3,
         kcal: 0.1419,
-        description: "Start in the regular push-up position but with your hands elevated on a chair or bench."
+        description: "Start in the regular plank position with your hands on the ground, directly under your shoulders, and your toes on the bench, step or box."
             "\n\n"
-            "Then push your body up down using your arm strength."
-            "\n\n"
-            "Remember to keep your body straight.",
+            "Engage your core, glutes, and leg muscles to maintain a straight line from your head to your heels"
       ),
-
-    // Squat Reach ups
-    // V-UP
-    // Inchworms
 
 
     // GymModel(image: "Chest Workouts.jpg", name: "STRAIGHT-ARM PLANK"),
