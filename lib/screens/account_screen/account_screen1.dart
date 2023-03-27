@@ -1169,7 +1169,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
                                   style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.042, color: Colors.grey),
                                 ),
                                 Text(
-                                  "1.0.0",
+                                  "1.1.0",
                                   style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.042, color: kColorPrimary),
                                 ),
                               ],

@@ -28,6 +28,11 @@ class UpdateAllExerciseState extends HomeState {
   UpdateAllExerciseState({required this.exerciseModelLocalDB});
 }
 
+class ReverseExerciseState extends HomeState {
+  final ExerciseModelLocalDB exerciseModelLocalDB;
+  ReverseExerciseState({required this.exerciseModelLocalDB});
+}
+
 class GetAllDaysState extends HomeState {
   final RequestDayData dayData;
   GetAllDaysState({required this.dayData});
@@ -36,6 +41,11 @@ class GetAllDaysState extends HomeState {
 class UpdateDayProgressState extends HomeState {
   final DayModelLocalDB dayModelLocalDB;
   UpdateDayProgressState({required this.dayModelLocalDB});
+}
+
+class ReverseDayProgressState extends HomeState {
+  final DayModelLocalDB dayModelLocalDB;
+  ReverseDayProgressState({required this.dayModelLocalDB});
 }
 
 // class CartCombinationDetailsLocalDBState extends HomeState {

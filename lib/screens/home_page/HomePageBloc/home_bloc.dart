@@ -355,7 +355,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         var data =
         await dbHelper.updateAExercise(event.exerciseModelLocalDB.toJson());
 
-        yield UpdateAllExerciseState(exerciseModelLocalDB: event.exerciseModelLocalDB);
+        yield ReverseExerciseState(exerciseModelLocalDB: event.exerciseModelLocalDB);
       } catch (e) {
         yield ErrorState(error: 'No Exercise found!');
       }
@@ -421,6 +421,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         await dbHelper.updateADay(event.dayModelLocalDB.toJson());
 
         yield UpdateDayProgressState(dayModelLocalDB: event.dayModelLocalDB);
+      } catch (e) {
+        yield ErrorState(error: 'No Days found!');
+      }
+    }
+    else if (event is ReverseDayProgressEvent) {
+      try {
+        event.dayModelLocalDB.completedPercentage = event.progress;
+        print('>>>>>>>>>Day Updating');
+        print(event.progress);
+
+        var data =
+        await dbHelper.updateADay(event.dayModelLocalDB.toJson());
+
+        yield ReverseDayProgressState(dayModelLocalDB: event.dayModelLocalDB);
       } catch (e) {
         yield ErrorState(error: 'No Days found!');
       }

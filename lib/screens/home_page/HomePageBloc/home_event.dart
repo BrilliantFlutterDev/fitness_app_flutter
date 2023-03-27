@@ -30,19 +30,16 @@ class TimeIncrementDecrementEvent extends HomeEvent {
 class ChangeExerciseStatusToDoneEvent extends HomeEvent {
   late final ExerciseModelLocalDB exerciseModelLocalDB;
 
-  ChangeExerciseStatusToDoneEvent(
-      {required this.exerciseModelLocalDB,});
+  ChangeExerciseStatusToDoneEvent({required this.exerciseModelLocalDB,});
 }
 
 class ChangeExerciseStatusToUnDoneEvent extends HomeEvent {
   late final ExerciseModelLocalDB exerciseModelLocalDB;
 
-  ChangeExerciseStatusToUnDoneEvent(
-      {required this.exerciseModelLocalDB,});
+  ChangeExerciseStatusToUnDoneEvent({required this.exerciseModelLocalDB,});
 }
 
 class ChangeExerciseStatusToResetEvent extends HomeEvent {
-  // late final ExerciseModelLocalDB exerciseModelLocalDB;
 
   ChangeExerciseStatusToResetEvent();
 }
@@ -69,10 +66,14 @@ class DeleteExerciseInADayEvent extends HomeEvent {
 class UpdateDayProgressEvent extends HomeEvent {
   final DayModelLocalDB dayModelLocalDB;
   final  double progress;
-  UpdateDayProgressEvent(
-      {required this.dayModelLocalDB,required this.progress,});
+  UpdateDayProgressEvent({required this.dayModelLocalDB,required this.progress,});
 }
 
+class ReverseDayProgressEvent extends HomeEvent {
+  final DayModelLocalDB dayModelLocalDB;
+  final  double progress;
+  ReverseDayProgressEvent({required this.dayModelLocalDB,required this.progress,});
+}
 
 class GetAllDaysEvent extends HomeEvent {
   GetAllDaysEvent();

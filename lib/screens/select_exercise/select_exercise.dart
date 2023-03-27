@@ -86,7 +86,7 @@ class _SelectExerciseState extends State<SelectExercise> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    // _controller.dispose();
     super.dispose();
   }
 
@@ -178,13 +178,13 @@ class _SelectExerciseState extends State<SelectExercise> {
                 children: [
                   Stack(
                     children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.3,
-                        child: AspectRatio(
-                          aspectRatio: _controller.value.aspectRatio,
-                          child: VideoPlayer(_controller),//VideoPlayerController.asset('assets/images/${widget.exerciseModelLocalDB.exercise.image}')
-                        ),
-                      ),
+                      // Container(
+                      //   height: MediaQuery.of(context).size.height * 0.3,
+                      //   child: AspectRatio(
+                      //     aspectRatio: _controller.value.aspectRatio,
+                      //     child: VideoPlayer(_controller),//VideoPlayerController.asset('assets/images/${widget.exerciseModelLocalDB.exercise.image}')
+                      //   ),
+                      // ),
                       Container(
                         height: MediaQuery.of(context).size.height * 0.3,
                         decoration:  BoxDecoration(

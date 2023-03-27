@@ -51,34 +51,6 @@ class _StartExerciseState extends State<StartExercise> {
 
             _homeBloc.add(ChangeExerciseStatusToDoneEvent(
                 exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
-
-
-            // if(index<(widget.exerciseData!.exerciseList!.length-1)) {
-            //
-            //   _homeBloc.add(ChangeExerciseStatusToDoneEvent(
-            //       exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
-            //
-            //   Navigator.of(context).pushReplacement(
-            //       MaterialPageRoute(
-            //           builder: (ctx) =>
-            //               ExerciseRestScreen(dayModelLocalDB: widget.dayModelLocalDB, exerciseData: widget.exerciseData,)
-            //       )
-            //   );
-            //
-            //   // _homeBloc.add(ChangeExerciseStatusToDoneEvent(
-            //   //     exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
-            // }
-            // else if(index==(widget.exerciseData!.exerciseList!.length-1)) {
-            //   Navigator.of(context).pushReplacement(
-            //       MaterialPageRoute(
-            //         builder: (ctx) =>
-            //             CusBottomBar(),
-            //       )
-            //   );
-            //
-            //   _homeBloc.add(ChangeExerciseStatusToDoneEvent(
-            //       exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
-            // }
           });
         } else {
           setState(() {
@@ -146,10 +118,10 @@ class _StartExerciseState extends State<StartExercise> {
             textColor: Colors.white,
             fontSize: 12.0);
       } else if (state is RefreshScreenState) {
-      }else if (state is UpdateAllExerciseState) {
-        widget.exerciseData!.exerciseList![index]=state.exerciseModelLocalDB;
+      } else if (state is UpdateAllExerciseState) {
+        widget.exerciseData!.exerciseList![index] = state.exerciseModelLocalDB;
         double progress;
-        if(index<widget.exerciseData!.exerciseList!.length) {
+        if(index < widget.exerciseData!.exerciseList!.length) {
           if (widget.dayModelLocalDB!.completedPercentage == 0) {
             progress = (1 / widget.exerciseData!.exerciseList!.length);
             progress = (progress * 100);
@@ -162,15 +134,25 @@ class _StartExerciseState extends State<StartExercise> {
             progress = (progress * 100);
             print('>>>>>>>2 $progress');
           }
-          // progress = progress+1;
 
           _homeBloc.add(UpdateDayProgressEvent(
-              dayModelLocalDB: widget.dayModelLocalDB!,
-              progress: progress
-              // int.parse(progress.floor().toString())
-          ));
+              dayModelLocalDB: widget.dayModelLocalDB!, progress: progress));
         }
-      }else if (state is UpdateDayProgressState) {
+      } else if (state is ReverseExerciseState) {
+        widget.exerciseData!.exerciseList![index]=state.exerciseModelLocalDB;
+        double progress;
+        if(index<widget.exerciseData!.exerciseList!.length) {
+          progress = (widget.dayModelLocalDB!.completedPercentage / 100);
+          progress = progress * widget.exerciseData!.exerciseList!.length;
+          progress = progress - 1;
+          progress = progress / widget.exerciseData!.exerciseList!.length;
+          progress = (progress * 100);
+          print('>>>>>>>2 $progress');
+
+          _homeBloc.add(ReverseDayProgressEvent(
+              dayModelLocalDB: widget.dayModelLocalDB!, progress: progress));
+        }
+      } else if (state is UpdateDayProgressState) {
         widget.dayModelLocalDB=state.dayModelLocalDB;
         if(index<(widget.exerciseData!.exerciseList!.length-1)) {
 
@@ -183,15 +165,6 @@ class _StartExerciseState extends State<StartExercise> {
           ).then((val){
             setState(() {
               index = index + 1;
-
-              // _controller = VideoPlayerController.asset('assets/images/${widget.exerciseData!.exerciseList![index].exercise.video}');
-              //
-              // _controller.addListener(() {
-              //   setState(() {});
-              // });
-              // _controller.setLooping(true);
-              // _controller.initialize().then((_) => setState(() {}));
-              // _controller.play();
 
               value = double.parse(widget.exerciseData!.exerciseList![index].time.toString());
               if(widget.exerciseData!.exerciseList![index].exercise.type !='rap'){
@@ -206,11 +179,27 @@ class _StartExerciseState extends State<StartExercise> {
                   builder: (context) =>
                   const CusBottomBar()),
                   (Route<dynamic> route) => false);
-          // Navigator.of(context).pushReplacement(
-          //   MaterialPageRoute(
-          //     builder: (ctx) => CusBottomBar(),
-          //   )
-          // );
+        }
+      } else if (state is ReverseDayProgressState) {
+        widget.dayModelLocalDB = state.dayModelLocalDB;
+        if(index < (widget.exerciseData!.exerciseList!.length-1)) {
+
+          print("Index is Updated and value is: ${widget.dayModelLocalDB!.exerciseNumInProgress}");
+          Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (ctx) =>
+                      ExerciseRestScreen(dayModelLocalDB: widget.dayModelLocalDB, exerciseData: widget.exerciseData,)
+              )
+          ).then((val){
+            setState(() {
+              index = index - 1;
+
+              value = double.parse(widget.exerciseData!.exerciseList![index].time.toString());
+              if(widget.exerciseData!.exerciseList![index].exercise.type !='rap'){
+                startTimer();
+              }
+            });
+          });
         }
       }
     }, builder: (context, state) {
@@ -270,7 +259,6 @@ class _StartExerciseState extends State<StartExercise> {
                                               const QuitScreen())
                                       );
                                       // Navigator.of(context).pop();
-
                                     },
                                     icon: const Icon(Icons.arrow_back_sharp)),
                                 backgroundColor: Colors.transparent,
@@ -312,7 +300,7 @@ class _StartExerciseState extends State<StartExercise> {
                         children: [
                           Text(
                             widget.exerciseData!.exerciseList![index].exercise.name,
-                            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height*0.015),
 
@@ -334,7 +322,7 @@ class _StartExerciseState extends State<StartExercise> {
                             // value>=10 ? "00:${value.ceil()} sec" : "00:0${value.ceil()} sec",
 
                             // "00:${value.ceil()} sec" : "00:${value.ceil()} sec",
-                            style: TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold,),
+                            style: const TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold,),
                           ),
                           // "$plank secs"
                           // "${widget.exerciseData!.exerciseList![index].time} sec"
@@ -374,14 +362,6 @@ class _StartExerciseState extends State<StartExercise> {
 
                         _homeBloc.add(ChangeExerciseStatusToDoneEvent(
                             exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
-
-                        // else {
-                        //   Navigator.of(context).pushReplacement(
-                        //       MaterialPageRoute(
-                        //           builder: (ctx) => CusBottomBar()
-                        //       )
-                        //   );
-                        // }
                       }),
                     ),
                   ),
@@ -398,24 +378,13 @@ class _StartExerciseState extends State<StartExercise> {
                           height: screenSize.height*0.07,
                         ):
                         const SizedBox(),
-                        index!=0? GestureDetector(
+                        index != 0? InkWell(
                           onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (_) => Dialog(
-                                  child: Container(
-                                    height: MediaQuery.of(context).size.height * 0.3,
-                                    child: ComingSoonPopup(),
-                                  ),
-                                ));
-                            // if(index>=1){
-                            //   index=index-1;
-                            //   setState(() {
-                            //   });
-                            // }
 
-                            // _homeBloc.add(ChangeExerciseStatusToUnDoneEvent(
-                            //     exerciseModelLocalDB: widget.exerciseData!.exerciseList![index-1]));
+                            widget.dayModelLocalDB!.exerciseNumInProgress = index - 1;
+
+                            _homeBloc.add(ChangeExerciseStatusToUnDoneEvent(
+                                exerciseModelLocalDB: widget.exerciseData!.exerciseList![index]));
                           },
                           child: Row(
                             children: const [
@@ -429,7 +398,7 @@ class _StartExerciseState extends State<StartExercise> {
                         ) : const SizedBox(),
                         SizedBox(width: MediaQuery.of(context).size.width*0.28),
                         index<widget.exerciseData!.exerciseList!.length-1?
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             if(widget.exerciseData!.exerciseList![index].exercise.type=='time'){
                               _timer.cancel();
@@ -445,19 +414,14 @@ class _StartExerciseState extends State<StartExercise> {
                               setState(() {
                                 index = index + 1;
                                 value = double.parse(widget.exerciseData!.exerciseList![index].time.toString());
-                                if(widget.exerciseData!.exerciseList![index].exercise.type !='rap'){
+                                if(widget.exerciseData!.exerciseList![index].exercise.type != 'rap'){
                                   startTimer();
                                 }
                               });
                             });
-                            // if(index<widget.exerciseData!.exerciseList!.length){
-                            //   setState(() {
-                            //     index=index+1;
-                            //   });
-                            // }
                           },
                           child: Row(
-                            children: [
+                            children: const [
                               Icon(Icons.skip_next, color: kColorPrimary),
                               Text(
                                 "SKIP",
@@ -465,30 +429,26 @@ class _StartExerciseState extends State<StartExercise> {
                               ),
                             ],
                           ),
-                        ):const SizedBox(),
+                        ): const SizedBox(),
                       ],
                     ),
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height*0.03,
                   ),
-                  // const SizedBox(
-                  //   height: 24.0,
-                  // ),
                   Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      // crossAxisAlignment: CrossAxisAlignment.start,
                       children:  [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              index<widget.exerciseData!.exerciseList!.length-1? "Up Next: " : "",
+                              index < widget.exerciseData!.exerciseList!.length-1? "Up Next: " : "",
                               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: kColorPrimary),
                             ),
                             Text(
-                              index<widget.exerciseData!.exerciseList!.length-1? widget.exerciseData!.exerciseList![index+1].exercise.name:"",
+                              index < widget.exerciseData!.exerciseList!.length-1? widget.exerciseData!.exerciseList![index+1].exercise.name:"",
                               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold,),
                             ),
                           ],
