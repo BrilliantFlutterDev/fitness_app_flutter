@@ -1,17 +1,14 @@
 import 'dart:async';
 
-import 'package:fitness_app/screens/home_page/home_page.dart';
-import 'package:fitness_app/screens/home_page/open_activity.dart';
 import 'package:fitness_app/screens/home_page/quit_screens/quit_screen.dart';
 import 'package:fitness_app/screens/rest_screen/exercise_rest.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
-import 'package:fitness_app/widgets/coming_soon_popup.dart';
 import 'package:fitness_app/widgets/cus_bottom_bar.dart';
 import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:video_player/video_player.dart';
+// import 'package:video_player/video_player.dart';
 
 import '../../Helper/DBModels/day_model.dart';
 import '../../Helper/DBModels/exercise_model.dart';
@@ -147,7 +144,6 @@ class _StartExerciseState extends State<StartExercise> {
           progress = progress - 1;
           progress = progress / widget.exerciseData!.exerciseList!.length;
           progress = (progress * 100);
-          print('>>>>>>>2 $progress');
 
           _homeBloc.add(ReverseDayProgressEvent(
               dayModelLocalDB: widget.dayModelLocalDB!, progress: progress));
@@ -184,7 +180,6 @@ class _StartExerciseState extends State<StartExercise> {
         widget.dayModelLocalDB = state.dayModelLocalDB;
         if(index < (widget.exerciseData!.exerciseList!.length-1)) {
 
-          print("Index is Updated and value is: ${widget.dayModelLocalDB!.exerciseNumInProgress}");
           Navigator.of(context).push(
               MaterialPageRoute(
                   builder: (ctx) =>

@@ -42,10 +42,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           exerciseModelLocalDB = ExerciseModelLocalDB(
             time: constants.BeginnerFineExercises[i].time,
             raps: constants.BeginnerFineExercises[i].raps,
-            kneeIssue: constants.BeginnerFineExercises[i].kneeIssue,
-            planLevel: constants.BeginnerFineExercises[i].planLevel,
-            inPushUpCat: constants.BeginnerFineExercises[i].inPushUpCat,
-            inPlankCat: constants.BeginnerFineExercises[i].inPlankCat,
+            // kneeIssue: constants.BeginnerFineExercises[i].kneeIssue,
+            // planLevel: constants.BeginnerFineExercises[i].planLevel,
+            // inPushUpCat: constants.BeginnerFineExercises[i].inPushUpCat,
+            // inPlankCat: constants.BeginnerFineExercises[i].inPlankCat,
             dayTitle: constants.BeginnerFineExercises[i].dayTitle,
             exerciseID: constants.BeginnerFineExercises[i].exercise_id,
             completeStatus: '0',);
@@ -57,10 +57,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           exerciseModelLocalDB = ExerciseModelLocalDB(
             time: constants.BeginnerNoJumpingExercises[i].time,
             raps: constants.BeginnerNoJumpingExercises[i].raps,
-            kneeIssue: constants.BeginnerNoJumpingExercises[i].kneeIssue,
-            planLevel: constants.BeginnerNoJumpingExercises[i].planLevel,
-            inPushUpCat: constants.BeginnerNoJumpingExercises[i].inPushUpCat,
-            inPlankCat: constants.BeginnerNoJumpingExercises[i].inPlankCat,
             dayTitle: constants.BeginnerNoJumpingExercises[i].dayTitle,
             exerciseID: constants.BeginnerNoJumpingExercises[i].exercise_id,
             completeStatus: '0',);
@@ -72,10 +68,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           exerciseModelLocalDB = ExerciseModelLocalDB(
             time: constants.BeginnerLowImpactExercises[i].time,
             raps: constants.BeginnerLowImpactExercises[i].raps,
-            kneeIssue: constants.BeginnerLowImpactExercises[i].kneeIssue,
-            planLevel: constants.BeginnerLowImpactExercises[i].planLevel,
-            inPushUpCat: constants.BeginnerLowImpactExercises[i].inPushUpCat,
-            inPlankCat: constants.BeginnerLowImpactExercises[i].inPlankCat,
             dayTitle: constants.BeginnerLowImpactExercises[i].dayTitle,
             exerciseID: constants.BeginnerLowImpactExercises[i].exercise_id,
             completeStatus: '0',);
@@ -87,10 +79,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           exerciseModelLocalDB = ExerciseModelLocalDB(
             time: constants.IntermediateFineExercises[i].time,
             raps: constants.IntermediateFineExercises[i].raps,
-            kneeIssue: constants.IntermediateFineExercises[i].kneeIssue,
-            planLevel: constants.IntermediateFineExercises[i].planLevel,
-            inPushUpCat: constants.IntermediateFineExercises[i].inPushUpCat,
-            inPlankCat: constants.IntermediateFineExercises[i].inPlankCat,
             dayTitle: constants.IntermediateFineExercises[i].dayTitle,
             exerciseID: constants.IntermediateFineExercises[i].exercise_id,
             completeStatus: '0',);
@@ -102,10 +90,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           exerciseModelLocalDB = ExerciseModelLocalDB(
             time: constants.IntermediateNoJumpingExercises[i].time,
             raps: constants.IntermediateNoJumpingExercises[i].raps,
-            kneeIssue: constants.IntermediateNoJumpingExercises[i].kneeIssue,
-            planLevel: constants.IntermediateNoJumpingExercises[i].planLevel,
-            inPushUpCat: constants.IntermediateNoJumpingExercises[i].inPushUpCat,
-            inPlankCat: constants.IntermediateNoJumpingExercises[i].inPlankCat,
             dayTitle: constants.IntermediateNoJumpingExercises[i].dayTitle,
             exerciseID: constants.IntermediateNoJumpingExercises[i].exercise_id,
             completeStatus: '0',);
@@ -117,10 +101,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           exerciseModelLocalDB = ExerciseModelLocalDB(
             time: constants.IntermediateLowImpactExercises[i].time,
             raps: constants.IntermediateLowImpactExercises[i].raps,
-            kneeIssue: constants.IntermediateLowImpactExercises[i].kneeIssue,
-            planLevel: constants.IntermediateLowImpactExercises[i].planLevel,
-            inPushUpCat: constants.IntermediateLowImpactExercises[i].inPushUpCat,
-            inPlankCat: constants.IntermediateLowImpactExercises[i].inPlankCat,
             dayTitle: constants.IntermediateLowImpactExercises[i].dayTitle,
             exerciseID: constants.IntermediateLowImpactExercises[i].exercise_id,
             completeStatus: '0',);
@@ -132,10 +112,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           exerciseModelLocalDB = ExerciseModelLocalDB(
             time: constants.AdvancedFineExercises[i].time,
             raps: constants.AdvancedFineExercises[i].raps,
-            kneeIssue: constants.AdvancedFineExercises[i].kneeIssue,
-            planLevel: constants.AdvancedFineExercises[i].planLevel,
-            inPushUpCat: constants.AdvancedFineExercises[i].inPushUpCat,
-            inPlankCat: constants.AdvancedFineExercises[i].inPlankCat,
             dayTitle: constants.AdvancedFineExercises[i].dayTitle,
             exerciseID: constants.AdvancedFineExercises[i].exercise_id,
             completeStatus: '0',);
@@ -147,10 +123,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           exerciseModelLocalDB = ExerciseModelLocalDB(
             time: constants.AdvancedNoJumpingExercises[i].time,
             raps: constants.AdvancedNoJumpingExercises[i].raps,
-            kneeIssue: constants.AdvancedNoJumpingExercises[i].kneeIssue,
-            planLevel: constants.AdvancedNoJumpingExercises[i].planLevel,
-            inPushUpCat: constants.AdvancedNoJumpingExercises[i].inPushUpCat,
-            inPlankCat: constants.AdvancedNoJumpingExercises[i].inPlankCat,
             dayTitle: constants.AdvancedNoJumpingExercises[i].dayTitle,
             exerciseID: constants.AdvancedNoJumpingExercises[i].exercise_id,
             completeStatus: '0',);
@@ -162,10 +134,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           exerciseModelLocalDB = ExerciseModelLocalDB(
             time: constants.AdvancedLowImpactExercises[i].time,
             raps: constants.AdvancedLowImpactExercises[i].raps,
-            kneeIssue: constants.AdvancedLowImpactExercises[i].kneeIssue,
-            planLevel: constants.AdvancedLowImpactExercises[i].planLevel,
-            inPushUpCat: constants.AdvancedLowImpactExercises[i].inPushUpCat,
-            inPlankCat: constants.AdvancedLowImpactExercises[i].inPlankCat,
             dayTitle: constants.AdvancedLowImpactExercises[i].dayTitle,
             exerciseID: constants.AdvancedLowImpactExercises[i].exercise_id,
             completeStatus: '0',);
@@ -177,10 +145,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           exerciseModelLocalDB = ExerciseModelLocalDB(
             time: constants.BeginnerFineExercises[i].time,
             raps: constants.BeginnerFineExercises[i].raps,
-            kneeIssue: constants.BeginnerFineExercises[i].kneeIssue,
-            planLevel: constants.BeginnerFineExercises[i].planLevel,
-            inPushUpCat: constants.BeginnerFineExercises[i].inPushUpCat,
-            inPlankCat: constants.BeginnerFineExercises[i].inPlankCat,
             dayTitle: constants.BeginnerFineExercises[i].dayTitle,
             exerciseID: constants.BeginnerFineExercises[i].exercise_id,
             completeStatus: '0',);
@@ -209,8 +173,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             image: dayConstants.days[i].image,
             name: dayConstants.days[i].name,
             completedPercentage: dayConstants.days[i].completedPercentage,
-            kneeIssue: dayConstants.days[i].kneeIssue,
-            planLevel: dayConstants.days[i].planLevel,
+            // kneeIssue: dayConstants.days[i].kneeIssue,
+            // planLevel: dayConstants.days[i].planLevel,
             completeStatus: dayConstants.days[i].completeStatus,
             noOfGlassWaterDrank: dayConstants.days[i].noOfGlassWaterDrank,
             exerciseNumInProgress:  dayConstants.days[i].exerciseNumInProgress,
@@ -232,9 +196,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       // await dbHelper
       //     .insertProductUserClick(userProductClickLocalDB.toJson());
       yield DataStoredState();
-    } else if (event is RefreshScreenEvent) {
+    }
+    else if (event is RefreshScreenEvent) {
       yield RefreshScreenState();
-    } else if (event is GetAllExerciseEvent) {
+    }
+    else if (event is GetAllExerciseEvent) {
       yield LoadingState();
 
       try {
@@ -251,7 +217,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       } catch (e) {
         yield ErrorState(error: 'No Exercise found!');
       }
-    } else if (event is GetAllExerciseOfDayEvent) {
+    }
+    else if (event is GetAllExerciseOfDayEvent) {
       yield LoadingState();
 
       try {
@@ -289,7 +256,26 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       } catch (e) {
         yield ErrorState(error: 'No Exercise found!');
       }
-    } else if (event is GetAllDaysEvent) {
+    }
+    else if (event is SwapAExerciseOfDayEvent) {
+    yield LoadingState();
+
+    try {
+      var data = await dbHelper.queryAllExerciseOfDay(event.day);
+      RequestExerciseData exerciseData = RequestExerciseData.fromJson(data);
+      for(int i=0; i< exerciseData.exerciseList!.length; i++){
+
+        var mExercise = await dbHelper.queryASpecificExercise(exerciseData.exerciseList![i].exerciseID);
+        exerciseData.exerciseList![event.oldIndex].exercise = ExerciseDetailModel.fromJson(mExercise[0]);
+        exerciseData.exerciseList![event.oldIndex].exercise = exerciseData.exerciseList![event.newIndex].exercise;
+        print(exerciseData);
+    }
+    yield GetAllExerciseState(exerciseData: exerciseData);
+      } catch (e) {
+        yield ErrorState(error: 'No Exercise found!');
+      }
+    }
+    else if (event is GetAllDaysEvent) {
       yield LoadingState();
 
       try {
@@ -394,7 +380,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         yield ErrorState(error: 'No Exercise found!');
       }
     }
-
     else if (event is DeleteExerciseInADayEvent) {
       try {
         event.exerciseData.exerciseList![event.index].dayTitle='';

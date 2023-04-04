@@ -37,10 +37,6 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
           exerciseModelLocalDB = ExerciseModelLocalDB(
             time: constants.BeginnerFineExercises[i].time,
             raps: constants.BeginnerFineExercises[i].raps,
-            kneeIssue: constants.BeginnerFineExercises[i].kneeIssue,
-            planLevel: constants.BeginnerFineExercises[i].planLevel,
-            inPushUpCat: constants.BeginnerFineExercises[i].inPushUpCat,
-            inPlankCat: constants.BeginnerFineExercises[i].inPlankCat,
             dayTitle: constants.BeginnerFineExercises[i].dayTitle,
             exerciseID: constants.BeginnerFineExercises[i].exercise_id,
             completeStatus: '0',);
@@ -52,10 +48,6 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
           exerciseModelLocalDB = ExerciseModelLocalDB(
             time: constants.IntermediateFineExercises[i].time,
             raps: constants.IntermediateFineExercises[i].raps,
-            kneeIssue: constants.IntermediateFineExercises[i].kneeIssue,
-            planLevel: constants.IntermediateFineExercises[i].planLevel,
-            inPushUpCat: constants.IntermediateFineExercises[i].inPushUpCat,
-            inPlankCat: constants.IntermediateFineExercises[i].inPlankCat,
             dayTitle: constants.IntermediateFineExercises[i].dayTitle,
             exerciseID: constants.IntermediateFineExercises[i].exercise_id,
             completeStatus: '0',);
@@ -67,10 +59,6 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
           exerciseModelLocalDB = ExerciseModelLocalDB(
             time: constants.AdvancedFineExercises[i].time,
             raps: constants.AdvancedFineExercises[i].raps,
-            kneeIssue: constants.AdvancedFineExercises[i].kneeIssue,
-            planLevel: constants.AdvancedFineExercises[i].planLevel,
-            inPushUpCat: constants.AdvancedFineExercises[i].inPushUpCat,
-            inPlankCat: constants.AdvancedFineExercises[i].inPlankCat,
             dayTitle: constants.AdvancedFineExercises[i].dayTitle,
             exerciseID: constants.AdvancedFineExercises[i].exercise_id,
             completeStatus: '0',);
@@ -82,10 +70,6 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
           exerciseModelLocalDB = ExerciseModelLocalDB(
             time: constants.BeginnerFineExercises[i].time,
             raps: constants.BeginnerFineExercises[i].raps,
-            kneeIssue: constants.BeginnerFineExercises[i].kneeIssue,
-            planLevel: constants.BeginnerFineExercises[i].planLevel,
-            inPushUpCat: constants.BeginnerFineExercises[i].inPushUpCat,
-            inPlankCat: constants.BeginnerFineExercises[i].inPlankCat,
             dayTitle: constants.BeginnerFineExercises[i].dayTitle,
             exerciseID: constants.BeginnerFineExercises[i].exercise_id,
             completeStatus: '0',);
@@ -114,8 +98,6 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
             image: dayConstants.days[i].image,
             name: dayConstants.days[i].name,
             completedPercentage: dayConstants.days[i].completedPercentage,
-            kneeIssue: dayConstants.days[i].kneeIssue,
-            planLevel: dayConstants.days[i].planLevel,
             completeStatus: dayConstants.days[i].completeStatus,
             noOfGlassWaterDrank: dayConstants.days[i].noOfGlassWaterDrank,
             exerciseNumInProgress:  dayConstants.days[i].exerciseNumInProgress,

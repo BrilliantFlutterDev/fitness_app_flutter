@@ -1,8 +1,5 @@
 import 'dart:async';
-import 'dart:ffi';
 import 'package:bloc/bloc.dart';
-import 'package:fitness_app/Helper/DBModels/user_model.dart';
-
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';

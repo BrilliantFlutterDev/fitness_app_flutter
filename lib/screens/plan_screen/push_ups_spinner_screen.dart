@@ -36,7 +36,6 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
     return BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
       if (state is LoadingState) {
       } else if (state is ErrorState) {

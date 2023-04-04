@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class FAQ extends StatefulWidget {
+
+  const FAQ({Key? key}) : super(key: key);
+
   @override
   State<FAQ> createState() => _FAQState();
 }

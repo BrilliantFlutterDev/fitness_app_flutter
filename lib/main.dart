@@ -19,7 +19,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   AdmobHelper.initialization();
   AwesomeNotifications().initialize(
-      'resource://drawable/splash',
+      'resource://drawable/notification',
       [            // notification icon
         NotificationChannel(
           channelGroupKey: 'basic_test',
@@ -37,7 +37,7 @@ void main() async {
   await NotificationService().init();
   await NotificationService().requestIOSPermissions();
 
-  var initializationSettingsAndroid = const AndroidInitializationSettings('splash');
+  var initializationSettingsAndroid = const AndroidInitializationSettings('notification');
   var initializationSettingsIOS = DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
@@ -83,7 +83,7 @@ class MyApp extends StatelessWidget {
                 elevation: 0.0,
                 backgroundColor: Color(0xff1c1b20),
               ),
-              colorScheme: ColorScheme.dark(
+              colorScheme: const ColorScheme.dark(
                 primary: kColorPrimary,
               ),
               iconTheme: const IconThemeData(color: Colors.white, opacity: 0.8),

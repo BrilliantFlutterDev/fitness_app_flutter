@@ -55,16 +55,14 @@ class _WaterTrackerState extends State<WaterTracker> {
 
   void saveWaterTracker() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    status = prefs.getBool("watertracker")!;
+    status = prefs.getBool("drinknotification")!;
   }
 
   @override
   void initState() {
     super.initState();
     _activityBloc = BlocProvider.of<MyActivityBloc>(context);
-
-    _activityBloc
-        .add(GetASpecificDaysEvent(day: 'Day ${AppGlobal.currentDay + 1}'));
+    _activityBloc.add(GetASpecificDaysEvent(day: 'Day ${AppGlobal.currentDay + 1}'));
 
     saveWaterTracker();
   }

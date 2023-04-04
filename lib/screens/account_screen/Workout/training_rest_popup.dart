@@ -11,6 +11,7 @@ import '../account_screen1.dart';
 
 class TrainingRestPopup extends StatefulWidget{
 
+  const TrainingRestPopup({Key? key}) : super(key: key);
 
   @override
   State<TrainingRestPopup> createState() => _TrainingRestPopupState();

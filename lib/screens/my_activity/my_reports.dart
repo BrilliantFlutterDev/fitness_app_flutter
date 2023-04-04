@@ -1,4 +1,5 @@
 import 'package:calender_picker/date_picker_widget.dart';
+import 'package:enum_to_string/enum_to_string.dart';
 import 'package:fitness_app/constants/constants.dart';
 import 'package:fitness_app/screens/my_activity/WaterTracker/animated_drinking_screen.dart';
 import 'package:fitness_app/screens/my_activity/Wikipedia_direct.dart';
@@ -22,8 +23,8 @@ import '../../Utils/app_global.dart';
 import '../../Utils/modal_progress_hud.dart';
 import '../../constants/colors.dart';
 
+import '../account_screen/GeneralSettings/metric_imperial_units.dart';
 import 'MyActivityBloc/my_activity_bloc.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MyReports extends StatefulWidget {
 
@@ -52,75 +53,73 @@ class _MyReportsState extends State<MyReports> {
   double totalCalories = 0;
   double timeSpent = 0;
 
-  String _message = 'Please enter your height and weight';
-  double? _bmi;
+  String? message;
+  double? bmi;
 
-  Future<void> _calculate(BMIUser user) async {
-    // final double? height = double.tryParse(_heightController.value.text);
-    // final double? weight = double.tryParse(_weightController.value.text);
+  Weight selectedWeight = Weight.kg;
+  Height selectedHeight = Height.inch;
 
-    // Check if the inputs are valid
-    //user.height == null ||  || user.weight == null
-    if (user.height <= 0 || user.weight <= 0) {
-      setState(() {
-        _message = "Your height and weigh must be positive numbers";
-      });
-      return;
-    }
-
-    setState(() {
-      _bmi = user.weight / ((user.height/39.37) * (user.height/ 39.37) );
-      if (_bmi! < 18.5) {
-        _message = "You are underweight";
-      } else if (_bmi! < 25) {
-        _message = 'Healthy Weight';
-      } else if (_bmi! < 30) {
-        _message = 'You are overweight';
-      } else {
-        _message = 'You are obese';
-      }
+  Future <void> bmical(BuildContext context) async {
+    var bmiResult = await showDialog(
+        context: context,
+        builder: (_) => Dialog(
+          backgroundColor: kColorFG,
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.45,
+            child: const BMIPopup(),
+          ),
+        )).then((val) {
+      saveBMI();
     });
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setDouble('bmi', _bmi!);
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString('bmi_message', _message);
-    // _message = prefs.getString('bmi')!;
+    setState(() {
+      bmi = bmiResult['bmi'];
+      message = bmiResult['message'];
+    });
+    if (!mounted) return;
   }
 
   void saveBMI() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    _bmi = prefs.getDouble('bmi');
+    bmi = prefs.getDouble('bmi');
     SharedPreferences pref = await SharedPreferences.getInstance();
-    _message = pref.getString('bmi_message')!;
+    message = pref.getString('bmi_message')!;
   }
 
-  final Uri _url = Uri.parse('https://en.wikipedia.org/wiki/Body_mass_index');
+  void saveWeight() async {
+    SharedPreferences prefsWeight = await SharedPreferences.getInstance();
+    selectedWeight = EnumToString.fromString(Weight.values, prefsWeight.getString("weight").toString())!;
+    setState(() {
 
-  Future<void> _launchUrl() async {
-    if (!await launchUrl(_url)) {
-      throw Exception('Could not launch $_url');
-    }
+    });
   }
+
+  void saveHeight() async {
+    SharedPreferences prefsHeight = await SharedPreferences.getInstance();
+    selectedHeight = EnumToString.fromString(Height.values, prefsHeight.getString("height").toString())!;
+    setState(() {
+
+    });
+  }
+  // final Uri _url = Uri.parse('https://en.wikipedia.org/wiki/Body_mass_index');
+  //
+  // Future<void> _launchUrl() async {
+  //   if (!await launchUrl(_url)) {
+  //     throw Exception('Could not launch $_url');
+  //   }
+  // }
 
   @override
   void initState() {
     super.initState();
     saveBMI();
+    saveWeight();
+    saveHeight();
     _activityBloc = BlocProvider.of<MyActivityBloc>(context);
     _activityBloc.add(GetASpecificDaysEvent(day: 'Day ${AppGlobal.currentDay + 1}'));
-
-    // totalWorkout = int.parse('${requestDayData!.exerciseList![0].exerciseNumInProgress}');
-    // print("Exercise Number>>>>>>>>> $totalWorkout");
-    // print("Exercise Number: ${dayModelLocalDB!.completedPercentage}");
-
-    // totalWorkout = dayModelLocalDB!.exerciseNumInProgress;
-    // print("Workout>>>>>>>>>>>> $totalWorkout");
-    // index=index-1;
   }
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
     return BlocConsumer<MyActivityBloc, MyActivityState>(
         listener: (context, state) {
       if (state is LoadingState) {
@@ -138,7 +137,6 @@ class _MyReportsState extends State<MyReports> {
         requestDayData = state.dayData;
 
         totalWorkout = int.parse('${requestDayData!.exerciseList![0].exerciseNumInProgress}');
-        print("Exercise Number>>>>>>>>> $totalWorkout");
 
         totalCalories = state.totalCalories!;
         timeSpent = state.timeSpent!;
@@ -217,7 +215,7 @@ class _MyReportsState extends State<MyReports> {
                               totalWorkout.toString(),
                               // requestDayData!.exerciseList![0].exerciseNumInProgress.toString(),
                               // dayModelLocalDB!=null?  dayModelLocalDB!.exerciseNumInProgress.toString() : "0",
-                              style: TextStyle(color: kColorPrimary, fontSize: 22, fontWeight: FontWeight.bold),
+                              style: const TextStyle(color: kColorPrimary, fontSize: 22, fontWeight: FontWeight.bold),
                             ),
                               // ),
                             // ),
@@ -250,7 +248,7 @@ class _MyReportsState extends State<MyReports> {
                               Text(
                                 totalCalories.toStringAsFixed(1).toString(),
                                 // '31.0',
-                                style: TextStyle(color: kColorPrimary, fontSize: 21, fontWeight: FontWeight.bold),
+                                style: const TextStyle(color: kColorPrimary, fontSize: 21, fontWeight: FontWeight.bold),
                               ),
                             //  ),
                             // ),
@@ -282,7 +280,7 @@ class _MyReportsState extends State<MyReports> {
                             //       child:
                               Text(
                                 timeSpent.ceil().toString(),
-                                style: TextStyle(color: kColorPrimary, fontSize: 20, fontWeight: FontWeight.bold),
+                                style: const TextStyle(color: kColorPrimary, fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                             //   ),
                             // ),
@@ -457,8 +455,8 @@ class _MyReportsState extends State<MyReports> {
                           begin: Alignment.topRight,
                           end: Alignment.topLeft,
                           colors: [
-                            Colors.black.withOpacity(0.75),
-                            Colors.black.withOpacity(0.75),
+                            Colors.black.withOpacity(0.65),
+                            Colors.black.withOpacity(0.65),
                           ],
                         ),
                       ),
@@ -514,8 +512,7 @@ class _MyReportsState extends State<MyReports> {
                                       // infoProperties: InfoProperties(),
                                       startAngle: 270,
                                       angleRange: 360,
-                                      size: MediaQuery.of(context).size.width *
-                                          0.15,
+                                      size: MediaQuery.of(context).size.width * 0.15,
                                       customWidths: CustomSliderWidths(
                                           progressBarWidth: 6.0,
                                           trackWidth: 3.0),
@@ -582,10 +579,7 @@ class _MyReportsState extends State<MyReports> {
                               child: const Center(
                                 child: Text(
                                   'DRINK',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w800),
+                                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w800),
                                 ),
                               ),
                             ),
@@ -596,8 +590,7 @@ class _MyReportsState extends State<MyReports> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.0),
                       image: const DecorationImage(
-                        image: AssetImage(
-                            "assets/images/Bell Magic Workout.jpg",),
+                        image: AssetImage("assets/images/WaterTracker.jpg"),
                             // "assets/images/${constants.dailyExercises[3].image}"),
                         fit: BoxFit.cover,
                       ),
@@ -829,22 +822,15 @@ class _MyReportsState extends State<MyReports> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Text(
-                                'BMI',
+                                'BMI(kg/m\u00B2)',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 22,
+                                    fontSize: 20,
                                     fontWeight: FontWeight.bold),
                               ),
                               InkWell(
                                 onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (_) => Dialog(
-                                        child: Container(
-                                          height: MediaQuery.of(context).size.height * 0.45,
-                                          child: BMIPopup(_calculate),
-                                        ),
-                                      )); //CountdownPopup(),
+                                  bmical(context);
                                 },
                                 child: Row(
                                   children: const [
@@ -902,9 +888,9 @@ class _MyReportsState extends State<MyReports> {
                               child: Column(
                                 children: [
                                   Text(
-                                      _bmi == null ? 'No Result' : _bmi!.toStringAsFixed(2),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    bmi == null ? '' : bmi!.toStringAsFixed(1),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
                                     ),
                                   const SizedBox(height: 5),
                                   Row(
@@ -1033,7 +1019,7 @@ class _MyReportsState extends State<MyReports> {
                             height: 15,
                           ),
                           Text(
-                            _message,
+                            message == null? '' : message!,
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
@@ -1148,9 +1134,9 @@ class _MyReportsState extends State<MyReports> {
 }
 
 
-class BMIUser{
-  final double height;
-  final double weight;
-
-  BMIUser(this.height, this.weight);
-}
+// class BMIUser{
+//   final double height;
+//   final double weight;
+//
+//   BMIUser(this.height, this.weight);
+// }

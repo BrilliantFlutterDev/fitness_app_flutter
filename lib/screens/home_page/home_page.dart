@@ -22,7 +22,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatefulWidget {
 
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -53,14 +53,11 @@ class _HomePageState extends State<HomePage> {
       _homeBloc.add(GetAllDaysEvent());
       print('>>>>>>> Show Days');
     }
-    AppGlobal.selectedPlan;
-    AppGlobal.selectedKneeIssueOption;
   }
 
   @override
   Widget build(BuildContext context) {
     Constants constants = Constants();
-    var screenSize = MediaQuery.of(context).size;
     return BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
       if (state is LoadingState) {
       } else if (state is ErrorState) {
@@ -79,24 +76,23 @@ class _HomePageState extends State<HomePage> {
         requestDayData = state.dayData;
         previousValue = double.parse(requestDayData!.exerciseList![0].noOfGlassWaterDrank.toString());
         value = requestDayData!.exerciseList![AppGlobal.currentDay].noOfGlassWaterDrank * 12.5;
+
+        // List days = requestDayData!.exerciseList!;
+        // for(int i=1; i<=requestDayData!.exerciseList!.length; i++){
+        //   if(i/7 == 0){
+        //     days.add('value');
+        //   }
+        // }
+        // requestDayData = days as RequestDayData?;
       } else if (state is UpdateDayProgressState) {
         dayModelLocalDB = state.dayModelLocalDB;
       }
     }, builder: (context, state) {
       return DefaultTabController(
         length: 2,
-        child:
-        // OverlayLoaderWithAppIcon(
-        //   isLoading: state is LoadingState,
-        //   overlayBackgroundColor: kColorBG,
-        //   circularProgressColor: kColorPrimary,
-        //   appIconSize: 40,
-        //   borderRadius: MediaQuery.of(context).size.height*0.2,
-        //   overlayOpacity: 1,
-        //   appIcon: Image.asset('assets/images/wt_drink.jpg'),
-        ModalProgressHUD(
+        child: ModalProgressHUD(
           inAsyncCall: state is LoadingState,
-          progressIndicator: CircularProgressIndicator(),
+          progressIndicator: const CircularProgressIndicator(),
           color: Colors.transparent,
           child: Scaffold(
             backgroundColor: kColorBG,
@@ -126,69 +122,33 @@ class _HomePageState extends State<HomePage> {
                             builder: (BuildContext context) =>
                             const SelectPlanScreen()));
                   },
-                  child: Container(
-                    child: SvgPicture.asset(
-                      "assets/icons/changeplanupper.svg",
-                      height: MediaQuery.of(context).size.height*0.035,
-                      color: kColorPrimary,
-                    ),
+                  child: SvgPicture.asset(
+                    "assets/icons/changeplanupper.svg",
+                    height: MediaQuery.of(context).size.height*0.03,
+                    color: kColorPrimary,
                   ),
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width*0.01),
-                // IconButton(
-                //   icon: const Icon(
-                //     Icons.flash_on_rounded,
-                //     color: kColorPrimary,
-                //   ),
-                //   onPressed: () {
-                //     Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //             builder: (BuildContext context) =>
-                //                 const SelectPlanScreen()));
-                //   },
-                // ),
+
                 InkWell(
                   onTap: () {
                     admobHelper.loadInterstatialAd();
                   },
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.03),
-                    child: Container(
-                      child: SvgPicture.asset(
-                        "assets/icons/ads.svg",
-                        height: MediaQuery.of(context).size.height*0.037,
-                        color: Colors.white,
-                      ),
+                    padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.04),
+                    child: SvgPicture.asset(
+                      "assets/icons/ads.svg",
+                      height: MediaQuery.of(context).size.height*0.032,
+                      color: Colors.white,
                     ),
                   ),
                 ),
-                // IconButton(
-                //   icon: const Icon(
-                //     Icons.ads_click,
-                //     color: Colors.white,
-                //   ),
-                //   onPressed: () {
-                //     // do something
-                //     // Navigator.push(
-                //     //     context,
-                //     //     MaterialPageRoute(
-                //     //         builder: (BuildContext context) =>
-                //     //             const DayRestScreen()
-                //     //     ));
-                //   },
-                // ),
+                SizedBox(width: MediaQuery.of(context).size.width*0.01),
+
                 InkWell(
                   onTap: () {
                     if (value == 100 || value > 100) {
                       value = 100;
-                    } else {
-                      _homeBloc.add(
-                          WaterGlassIncrementDecrementEvent(
-                              dayData: requestDayData!, isIncrementing: true)
-                      );
-                    }
-                    if(value == 100){
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -200,8 +160,11 @@ class _HomePageState extends State<HomePage> {
                         _homeBloc.add(GetAllDaysEvent());
                         print(value);
                       });
-                    }
-                    else {
+                    } else {
+                      _homeBloc.add(
+                          WaterGlassIncrementDecrementEvent(
+                              dayData: requestDayData!, isIncrementing: true)
+                      );
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -227,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                         // infoProperties: InfoProperties(),
                         startAngle: 270,
                         angleRange: 360,
-                        size: MediaQuery.of(context).size.width * 0.085,
+                        size: MediaQuery.of(context).size.width * 0.08,
                         customWidths: CustomSliderWidths(
                             progressBarWidth: 3.0, trackWidth: 3.0),
                         customColors: CustomSliderColors(
@@ -246,7 +209,7 @@ class _HomePageState extends State<HomePage> {
                         return Center(
                           child: SvgPicture.asset(
                             "assets/icons/waterglass.svg",
-                            height: MediaQuery.of(context).size.height*0.0175,
+                            height: MediaQuery.of(context).size.height*0.017,
                             color: Colors.blue,
                           ),
                           // Icon(
@@ -267,18 +230,18 @@ class _HomePageState extends State<HomePage> {
                     text: (AppGlobal.selectedPlan=='1'?'BEGINNER':AppGlobal.selectedPlan=='2'?'INTERMEDIATE':AppGlobal.selectedPlan=='3'?'ADVANCED':'PLAN NAME'),
                     // text: ("PLAN NAME"),
                   ),
-                  Tab(
+                  const Tab(
                     text: ("MY TRAINING"),
                   ),
                 ],
                 indicatorColor: Colors.transparent,
                 labelColor: kColorPrimary,
                 unselectedLabelColor: Colors.grey,
-                labelStyle: TextStyle(
+                labelStyle: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
-                unselectedLabelStyle: TextStyle(
+                unselectedLabelStyle: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
@@ -303,29 +266,25 @@ class _HomePageState extends State<HomePage> {
                                 onTap: () {
                                   admobHelper.loadInterstatialAd();
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (ctx) => DayRestScreen()
+                                      builder: (ctx) => const DayRestScreen()
                                   ));
                                 },
                                 child: Container(
                                   height: 10.h,
                                   width: MediaQuery.of(context).size.width * 2,
-                                  margin: const EdgeInsets.only(
-                                      left: 12, right: 12, top: 12),
+                                  margin: const EdgeInsets.only(left: 12, right: 12, top: 12),
                                   child: Container(
                                     height: 10.h,
                                     width: MediaQuery.of(context).size.width * 2,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
+                                    padding: const EdgeInsets.symmetric(horizontal: 10),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(12.0),
-                                      gradient: LinearGradient(
+                                      gradient: const LinearGradient(
                                         begin: Alignment.topRight,
                                         end: Alignment.topLeft,
                                         colors: [
                                           kColorPrimary,
                                           Color(0xff1e1e1e),
-                                          // Color(0xff1c1b20),
-                                          // Colors.transparent,
                                         ],
                                       ),
                                     ),
@@ -348,83 +307,6 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           ),
                                         ),
-                                        // Container(
-                                        //   height: 8.h,
-                                        //   width: MediaQuery.of(context).size.width * 0.2,
-                                        //   margin: const EdgeInsets.symmetric(vertical: 5),
-                                        //   child: CircleAvatar(
-                                        //     radius: 15,
-                                        //     backgroundColor: Colors.transparent,
-                                        //       child: Container(
-                                        //         child: SvgPicture.asset(
-                                        //           "assets/icons/coffeecup.svg",
-                                        //           height: MediaQuery.of(context).size.height*0.02,
-                                        //           color: kColorPrimary,
-                                        //         ),
-                                        //       ),
-                                        //     // Icon(Icons.energy_savings_leaf_outlined, color: kColorPrimary, size: 30,),
-                                        //   ),
-                                        // ),
-                                        // Container(
-                                        //   height: 8.h,
-                                        //   width:
-                                        //   MediaQuery.of(context).size.width *
-                                        //       0.2,
-                                        //   margin: const EdgeInsets.symmetric(
-                                        //       vertical: 5),
-                                        //   child: SleekCircularSlider(
-                                        //     initialValue: requestDayData!
-                                        //         .exerciseList![index]
-                                        //         .completedPercentage
-                                        //         .toDouble(),
-                                        //     max: 100,
-                                        //     appearance: CircularSliderAppearance(
-                                        //       // infoProperties: InfoProperties(),
-                                        //       angleRange: 360,
-                                        //       size: MediaQuery.of(context)
-                                        //           .size
-                                        //           .width *
-                                        //           0.2,
-                                        //       customWidths: CustomSliderWidths(
-                                        //           progressBarWidth: 6.0,
-                                        //           trackWidth: 3.0),
-                                        //       customColors: CustomSliderColors(
-                                        //         hideShadow: true,
-                                        //         progressBarColor:
-                                        //         const Color(0xff1ce5c1),
-                                        //         dotColor: Colors.transparent,
-                                        //         trackColor: Colors.white70,
-                                        //         // trackColor: const Color(0xff404040),
-                                        //         progressBarColors: [
-                                        //           const Color(0xff1ce5c1),
-                                        //           const Color(0xff1ce5c1),
-                                        //         ],
-                                        //       ),
-                                        //     ),
-                                        //     innerWidget: (re) {
-                                        //       return Center(
-                                        //         child: Column(
-                                        //           mainAxisAlignment:
-                                        //           MainAxisAlignment.center,
-                                        //           children: [
-                                        //             Text(
-                                        //               "${requestDayData!.exerciseList![index].completedPercentage}%",
-                                        //               style: const TextStyle(
-                                        //                 fontSize: 18,
-                                        //                 color: Colors.grey,
-                                        //               ),
-                                        //             ),
-                                        //           ],
-                                        //         ),
-                                        //       );
-                                        //     },
-                                        //     // onChange: (e) {
-                                        //     //   // setState(() {
-                                        //     //   //   vaule = e;
-                                        //     //   // });
-                                        //     // },
-                                        //   ),
-                                        // ),
                                       ],
                                     ),
                                   ),
@@ -444,7 +326,9 @@ class _HomePageState extends State<HomePage> {
                                 padding: EdgeInsets.only(
                                   left: MediaQuery.of(context).size.width * 0.15,
                                   right: MediaQuery.of(context).size.width * 0.15,
-                                  top: 10),
+                                  top: MediaQuery.of(context).size.height * 0.025,
+                                  bottom: MediaQuery.of(context).size.height * 0.01
+                                ),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
@@ -459,10 +343,9 @@ class _HomePageState extends State<HomePage> {
                                       child: Column(
                                         children: [
                                           CircleAvatar(
-                                            radius: 15,
+                                            radius: 20,
                                             backgroundColor: kColorBG,
-                                            child:
-                                            Container(
+                                            child: Container(
                                               child: SvgPicture.asset(
                                                 "assets/icons/changeplanbottom.svg",
                                                 height: MediaQuery.of(context).size.height*0.02,
@@ -470,9 +353,7 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(
-                                            height: MediaQuery.of(context).size.height * 0.015,
-                                          ),
+                                          SizedBox(height: MediaQuery.of(context).size.height * 0.025),
                                           const Text(
                                             "Change Plan",
                                             style: TextStyle(fontSize: 10, color: kColorPrimary),
@@ -566,10 +447,9 @@ class _HomePageState extends State<HomePage> {
                                       child: Column(
                                         children: [
                                           CircleAvatar(
-                                            radius: 15,
+                                            radius: 20,
                                             backgroundColor: kColorBG,
-                                            child:
-                                            Container(
+                                            child: Container(
                                               child: SvgPicture.asset(
                                                 "assets/icons/restart.svg",
                                                 height: MediaQuery.of(context).size.height*0.02,
@@ -581,14 +461,10 @@ class _HomePageState extends State<HomePage> {
                                             //     color: kColorFG
                                             // ),
                                           ),
-                                          SizedBox(
-                                            height: MediaQuery.of(context).size.height * 0.015,
-                                          ),
+                                          SizedBox(height: MediaQuery.of(context).size.height * 0.025,),
                                           const Text(
                                             "Restart",
-                                            style: TextStyle(
-                                                fontSize: 10,
-                                                color: kColorPrimary),
+                                            style: TextStyle(fontSize: 10, color: kColorPrimary),
                                           )
                                         ],
                                       ),
@@ -599,7 +475,8 @@ class _HomePageState extends State<HomePage> {
                               : SizedBox(),
                             ],
                           );
-                        }else{
+                        }
+                        else{
                           return Column(
                             children: [
                               GestureDetector(
@@ -700,16 +577,16 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               ),
-                              constants.days.length - 1 == index
-                                ? Padding(
-                                  padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.width * 0.15,
-                                    right: MediaQuery.of(context).size.width * 0.15,
-                                    top: 10
-                                  ),
+                              constants.days.length - 1 == index ?
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  left: MediaQuery.of(context).size.width * 0.15,
+                                  right: MediaQuery.of(context).size.width * 0.15,
+                                  top: MediaQuery.of(context).size.height * 0.025,
+                                  bottom: MediaQuery.of(context).size.height * 0.01
+                                ),
                                 child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
                                     InkWell(
                                       onTap: () {
@@ -723,7 +600,7 @@ class _HomePageState extends State<HomePage> {
                                       child: Column(
                                         children: [
                                           CircleAvatar(
-                                            radius: 15,
+                                            radius: 20,
                                             backgroundColor: kColorFG,
                                             child: Container(
                                               child: SvgPicture.asset(
@@ -732,23 +609,15 @@ class _HomePageState extends State<HomePage> {
                                                 color: kColorPrimary,
                                               ),
                                             ),
-                                            // Image.asset(
-                                            //   'assets/icons/change_plan_icon.png',
-                                            // ),
                                             // Icon(
                                             //     Icons.change_circle_outlined,
                                             //     color: kColorPrimary
                                             // ),
                                           ),
-                                          SizedBox(
-                                            height: MediaQuery.of(context).size.height * 0.015,
-                                          ),
+                                          SizedBox(height: MediaQuery.of(context).size.height * 0.025),
                                           const Text(
                                             "Change Plan",
-                                            style: TextStyle(
-                                                fontSize: 10,
-                                                color: kColorPrimary
-                                            ),
+                                            style: TextStyle(fontSize: 10, color: kColorPrimary),
                                           )
                                         ],
                                       ),
@@ -827,7 +696,7 @@ class _HomePageState extends State<HomePage> {
                                                             ),
                                                           ),
                                                         ],
-                                                        ),
+                                                      ),
                                                     ],
                                                   ),
                                                 ),
@@ -839,7 +708,7 @@ class _HomePageState extends State<HomePage> {
                                       child: Column(
                                         children: [
                                           CircleAvatar(
-                                            radius: 15,
+                                            radius: 20,
                                             backgroundColor: kColorFG,
                                             child: Container(
                                               child: SvgPicture.asset(
@@ -853,15 +722,10 @@ class _HomePageState extends State<HomePage> {
                                             //     color: kColorPrimary
                                             // ),
                                           ),
-                                          SizedBox(
-                                            height: MediaQuery.of(context).size.height * 0.015,
-                                          ),
+                                          SizedBox(height: MediaQuery.of(context).size.height * 0.025,),
                                           const Text(
                                             "Restart",
-                                            style: TextStyle(
-                                                fontSize: 10,
-                                                color: kColorPrimary
-                                            ),
+                                            style: TextStyle(fontSize: 10, color: kColorPrimary),
                                           )
                                         ],
                                       ),
@@ -869,7 +733,7 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                 ),
                               )
-                                  : SizedBox(),
+                              : SizedBox(),
                             ],
                           );
                         }
@@ -897,9 +761,7 @@ class _HomePageState extends State<HomePage> {
                         //mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.25,
-                                bottom: 13),
+                            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.25, bottom: 13),
                             child: Container(
                                 width: 60,
                                 height: 60,

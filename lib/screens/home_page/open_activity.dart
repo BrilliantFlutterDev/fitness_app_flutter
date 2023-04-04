@@ -6,7 +6,6 @@ import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/rest_screen/ready_to_go.dart';
 import 'package:fitness_app/screens/select_exercise/select_exercise.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
-import 'package:fitness_app/widgets/coming_soon_popup.dart';
 import 'package:fitness_app/widgets/cus_bottom_bar.dart';
 import 'package:fitness_app/widgets/exercise_completed_popup.dart';
 import 'package:flutter/material.dart';
@@ -19,14 +18,15 @@ import 'package:sizer/sizer.dart';
 
 import '../../Helper/DBModels/day_model.dart';
 import '../../Utils/modal_progress_hud.dart';
+import 'edit_plan.dart';
 import 'HomePageBloc/home_bloc.dart';
 import 'package:readmore/readmore.dart';
 
+
 class OpenActivity extends StatefulWidget {
 
-  OpenActivity({Key? key,this.dayModelLocalDB}) : super(key: key);
-
   DayModelLocalDB? dayModelLocalDB;
+  OpenActivity({Key? key,this.dayModelLocalDB}) : super(key: key);
 
   @override
   State<OpenActivity> createState() => _OpenActivityState();
@@ -62,7 +62,7 @@ class _OpenActivityState extends State<OpenActivity> {
         backgroundColor: kColorFG,
         child: Container(
             height: MediaQuery.of(context).size.height*0.4,
-            child: TrainingRestPopup()
+            child: const TrainingRestPopup()
         ),
       ),
     );
@@ -125,7 +125,6 @@ class _OpenActivityState extends State<OpenActivity> {
         exerciseData = state.exerciseData;
         calories = state.calories!;
         totalTime = state.totalTime!;
-
       }
     }, builder: (context, state) {
       return ModalProgressHUD(
@@ -146,10 +145,11 @@ class _OpenActivityState extends State<OpenActivity> {
             appBar: AppBar(
               backgroundColor: kColorBG,
               leading: IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: const Icon(Icons.arrow_back)),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(Icons.arrow_back)
+              ),
               title: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -430,7 +430,6 @@ class _OpenActivityState extends State<OpenActivity> {
                                               _navigaterest(context).then((val){
                                                 setState(() {
                                                   saveTrainingRest();
-                                                  // restresult = val;
                                                 });
                                               });
                                             },
@@ -506,13 +505,6 @@ class _OpenActivityState extends State<OpenActivity> {
                                                 else{
                                                   Navigator.pop(context);
                                                 }
-
-                                                // Navigator.pop(context);
-                                                // Navigator.of(context).push(
-                                                //     MaterialPageRoute(
-                                                //         builder: (ctx) =>
-                                                //          StartExercise(exerciseData: exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)
-                                                //     ));
                                               },
                                               child: Container(
                                                 height: MediaQuery.of(context).size.height * 0.08,
@@ -522,7 +514,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                                   BorderRadius.circular(50),
                                                   color: kColorPrimary,
                                                 ),
-                                                child: Center(
+                                                child: const Center(
                                                   child: Text(
                                                     "Done",
                                                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
@@ -548,7 +540,7 @@ class _OpenActivityState extends State<OpenActivity> {
                               borderRadius: BorderRadius.circular(100),
                               color: Colors.white,
                             ),
-                            child: Center(
+                            child: const Center(
                               child: Icon(
                                 Icons.settings,
                                 color: kColorPrimary,
@@ -573,7 +565,6 @@ class _OpenActivityState extends State<OpenActivity> {
                                   ),
                                 ));
                           }
-
 
                           // Navigator.of(context).push(MaterialPageRoute(
                           //     builder: (ctx) =>  StartExercise(exerciseData: exerciseData, dayModelLocalDB: widget.dayModelLocalDB,)));
@@ -681,17 +672,7 @@ class _OpenActivityState extends State<OpenActivity> {
                         // )
                       ],
                     ),
-                    const SizedBox(height: 5),
-                    // Text(
-                    //   "Just 5-10 min, this training is designed especially for beginners who want to lose weight but don't know where to start."
-                    //   "\n\n"
-                    //   "This training mixes with basic aerobic and anaerobic exercises. It uses your body weight to work all muscle groups and boost your fat burning."
-                    //   "\n\n"
-                    //   "Low-impact option is friendly for people who are overweight or have joint problems. Please stick to a low-calorie diet to maximize your workout result.",
-                    //   // style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                    //   overflow: TextOverflow.ellipsis,
-                    //   maxLines: 2,
-                    // ),
+                    SizedBox(height: MediaQuery.of(context).size.height*0.02),
                     ReadMoreText(
                       "Just ${AppGlobal.selectedPlan=='1'?'5-10':AppGlobal.selectedPlan=='2'?'10-20':AppGlobal.selectedPlan=='3'?'15-30':'a few'} min, this training is designed especially for beginners who want to lose weight but don't know where to start."
                       "\n\n"
@@ -709,7 +690,7 @@ class _OpenActivityState extends State<OpenActivity> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.width * 0.025,
+                          top: MediaQuery.of(context).size.width * 0.035,
                           right: MediaQuery.of(context).size.width * 0.15
                       ),
                       child: Row(
@@ -724,9 +705,9 @@ class _OpenActivityState extends State<OpenActivity> {
                                     fontWeight: FontWeight.bold, fontSize: 17),
                               ),
                               const SizedBox(height: 5),
-                              Text(
+                              const Text(
                                 "Level",
-                                style: TextStyle(fontSize: 14),
+                                style: TextStyle(fontSize: 13),
                               ),
                             ],
                           ),
@@ -734,14 +715,13 @@ class _OpenActivityState extends State<OpenActivity> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "≈${calories.toStringAsFixed(2)}",
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
+                                "≈${calories.toStringAsFixed(1)}",
+                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                               ),
                               const SizedBox(height: 5),
                               const Text(
                                 "Kcal",
-                                style: TextStyle(fontSize: 14),
+                                style: TextStyle(fontSize: 13),
                               ),
                             ],
                           ),
@@ -749,13 +729,13 @@ class _OpenActivityState extends State<OpenActivity> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "${totalTime.ceil()} min",
+                                "${totalTime.ceil()} mins",
                                 style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17)
                               ),
                               const SizedBox(height: 5),
                               const Text(
                                 "Duration",
-                                style: TextStyle(fontSize: 14),
+                                style: TextStyle(fontSize: 13),
                               ),
                             ],
                           ),
@@ -786,31 +766,35 @@ class _OpenActivityState extends State<OpenActivity> {
                             //     padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.35),
                             //   ),
                             // );
-                            showDialog(
-                                context: context,
-                                builder: (_) => Dialog(
-                                  child: Container(
-                                    height: MediaQuery.of(context).size.height * 0.3,
-                                    child: ComingSoonPopup(),
-                                  ),
-                                ));
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (BuildContext context) =>
-                            //             EditPlan(dayModelLocalDB: widget.dayModelLocalDB,exerciseData: exerciseData,))
-                            // );
+
+                            // showDialog(
+                            //     context: context,
+                            //     builder: (_) => Dialog(
+                            //       child: Container(
+                            //         height: MediaQuery.of(context).size.height * 0.3,
+                            //         child: ComingSoonPopup(),
+                            //       ),
+                            //     ));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      EditPlan(dayModelLocalDB: widget.dayModelLocalDB,exerciseData: exerciseData)
+                              )
+                            ).then((value) {
+                              _homeBloc.add(GetAllExerciseOfDayEvent(day: widget.dayModelLocalDB!.name));
+                            });
                           },
                           child: Row(
-                            children: [
-                              const Text(
+                            children: const [
+                              Text(
                                 "Edit ",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15,
                                     color: Colors.white),
                               ),
-                              const Icon(
+                              Icon(
                                 Icons.edit_outlined,
                                 color: Colors.white,
                                 size: 18,
@@ -837,8 +821,8 @@ class _OpenActivityState extends State<OpenActivity> {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                           builder: (ctx) =>
-                                           SelectExercise(exerciseModelLocalDB: exerciseData!.exerciseList![index],
-                                               exerciseData: exerciseData, dayModelLocalDB: widget.dayModelLocalDB, current_index: index+1,
+                                           SelectExercise(exerciseModelLocalDB: exerciseData!.exerciseList![index], exerciseData: exerciseData,
+                                             dayModelLocalDB: widget.dayModelLocalDB, current_index: index+1,
                                            )
                                       )
                                     );
@@ -857,12 +841,9 @@ class _OpenActivityState extends State<OpenActivity> {
                                               image: AssetImage(
                                                   "assets/images/${exerciseData!.exerciseList![index].exercise.image}")),
                                         ),
-                                        SizedBox(
-                                          width: 18.0,
-                                        ),
+                                        const SizedBox(width: 18.0),
                                         Column(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               exerciseData!.exerciseList![index].exercise.name,
@@ -871,9 +852,7 @@ class _OpenActivityState extends State<OpenActivity> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            SizedBox(
-                                              height: 6.0,
-                                            ),
+                                            const SizedBox(height: 6.0,),
                                             Text(
                                               exerciseData!.exerciseList![index].exercise.type =='rap'
                                                   ?

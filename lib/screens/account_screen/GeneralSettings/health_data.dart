@@ -146,7 +146,7 @@ class _HealthDataState extends State<HealthData> {
                                             // Navigator.pop(context, '/healthdata');
                                           });
                                           SharedPreferences prefs = await SharedPreferences.getInstance();
-                                          prefs.setString("gender", EnumToString.parse(Gender.Male));
+                                          prefs.setString("gender", EnumToString.convertToString(Gender.Male));
                                           // SharedPreferences prefs = await SharedPreferences.getInstance();
                                           // prefs.setString("GenderKey", _selectedItem);
                                         },
@@ -164,7 +164,7 @@ class _HealthDataState extends State<HealthData> {
                                             // Navigator.pushNamed(context, '/healthdata');
                                           });
                                           SharedPreferences prefs = await SharedPreferences.getInstance();
-                                          prefs.setString("gender", EnumToString.parse(Gender.Female));
+                                          prefs.setString("gender", EnumToString.convertToString(Gender.Female));
                                           // SharedPreferences prefs = await SharedPreferences.getInstance();
                                           // prefs.setString("GenderKey", _selectedItem);
                                         },
@@ -386,7 +386,7 @@ class _HealthDataState extends State<HealthData> {
 //                               selectedGender = Gender.male;
 //                             });
 //                             SharedPreferences prefs = await SharedPreferences.getInstance();
-//                             prefs.setString("gender", EnumToString.parse(Gender.male));
+//                             prefs.setString("gender", EnumToString.convertToString(Gender.male));
 //                           },
 //                           colour: selectedGender == Gender.male
 //                               ? kActiveCardColour
@@ -406,7 +406,7 @@ class _HealthDataState extends State<HealthData> {
 //                             SharedPreferences prefs =
 //                             await SharedPreferences.getInstance();
 //                             prefs.setString(
-//                                 "gender", EnumToString.parse(Gender.female));
+//                                 "gender", EnumToString.convertToString(Gender.female));
 //                           },
 //                           colour: selectedGender == Gender.female
 //                               ? kActiveCardColour

@@ -39,6 +39,7 @@ class _DayRestScreenState extends State<DayRestScreen>{
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             Center(
               child: CircleAvatar(
                 radius: 70,
@@ -54,7 +55,7 @@ class _DayRestScreenState extends State<DayRestScreen>{
                 // Icon(Icons.energy_savings_leaf_outlined, color: kColorPrimary, size: 80,),
               ),
             ),
-            Text("Your body and muscles need to get some rest",
+            const Text("Your body and muscles need to get some rest",
               style: TextStyle(color: Colors.white),
             ),
             SizedBox(height: MediaQuery.of(context).size.height*0.3,),

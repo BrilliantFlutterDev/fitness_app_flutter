@@ -6,8 +6,7 @@ import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:sizer/sizer.dart';
-import 'package:video_player/video_player.dart';
+// import 'package:video_player/video_player.dart';
 
 import '../../Utils/modal_progress_hud.dart';
 import '../home_page/HomePageBloc/home_bloc.dart';
@@ -32,7 +31,7 @@ class _SelectExerciseState extends State<SelectExercise> {
 
   late HomeBloc _homeBloc;
   int index = 0;
-  late VideoPlayerController _controller;
+  // late VideoPlayerController _controller;
 
   // RequestExerciseData? exerciseData;
   void previousclick() {
@@ -134,7 +133,7 @@ class _SelectExerciseState extends State<SelectExercise> {
                 ),
                 Text(
                   widget.exerciseData!=null? "${widget.current_index}/${widget.exerciseData!.exerciseList!.length}" :"0/0",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     // ${widget.exerciseModelLocalDB.columnsId}
                 ),
                 IconButton(
@@ -151,7 +150,7 @@ class _SelectExerciseState extends State<SelectExercise> {
                   width: MediaQuery.of(context).size.width*0.45,
                   height: MediaQuery.of(context).size.height*0.065,
                   child: MyButton(
-                    name: "Close",
+                    name: "CLOSE",
                     whenpress: () {
                       Navigator.pop(context);
                     },
@@ -221,7 +220,7 @@ class _SelectExerciseState extends State<SelectExercise> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        widget.exerciseModelLocalDB.exercise.type!='rap'? "Duration":'Reps',
+                        widget.exerciseModelLocalDB.exercise.type!='rap'? "Duration":'Repeat',
                         style: const TextStyle(fontSize: 20),
                       ),
                       Row(
@@ -275,7 +274,7 @@ class _SelectExerciseState extends State<SelectExercise> {
                               ),
                               // height:20,
                               // width:20,
-                              child: Center(
+                              child: const Center(
                                 child: Icon(
                                   Icons.add,
                                   color: kColorPrimary,
@@ -347,10 +346,10 @@ class _SelectExerciseState extends State<SelectExercise> {
                         // const SizedBox(
                         //   height: 18.0,
                         // ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(
                           widget.exerciseModelLocalDB.exercise.description,
-                          style: TextStyle(fontSize: 17),
+                          style: const TextStyle(fontSize: 17),
                           textAlign: TextAlign.justify,
                         ),
                         // const Text(

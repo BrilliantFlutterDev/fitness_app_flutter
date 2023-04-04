@@ -1,11 +1,10 @@
 import 'package:fitness_app/constants/colors.dart';
-import 'package:fitness_app/screens/my_activity/my_reports.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseCompletedPopup extends StatefulWidget {
-  const ExerciseCompletedPopup({Key? key}) : super(key: key);
 
+  const ExerciseCompletedPopup({Key? key}) : super(key: key);
 
   @override
   State<ExerciseCompletedPopup> createState() => _ExerciseCompletedPopupState();
@@ -25,23 +24,11 @@ class _ExerciseCompletedPopupState extends State<ExerciseCompletedPopup> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     "You have already done for \nthis day!",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height*0.02),
-                  // ElevatedButton(
-                  //   onPressed: _calculate,
-                  //   child: const Text('Calculate'),
-                  // ),
-                  // const SizedBox(
-                  //   height: 30,
-                  // ),
-                  // Text(
-                  //   _bmi == null ? 'No Result' : _bmi!.toStringAsFixed(2),
-                  //   style: const TextStyle(fontSize: 50),
-                  //   textAlign: TextAlign.center,
-                  // ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -69,10 +56,6 @@ class _ExerciseCompletedPopupState extends State<ExerciseCompletedPopup> {
                       ),
                     ),
                     ),
-                  // Text(
-                  //   _message,
-                  //   textAlign: TextAlign.center,
-                  // )
                 ],
               ),
             ),

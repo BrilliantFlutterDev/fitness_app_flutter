@@ -1,7 +1,5 @@
 import 'package:fitness_app/constants/colors.dart';
-import 'package:fitness_app/screens/account_screen/account_screen.dart';
 import 'package:fitness_app/screens/account_screen/account_screen1.dart';
-import 'package:fitness_app/screens/chat_screen/chat_screen.dart';
 import 'package:fitness_app/screens/home_page/home_page.dart';
 import 'package:fitness_app/screens/my_activity/my_reports.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +15,11 @@ class CusBottomBarState extends State<CusBottomBar> {
 
   int selectedIndex = 0;
   final List<Widget> widgetOptions = [
-    HomePage(),
-    MyReports(),
+    const HomePage(),
+    const MyReports(),
     // const ChatScreen(),
     // const AccountScreen(),
-    AccountScreen1(),
+    const AccountScreen1(),
   ];
 
   @override
@@ -62,7 +60,7 @@ class CusBottomBarState extends State<CusBottomBar> {
                         icon: Padding(
                           padding: const EdgeInsets.only(bottom: 3),
                           child: ImageIcon(
-                            AssetImage("assets/icons/bottomplanicon.png"),
+                            const AssetImage("assets/icons/bottomplanicon.png"),
                             size: MediaQuery.of(context).size.height*0.03,
                           ),
                         ),
@@ -75,7 +73,7 @@ class CusBottomBarState extends State<CusBottomBar> {
                         icon: Padding(
                           padding: const EdgeInsets.only(bottom: 3),
                           child: ImageIcon(
-                            AssetImage("assets/icons/bottomreporticon.png"),
+                            const AssetImage("assets/icons/bottomreporticon.png"),
                             size: MediaQuery.of(context).size.height*0.03,
                           ),
                         ),
@@ -86,7 +84,7 @@ class CusBottomBarState extends State<CusBottomBar> {
                         icon: Padding(
                           padding: const EdgeInsets.only(bottom: 2),
                           child: ImageIcon(
-                            AssetImage("assets/icons/bottomaccounticon.png"),
+                            const AssetImage("assets/icons/bottomaccounticon.png"),
                             size: MediaQuery.of(context).size.height*0.0285,
                           ),
                         ),

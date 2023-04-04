@@ -11,6 +11,13 @@ class GetAllExerciseOfDayEvent extends HomeEvent {
   GetAllExerciseOfDayEvent({required this.day});
 }
 
+class SwapAExerciseOfDayEvent extends HomeEvent {
+  final String day;
+  int oldIndex;
+  int newIndex;
+  SwapAExerciseOfDayEvent({required this.day, required this.oldIndex, required this.newIndex});
+}
+
 class RapsIncrementDecrementEvent extends HomeEvent {
   late final ExerciseModelLocalDB exerciseModelLocalDB;
   final bool isIncrementing;

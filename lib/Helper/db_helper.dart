@@ -23,10 +23,10 @@ class DatabaseHelper {
   static const raps = 'raps';
   static const time = 'time';
   static const type = 'type';
-  static const kneeIssue = 'kneeIssue';
-  static const planLevel = 'planLevel';
-  static const inPushUpCat = 'inPushUpCat';
-  static const inPlankCat = 'inPlankCat';
+  // static const kneeIssue = 'kneeIssue';
+  // static const planLevel = 'planLevel';
+  // static const inPushUpCat = 'inPushUpCat';
+  // static const inPlankCat = 'inPlankCat';
   static const completeStatus = 'completeStatus';
   static const isRest = 'isRest';
   static const description = 'description';
@@ -85,13 +85,13 @@ class DatabaseHelper {
             $exercise_id INTEGER,
             $raps INTEGER,
             $time INTEGER,
-            $kneeIssue TEXT,
-            $planLevel TEXT,
-            $inPushUpCat TEXT,
-            $inPlankCat TEXT,
             $completeStatus TEXT
           )
           ''');
+        // $kneeIssue TEXT,
+        // $planLevel TEXT,
+        // $inPushUpCat TEXT,
+        // $inPlankCat TEXT,
 
     await db.execute('''
           CREATE TABLE $tableExercisesDetail (
@@ -111,8 +111,6 @@ class DatabaseHelper {
             $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
             $dayTitle TEXT,
             $image TEXT,
-            $kneeIssue TEXT,
-            $planLevel TEXT,
             $completeStatus TEXT,
             $completeExercisePercentage REAL,
             $noOfGlassWaterDrank INTEGER,
@@ -120,6 +118,8 @@ class DatabaseHelper {
             $isRest INTEGER
           )
           ''');
+          // $kneeIssue TEXT,
+          // $planLevel TEXT,
 
     // await db.execute('''
     //       CREATE TABLE $tableUserData (
@@ -234,6 +234,13 @@ class DatabaseHelper {
     print('>>>>>>>>>>>>Column ID: $id');
     return await db
         .update(tableExercises, row, where: '$columnId = ?', whereArgs: [id]);
+  }
+
+
+  Future<int> swapExerciseOfASpecificDay(Map<String, dynamic> row, int newIndex, int oldIndex) async {
+    Database db = await instance.database;
+    int id = row[columnId];
+    return await db.update(tableExercises, {'position': newIndex}, where: 'id = ?', whereArgs: [id]);
   }
 
   Future<int> resetExerciseStatus() async {

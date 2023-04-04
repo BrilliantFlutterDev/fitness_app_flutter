@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/plan_screen/plan_screen.dart';
@@ -125,7 +124,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               Image.asset(
                 'assets/images/splashwithopacity.png',
                 height: MediaQuery.of(context).size.height,
-                opacity: AlwaysStoppedAnimation(0.8),
+                opacity: const AlwaysStoppedAnimation(0.8),
                 // kColorBG.withOpacity(0.8),
                 // color: kColorBG.withOpacity(0.2),
                 // width: _animation.value * 300,
@@ -196,7 +195,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                 alignment: Alignment.bottomCenter,
                 child: Padding(
                   padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height*0.05),
-                  child: Text(
+                  child: const Text(
                     'Powered by GameScapes',
                     style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                   ),

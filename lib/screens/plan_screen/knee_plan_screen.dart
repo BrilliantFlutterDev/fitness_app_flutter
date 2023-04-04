@@ -114,7 +114,7 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                 ),
                               ),
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.01
+                                  height: MediaQuery.of(context).size.height * 0.011
                               ),
                               Align(
                                 alignment: Alignment.center,
@@ -154,7 +154,7 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                 ),
                               ),
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.035
+                                  height: MediaQuery.of(context).size.height * 0.036
                               ),
                               GestureDetector(
                                 onTap: () async {
@@ -354,7 +354,7 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
                                 ),
                               ),
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.05
+                                  height: MediaQuery.of(context).size.height * 0.06
                               ),
                               InkWell(
                                 onTap: () {

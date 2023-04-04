@@ -4,7 +4,6 @@ import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
-import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,8 +25,8 @@ class _ExerciseRestScreenState extends State<ExerciseRestScreen> {
   double value = 10;
 
   void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(
       oneSec,
         (Timer timer) {
           if (value == 0) {
@@ -69,7 +68,6 @@ class _ExerciseRestScreenState extends State<ExerciseRestScreen> {
 
   @override
   Widget build(BuildContext context){
-    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: kColorBG,
         bottomNavigationBar: Container(

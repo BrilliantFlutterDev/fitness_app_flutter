@@ -8,10 +8,10 @@ import 'package:provider/provider.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 
-// import '../Provider/language_class.dart';
-// import '../Utils/app_colors.dart';
-
 class PrivacyPolicyScreen extends StatefulWidget {
+
+  const PrivacyPolicyScreen({Key? key}) : super(key: key);
+
   @override
   PrivacyPolicyScreenState createState() => PrivacyPolicyScreenState();
 }
@@ -67,7 +67,7 @@ class PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title:  Text('Privacy Policy'),
+          title:  const Text('Privacy Policy'),
           backgroundColor: kColorBG,
         ),
         body: SafeArea(

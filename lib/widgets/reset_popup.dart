@@ -9,6 +9,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class ResetPopup extends StatefulWidget {
 
+  const ResetPopup({Key? key}) : super(key: key);
+
   @override
   State<ResetPopup> createState() => _ResetPopupState();
 }
@@ -17,6 +19,12 @@ class _ResetPopupState extends State<ResetPopup> {
 
   late AccountScreenBloc _accountScreenBloc;
   DayModelLocalDB? dayModelLocalDB;
+
+  @override
+  void initState() {
+    super.initState();
+    _accountScreenBloc = BlocProvider.of<AccountScreenBloc>(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,11 +92,6 @@ class _ResetPopupState extends State<ResetPopup> {
                       ),
                     ],
                   ),
-
-                  // Text(
-                  //   _message,
-                  //   textAlign: TextAlign.center,
-                  // )
                 ],
               ),
             ),

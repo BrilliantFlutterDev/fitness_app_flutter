@@ -16,11 +16,6 @@ class ErrorState extends AccountScreenState {
   ErrorState({required this.error});
 }
 
-class GetUserTrainingDataState extends AccountScreenState {
-  final RequestUserData userDataList;
-  GetUserTrainingDataState({required this.userDataList});
-}
-
 // class GetCountDownState extends AccountScreenState {
 //   // final RequestUserData userData;
 //   final UserDataModelLocalDB userDataModelLocalDB;

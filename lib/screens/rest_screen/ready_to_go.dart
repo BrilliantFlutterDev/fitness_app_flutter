@@ -2,15 +2,13 @@ import 'dart:async';
 
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
-import 'package:fitness_app/Utils/modal_progress_hud.dart';
 import 'package:fitness_app/constants/colors.dart';
-import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/start_exercise/start_exercise.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-import 'package:video_player/video_player.dart';
+// import 'package:video_player/video_player.dart';
 
 class ReadyToGo extends StatefulWidget {
 
@@ -161,7 +159,7 @@ class _ReadyToGoState extends State<ReadyToGo> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(height: MediaQuery.of(context).size.height*0.06),
-                          Text(
+                          const Text(
                             "READY TO GO!",
                             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: kColorPrimary),
                           ),
@@ -171,7 +169,7 @@ class _ReadyToGoState extends State<ReadyToGo> {
                             children: [
                               Text(
                                 widget.exerciseData!.exerciseList![index].exercise.name,
-                                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,),
+                                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold,),
                               ),
                               // Icon(Icons.question_mark_outlined),
                             ],
@@ -229,7 +227,7 @@ class _ReadyToGoState extends State<ReadyToGo> {
                                     );
                                     _timer.cancel();
                                   },
-                                  child: Icon(Icons.arrow_forward_ios)),
+                                  child: const Icon(Icons.arrow_forward_ios)),
                             ],
                           ),
                         ],

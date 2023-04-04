@@ -127,12 +127,12 @@ class _ReminderScreenState extends State<ReminderScreen>{
         body: reminderTime == null?
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Center(
+          children: const [
+            Center(
               child: Icon(Icons.notifications_none, color: Colors.white, size: 80,),
             ),
-            const SizedBox(height: 10),
-            const Text(
+            SizedBox(height: 10),
+            Text(
               "Please set your reminder",
               style: TextStyle(color: Colors.white),
             ),

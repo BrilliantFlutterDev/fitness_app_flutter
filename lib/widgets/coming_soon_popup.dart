@@ -1,9 +1,10 @@
 import 'package:fitness_app/constants/colors.dart';
-import 'package:fitness_app/screens/my_activity/my_reports.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
 
 class ComingSoonPopup extends StatefulWidget {
+
+  const ComingSoonPopup({Key? key}) : super(key: key);
 
   @override
   State<ComingSoonPopup> createState() => _ComingSoonPopupState();
@@ -23,7 +24,7 @@ class _ComingSoonPopupState extends State<ComingSoonPopup> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     "Coming Soon!",
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),

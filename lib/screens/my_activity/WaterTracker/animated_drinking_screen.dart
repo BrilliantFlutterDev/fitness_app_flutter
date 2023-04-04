@@ -38,13 +38,17 @@ class _AnimatedDrinkAcknowledgeState extends State<AnimatedDrinkAcknowledge> {
     _activityBloc.add(GetASpecificDaysEvent(day: 'Day ${AppGlobal.currentDay + 1}'));
 
     Timer(
-        Duration(seconds: 2),
+        const Duration(seconds: 2),
             () => setState(() {
               Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (context) => DrinkAcknowledge()
                   ),
-              );
+              ).then((ma){
+                print("Value is updated");
+                _activityBloc.add(GetASpecificDaysEvent(day: 'Day ${AppGlobal.currentDay + 1}'));
+                print(value);
+              });
         })
     );
   }

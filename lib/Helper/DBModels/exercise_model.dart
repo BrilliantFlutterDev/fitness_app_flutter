@@ -71,13 +71,13 @@ class ExerciseModelLocalDB {
   late String dayTitle;
   late int time;
   late int raps;
-  late final String kneeIssue;
-  late final String planLevel;
-  late final String inPushUpCat;
-  late final String inPlankCat;
+  // late final String kneeIssue;
+  // late final String planLevel;
+  // late final String inPushUpCat;
+  // late final String inPlankCat;
   late String completeStatus;
   late ExerciseDetailModel exercise;
-  ExerciseModelLocalDB( {this.columnsId, required this.time, required this.raps, required this.kneeIssue, required this.planLevel, required this.inPushUpCat, required this.inPlankCat, required this.dayTitle,required this.completeStatus, required this.exerciseID});
+  ExerciseModelLocalDB( {this.columnsId, required this.time, required this.raps, required this.dayTitle,required this.completeStatus, required this.exerciseID});
 
 
 
@@ -86,11 +86,8 @@ class ExerciseModelLocalDB {
     exerciseID=json['exerciseId'];
 
     dayTitle=json['dayTitle'];
-    // image = json['image'];
-    // name = json['name'];
-    // if(json['raps'] !=null) {
-      raps = json['raps'];
-    // }
+    raps = json['raps'];
+
     final jsonTime = json['time'];
     if(jsonTime is int){
       time = json['time'];
@@ -100,24 +97,11 @@ class ExerciseModelLocalDB {
       print("Time is neither int nor string");
       time = 0;
     }
-    // time = int.parse(json['time']);
-    // type = json['type'];
-    // if(json['kneeIssue'] !=null) {
-      kneeIssue = json['kneeIssue'];
-    // }
-    // if(json['planLevel'] !=null) {
-      planLevel = json['planLevel'];
-    // }
-    // if(json['inPushUpCat'] !=null) {
-      inPushUpCat = json['inPushUpCat'];
-    // }
-    // if(json['inPlankCat'] !=null) {
-      inPlankCat = json['inPlankCat'];
-    // }
-    // if(json['completeStatus'] !=null) {
+      // kneeIssue = json['kneeIssue'];
+      // planLevel = json['planLevel'];
+      // inPushUpCat = json['inPushUpCat'];
+      // inPlankCat = json['inPlankCat'];
       completeStatus = json['completeStatus'];
-    // }
-    // description = json['description'];
   }
 
   Map<String, dynamic> toJson() {
@@ -125,15 +109,12 @@ class ExerciseModelLocalDB {
     data['id'] = columnsId;
     data['dayTitle'] = dayTitle;
     data['exerciseId'] = exerciseID;
-    // data['image'] = image;
-    // data['name'] = name;
     data['raps'] = raps;
     data['time'] = time;
-    // data['type'] = type;
-    data['kneeIssue'] = kneeIssue;
-    data['planLevel'] = planLevel;
-    data['inPushUpCat'] = inPushUpCat;
-    data['inPlankCat'] = inPlankCat;
+    // data['kneeIssue'] = kneeIssue;
+    // data['planLevel'] = planLevel;
+    // data['inPushUpCat'] = inPushUpCat;
+    // data['inPlankCat'] = inPlankCat;
     data['completeStatus'] = completeStatus;
     // data['description'] = description;
 
