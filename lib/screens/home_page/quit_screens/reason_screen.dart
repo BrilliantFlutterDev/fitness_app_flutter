@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/account_screen/Feedback/feedback.dart';
 import 'package:fitness_app/screens/ads/AdmobHelper.dart';
@@ -14,6 +15,14 @@ class QuitReasonScreen extends StatefulWidget {
 }
 
 class _QuitReasonScreenState extends State<QuitReasonScreen> {
+
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+  @override
+  void initState() {
+    analytics.setCurrentScreen(screenName: "Quit Reason Screen");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context){

@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/Helper/DBModels/user_model.dart';
 import 'package:fitness_app/screens/account_screen/CommonQuestions/common_questions.dart';
@@ -42,6 +43,9 @@ class AccountScreen1 extends StatefulWidget {
 }
 
 class _AccountScreen1State extends State<AccountScreen1> {
+
+
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   NotificationServices notificationServices = NotificationServices();
 
@@ -93,6 +97,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
   @override
   void initState() {
     super.initState();
+    analytics.setCurrentScreen(screenName: "Account Tab Screen");
     saveWaterTracker();
     saveDrinkNotification();
     saveCountDown();

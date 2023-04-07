@@ -1,5 +1,6 @@
 import 'package:calender_picker/date_picker_widget.dart';
 import 'package:enum_to_string/enum_to_string.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/constants/constants.dart';
 import 'package:fitness_app/screens/my_activity/WaterTracker/animated_drinking_screen.dart';
 import 'package:fitness_app/screens/my_activity/Wikipedia_direct.dart';
@@ -36,6 +37,7 @@ class MyReports extends StatefulWidget {
 
 class _MyReportsState extends State<MyReports> {
 
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   DateTime dateTime = DateTime.now();
 
   String formattedDate = DateFormat.d().format(DateTime.now());
@@ -114,8 +116,11 @@ class _MyReportsState extends State<MyReports> {
     saveBMI();
     saveWeight();
     saveHeight();
+
     _activityBloc = BlocProvider.of<MyActivityBloc>(context);
     _activityBloc.add(GetASpecificDaysEvent(day: 'Day ${AppGlobal.currentDay + 1}'));
+
+    analytics.setCurrentScreen(screenName: "Report Screen");
   }
 
   @override

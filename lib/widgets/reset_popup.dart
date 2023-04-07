@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/account_screen/AccountScreenBloc/account_screen_bloc.dart';
@@ -19,11 +20,13 @@ class _ResetPopupState extends State<ResetPopup> {
 
   late AccountScreenBloc _accountScreenBloc;
   DayModelLocalDB? dayModelLocalDB;
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
     super.initState();
     _accountScreenBloc = BlocProvider.of<AccountScreenBloc>(context);
+    analytics.setCurrentScreen(screenName: "Reset Exercise Popup");
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:countup/countup.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/screens/ads/AdmobHelper.dart';
@@ -31,11 +32,15 @@ class _AnimatedDrinkAcknowledgeState extends State<AnimatedDrinkAcknowledge> {
   late MyActivityBloc _activityBloc;
   RequestDayData? requestDayData;
 
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
   @override
   void initState() {
     super.initState();
     _activityBloc = BlocProvider.of<MyActivityBloc>(context);
     _activityBloc.add(GetASpecificDaysEvent(day: 'Day ${AppGlobal.currentDay + 1}'));
+
+    analytics.setCurrentScreen(screenName: "Animated Drinking Screen");
 
     Timer(
         const Duration(seconds: 2),

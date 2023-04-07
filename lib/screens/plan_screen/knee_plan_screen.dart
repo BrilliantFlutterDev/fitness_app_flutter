@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/ads/AdmobHelper.dart';
@@ -26,12 +27,14 @@ class _SelectKneeIssueScreenState extends State<SelectKneeIssueScreen> {
   late HomeBloc _homeBloc;
 
   AdmobHelper admobHelper = AdmobHelper();
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
     super.initState();
     addUserData();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
+    analytics.setCurrentScreen(screenName: "Knee Plan Screen");
   }
 
   void addUserData() async {

@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/ads/AdmobHelper.dart';
@@ -23,12 +24,14 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
   List<String> plankRanges = ['0-30s', '30-60s', '60-120s', 'Over 120s'];
   FlutterSecureStorage storage = const FlutterSecureStorage();
   late HomeBloc _homeBloc;
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
     super.initState();
     addUserData();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
+    analytics.setCurrentScreen(screenName: "Plank Screen");
   }
 
   void addUserData() async {

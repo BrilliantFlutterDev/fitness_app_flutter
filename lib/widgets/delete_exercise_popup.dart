@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
@@ -23,11 +24,13 @@ class DeleteExercisePopup extends StatefulWidget {
 class _DeleteExercisePopupState extends State<DeleteExercisePopup> {
 
   late HomeBloc _homeBloc;
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
+    analytics.setCurrentScreen(screenName: "Delete Exercise Popup");
   }
 
   @override

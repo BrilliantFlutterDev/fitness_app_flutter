@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,13 @@ class ExerciseCompletedPopup extends StatefulWidget {
 
 class _ExerciseCompletedPopupState extends State<ExerciseCompletedPopup> {
 
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+  @override
+  void initState() {
+    analytics.setCurrentScreen(screenName: "Exercise Completed Popup");
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

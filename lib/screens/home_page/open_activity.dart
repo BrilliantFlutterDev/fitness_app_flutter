@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/constants/colors.dart';
@@ -13,6 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
@@ -40,13 +44,28 @@ class _OpenActivityState extends State<OpenActivity> {
 
   final List<bool> _selectedPlan = <bool>[false, false, false];
   FlutterSecureStorage storage = const FlutterSecureStorage();
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   int restresult = 10;
   double calories = 0;
   double totalTime = 0;
 
+  String? _gifFilePath;
+  Future<void> _loadGif() async {
+    try {
+      Directory appDocDir = await getApplicationDocumentsDirectory();
+      // Get file path of downloaded GIF image
+      _gifFilePath = appDocDir.path;
+      setState(() {});
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Failed to load GIF image.')),
+      );
+    }
+  }
   // int pushUp = 10;
   // int plank = 15;
+
   void saveTrainingRest() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     restresult = pref.getInt('trainingrest')!;
@@ -77,6 +96,9 @@ class _OpenActivityState extends State<OpenActivity> {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     _homeBloc.add(GetAllExerciseOfDayEvent(day: widget.dayModelLocalDB!.name));
+
+    analytics.setCurrentScreen(screenName: "Day Detail Screen");
+    _loadGif();
 
     if(AppGlobal.selectedKneeIssueOption == "1"){
       _selectedPlan[0] = true;
@@ -841,6 +863,9 @@ class _OpenActivityState extends State<OpenActivity> {
                                               image: AssetImage(
                                                   "assets/images/${exerciseData!.exerciseList![index].exercise.image}")),
                                         ),
+                                        // Image.file(
+                                        //     File("$_gifFilePath/images/${exerciseData!.exerciseList![index].exercise.image}")
+                                        // )
                                         const SizedBox(width: 18.0),
                                         Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,

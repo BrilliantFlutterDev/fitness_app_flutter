@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/home_page/open_home_page/open_home_page.dart';
@@ -18,6 +19,14 @@ class CustomTraining extends StatefulWidget {
 class _CustomTrainingState extends State<CustomTraining> {
 
   List<String> statusList = ['Rename', 'Delete'];
+
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+  @override
+  void initState() {
+    analytics.setCurrentScreen(screenName: "Custom Training Screen");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

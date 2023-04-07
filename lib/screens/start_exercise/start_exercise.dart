@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/screens/home_page/quit_screens/quit_screen.dart';
 import 'package:fitness_app/screens/rest_screen/exercise_rest.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
@@ -30,6 +31,7 @@ class _StartExerciseState extends State<StartExercise> {
   late double value;
   int index=0;
   late HomeBloc _homeBloc;
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   // late VideoPlayerController _controller;
 
   // int pushUp = 10;
@@ -78,6 +80,7 @@ class _StartExerciseState extends State<StartExercise> {
       startTimer();
     }
 
+    analytics.setCurrentScreen(screenName: "Start Exercise Screen");
     // pushUp = int.parse(AppGlobal.selectedPushUpOption!);
     // print(AppGlobal.selectedPushUpOption);
     //

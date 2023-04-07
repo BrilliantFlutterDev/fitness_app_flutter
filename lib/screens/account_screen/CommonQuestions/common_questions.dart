@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
@@ -14,6 +15,13 @@ class FAQ extends StatefulWidget {
 
 class _FAQState extends State<FAQ> {
 
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+  @override
+  void initState() {
+    analytics.setCurrentScreen(screenName: "Common Question Screen");
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

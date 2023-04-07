@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 import 'package:fitness_app/constants/colors.dart';
@@ -31,6 +32,7 @@ class _SelectExerciseState extends State<SelectExercise> {
 
   late HomeBloc _homeBloc;
   int index = 0;
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   // late VideoPlayerController _controller;
 
   // RequestExerciseData? exerciseData;
@@ -72,6 +74,7 @@ class _SelectExerciseState extends State<SelectExercise> {
   void initState() {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
+    analytics.setCurrentScreen(screenName: "Select Exercise Screen");
 
     // _controller = VideoPlayerController.asset('assets/images/${widget.exerciseModelLocalDB.exercise.video}');
     //
@@ -81,12 +84,6 @@ class _SelectExerciseState extends State<SelectExercise> {
     // _controller.setLooping(true);
     // _controller.initialize().then((_) => setState(() {}));
     // _controller.play();
-  }
-
-  @override
-  void dispose() {
-    // _controller.dispose();
-    super.dispose();
   }
 
   @override

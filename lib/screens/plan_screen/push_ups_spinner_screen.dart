@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/ads/AdmobHelper.dart';
@@ -22,12 +23,14 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
   List<String> pushUpsRanges = ['0-5', '5-10', '10-20', 'Over 20'];
   FlutterSecureStorage storage = const FlutterSecureStorage();
   late HomeBloc _homeBloc;
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
     super.initState();
     addUserData();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
+    analytics.setCurrentScreen(screenName: "Push Up Screen");
   }
 
   void addUserData() async {

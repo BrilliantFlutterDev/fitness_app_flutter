@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 import 'package:fitness_app/constants/colors.dart';
@@ -14,6 +15,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import '../../Utils/app_global.dart';
+import '../../Utils/gif_download.dart';
 import '../../Utils/modal_progress_hud.dart';
 import 'open_activity.dart';
 import '../my_activity/WaterTracker/water_tracker.dart';
@@ -40,6 +42,7 @@ class _HomePageState extends State<HomePage> {
   RequestExerciseData? exerciseData;
 
   AdmobHelper admobHelper = AdmobHelper();
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
@@ -53,6 +56,7 @@ class _HomePageState extends State<HomePage> {
       _homeBloc.add(GetAllDaysEvent());
       print('>>>>>>> Show Days');
     }
+    analytics.setCurrentScreen(screenName: "Home Screen");
   }
 
   @override
@@ -132,7 +136,14 @@ class _HomePageState extends State<HomePage> {
 
                 InkWell(
                   onTap: () {
-                    admobHelper.loadInterstatialAd();
+                    // admobHelper.loadInterstatialAd();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                            const GifDownloadScreen()
+                        )
+                    );
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.04),

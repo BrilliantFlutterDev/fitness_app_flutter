@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
@@ -11,6 +12,14 @@ class RestScreen extends StatefulWidget {
 
 class _RestScreenState extends State<RestScreen> {
   double vaule = 70.0;
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+  @override
+  void initState() {
+    analytics.setCurrentScreen(screenName: "Rest Screen");
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

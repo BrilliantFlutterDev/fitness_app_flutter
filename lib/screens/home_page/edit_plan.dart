@@ -1,18 +1,19 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/home_page/open_home_page/open_home_page.dart';
 import 'package:fitness_app/screens/my_activity/replace_exercise_plan.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
+import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/constants/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../Helper/DBModels/day_model.dart';
 import '../../Helper/DBModels/exercise_model.dart';
-import '../../Utils/app_global.dart';
 import '../../Utils/modal_progress_hud.dart';
-import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 
 import '../../widgets/delete_exercise_popup.dart';
 
@@ -33,10 +34,13 @@ class _EditPlanState extends State<EditPlan> {
   List<String> statusList = ['Replace', 'Delete'];
   late HomeBloc _homeBloc;
 
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
   @override
   void initState() {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
+    analytics.setCurrentScreen(screenName: "Edit Exercise Screen");
     //_homeBloc.add(GetAllExerciseOfDayEvent(day: widget.dayModelLocalDB!.name));
   }
 
@@ -65,6 +69,14 @@ class _EditPlanState extends State<EditPlan> {
         inAsyncCall: state is LoadingState,
         child: Scaffold(
           backgroundColor: kColorBG,
+          bottomNavigationBar: SizedBox(
+            height: MediaQuery.of(context).size.height*0.07,
+            width: AdmobHelper.getBannerAd().size.width.toDouble(),//double.infinity,
+            child: AdWidget(
+              ad:  AdmobHelper.getBannerAd()..load(),                 //myBanner..load(),
+              key: UniqueKey(),
+            ),
+          ),
           appBar: AppBar(
             backgroundColor: kColorBG,
             title: const Text("EDIT PLAN"),
@@ -189,7 +201,7 @@ class _EditPlanState extends State<EditPlan> {
                   final ExerciseModelLocalDB item = widget.exerciseData!.exerciseList!.removeAt(oldIndex) ;
                   widget.exerciseData!.exerciseList!.insert(newIndex, item);
                 });
-                _homeBloc.add(SwapAExerciseOfDayEvent(day: 'Day ${AppGlobal.currentDay + 1}',oldIndex: oldIndex, newIndex: newIndex));
+                // _homeBloc.add(SwapAExerciseOfDayEvent(day: 'Day ${AppGlobal.currentDay + 1}',oldIndex: oldIndex, newIndex: newIndex));
               },
             ),
           ),

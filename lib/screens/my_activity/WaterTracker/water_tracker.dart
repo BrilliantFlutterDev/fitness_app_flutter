@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/constants/constants.dart';
 import 'package:fitness_app/screens/ads/AdmobHelper.dart';
@@ -6,12 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 
 import 'dart:async';
 import 'dart:math';
@@ -40,6 +39,7 @@ class WaterTracker extends StatefulWidget {
 
 class _WaterTrackerState extends State<WaterTracker> {
   ExerciseConstants constants = ExerciseConstants();
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   bool status = false;
   double value = 0;
@@ -65,11 +65,11 @@ class _WaterTrackerState extends State<WaterTracker> {
     _activityBloc.add(GetASpecificDaysEvent(day: 'Day ${AppGlobal.currentDay + 1}'));
 
     saveWaterTracker();
+    analytics.setCurrentScreen(screenName: "Water Tracker Screen");
   }
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
     return BlocConsumer<MyActivityBloc, MyActivityState>(
         listener: (context, state) {
       if (state is LoadingState) {
@@ -121,7 +121,7 @@ class _WaterTrackerState extends State<WaterTracker> {
                 // );
                 Navigator.pop(context);
               },
-                child: Icon(Icons.arrow_back_sharp)),
+                child: const Icon(Icons.arrow_back_sharp)),
           ),
           body: SingleChildScrollView(
             child: ColorRemover(
@@ -136,7 +136,7 @@ class _WaterTrackerState extends State<WaterTracker> {
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.0),
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         begin: Alignment.topRight,
                         end: Alignment.topLeft,
                         colors: [
@@ -156,7 +156,7 @@ class _WaterTrackerState extends State<WaterTracker> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.only(top: 10),
                           child: Text(
                             "Today",
@@ -398,7 +398,7 @@ class _WaterTrackerState extends State<WaterTracker> {
                             children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+                                children: const [
                                   Text(
                                     "Drink notification",
                                     style: TextStyle(

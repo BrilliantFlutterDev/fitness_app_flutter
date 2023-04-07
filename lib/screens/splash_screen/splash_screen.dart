@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/plan_screen/plan_screen.dart';
@@ -7,11 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Utils/app_global.dart';
 import '../../Utils/common_functions.dart';
 import '../../Utils/modal_progress_hud.dart';
 import '../../widgets/cus_bottom_bar.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -21,16 +26,22 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+
   late AnimationController _animationController;
   late Animation<double> _animation;
   FlutterSecureStorage storage = const FlutterSecureStorage();
-
   AdmobHelper admobHelper = AdmobHelper();
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+  bool _isDownloading = false;
 
   @override
   void initState() {
     super.initState();
     checkUserData();
+    analytics.setCurrentScreen(screenName: "Splash Screen");
+    _isDownloading ? null : _checkIfGifsDownloaded();
+
     _animationController = AnimationController(
         vsync: this, duration: const Duration(seconds: 5));
     _animation = CurvedAnimation(
@@ -93,6 +104,101 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     from = DateTime(from.year, from.month, from.day);
     to = DateTime(to.year, to.month, to.day);
     return (to.difference(from).inHours / 24).round();
+  }
+
+  Future<void> downloadGifs() async {
+    setState(() {
+      _isDownloading = true;
+    });
+    try {
+      Dio dio = Dio();
+      String bucketUrl = 'https://fitness-bucket.s3.amazonaws.com/Gifs/';
+
+      List<String> gifs = [
+        'abdominalCrunch.gif'
+        'backwardLunge.gif'
+        'bicyclesCrunches.gif'
+        'burpee.gif'
+        'buttBridge.gif'
+        'clapPushUp.gif'
+        'cobraStretch.gif'
+        'crunchWithLegRaise.gif'
+        'declinePushUp.gif'
+        'flutterKicks.gif'
+        'gluteKickBack.gif'
+        'heelTouch.gif'
+        'highStepping.gif'
+        'inchworm.gif'
+        'jumpingJack.gif'
+        'kneeToElbow.gif'
+        'legRaises.gif'
+        'longArmCrunches.gif'
+        'lunge.gif'
+        'mountainClimber.gif'
+        'plank.gif'
+        'plankJacks.gif'
+        'pushUp.gif'
+        'reclinedObliqueTwist.gif'
+        'reverseCrunch.gif'
+        'reverseCrunch.gif'
+        'scissors.gif'
+        'skippingWithoutRope.gif'
+        'squatPulses.gif'
+        'squatReachUp.gif'
+        'squats.gif'
+        'standingBicycleCrunch.gif'
+        'stepUpOnChair.gif'
+        'toySoldiers.gif'
+        'tricepsDips.gif'
+        'vUp.gif'
+      ];
+      // Get app's documents directory
+      Directory appDocDir = await getApplicationDocumentsDirectory();
+      // for (int i = 0; i < gifs.length; i++) {
+      //   String gifUrl = bucketUrl + gifs[i];
+      //   http.Response response = await http.get(Uri.parse(gifUrl));
+      //   String gifFileName = gifs[i];
+      //   File file = File('${appDocDir.path}/images/$gifFileName');
+      //   await file.writeAsBytes(response.bodyBytes);
+      // }
+      for (int i = 0; i < gifs.length; i++) {
+        String gifUrl = bucketUrl + gifs[i];
+        String gifFileName = gifs[i];
+        String gifPath = '${appDocDir.path}/images/$gifFileName';
+        print("Gif Path>>>>>> $gifPath");
+        await dio.download(gifUrl, gifPath);
+      }
+      // Update flag in shared preferences
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isDownloaded', true);
+      // Display success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('GIFs downloaded successfully!')),
+      );
+    } catch (e) {
+      print("Failed to download GIFs>>> $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Failed to download GIFs.')),
+      );
+    } finally {
+      setState(() {
+        _isDownloading = false;
+      });
+    }
+  }
+
+  Future<void> _checkIfGifsDownloaded() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isDownloaded = prefs.getBool('isDownloaded') ?? false;
+    if (isDownloaded) {
+      print('GIFs are already downloaded!');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('GIFs are already downloaded!')),
+      );
+    } else {
+      // GIFs not downloaded yet, so download them
+      await downloadGifs();
+    }
   }
 
   @override

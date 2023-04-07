@@ -6,6 +6,7 @@ import 'package:fitness_app/models/gym_model.dart';
 import '../models/day_model.dart';
 
 class ExerciseConstants {
+
   List<GymModel> BeginnerFineExercises = [
     GymModel(
         dayTitle: "Day 1",

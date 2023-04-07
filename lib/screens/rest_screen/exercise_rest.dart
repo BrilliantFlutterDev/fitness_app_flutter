@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 import 'package:fitness_app/constants/colors.dart';
@@ -23,6 +24,8 @@ class _ExerciseRestScreenState extends State<ExerciseRestScreen> {
 
   late Timer _timer;
   double value = 10;
+
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   void startTimer() {
     const oneSec = Duration(seconds: 1);
@@ -58,6 +61,7 @@ class _ExerciseRestScreenState extends State<ExerciseRestScreen> {
 
     saveTrainingRest();
     startTimer();
+    analytics.setCurrentScreen(screenName: "Exercise Rest Screen");
   }
 
   @override

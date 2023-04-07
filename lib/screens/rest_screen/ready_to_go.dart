@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/Helper/DBModels/day_model.dart';
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
 import 'package:fitness_app/constants/colors.dart';
@@ -24,7 +25,7 @@ class ReadyToGo extends StatefulWidget {
 class _ReadyToGoState extends State<ReadyToGo> {
 
   // RequestExerciseData? exerciseData;
-
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   int index=0;
 
   late Timer _timer;
@@ -83,6 +84,7 @@ class _ReadyToGoState extends State<ReadyToGo> {
 
     saveCountDown();
     startTimer();
+    analytics.setCurrentScreen(screenName: "Ready To Go Screen");
   }
 
   @override

@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
@@ -23,6 +24,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
   final List<bool> _selectedPlan = <bool>[true, false, false];
   late HomeBloc _homeBloc;
   FlutterSecureStorage storage = const FlutterSecureStorage();
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   // BannerAd myBanner = BannerAd(
   //   adUnitId: 'ca-app-pub-3940256099942544/6300978111',   //'<ad unit ID>'
@@ -48,6 +50,7 @@ class _SelectPlanScreenState extends State<SelectPlanScreen> {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     addUserData();
+    analytics.setCurrentScreen(screenName: "Plan Screen");
   }
 
   void addUserData() async {

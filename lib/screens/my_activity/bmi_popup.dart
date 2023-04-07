@@ -1,4 +1,5 @@
 import 'package:enum_to_string/enum_to_string.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/my_activity/my_reports.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
@@ -18,6 +19,8 @@ class BMIPopup extends StatefulWidget {
 class _BMIPopupState extends State<BMIPopup> {
   final _heightController = TextEditingController();
   final _weightController = TextEditingController();
+
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   String message = 'Please enter your height and weight';
   double? bmi;
@@ -118,6 +121,7 @@ class _BMIPopupState extends State<BMIPopup> {
     super.initState();
     saveWeight();
     saveHeight();
+    analytics.setCurrentScreen(screenName: "BMI Popup");
   }
 
   @override

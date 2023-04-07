@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
@@ -25,6 +26,7 @@ class HealthData extends StatefulWidget {
 
 class _HealthDataState extends State<HealthData> {
 
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   Gender selectedGender = Gender.Male;
 
   DateTime birthdate = DateTime.now();
@@ -38,6 +40,7 @@ class _HealthDataState extends State<HealthData> {
     DOB = dateFormat.format(birthdate);
     saveGender();
     saveDOB();
+    analytics.setCurrentScreen(screenName: "Health Data Screen");
     // _datebirth(context);
   }
 

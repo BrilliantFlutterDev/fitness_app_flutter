@@ -1,4 +1,5 @@
 import 'package:enum_to_string/enum_to_string.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
@@ -25,11 +26,14 @@ class _MetricImperialUnitsState extends State<MetricImperialUnits> {
   Weight selectedWeight = Weight.kg;
   Height selectedHeight = Height.inch;
 
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
   @override
   void initState() {
     super.initState();
     saveWeight();
     saveHeight();
+    analytics.setCurrentScreen(screenName: "Metric Imperial Units Screen");
   }
 
   void saveWeight() async {
