@@ -1,18 +1,16 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:fitness_app/Utils/app_global.dart';
 import 'package:fitness_app/constants/colors.dart';
-import 'package:fitness_app/screens/forget_password/forget_password.dart';
+import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
-import 'package:fitness_app/screens/register_screen/register_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
-import 'package:fitness_app/widgets/cus_bottom_bar.dart';
-import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:sizer/sizer.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:vertical_picker/vertical_picker.dart';
 
-import '../../constants.dart';
 import 'knee_plan_screen.dart';
 
 class PlanksSpinnerScreen extends StatefulWidget {
@@ -23,24 +21,25 @@ class PlanksSpinnerScreen extends StatefulWidget {
 }
 
 class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
-  List<String> pushUpsRanges = ['0-30s', '30-60s', '60-120s', 'Over 120s'];
+  List<String> plankRanges = ['0-30s', '30-60s', '60-120s', 'Over 120s'];
   FlutterSecureStorage storage = const FlutterSecureStorage();
   late HomeBloc _homeBloc;
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
     super.initState();
     addUserData();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
+    analytics.setCurrentScreen(screenName: "Plank Screen");
   }
 
   void addUserData() async {
-    await storage.write(key: 'selectedPlankOption', value: pushUpsRanges[0]);
+    await storage.write(key: 'selectedPlankOption', value: '15');
   }
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
     return BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
       if (state is LoadingState) {
       } else if (state is ErrorState) {
@@ -55,8 +54,16 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
       } else if (state is RefreshScreenState) {}
     }, builder: (context, state) {
       return Scaffold(
-        body: SafeArea(
-          child: ColorRemover(
+        backgroundColor: kColorBG,
+        bottomNavigationBar: SizedBox(
+          height: MediaQuery.of(context).size.height*0.07,
+          width: AdmobHelper.getBannerAd().size.width.toDouble(), //double.infinity,
+          child: AdWidget(
+            ad:  AdmobHelper.getBannerAd()..load(),                 //myBanner..load(),
+            key: UniqueKey(),
+          ),
+        ),
+        body: ColorRemover(
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,30 +71,29 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
                   Stack(
                     children: [
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.93,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage("assets/images/5.png"),
+                            image: AssetImage("assets/images/Bell Magic Workout.jpg"),
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
                       Container(
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           gradient: LinearGradient(
                             begin: Alignment.bottomCenter,
                             end: Alignment.topCenter,
                             colors: [
-                              Color(0xff1c1b20),
-                              Colors.transparent,
+                              kColorBG.withOpacity(0.8),
+                              kColorBG.withOpacity(0.8),
                             ],
                           ),
                         ),
-                        height: MediaQuery.of(context).size.height * 0.96,
+                        height: MediaQuery.of(context).size.height*0.93,
                         width: MediaQuery.of(context).size.width,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 15),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                           child: Column(
                             children: [
                               Align(
@@ -107,16 +113,12 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
                                 ),
                               ),
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.02),
+                                  height: MediaQuery.of(context).size.height * 0.01),
                               Align(
                                 alignment: Alignment.center,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                  padding: const EdgeInsets.only(left: 10, right: 10),
+                                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                                     children: const [
                                       Text(
                                         "HOW LONG CAN YOU HOLD A PLANK?",
@@ -144,26 +146,24 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.white,
+                                        color: kColorPrimary,
                                         // fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              const SizedBox(height: 20),
+                              SizedBox(height: MediaQuery.of(context).size.height*0.01),
                               Container(
                                 margin: const EdgeInsets.all(12),
                                 child: Container(
                                   height:
-                                      MediaQuery.of(context).size.height * 0.5,
+                                  MediaQuery.of(context).size.height * 0.5,
                                   alignment: Alignment.bottomLeft,
-                                  padding: const EdgeInsets.only(
-                                      bottom: 12.0, left: 12.0),
+                                  padding: const EdgeInsets.only(bottom: 12.0, left: 12.0),
                                   child: VerticalPicker(
                                     // give height for eacch item
-                                    itemHeight:
-                                        MediaQuery.of(context).size.height / 10,
+                                    itemHeight: MediaQuery.of(context).size.height / 10,
 
                                     // margin for border
                                     leftMargin: 20,
@@ -171,22 +171,30 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
 
                                     // create list of text for items
                                     items: List.generate(
-                                        pushUpsRanges.length,
+                                        plankRanges.length,
                                         (index) => Center(
                                               child: Text(
-                                                pushUpsRanges[index],
-                                                style: const TextStyle(
-                                                    fontSize: 30,
-                                                    fontWeight:
-                                                        FontWeight.w700),
+                                                plankRanges[index],
+                                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w700, color: Colors.black),
                                               ),
                                             )),
 
                                     // empty void for item selected
                                     onSelectedChanged: (indexSelected) async {
                                       await storage.write(
-                                          key: 'selectedPlankOption',
-                                          value: pushUpsRanges[indexSelected]);
+                                        key: 'selectedPlankOption',
+                                        value: plankRanges[indexSelected] == '0-30s'?
+                                                  AppGlobal.selectedPlankOption = '15' :
+                                               plankRanges[indexSelected] == '30-60s'?
+                                                  AppGlobal.selectedPlankOption = '40' :
+                                               plankRanges[indexSelected] == '60-120s'?
+                                                  AppGlobal.selectedPlankOption = '75' :
+                                               plankRanges[indexSelected] == 'Over 120s'?
+                                                  AppGlobal.selectedPlankOption = '90' :
+                                               '30',
+                                      );
+                                      print('plank>>>>>> ${AppGlobal.selectedPlankOption}');
+                                      _homeBloc.add(RefreshScreenEvent());
                                     },
 
                                     // give color to border
@@ -205,7 +213,7 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
                                       color: Colors.white),
                                 ),
                               ),
-                              const SizedBox(height: 25),
+                              const SizedBox(height: 24),
                               InkWell(
                                 onTap: () {
                                   Navigator.push(
@@ -254,7 +262,7 @@ class _PlanksSpinnerScreenState extends State<PlanksSpinnerScreen> {
               ),
             ),
           ),
-        ),
+        // ),
       );
     });
   }

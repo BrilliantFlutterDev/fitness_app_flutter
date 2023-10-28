@@ -1,10 +1,18 @@
+import 'package:fitness_app/Helper/DBModels/user_model.dart';
 import 'package:fitness_app/constants.dart';
+import 'package:fitness_app/constants/colors.dart';
+import 'package:fitness_app/screens/account_screen/AccountScreenBloc/account_screen_bloc.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../account_screen1.dart';
 
 class CountdownPopup extends StatefulWidget{
+
+  const CountdownPopup({Key? key}) : super(key: key);
 
   @override
   State<CountdownPopup> createState() => _CountdownPopupState();
@@ -12,19 +20,60 @@ class CountdownPopup extends StatefulWidget{
 
 class _CountdownPopupState extends State<CountdownPopup> {
 
-  int _counter = 10;
+  late AccountScreenBloc _accountScreenBloc;
+  double counter = 10;
+  // late int value;
+  // RequestUserData? requestUserData;
+  // late UserDataModelLocalDB userDataModelLocalDB;
+
+  @override
+  void initState() {
+    _accountScreenBloc = BlocProvider.of<AccountScreenBloc>(context);
+    saveCountDown();
+
+    super.initState();
+  }
+
+  void saveCountDown() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    counter = pref.getDouble('countdown')!;
+    setState(() {
+
+    });
+  }
+
   @override
   Widget build(BuildContext context){
+    return BlocConsumer<AccountScreenBloc, AccountScreenState>(listener: (context, state) {
+      if (state is LoadingState) {
+      } else if (state is ErrorState) {
+        Fluttertoast.showToast(
+            msg: state.error,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.grey.shade400,
+            textColor: Colors.white,
+            fontSize: 12.0);
+      } else if (state is RefreshScreenState) {
+      } else if (state is DataStoredState) {
+        _accountScreenBloc.add(InsertAllUserDataInLocalDBEvent());
+      }
+      // else if (state is GetCountDownState){
+      //   _counter = state.value;
+      // }
+    },
+    builder: (context, state) {
     return Scaffold(
       body: ColorRemover(
         child: Center(
             child: Padding(
-              padding: EdgeInsets.only(left: 25, right: 35),
+              padding: const EdgeInsets.only(left: 25, right: 35),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.only(top: 25),
                     child: Text(
                       "Countdown time (10 ~ 15 sec)",
@@ -37,25 +86,28 @@ class _CountdownPopupState extends State<CountdownPopup> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: InkWell(
-                          onTap: () {
+                          onTap: () async {
                             setState(() {
-                              if(_counter == 10 || _counter <= 10){
-                                _counter = 10;
+                              if(counter == 10 || counter <= 10){
+                                counter = 10;
                               }else{
-                                _counter -= 5;
+                                counter -= 5;
                               }
                             });
+
                           },
-                          child: Icon(Icons.arrow_back_ios, color: Colors.grey, size: 20)),
+                          child: const Icon(Icons.arrow_back_ios, color: Colors.grey, size: 20)),
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width*0.05),
                       Column(
                         children: [
                           Text(
-                            '$_counter',
+                            // userDataModelLocalDB.countDownTime.toString(),
+                            counter.ceil().toString(),
+                            // value.toString(),
                             style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.height*0.075),
                           ),
-                          Text(
+                          const Text(
                             "sec",
                             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                           ),
@@ -67,14 +119,14 @@ class _CountdownPopupState extends State<CountdownPopup> {
                         child: InkWell(
                             onTap: () {
                               setState(() {
-                                if(_counter == 15 || _counter>=15){
-                                  _counter = 15;
+                                if(counter == 15 || counter>=15){
+                                  counter = 15;
                                 }else{
-                                  _counter += 5;
+                                  counter += 5;
                                 }
                               });
                             },
-                            child: Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 20)),
+                            child: const Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 20)),
                       ),
                     ],
                   ),
@@ -87,15 +139,25 @@ class _CountdownPopupState extends State<CountdownPopup> {
                           onTap: (){
                             Navigator.pop(context);
                           },
-                          child: Text(
+                          child: const Text(
                             "CANCEL",
                             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width*0.1),
-                        Text(
-                          "SET",
-                          style: TextStyle(color: Color(0xff1ce5c1), fontWeight: FontWeight.bold),
+                        InkWell(
+                          onTap: () async {
+                            SharedPreferences pref = await SharedPreferences.getInstance();
+                            pref.setDouble('countdown', counter);
+                            // _accountScreenBloc.add(
+                            //     CountDownEvent(value: _counter)
+                            // );
+                            Navigator.pop(context, counter);
+                          },
+                          child: const Text(
+                            "SET",
+                            style: TextStyle(color: kColorPrimary, fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ],
                     ),
@@ -105,6 +167,6 @@ class _CountdownPopupState extends State<CountdownPopup> {
             ),
         )
       ),
-    );
+    );});
   }
 }

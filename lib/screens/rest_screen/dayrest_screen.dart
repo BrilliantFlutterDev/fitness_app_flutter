@@ -1,10 +1,10 @@
-import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
-import 'package:fitness_app/screens/home_page/home_page.dart';
-import 'package:fitness_app/widgets/cus_bottom_bar.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:fitness_app/constants/colors.dart';
+import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class DayRestScreen extends StatefulWidget {
   const DayRestScreen({Key? key}) : super(key: key);
@@ -15,39 +15,55 @@ class DayRestScreen extends StatefulWidget {
 
 class _DayRestScreenState extends State<DayRestScreen>{
 
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+  @override
+  void initState() {
+    analytics.setCurrentScreen(screenName: "Day Rest Screen");
+    super.initState();
+  }
   @override
   Widget build(BuildContext context){
-    return BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
-      if (state is LoadingState) {
-      } else if (state is ErrorState) {
-        Fluttertoast.showToast(
-            msg: state.error,
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.grey.shade400,
-            textColor: Colors.white,
-            fontSize: 12.0);
-      } else if (state is RefreshScreenState) {
-
-      }
-    }, builder: (context, state) {
       return Scaffold(
+        backgroundColor: kColorBG,
+        bottomNavigationBar: SizedBox(
+          height: MediaQuery.of(context).size.height*0.07,
+          width: AdmobHelper.getBannerAd().size.width.toDouble(),//double.infinity,
+          child: AdWidget(
+            ad:  AdmobHelper.getBannerAd()..load(),                 //myBanner..load(),
+            key: UniqueKey(),
+          ),
+        ),
         appBar: AppBar(
-          backgroundColor: const Color(0xff1c1b20),
+          backgroundColor: kColorBG,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: const Icon(Icons.arrow_back_sharp)
+          ),
           title: const Text("Rest Day"),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             Center(
               child: CircleAvatar(
                 radius: 70,
-                backgroundColor: Colors.grey,
-                child: Icon(Icons.energy_savings_leaf_outlined, color: Colors.white, size: 80,),
+                backgroundColor: kColorPrimary,
+                // backgroundColor: Colors.grey,
+                  child: LimitedBox(
+                    child: SvgPicture.asset(
+                      "assets/icons/coffecup.svg",
+                      height: MediaQuery.of(context).size.height*0.1,
+                      color: Colors.white,
+                    ),
+                  ),
+                // Icon(Icons.energy_savings_leaf_outlined, color: kColorPrimary, size: 80,),
               ),
             ),
-            Text("Your body and muscles need to get some rest",
+            const Text("Your body and muscles need to get some rest",
               style: TextStyle(color: Colors.white),
             ),
             SizedBox(height: MediaQuery.of(context).size.height*0.3,),
@@ -57,16 +73,12 @@ class _DayRestScreenState extends State<DayRestScreen>{
               child: MyButton(
                 name: "FINISHED",
                 whenpress: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) =>
-                          const CusBottomBar()),
-                          (Route<dynamic> route) => false);
+                  Navigator.pop(context);
                 },
               ),
             ),
           ],
         ),
-      );});
+      );
   }
 }

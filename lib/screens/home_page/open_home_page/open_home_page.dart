@@ -1,5 +1,5 @@
 import 'package:fitness_app/constants/constants.dart';
-import 'package:fitness_app/screens/my_activity/open_activity.dart';
+import 'package:fitness_app/screens/home_page/open_activity.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';

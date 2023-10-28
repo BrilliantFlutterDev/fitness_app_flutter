@@ -15,18 +15,18 @@ class NotificationService {
     AndroidInitializationSettings('@mipmap/ic_launcher');
 
     //Initialization Settings for iOS
-    // const IOSInitializationSettings initializationSettingsIOS =
-    // IOSInitializationSettings(
-    //   requestSoundPermission: false,
-    //   requestBadgePermission: false,
-    //   requestAlertPermission: false,
-    // );
+    const DarwinInitializationSettings initializationSettingsIOS =
+    DarwinInitializationSettings(
+      requestSoundPermission: true,
+      requestBadgePermission: true,
+      requestAlertPermission: true,
+    );
 
     //Initializing settings for both platforms (Android & iOS)
     const InitializationSettings initializationSettings =
     InitializationSettings(
         android: initializationSettingsAndroid,
-        // iOS: initializationSettingsIOS
+        iOS: initializationSettingsIOS
     );
     tz.initializeTimeZones();
     await flutterLocalNotificationsPlugin.initialize(
@@ -56,7 +56,16 @@ class NotificationService {
         channelDescription: 'your channel description',
         importance: Importance.max,
         priority: Priority.high,
-        ticker: 'ticker');
+        ticker: 'ticker',
+        fullScreenIntent: true,
+        showWhen: true,
+        ongoing: true,
+        enableVibration: true,
+        playSound: true,
+        // style: AndroidNotificationStyle.bigText,
+        styleInformation: BigTextStyleInformation(''),
+    );
+
     const NotificationDetails platformChannelSpecifics =
     NotificationDetails(android: androidPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.show(

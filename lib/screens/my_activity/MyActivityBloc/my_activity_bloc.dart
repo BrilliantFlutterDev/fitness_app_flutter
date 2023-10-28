@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:fitness_app/Helper/DBModels/exercise_model.dart';
+import 'package:fitness_app/Utils/app_global.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -30,21 +31,65 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
 
       String timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
       ExerciseModelLocalDB exerciseModelLocalDB;
-      for (int i = 0; i < constants.dailyExercises.length; i++) {
-        exerciseModelLocalDB = ExerciseModelLocalDB(
 
-            image: constants.dailyExercises[i].image,
-            name: constants.dailyExercises[i].name,
-            time: constants.dailyExercises[i].time,
-            raps: constants.dailyExercises[i].raps,
-            type: constants.dailyExercises[i].type,
-            kneeIssue: constants.dailyExercises[i].kneeIssue,
-            planLevel: constants.dailyExercises[i].planLevel,
-            inPushUpCat: constants.dailyExercises[i].inPushUpCat,
-            inPlankCat: constants.dailyExercises[i].inPlankCat,
-            dayTitle: constants.dailyExercises[i].dayTitle,
-            completeStatus: '0');
-        await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
+      if(AppGlobal.selectedPlan=='1') {
+        for (int i = 0; i < constants.BeginnerFineExercises.length; i++) {
+          exerciseModelLocalDB = ExerciseModelLocalDB(
+            time: constants.BeginnerFineExercises[i].time,
+            raps: constants.BeginnerFineExercises[i].raps,
+            dayTitle: constants.BeginnerFineExercises[i].dayTitle,
+            exerciseID: constants.BeginnerFineExercises[i].exercise_id,
+            completeStatus: '0',);
+          await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
+        }
+      }
+      else if(AppGlobal.selectedPlan=='2') {
+        for (int i = 0; i < constants.IntermediateFineExercises.length; i++) {
+          exerciseModelLocalDB = ExerciseModelLocalDB(
+            time: constants.IntermediateFineExercises[i].time,
+            raps: constants.IntermediateFineExercises[i].raps,
+            dayTitle: constants.IntermediateFineExercises[i].dayTitle,
+            exerciseID: constants.IntermediateFineExercises[i].exercise_id,
+            completeStatus: '0',);
+          await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
+        }
+      }
+      else if(AppGlobal.selectedPlan=='3') {
+        for (int i = 0; i < constants.AdvancedFineExercises.length; i++) {
+          exerciseModelLocalDB = ExerciseModelLocalDB(
+            time: constants.AdvancedFineExercises[i].time,
+            raps: constants.AdvancedFineExercises[i].raps,
+            dayTitle: constants.AdvancedFineExercises[i].dayTitle,
+            exerciseID: constants.AdvancedFineExercises[i].exercise_id,
+            completeStatus: '0',);
+          await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
+        }
+      }
+      else{
+        for (int i = 0; i < constants.BeginnerFineExercises.length; i++) {
+          exerciseModelLocalDB = ExerciseModelLocalDB(
+            time: constants.BeginnerFineExercises[i].time,
+            raps: constants.BeginnerFineExercises[i].raps,
+            dayTitle: constants.BeginnerFineExercises[i].dayTitle,
+            exerciseID: constants.BeginnerFineExercises[i].exercise_id,
+            completeStatus: '0',);
+          await dbHelper.insertExercise(exerciseModelLocalDB.toJson());
+        }
+      }
+
+      ExerciseDetailModel exerciseDetailModel;
+      for (int i = 0; i < constants.AllExercises.length; i++) {
+        exerciseDetailModel = ExerciseDetailModel(
+          id: constants.AllExercises[i].id,
+          name: constants.AllExercises[i].name,
+          image: constants.AllExercises[i].image,
+          // video: constants.AllExercises[i].video,
+          type: constants.AllExercises[i].type,
+          rapTime: constants.AllExercises[i].rapTime,
+          kcal: constants.AllExercises[i].kcal,
+          description: constants.AllExercises[i].description,
+        );
+        await dbHelper.insertExerciseDetail(exerciseDetailModel.toJson());
       }
 
       DayModelLocalDB dayModelLocalDB;
@@ -53,10 +98,11 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
             image: dayConstants.days[i].image,
             name: dayConstants.days[i].name,
             completedPercentage: dayConstants.days[i].completedPercentage,
-            kneeIssue: dayConstants.days[i].kneeIssue,
-            planLevel: dayConstants.days[i].planLevel,
             completeStatus: dayConstants.days[i].completeStatus,
-            noOfGlassWaterDrank: dayConstants.days[i].noOfGlassWaterDrank, exerciseNumInProgress:  dayConstants.days[i].exerciseNumInProgress);
+            noOfGlassWaterDrank: dayConstants.days[i].noOfGlassWaterDrank,
+            exerciseNumInProgress:  dayConstants.days[i].exerciseNumInProgress,
+            isRest: dayConstants.days[i].isRest,
+        );
         await dbHelper.insertDays(dayModelLocalDB.toJson());
       }
 
@@ -81,6 +127,12 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
         var data = await dbHelper.queryAllExercise();
         RequestExerciseData exerciseData = RequestExerciseData.fromJson(data);
 
+        for(int i=0;i< exerciseData.exerciseList!.length; i++){
+          var mExercise = await dbHelper.queryASpecificExercise(exerciseData.exerciseList![i].exerciseID);
+          exerciseData.exerciseList![i].exercise = ExerciseDetailModel.fromJson(mExercise[0]);
+          print(exerciseData);
+        }
+
         yield GetAllExerciseState(exerciseData: exerciseData);
       } catch (e) {
         yield ErrorState(error: 'No Exercise found!');
@@ -91,6 +143,12 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
       try {
         var data = await dbHelper.queryAllExerciseOfDay(event.day);
         RequestExerciseData exerciseData = RequestExerciseData.fromJson(data);
+
+        for(int i=0;i< exerciseData.exerciseList!.length; i++){
+          var mExercise = await dbHelper.queryASpecificExercise(exerciseData.exerciseList![i].exerciseID);
+          exerciseData.exerciseList![i].exercise = ExerciseDetailModel.fromJson(mExercise[0]);
+          print(exerciseData);
+        }
 
         yield GetAllExerciseState(exerciseData: exerciseData);
       } catch (e) {
@@ -112,10 +170,38 @@ class MyActivityBloc extends Bloc<MyActivityEvent, MyActivityState> {
 
       try {
         var data = await dbHelper.queryASpecificDay(event.day);
-        RequestDayData dayData = RequestDayData.fromJson(data);
+        var data1 = await dbHelper.queryAllExerciseOfDay(event.day);
 
-        yield GetAllDaysState(dayData: dayData);
+        RequestDayData dayData = RequestDayData.fromJson(data);
+        RequestExerciseData exerciseData = RequestExerciseData.fromJson(data1);
+
+        double totalCalories = 0.0;
+        double timeSpent = 0.0;
+
+        for(int index=0; index<dayData.exerciseList![0].exerciseNumInProgress; index++){
+
+          var mExerciseResponse = await dbHelper.queryASpecificExercise(exerciseData.exerciseList![index].exerciseID);
+
+          var exercise = ExerciseDetailModel.fromJson(mExerciseResponse[0]);
+
+          double cal1 = exercise.type == 'time'?
+          exercise.kcal * exerciseData.exerciseList![index].time.toDouble() :
+          exercise.kcal * exerciseData.exerciseList![index].raps.toDouble();
+          print('Calories>>> $cal1');
+          totalCalories = totalCalories + cal1;
+          print('Calories $totalCalories');
+
+          double time1 = exercise.type == 'time'?
+          exerciseData.exerciseList![index].time.toDouble() :
+          exercise.rapTime * exerciseData.exerciseList![index].raps.toDouble();
+
+          timeSpent = timeSpent + time1;
+        }
+        timeSpent = timeSpent/60;
+
+        yield GetAllDaysState(dayData: dayData, totalCalories: totalCalories, timeSpent: timeSpent);
       } catch (e) {
+        print("Error $e");
         yield ErrorState(error: 'No Days found!');
       }
     }

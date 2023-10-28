@@ -1,5 +1,8 @@
+import '../db_helper.dart';
+
 class RequestExerciseData {
   List<ExerciseModelLocalDB>? exerciseList;
+
 
   RequestExerciseData({required this.exerciseList});
 
@@ -20,51 +23,100 @@ class RequestExerciseData {
   }
 }
 
-class ExerciseModelLocalDB {
+class ExerciseDetailModel{
   late final int? columnsId;
+  late final int id;
   late final String name;
   late final String image;
-  late String dayTitle;
-  late final String time;
-  late int raps;
+  // late final String video;
   late final String type;
-  late final String kneeIssue;
-  late final String planLevel;
-  late final String inPushUpCat;
-  late final String inPlankCat;
-  late  String completeStatus;
-  ExerciseModelLocalDB( {this.columnsId, required this.image, required this.name,required this.time,required  this.raps,required  this.type,required  this.kneeIssue,required  this.planLevel,required  this.inPushUpCat,required  this.inPlankCat,required this.dayTitle,required this.completeStatus,});
+  late final double rapTime;
+  late final double kcal;
+  late final String description;
+
+  ExerciseDetailModel( {this.columnsId, required this.id, required this.name, required this.image, required this.type, required this.rapTime, required this.kcal, required this.description,});
+
+
+  ExerciseDetailModel.fromJson(Map<String, dynamic> json) {
+    columnsId=json['id'];
+    id=json['exerciseId'];
+    image = json['image'];
+    // video = json['video'];
+    name = json['name'];
+    type = json['type'];
+    rapTime = json['rapTime'];
+    kcal = json['kcal'];
+    description = json['description'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = columnsId;
+    data['exerciseId'] = id;
+    data['image'] = image;
+    // data['video'] = video;
+    data['name'] = name;
+    data['type'] = type;
+    data['rapTime'] = rapTime;
+    data['kcal'] = kcal;
+    data['description'] = description;
+
+    return data;
+  }
+}
+
+class ExerciseModelLocalDB {
+  late final int? columnsId;
+  late final int exerciseID;
+  late String dayTitle;
+  late int time;
+  late int raps;
+  // late final String kneeIssue;
+  // late final String planLevel;
+  // late final String inPushUpCat;
+  // late final String inPlankCat;
+  late String completeStatus;
+  late ExerciseDetailModel exercise;
+  ExerciseModelLocalDB( {this.columnsId, required this.time, required this.raps, required this.dayTitle,required this.completeStatus, required this.exerciseID});
+
 
 
   ExerciseModelLocalDB.fromJson(Map<String, dynamic> json) {
     columnsId=json['id'];
+    exerciseID=json['exerciseId'];
+
     dayTitle=json['dayTitle'];
-    image = json['image'];
-    name = json['name'];
     raps = json['raps'];
-    time = json['time'];
-    type = json['type'];
-    kneeIssue = json['kneeIssue'];
-    planLevel = json['planLevel'];
-    inPushUpCat = json['inPushUpCat'];
-    inPlankCat = json['inPlankCat'];
-    completeStatus= json['completeStatus'];
+
+    final jsonTime = json['time'];
+    if(jsonTime is int){
+      time = json['time'];
+    }else if(jsonTime is String){
+      time = int.parse(json['time']);
+    }else{
+      print("Time is neither int nor string");
+      time = 0;
+    }
+      // kneeIssue = json['kneeIssue'];
+      // planLevel = json['planLevel'];
+      // inPushUpCat = json['inPushUpCat'];
+      // inPlankCat = json['inPlankCat'];
+      completeStatus = json['completeStatus'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = columnsId;
     data['dayTitle'] = dayTitle;
-    data['image'] = image;
-    data['name'] = name;
+    data['exerciseId'] = exerciseID;
     data['raps'] = raps;
     data['time'] = time;
-    data['type'] = type;
-    data['kneeIssue'] = kneeIssue;
-    data['planLevel'] = planLevel;
-    data['inPushUpCat'] = inPushUpCat;
-    data['inPlankCat'] = inPlankCat;
+    // data['kneeIssue'] = kneeIssue;
+    // data['planLevel'] = planLevel;
+    // data['inPushUpCat'] = inPushUpCat;
+    // data['inPlankCat'] = inPlankCat;
     data['completeStatus'] = completeStatus;
+    // data['description'] = description;
 
     return data;
   }

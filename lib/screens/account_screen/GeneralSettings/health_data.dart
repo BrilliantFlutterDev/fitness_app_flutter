@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
@@ -5,21 +7,82 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:enum_to_string/enum_to_string.dart';
+
+import '../../../constants/colors.dart';
 
 enum Gender {Male, Female}
 
 class HealthData extends StatefulWidget {
+  const HealthData({Key? key}) : super(key: key);
+
+
   @override
   State<HealthData> createState() => _HealthDataState();
 }
 
 class _HealthDataState extends State<HealthData> {
 
-  //ValueNotifier<Gender> _selectedItem = new ValueNotifier<Gender>(Gender.Male);
-  Gender? _selectedItem = Gender.Male;
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  Gender selectedGender = Gender.Male;
+
+  DateTime birthdate = DateTime.now();
+  DateFormat dateFormat = DateFormat('dd-MMMM-yyyy');
+  // DateFormat dateFormat = DateFormat('yyyy/MM/dd');
+  late String DOB;
+
+  @override
+  void initState() {
+    super.initState();
+    DOB = dateFormat.format(birthdate);
+    saveGender();
+    saveDOB();
+    analytics.setCurrentScreen(screenName: "Health Data Screen");
+    // _datebirth(context);
+  }
+
+  void saveGender() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    selectedGender = EnumToString.fromString(Gender.values, prefs.getString("gender").toString())!;
+    setState(() {
+      // selectedGender = EnumToString.fromString(Gender.values, prefs.getString("gender").toString())!;
+    });
+  }
+
+  void saveDOB() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    DOB = pref.getString('birthdate')!;
+  }
+
+  Future<void> _datebirth(BuildContext context) async {
+    var _datePicked = await DatePicker.showSimpleDatePicker(
+      context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1923),
+      lastDate: DateTime.now(),//DateTime(2023, 12, 31),
+      dateFormat: "dd-MMMM-yyyy",
+      locale: DateTimePickerLocale.en_us,
+      backgroundColor: kColorFG,
+      looping: false,
+      textColor: kColorPrimary,
+      confirmText: 'SET',
+      cancelText: 'CANCEL',
+      itemTextStyle: const TextStyle(color: Colors.white),
+    );
+    setState(() {
+      // DOB = _datePicked!.toString();
+      DOB = dateFormat.format(_datePicked!);
+    });
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('birthdate', DOB);
+  }
 
   @override
   Widget build(BuildContext context){
+
     return BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
       if (state is LoadingState) {
       } else if (state is ErrorState) {
@@ -36,265 +99,347 @@ class _HealthDataState extends State<HealthData> {
       }
     }, builder: (context, state) {
       return Scaffold(
+        backgroundColor: kColorBG,
+        bottomNavigationBar: SizedBox(
+          height: MediaQuery.of(context).size.height*0.07,
+          width: AdmobHelper.getBannerAd().size.width.toDouble(),//double.infinity,
+          child: AdWidget(
+            ad:  AdmobHelper.getBannerAd()..load(),                 //myBanner..load(),
+            key: UniqueKey(),
+          ),
+        ),
         appBar: AppBar(
-          backgroundColor: const Color(0xff1c1b20),
+          backgroundColor: kColorBG,
+          // backgroundColor: const Color(0xff1c1b20),
           title: const Text("HEALTH DATA"),
         ),
         body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.only(left: 15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                InkWell(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (_) =>  Dialog(
-
-                        child: Container(
-                          height:  MediaQuery.of(context).size.height*0.17,
-                          child: Column(
-                            children: [
-                              RadioListTile(
-                                title: const Text("Male"),
-                                value: Gender.Male,
-                                groupValue: _selectedItem,
-                                onChanged: (Gender? value) {
-                                setState(() {
-                                  _selectedItem = value;
-                                  });
-                                },
-                              ),
-                              RadioListTile(
-                                title: const Text("Female"),
-                                value: Gender.Female,
-                                groupValue: _selectedItem,
-                                onChanged: (Gender? value) {
-                                setState(() {
-                                  _selectedItem = value;
-                                  });
-                                },
-                              ),
-                            ],
-                          )
-                          // PopupMenuButton<Gender>(
-                          //   itemBuilder: (BuildContext context) {
-                          //     return List<PopupMenuEntry<Gender>>.generate(
-                          //       Gender.values.length,
-                          //           (int index) {
-                          //         return PopupMenuItem(
-                          //           value: Gender.values[index],
-                          //           child: AnimatedBuilder(
-                          //             child: Text(Gender.values[index].toString()),
-                          //             animation: _selectedItem,
-                          //             builder: (BuildContext context, Widget? child) {
-                          //               return RadioListTile<Gender>(
-                          //                 value: Gender.values[index],
-                          //                 groupValue: _selectedItem.value,
-                          //                 title: child,
-                          //                 onChanged: (Gender? value) {
-                          //                   _selectedItem.value = value!;
-                          //                 },
-                          //               );
-                          //             },
-                          //           ),
-                          //         );
-                          //       },
-                          //     );
-                          //   },
-                          // ),
-
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        backgroundColor: kColorFG,
+                        content: StatefulBuilder(
+                            builder: (BuildContext context, StateSetter setState) {
+                              return Container(
+                                  height: MediaQuery.of(context).size.height * 0.24,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      const Text(
+                                        "Gender",
+                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                                      ),
+                                      RadioListTile(
+                                        activeColor: kColorPrimary,
+                                        title: const Text("Male"),
+                                        value: Gender.Male,
+                                        groupValue: selectedGender,
+                                        onChanged: (Gender? value) async {
+                                          setState(() {
+                                            selectedGender = Gender.Male;
+                                            Navigator.pop(context);
+                                            // Navigator.pop(context);
+                                            // Navigator.pushNamed(context, '/healthdata');
+                                            // Navigator.pop(context, '/healthdata');
+                                          });
+                                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                                          prefs.setString("gender", EnumToString.convertToString(Gender.Male));
+                                          // SharedPreferences prefs = await SharedPreferences.getInstance();
+                                          // prefs.setString("GenderKey", _selectedItem);
+                                        },
+                                      ),
+                                      RadioListTile(
+                                        activeColor: kColorPrimary,
+                                        title: const Text("Female"),
+                                        value: Gender.Female,
+                                        groupValue: selectedGender,
+                                        onChanged: (Gender? value) async {
+                                          setState(() {
+                                            selectedGender = Gender.Female;
+                                            Navigator.pop(context);
+                                            // Navigator.pop(context);
+                                            // Navigator.pushNamed(context, '/healthdata');
+                                          });
+                                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                                          prefs.setString("gender", EnumToString.convertToString(Gender.Female));
+                                          // SharedPreferences prefs = await SharedPreferences.getInstance();
+                                          // prefs.setString("GenderKey", _selectedItem);
+                                        },
+                                      ),
+                                    ],
+                                  )
+                              );
+                           },
                         ),
-                      )
-                    );
-
+                      );
+                    }
+                  ).then((value) {
+                    saveGender();
+                  });
                 },
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Gender",
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          Text(
-                            "Male",
-                            style: TextStyle(color: Colors.grey),
-                          )
-                        ],
-                      )
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: ListTile(
+                    title: Text(
+                      "Gender",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
-
+                    subtitle: Text(
+                      "${selectedGender.name}",
+                      // "Male",
+                      style: TextStyle(color: Colors.grey),
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 10,bottom: 10),
-                  child: Divider(
-                    height: 1,
-                    color: Colors.white10,
+              ),
+              Divider(
+                height: 1,
+                color: Colors.white10,
+              ),
+              InkWell(
+                onTap: () {
+                  _datebirth(context);
+                },
+                child: ListTile(
+                  title: Text(
+                    "Date of Birth",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
+                  subtitle: Text(
+                    DOB,
+                    // "$birthdate",
+                    // "1990-01-01",
+                    style: TextStyle(color: Colors.grey),
+                  )
                 ),
-
-                Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Date of Birth",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                        ),
-                        Text(
-                          "1990-01-01",
-                          style: TextStyle(color: Colors.grey),
-                        )
-                      ],
-                    )
-                ),
-              ],
-            ),
+                // Container(
+                //     child: Column(
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       children: [
+                //         Text(
+                //           "Date of Birth",
+                //           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                //         ),
+                //         Text(
+                //           "$birthdate",
+                //           // "1990-01-01",
+                //           style: TextStyle(color: Colors.grey),
+                //         )
+                //       ],
+                //     )
+                // ),
+              ),
+            ],
           ),
         ),
       );});
     }
-  }
+}
 
 
 
 
 
 
+// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-// class MyHomePage extends StatelessWidget {
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         crossAxisAlignment: CrossAxisAlignment.center,
-//         children: <Widget>[
-//           ElevatedButton(
-//             child: Text("open picker dialog"),
-//             onPressed: () async {
-//               var datePicked = await DatePicker.showSimpleDatePicker(
-//                 context,
-//                 initialDate: DateTime(1994),
-//                 firstDate: DateTime(1960),
-//                 lastDate: DateTime(2012),
-//                 dateFormat: "dd-MMMM-yyyy",
-//                 locale: DateTimePickerLocale.th,
-//                 looping: true,
-//               );
+// const kBottomContainerHeight = 80.0;
+// const kActiveCardColour = Color(0xFF1D1E33);
+// const kInactiveCardColour = Color(0xFF111328);
+// const kBottomContainerColour = Color(0xFFEB1555);
+
+// const kLabelTextStyle = TextStyle(
+//   fontSize: 18.0,
+//   color: Color(0xFF8D8E98),
+// );
 //
-//               final snackBar =
-//               SnackBar(content: Text("Date Picked $datePicked"));
-//               ScaffoldMessenger.of(context).showSnackBar(snackBar);
-//             },
-//           ),
-//           ElevatedButton(
-//             child: Text("Show picker widget"),
-//             onPressed: () {
-//               Navigator.push(
-//                   context, MaterialPageRoute(builder: (_) => WidgetPage()));
-//             },
-//           )
-//         ],
+// const kNumberTextStyle = TextStyle(
+//   fontSize: 50.0,
+//   fontWeight: FontWeight.w900,
+// );
+//
+// const kLargeButtonTextStyle = TextStyle(
+//   fontSize: 25.0,
+//   fontWeight: FontWeight.bold,
+// );
+//
+// const kTitleTextStyle = TextStyle(
+//   fontSize: 50.0,
+//   fontWeight: FontWeight.bold,
+// );
+//
+// const kResultTextStyle = TextStyle(
+//   color: Color(0xFF24D876),
+//   fontSize: 22.0,
+//   fontWeight: FontWeight.bold,
+// );
+//
+// const kBMITextStyle = TextStyle(
+//   fontSize: 100.0,
+//   fontWeight: FontWeight.bold,
+// );
+//
+// const kBodyTextStyle = TextStyle(
+//   fontSize: 22.0,
+// );
+
+// class IconContent extends StatelessWidget {
+//   IconContent({this.icon, this.label});
+//
+//   final IconData icon;
+//   final String label;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: <Widget>[
+//         Icon(
+//           icon,
+//           size: 80.0,
+//         ),
+//         SizedBox(
+//           height: 15.0,
+//         ),
+//         Text(
+//           label,
+//           style: kLabelTextStyle,
+//         )
+//       ],
+//     );
+//   }
+// }
+
+// enum Gender {
+//   male,
+//   female,
+// }
+
+// class ReusableCard extends StatelessWidget {
+//   ReusableCard({@required this.colour, this.cardChild, this.onPress});
+//
+//   final Color colour;
+//   final Widget cardChild;
+//   final Function onPress;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: onPress,
+//       child: Container(
+//         child: cardChild,
+//         margin: EdgeInsets.all(15.0),
+//         decoration: BoxDecoration(
+//           color: colour,
+//           borderRadius: BorderRadius.circular(10.0),
+//         ),
 //       ),
 //     );
 //   }
 // }
-//
-// class WidgetPage extends StatefulWidget {
+
+// class InputPage extends StatefulWidget {
 //   @override
-//   _WidgetPageState createState() => _WidgetPageState();
+//   _InputPageState createState() => _InputPageState();
 // }
+
+// class _InputPageState extends State<InputPage> {
+//   Gender selectedGender;
+//   int height = 180;
+//   int weight = 60;
+//   int age = 20;
 //
-// class _WidgetPageState extends State<WidgetPage> {
-//   DateTime? _selectedDate;
+//   @override
+//   void initState() {
+//     WidgetsBinding.instance.addPostFrameCallback((_) {
+//       initGender();
+//     });
+//     super.initState();
+//   }
+//
+//   void initGender() async {
+//     SharedPreferences prefs = await SharedPreferences.getInstance();
+//     selectedGender =
+//         EnumToString.fromString(Gender.values, prefs.getString("gender"));
+//     setState(() {});
+//   }
 //
 //   @override
 //   Widget build(BuildContext context) {
-//     return SafeArea(
-//       child: Scaffold(
-//         body: Container(
-//           decoration: BoxDecoration(
-//               gradient: LinearGradient(
-//                 begin: FractionalOffset.topCenter,
-//                 end: FractionalOffset.bottomCenter,
-//                 colors: [
-//                   Colors.grey[900]!,
-//                   Colors.black,
-//                 ],
-//                 stops: const [0.7, 1.0],
-//               )),
-//           child: Center(
-//             child: Column(
-//               mainAxisSize: MainAxisSize.min,
-//               children: [
-//                 Container(
-//                   padding: const EdgeInsets.symmetric(horizontal: 25),
-//                   child: DatePickerWidget(
-//                     looping: false, // default is not looping
-//                     firstDate: DateTime.now(), //DateTime(1960),
-//                     //  lastDate: DateTime(2002, 1, 1),
-// //              initialDate: DateTime.now(),// DateTime(1994),
-//                     dateFormat:
-//                     // "MM-dd(E)",
-//                     "dd/MMMM/yyyy",
-//                     // locale: DatePicker.localeFromString('th'),
-//                     onChange: (DateTime newDate, _) {
-//                       setState(() {
-//                         _selectedDate = newDate;
-//                       });
-//                       print(_selectedDate);
-//                     },
-//                     pickerTheme: DateTimePickerTheme(
-//                       backgroundColor: Colors.transparent,
-//                       itemTextStyle:
-//                       TextStyle(color: Colors.white, fontSize: 19),
-//                       dividerColor: Colors.white,
-//                     ),
-//                   ),
-//                 ),
-//                 Text("${_selectedDate ?? ''}"),
-//               ],
-//             ),
-//           ),
+//     return Scaffold(
+//         appBar: AppBar(
+//           title: Text('BMI CALCULATOR'),
 //         ),
+//         body: Column(
+//             crossAxisAlignment: CrossAxisAlignment.stretch,
+//             children: <Widget>[
+//               Expanded(
+//                   child: Row(
+//                     children: <Widget>[
+//                       Expanded(
+//                         child: ReusableCard(
+//                           onPress: () async {
+//                             setState(() {
+//                               selectedGender = Gender.male;
+//                             });
+//                             SharedPreferences prefs = await SharedPreferences.getInstance();
+//                             prefs.setString("gender", EnumToString.convertToString(Gender.male));
+//                           },
+//                           colour: selectedGender == Gender.male
+//                               ? kActiveCardColour
+//                               : kInactiveCardColour,
+//                           cardChild: IconContent(
+//                             icon: FontAwesomeIcons.mars,
+//                             label: 'MALE',
+//                           ),
+//                         ),
+//                       ),
+//                       Expanded(
+//                         child: ReusableCard(
+//                           onPress: () async {
+//                             setState(() {
+//                               selectedGender = Gender.female;
+//                             });
+//                             SharedPreferences prefs =
+//                             await SharedPreferences.getInstance();
+//                             prefs.setString(
+//                                 "gender", EnumToString.convertToString(Gender.female));
+//                           },
+//                           colour: selectedGender == Gender.female
+//                               ? kActiveCardColour
+//                               : kInactiveCardColour,
+//                           cardChild: IconContent(
+//                             icon: FontAwesomeIcons.venus,
+//                             label: 'FEMALE',
+//                           ),
+//                         ),
+//                       ),
+//                     ],
+//                   ))
+//             ]));
+//   }
+// }
+
+// Future<void> main() {
+//   runApp(MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Flutter Demo',
+//       theme: ThemeData(
+//         primarySwatch: Colors.blue,
+//         visualDensity: VisualDensity.adaptivePlatformDensity,
 //       ),
+//       home: InputPage(),
 //     );
-//     //var locale = "zh";
-//     // return SafeArea(
-//     //   child: Scaffold(
-//     //     body: Center(
-//     //       child: DatePickerWidget(
-//     //         locale: //locale == 'zh'
-//     //             DateTimePickerLocale.zh_cn
-//     //             //  DateTimePickerLocale.en_us
-//     //         ,
-//     //         lastDate: DateTime.now(),
-//     //         // dateFormat: "yyyy : MMM : dd",
-//     //         // dateFormat: 'yyyy MMMM dd',
-//     //         onChange: (DateTime newDate, _) {
-//     //           setState(() {
-//     //             var dob = newDate.toString();
-//     //             print(dob);
-//     //           });
-//     //         },
-//     //         pickerTheme: DateTimePickerTheme(
-//     //           backgroundColor: Colors.transparent,
-//     //           dividerColor: const Color(0xffe3e3e3),
-//     //           itemTextStyle: TextStyle(
-//     //             fontFamily: 'NotoSansTC',
-//     //             fontSize: 18,
-//     //             fontWeight: FontWeight.w500,
-//     //             color: Theme.of(context).primaryColor,
-//     //           ),
-//     //         ),
-//     //       ),
-//     //     ),
-//     //   ),
-//     // );
 //   }
 // }

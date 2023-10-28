@@ -18,20 +18,34 @@ class ErrorState extends HomeState {
 
 class GetAllExerciseState extends HomeState {
   final RequestExerciseData exerciseData;
-  GetAllExerciseState({required this.exerciseData});
+  final double? calories;
+  final double? totalTime;
+  GetAllExerciseState({required this.exerciseData, this.calories, this.totalTime});       // this.calories
 }
+
 class UpdateAllExerciseState extends HomeState {
   final ExerciseModelLocalDB exerciseModelLocalDB;
   UpdateAllExerciseState({required this.exerciseModelLocalDB});
+}
+
+class ReverseExerciseState extends HomeState {
+  final ExerciseModelLocalDB exerciseModelLocalDB;
+  ReverseExerciseState({required this.exerciseModelLocalDB});
 }
 
 class GetAllDaysState extends HomeState {
   final RequestDayData dayData;
   GetAllDaysState({required this.dayData});
 }
+
 class UpdateDayProgressState extends HomeState {
   final DayModelLocalDB dayModelLocalDB;
   UpdateDayProgressState({required this.dayModelLocalDB});
+}
+
+class ReverseDayProgressState extends HomeState {
+  final DayModelLocalDB dayModelLocalDB;
+  ReverseDayProgressState({required this.dayModelLocalDB});
 }
 
 // class CartCombinationDetailsLocalDBState extends HomeState {

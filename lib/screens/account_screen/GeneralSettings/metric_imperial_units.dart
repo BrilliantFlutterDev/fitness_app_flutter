@@ -1,24 +1,56 @@
+import 'package:enum_to_string/enum_to_string.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:fitness_app/constants/colors.dart';
+import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-enum Weight {lbs, kg}
-enum Height {cm, inch}
+enum Weight {kg, lbs}
+enum Height {inch, cm}
 
 class MetricImperialUnits extends StatefulWidget {
+
+  const MetricImperialUnits({Key? key}) : super(key: key);
+
   @override
   State<MetricImperialUnits> createState() => _MetricImperialUnitsState();
 }
 
 class _MetricImperialUnitsState extends State<MetricImperialUnits> {
 
-  // ValueNotifier<Weight> _selectedItem1 = new ValueNotifier<Weight>(Weight.lbs);
-  // ValueNotifier<Height> _selectedItem2 = new ValueNotifier<Height>(Height.cm);
+  Weight selectedWeight = Weight.kg;
+  Height selectedHeight = Height.inch;
 
-  Weight? _selectedItem1 = Weight.lbs;
-  Height? _selectedItem2 = Height.cm;
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    saveWeight();
+    saveHeight();
+    analytics.setCurrentScreen(screenName: "Metric Imperial Units Screen");
+  }
+
+  void saveWeight() async {
+    SharedPreferences prefsWeight = await SharedPreferences.getInstance();
+    selectedWeight = EnumToString.fromString(Weight.values, prefsWeight.getString("weight").toString())!;
+    setState(() {
+
+    });
+  }
+
+  void saveHeight() async {
+    SharedPreferences prefsHeight = await SharedPreferences.getInstance();
+    selectedHeight = EnumToString.fromString(Height.values, prefsHeight.getString("height").toString())!;
+    setState(() {
+
+    });
+  }
 
   @override
   Widget build(BuildContext context){
@@ -38,202 +70,185 @@ class _MetricImperialUnitsState extends State<MetricImperialUnits> {
       }
     }, builder: (context, state) {
       return Scaffold(
+        backgroundColor: kColorBG,
+        bottomNavigationBar: SizedBox(
+          height: MediaQuery.of(context).size.height*0.07,
+          width: AdmobHelper.getBannerAd().size.width.toDouble(),//double.infinity,
+          child: AdWidget(
+            ad:  AdmobHelper.getBannerAd()..load(),                 //myBanner..load(),
+            key: UniqueKey(),
+          ),
+        ),
         appBar: AppBar(
-          backgroundColor: const Color(0xff1c1b20),
+          backgroundColor: kColorBG,
           title: const Text("METRIC & IMPERIAL UNITS"),
         ),
         body: SafeArea(
           child: ColorRemover(
-            child: Padding(
-              padding: EdgeInsets.only(left: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (_) =>  Dialog(
-                            child: Container(
-                                height: MediaQuery.of(context).size.height*0.21,
-                                child: Column(
-                                  children: [
-                                    SizedBox(height: 10),
-                                    Text(
-                                      "Weight",
-                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                                    ),
-                                    RadioListTile(
-                                      title: const Text("lbs"),
-                                      value: Weight.lbs,
-                                      groupValue: _selectedItem1,
-                                      onChanged: (Weight? value) {
-                                        setState(() {
-                                          _selectedItem1 = value;
-                                        });
-                                      },
-                                    ),
-                                    RadioListTile(
-                                      title: const Text("kg"),
-                                      value: Weight.kg,
-                                      groupValue: _selectedItem1,
-                                      onChanged: (Weight? value) {
-                                        setState(() {
-                                          _selectedItem1 = value;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                )
-                              // PopupMenuButton<Gender>(
-                              //   itemBuilder: (BuildContext context) {
-                              //     return List<PopupMenuEntry<Gender>>.generate(
-                              //       Gender.values.length,
-                              //           (int index) {
-                              //         return PopupMenuItem(
-                              //           value: Gender.values[index],
-                              //           child: AnimatedBuilder(
-                              //             child: Text(Gender.values[index].toString()),
-                              //             animation: _selectedItem,
-                              //             builder: (BuildContext context, Widget? child) {
-                              //               return RadioListTile<Gender>(
-                              //                 value: Gender.values[index],
-                              //                 groupValue: _selectedItem.value,
-                              //                 title: child,
-                              //                 onChanged: (Gender? value) {
-                              //                   _selectedItem.value = value!;
-                              //                 },
-                              //               );
-                              //             },
-                              //           ),
-                              //         );
-                              //       },
-                              //     );
-                              //   },
-                              // ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InkWell(
+                  onTap: () {
+                    // showDialog(
+                    //     context: context,
+                    //     builder: (_) => Dialog(
+                    //       child: SizedBox(
+                    //         height: MediaQuery.of(context).size.height * 0.3,
+                    //         child: ComingSoonPopup(),
+                    //       ),
+                    //     ));
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            backgroundColor: kColorFG,
+                            content: StatefulBuilder(
+                              builder: (BuildContext context, StateSetter setState) {
+                                return Container(
+                                    height: MediaQuery.of(context).size.height*0.24,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        // SizedBox(height: 10),
+                                        const Text(
+                                          "Weight Unit",
+                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                                        ),
+                                        RadioListTile(
+                                          activeColor: kColorPrimary,
+                                          title: const Text("kg"),
+                                          value: Weight.kg,
+                                          groupValue: selectedWeight,
+                                          onChanged: (Weight? value) async {
+                                            setState(() {
+                                              selectedWeight = Weight.kg;
+                                              Navigator.pop(context);
+                                            });
+                                            SharedPreferences prefsWeight = await SharedPreferences.getInstance();
+                                            prefsWeight.setString("weight", EnumToString.convertToString(Weight.kg));
+                                          },
+                                        ),
+                                        RadioListTile(
+                                          activeColor: kColorPrimary,
+                                          title: const Text("lbs"),
+                                          value: Weight.lbs,
+                                          groupValue: selectedWeight,
+                                          onChanged: (Weight? value) async {
+                                            setState(() {
+                                              selectedWeight = Weight.lbs;
+                                              Navigator.pop(context);
+                                            });
+                                            SharedPreferences prefsWeight = await SharedPreferences.getInstance();
+                                            prefsWeight.setString("weight", EnumToString.convertToString(Weight.lbs));
+                                          },
+                                        ),
+                                      ],
+                                    )
+                                );
+                              },
                             ),
-                          )
-                      );
-
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Weight",
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              Text(
-                                "lbs",
-                                style: TextStyle(color: Colors.grey),
-                              )
-                            ],
-                          )
+                          );
+                        }
+                    ).then((value) {
+                      saveWeight();
+                    });
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: ListTile(
+                      title: const Text(
+                        "Weight Unit",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      subtitle: Text(
+                        selectedWeight.name,
+                        style: const TextStyle(color: Colors.grey),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10,bottom: 10),
-                    child: Divider(
-                      height: 1,
-                      color: Colors.white10,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (_) =>  Dialog(
-                            child: Container(
-                                height: MediaQuery.of(context).size.height*0.21,
-                                child: Column(
-                                  children: [
-                                    SizedBox(height: 10),
-                                    Text(
-                                      "Height",
-                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                                    ),
-
-                                    RadioListTile(
-                                      title: const Text("cm"),
-                                      value: Height.cm,
-                                      groupValue: _selectedItem2,
-                                      onChanged: (Height? value) {
-                                        setState(() {
-                                          _selectedItem2 = value;
-                                        });
-                                      },
-                                    ),
-                                    RadioListTile(
-                                      title: const Text("inch"),
-                                      value: Height.inch,
-                                      groupValue: _selectedItem2,
-                                      onChanged: (Height? value) {
-                                        setState(() {
-                                          _selectedItem2 = value;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                )
-                              // PopupMenuButton<Gender>(
-                              //   itemBuilder: (BuildContext context) {
-                              //     return List<PopupMenuEntry<Gender>>.generate(
-                              //       Gender.values.length,
-                              //           (int index) {
-                              //         return PopupMenuItem(
-                              //           value: Gender.values[index],
-                              //           child: AnimatedBuilder(
-                              //             child: Text(Gender.values[index].toString()),
-                              //             animation: _selectedItem,
-                              //             builder: (BuildContext context, Widget? child) {
-                              //               return RadioListTile<Gender>(
-                              //                 value: Gender.values[index],
-                              //                 groupValue: _selectedItem.value,
-                              //                 title: child,
-                              //                 onChanged: (Gender? value) {
-                              //                   _selectedItem.value = value!;
-                              //                 },
-                              //               );
-                              //             },
-                              //           ),
-                              //         );
-                              //       },
-                              //     );
-                              //   },
-                              // ),
+                ),
+                const Divider(
+                  height: 1,
+                  color: Colors.white10,
+                ),
+                InkWell(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            backgroundColor: kColorFG,
+                            content: StatefulBuilder(
+                              builder: (BuildContext context, StateSetter setState) {
+                                return Container(
+                                    height: MediaQuery.of(context).size.height*0.24,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        // SizedBox(height: 10),
+                                        const Text(
+                                          "Height Unit",
+                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                                        ),
+                                        RadioListTile(
+                                          activeColor: kColorPrimary,
+                                          title: const Text("inch"),
+                                          value: Height.inch,
+                                          groupValue: selectedHeight,
+                                          onChanged: (Height? value) async {
+                                            setState(() {
+                                              selectedHeight = Height.inch;
+                                              Navigator.pop(context);
+                                            });
+                                            SharedPreferences prefsHeight = await SharedPreferences.getInstance();
+                                            prefsHeight.setString("height", EnumToString.convertToString(Height.inch));
+                                          },
+                                        ),
+                                        RadioListTile(
+                                          activeColor: kColorPrimary,
+                                          title: const Text("cm"),
+                                          value: Height.cm,
+                                          groupValue: selectedHeight,
+                                          onChanged: (Height? value) async {
+                                            setState(() {
+                                              selectedHeight = Height.cm;
+                                              Navigator.pop(context);
+                                            });
+                                            SharedPreferences prefsHeight = await SharedPreferences.getInstance();
+                                            prefsHeight.setString("height", EnumToString.convertToString(Height.cm));
+                                          },
+                                        ),
+                                      ],
+                                    )
+                                );
+                              },
                             ),
-                          )
-                      );
-
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Height",
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              Text(
-                                "cm",
-                                style: TextStyle(color: Colors.grey),
-                              )
-                            ],
-                          )
+                          );
+                        }
+                    ).then((value) {
+                      saveHeight();
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: ListTile(
+                      title: const Text(
+                        "Height Unit",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                       ),
+                      subtitle: Text(
+                        selectedHeight.name,
+                        style: const TextStyle(color: Colors.grey),
+                      )
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
-      );});
+      );
+    });
   }
 }

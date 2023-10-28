@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "662041223420",
+    "project_id": "fitness-app-8cc2c",
+    "storage_bucket": "fitness-app-8cc2c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662041223420:android:52f166ff279f5844baf779",
+        "android_client_info": {
+          "package_name": "com.gamescapes.bodyweight.home.workout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662041223420-q57u727q8esi04fcj5h5qv73ptu6a6ua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4IQISk6cdl8R3AH_kpZWmeQks85aQ-gY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662041223420-q57u727q8esi04fcj5h5qv73ptu6a6ua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
