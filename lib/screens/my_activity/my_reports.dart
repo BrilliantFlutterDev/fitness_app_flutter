@@ -16,7 +16,6 @@ import '../../Helper/DBModels/day_model.dart';
 import '../../Utils/app_global.dart';
 import '../../Utils/modal_progress_hud.dart';
 import '../../constants/colors.dart';
-
 import 'MyActivityBloc/my_activity_bloc.dart';
 
 class MyReports extends StatefulWidget {
@@ -43,7 +42,10 @@ class _MyReportsState extends State<MyReports> {
     // final double? weight = double.tryParse(_weightController.value.text);
 
     // Check if the inputs are valid
-    if (user.height == null || user.height <= 0 || user.weight == null || user.weight <= 0) {
+    if (user.height == null ||
+        user.height <= 0 ||
+        user.weight == null ||
+        user.weight <= 0) {
       setState(() {
         _message = "Your height and weigh must be positive numbers";
       });
@@ -99,7 +101,7 @@ class _MyReportsState extends State<MyReports> {
         child: Scaffold(
           //  backgroundColor: const Color(0xff1c1b20),
           appBar: AppBar(
-            toolbarHeight: MediaQuery.of(context).size.height*0.1,
+            toolbarHeight: MediaQuery.of(context).size.height * 0.1,
             backgroundColor: const Color(0xff1c1b20),
             title: Padding(
               padding: EdgeInsets.only(left: 15, top: 20),
@@ -255,11 +257,11 @@ class _MyReportsState extends State<MyReports> {
                   height: 10,
                 ),
                 Container(
-                  height: 25.h,
+                  height: 28.h,
                   width: MediaQuery.of(context).size.width * 2,
                   margin: const EdgeInsets.all(12),
                   child: Container(
-                    height: 15.h,
+                    height: 16.h,
                     width: MediaQuery.of(context).size.width * 2,
                     padding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
@@ -302,9 +304,9 @@ class _MyReportsState extends State<MyReports> {
                                     Text(
                                       'HISTORY',
                                       style: TextStyle(
-                                          color: Color(0xff1ce5c1),
-                                          fontSize: 15,
-                                          // fontWeight: FontWeight.w500
+                                        color: Color(0xff1ce5c1),
+                                        fontSize: 15,
+                                        // fontWeight: FontWeight.w500
                                       ),
                                     ),
                                     Icon(
@@ -565,7 +567,10 @@ class _MyReportsState extends State<MyReports> {
                                       context: context,
                                       builder: (_) => Dialog(
                                             child: Container(
-                                              height: MediaQuery.of(context).size.height * 0.4,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.4,
                                               child: WeightPopup(),
                                             ),
                                           )); //CountdownPopup(),
@@ -724,7 +729,7 @@ class _MyReportsState extends State<MyReports> {
                     // height: 15.h,
                     width: MediaQuery.of(context).size.width * 2,
                     padding:
-                    const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.0),
                       gradient: const LinearGradient(
@@ -757,17 +762,21 @@ class _MyReportsState extends State<MyReports> {
                                   showDialog(
                                       context: context,
                                       builder: (_) => Dialog(
-                                        child: Container(
-                                          height: MediaQuery.of(context).size.height * 0.4,
-                                          child: BMIPopup(_calculate),
-                                        ),
-                                      )); //CountdownPopup(),
+                                            child: Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.4,
+                                              child: BMIPopup(_calculate),
+                                            ),
+                                          )); //CountdownPopup(),
                                 },
                                 child: Row(
                                   children: [
                                     Text("Edit"),
                                     SizedBox(width: 5),
-                                    Icon(Icons.edit_outlined, size: 18, color: Colors.white),
+                                    Icon(Icons.edit_outlined,
+                                        size: 18, color: Colors.white),
                                   ],
                                 ),
                                 // Container(
@@ -793,7 +802,10 @@ class _MyReportsState extends State<MyReports> {
                           Row(
                             children: [
                               Text("BMI range and categories come from"),
-                              Text(" Wiki", style: TextStyle(color: kColorPrimary),),
+                              Text(
+                                " Wiki",
+                                style: TextStyle(color: kColorPrimary),
+                              ),
                               Text("."),
                             ],
                           ),
@@ -801,134 +813,167 @@ class _MyReportsState extends State<MyReports> {
                             height: 20,
                           ),
                           SizedBox(
-                              height: MediaQuery.of(context).size.height*0.075,
-                              width: double.infinity,
-                              child: Column(
-                                children: [
-                                  Text(
-                                      _bmi == null ? 'No Result' : _bmi!.toStringAsFixed(2),
-                                      textAlign: TextAlign.center,
+                            height: MediaQuery.of(context).size.height * 0.075,
+                            width: double.infinity,
+                            child: Column(
+                              children: [
+                                Text(
+                                  _bmi == null
+                                      ? 'No Result'
+                                      : _bmi!.toStringAsFixed(2),
+                                  textAlign: TextAlign.center,
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.05,
+                                      height: 10,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                        gradient: const LinearGradient(
+                                          begin: Alignment.topRight,
+                                          end: Alignment.topLeft,
+                                          colors: [
+                                            Colors.blueAccent,
+                                            Colors.lightBlue,
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                  Row(
-                                    children: [
-                                      Container(
-                                        width: MediaQuery.of(context).size.width*0.05,
-                                        height: 10,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(12.0),
-                                          gradient: const LinearGradient(
-                                            begin: Alignment.topRight,
-                                            end: Alignment.topLeft,
-                                            colors: [
-                                              Colors.blueAccent,
-                                              Colors.lightBlue,
-                                            ],
-                                          ),
+                                    SizedBox(width: 5),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.09,
+                                      height: 10,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                        gradient: const LinearGradient(
+                                          begin: Alignment.topRight,
+                                          end: Alignment.topLeft,
+                                          colors: [
+                                            Colors.blue,
+                                            Colors.lightBlueAccent,
+                                          ],
                                         ),
                                       ),
-                                      SizedBox(width: 5),
-                                      Container(
-                                        width: MediaQuery.of(context).size.width*0.09,
-                                        height: 10,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(12.0),
-                                          gradient: const LinearGradient(
-                                            begin: Alignment.topRight,
-                                            end: Alignment.topLeft,
-                                            colors: [
-                                              Colors.blue,
-                                              Colors.lightBlueAccent,
-                                            ],
-                                          ),
+                                    ),
+                                    SizedBox(width: 5),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.18,
+                                      height: 10,
+                                      decoration: BoxDecoration(
+                                        color: Colors.blueAccent,
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                        gradient: const LinearGradient(
+                                          begin: Alignment.topRight,
+                                          end: Alignment.topLeft,
+                                          colors: [
+                                            Colors.cyan,
+                                            Colors.cyanAccent,
+                                          ],
                                         ),
                                       ),
-                                      SizedBox(width: 5),
-                                      Container(
-                                        width: MediaQuery.of(context).size.width*0.18,
-                                        height: 10,
-                                        decoration: BoxDecoration(
-                                          color: Colors.blueAccent,
-                                          borderRadius: BorderRadius.circular(12.0),
-                                          gradient: const LinearGradient(
-                                            begin: Alignment.topRight,
-                                            end: Alignment.topLeft,
-                                            colors: [
-                                              Colors.cyan,
-                                              Colors.cyanAccent,
-                                            ],
-                                          ),
+                                    ),
+                                    SizedBox(width: 5),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.15,
+                                      height: 10,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                        gradient: const LinearGradient(
+                                          begin: Alignment.topRight,
+                                          end: Alignment.topLeft,
+                                          colors: [
+                                            Colors.amber,
+                                            Colors.yellow,
+                                          ],
                                         ),
                                       ),
-                                      SizedBox(width: 5),
-                                      Container(
-                                        width: MediaQuery.of(context).size.width*0.15,
-                                        height: 10,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(12.0),
-                                          gradient: const LinearGradient(
-                                            begin: Alignment.topRight,
-                                            end: Alignment.topLeft,
-                                            colors: [
-                                              Colors.amber,
-                                              Colors.yellow,
-                                            ],
-                                          ),
+                                    ),
+                                    SizedBox(width: 5),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.15,
+                                      height: 10,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                        gradient: const LinearGradient(
+                                          begin: Alignment.topRight,
+                                          end: Alignment.topLeft,
+                                          colors: [
+                                            Colors.orange,
+                                            Colors.orangeAccent,
+                                          ],
                                         ),
                                       ),
-                                      SizedBox(width: 5),
-                                      Container(
-                                        width: MediaQuery.of(context).size.width*0.15,
-                                        height: 10,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(12.0),
-                                          gradient: const LinearGradient(
-                                            begin: Alignment.topRight,
-                                            end: Alignment.topLeft,
-                                            colors: [
-                                              Colors.orange,
-                                              Colors.orangeAccent,
-                                            ],
-                                          ),
+                                    ),
+                                    SizedBox(width: 5),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.15,
+                                      height: 10,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                        gradient: const LinearGradient(
+                                          begin: Alignment.topRight,
+                                          end: Alignment.topLeft,
+                                          colors: [
+                                            Colors.pink,
+                                            Colors.redAccent,
+                                          ],
                                         ),
                                       ),
-                                      SizedBox(width: 5),
-                                      Container(
-                                        width: MediaQuery.of(context).size.width*0.15,
-                                        height: 10,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(12.0),
-                                          gradient: const LinearGradient(
-                                            begin: Alignment.topRight,
-                                            end: Alignment.topLeft,
-                                            colors: [
-                                              Colors.pink,
-                                              Colors.redAccent,
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 7),
-                                  Row(
-                                    children: [
-                                      Text("15", style: TextStyle(fontSize: 12)),
-                                      SizedBox(width: MediaQuery.of(context).size.width*0.005),
-                                      Text("16", style: TextStyle(fontSize: 12)),
-                                      SizedBox(width: MediaQuery.of(context).size.width*0.05),
-                                      Text("18.5", style: TextStyle(fontSize: 12)),
-                                      SizedBox(width: MediaQuery.of(context).size.width*0.135),
-                                      Text("25", style: TextStyle(fontSize: 12)),
-                                      SizedBox(width: MediaQuery.of(context).size.width*0.125),
-                                      Text("30", style: TextStyle(fontSize: 12)),
-                                      SizedBox(width: MediaQuery.of(context).size.width*0.125),
-                                      Text("35", style: TextStyle(fontSize: 12)),
-                                      SizedBox(width: MediaQuery.of(context).size.width*0.1),
-                                      Text("40", style: TextStyle(fontSize: 12)),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 7),
+                                Row(
+                                  children: [
+                                    Text("15", style: TextStyle(fontSize: 12)),
+                                    SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.005),
+                                    Text("16", style: TextStyle(fontSize: 12)),
+                                    SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.05),
+                                    Text("18.5",
+                                        style: TextStyle(fontSize: 12)),
+                                    SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.135),
+                                    Text("25", style: TextStyle(fontSize: 12)),
+                                    SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.125),
+                                    Text("30", style: TextStyle(fontSize: 12)),
+                                    SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.125),
+                                    Text("35", style: TextStyle(fontSize: 12)),
+                                    SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.1),
+                                    Text("40", style: TextStyle(fontSize: 12)),
+                                  ],
+                                ),
+                              ],
+                            ),
                             // LineChartWidget()
                           ),
                           const SizedBox(
@@ -1049,8 +1094,7 @@ class _MyReportsState extends State<MyReports> {
   }
 }
 
-
-class BMIUser{
+class BMIUser {
   final double height;
   final double weight;
 

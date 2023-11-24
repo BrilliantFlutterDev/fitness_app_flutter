@@ -1,19 +1,12 @@
 import 'package:fitness_app/constants/colors.dart';
-import 'package:fitness_app/screens/forget_password/forget_password.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/plan_screen/planks_spinner_screen.dart';
-import 'package:fitness_app/screens/register_screen/register_screen.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
-import 'package:fitness_app/widgets/cus_bottom_bar.dart';
-import 'package:fitness_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:sizer/sizer.dart';
 import 'package:vertical_picker/vertical_picker.dart';
-
-import '../../constants.dart';
 
 class PushUpsSpinnerScreen extends StatefulWidget {
   const PushUpsSpinnerScreen({Key? key}) : super(key: key);
@@ -177,6 +170,7 @@ class _PushUpsSpinnerScreenState extends State<PushUpsSpinnerScreen> {
                                                 pushUpsRanges[index],
                                                 style: const TextStyle(
                                                     fontSize: 30,
+                                                    color: Colors.black,
                                                     fontWeight:
                                                         FontWeight.w700),
                                               ),

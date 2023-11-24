@@ -1,5 +1,4 @@
-import 'package:fitness_app/constants.dart';
-import 'package:fitness_app/constants/colors.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:fitness_app/screens/account_screen/Workout/notification_service.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/home_page/splash_screen.dart';
@@ -10,10 +9,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import 'screens/AuthenticationScreens/loginBloc/login_bloc.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await NotificationService().init();
   await NotificationService().requestIOSPermissions();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -30,6 +33,9 @@ class MyApp extends StatelessWidget {
             ),
             BlocProvider<MyActivityBloc>(
               create: (context) => MyActivityBloc(),
+            ),
+            BlocProvider<LoginBloc>(
+              create: (context) => LoginBloc(),
             ),
           ],
           child: MaterialApp(

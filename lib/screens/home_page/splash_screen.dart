@@ -1,17 +1,15 @@
 import 'dart:async';
 
 import 'package:fitness_app/constants/colors.dart';
+import 'package:fitness_app/screens/AuthenticationScreens/loginscreen.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
-import 'package:fitness_app/screens/plan_screen/plan_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../Utils/app_global.dart';
-import '../../Utils/common_functions.dart';
 import '../../Utils/modal_progress_hud.dart';
-import '../../widgets/cus_bottom_bar.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -48,16 +46,20 @@ class _SplashScreenState extends State<SplashScreen>
     _animationController.forward();
 
     Timer(const Duration(seconds: 3), () {
-      if (AppGlobal.dataStoreFromConstantToLDB == 'true') {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const CusBottomBar()),
-            (Route<dynamic> route) => false);
-      } else {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) => const SelectPlanScreen()));
-      }
+      // if (AppGlobal.dataStoreFromConstantToLDB == 'true') {
+      //   Navigator.of(context).pushAndRemoveUntil(
+      //       MaterialPageRoute(builder: (context) => const CusBottomBar()),
+      //       (Route<dynamic> route) => false);
+      // } else {
+      //   Navigator.pushReplacement(
+      //       context,
+      //       MaterialPageRoute(
+      //           builder: (BuildContext context) => const SelectPlanScreen()));
+      // }
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => const LoginScreen()));
     });
   }
 
