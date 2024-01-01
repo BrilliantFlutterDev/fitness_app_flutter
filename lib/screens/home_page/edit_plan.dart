@@ -1,11 +1,13 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:fitness_app/Helper/db_helper.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/home_page/open_home_page/open_home_page.dart';
 import 'package:fitness_app/screens/my_activity/replace_exercise_plan.dart';
 import 'package:fitness_app/widgets/color_remover.dart';
 import 'package:fitness_app/screens/ads/AdmobHelper.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ReorderableList;
+import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
 import 'package:fitness_app/constants/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -33,6 +35,9 @@ class _EditPlanState extends State<EditPlan> {
 
   List<String> statusList = ['Replace', 'Delete'];
   late HomeBloc _homeBloc;
+  int draggedIndex = 0;
+  int targetIndex = 0;
+  bool visible = false;
 
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
@@ -42,6 +47,23 @@ class _EditPlanState extends State<EditPlan> {
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     analytics.setCurrentScreen(screenName: "Edit Exercise Screen");
     //_homeBloc.add(GetAllExerciseOfDayEvent(day: widget.dayModelLocalDB!.name));
+  }
+
+  void _onReorder(int oldIndex, int newIndex) async {
+    if (newIndex > widget.exerciseData!.exerciseList!.length) newIndex = widget.exerciseData!.exerciseList!.length;
+    if (oldIndex < newIndex) newIndex -= 1;
+
+    setState(() {
+      visible = true;
+      final ExerciseModelLocalDB item = widget.exerciseData!.exerciseList![oldIndex];
+      widget.exerciseData!.exerciseList!.removeAt(oldIndex);
+
+      // print(item.title);
+      widget.exerciseData!.exerciseList!.insert(newIndex, item);
+
+      draggedIndex = oldIndex;
+      targetIndex = newIndex;
+    });
   }
 
   @override
@@ -80,6 +102,29 @@ class _EditPlanState extends State<EditPlan> {
           appBar: AppBar(
             backgroundColor: kColorBG,
             title: const Text("EDIT PLAN"),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: InkWell(
+                  onTap: (){
+                    _homeBloc.add(SwapAExerciseOfDayEvent(
+                      oldIndex: widget.exerciseData!.exerciseList![draggedIndex].columnsId!.toInt(),
+                      newIndex: widget.exerciseData!.exerciseList![targetIndex].columnsId!.toInt()
+                    ));
+                    visible = false;
+                    print("List1>>>>>: ${widget.exerciseData!.exerciseList![draggedIndex].exercise.name}");
+                    print("List2>>>>>: ${widget.exerciseData!.exerciseList![targetIndex].exercise.name}");
+                  },
+                  child: Visibility(
+                    visible: visible,
+                    child: const Text(
+                        "Done",
+                        style: TextStyle(fontSize: 15),
+                    ),
+                  )
+                ),
+              ),
+            ],
           ),
           body: ColorRemover(
             child: ReorderableListView(
@@ -107,11 +152,11 @@ class _EditPlanState extends State<EditPlan> {
                                 borderRadius:
                                 BorderRadius.circular(8.0),
                                 child: Image(
-                                    height: 75,
-                                    width: 85,
-                                    fit: BoxFit.cover,
-                                    image: AssetImage(
-                                        "assets/images/${widget.exerciseData!.exerciseList![index].exercise.image}")),
+                                  height: 75,
+                                  width: 85,
+                                  fit: BoxFit.cover,
+                                  image: AssetImage(
+                                    "assets/images/${widget.exerciseData!.exerciseList![index].exercise.image}")),
                               ),
                               SizedBox(width: MediaQuery.of(context).size.width*0.05),
                               Column(
@@ -193,16 +238,39 @@ class _EditPlanState extends State<EditPlan> {
                     ],
                   )
               ],
-              onReorder: (int oldIndex, int newIndex) {
-                setState(() {
-                  if (oldIndex < newIndex) {
-                    newIndex -= 1;
-                  }
-                  final ExerciseModelLocalDB item = widget.exerciseData!.exerciseList!.removeAt(oldIndex) ;
-                  widget.exerciseData!.exerciseList!.insert(newIndex, item);
-                });
-                // _homeBloc.add(SwapAExerciseOfDayEvent(day: 'Day ${AppGlobal.currentDay + 1}',oldIndex: oldIndex, newIndex: newIndex));
-              },
+              onReorder: _onReorder,
+              // onReorder: (int oldIndex, int newIndex) {
+              //   setState(() {
+              //     visible = true;
+              //     print("mOldIndex: $oldIndex, mNewIndex: $newIndex");
+              //     if (oldIndex < newIndex) {
+              //       newIndex -= 1;
+              //       // widget.exerciseData!.exerciseList![oldIndex].index = newIndex;
+              //     }
+              //     // else {
+              //     //   widget.exerciseData!.exerciseList![oldIndex].index = newIndex;
+              //     // }
+              //
+              //     final ExerciseModelLocalDB item = widget.exerciseData!.exerciseList!.removeAt(oldIndex);
+              //     widget.exerciseData!.exerciseList!.insert(newIndex, item);
+              //
+              //     draggedIndex = oldIndex;
+              //     targetIndex = newIndex;
+              //
+              //     // for (int i = 0; i < widget.exerciseData!.exerciseList!.length; i++) {
+              //     //   widget.exerciseData!.exerciseList![i].index = i;
+              //     // }
+              //
+              //     // print("Old Index: ${widget.exerciseData!.exerciseList![oldIndex].columnsId!.toInt()}     New Index: ${widget.exerciseData!.exerciseList![newIndex].columnsId!.toInt()}");
+              //     print("Old Index: $oldIndex, New Index: $newIndex");
+              //     // _homeBloc.add(SwapAExerciseOfDayEvent(
+              //     //     // oldIndex: widget.exerciseData!.exerciseList![oldIndex].columnsId!.toInt(),
+              //     //     // newIndex: widget.exerciseData!.exerciseList![newIndex].columnsId!.toInt()
+              //     //     oldIndex: draggedIndex,
+              //     //     newIndex: targetIndex
+              //     // ));
+              //   });
+              // },
             ),
           ),
         ),

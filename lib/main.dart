@@ -3,17 +3,18 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:fitness_app/constants.dart';
 import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/screens/account_screen/AccountScreenBloc/account_screen_bloc.dart';
-import 'package:fitness_app/screens/account_screen/Workout/notification_service.dart';
 import 'package:fitness_app/screens/ads/AdmobHelper.dart';
 import 'package:fitness_app/screens/home_page/HomePageBloc/home_bloc.dart';
 import 'package:fitness_app/screens/splash_screen/splash_screen.dart';
 import 'package:fitness_app/screens/my_activity/MyActivityBloc/my_activity_bloc.dart';
 import 'package:fitness_app/screens/plan_screen/plan_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:alarm/alarm.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 void main() async {
@@ -36,23 +37,27 @@ void main() async {
       ]
   );
 
-  await NotificationService().init();
-  await NotificationService().requestIOSPermissions();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  var initializationSettingsAndroid = const AndroidInitializationSettings('notification');
-  var initializationSettingsIOS = DarwinInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestSoundPermission: true,
-      onDidReceiveLocalNotification: (int id, String? title, String? body, String? payload) async {});
-  var initializationSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
-  await flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
-      onDidReceiveNotificationResponse: (payload) async {
-    if (payload != null) {
-      debugPrint('notification payload: ' + payload.toString());
-    }
-  });
+  await Alarm.init(showDebugLogs: true);
+
+  // await NotificationService().init();
+  // await NotificationService().requestIOSPermissions();
+  //
+  // var initializationSettingsAndroid = const AndroidInitializationSettings('notification');
+  // var initializationSettingsIOS = DarwinInitializationSettings(
+  //     requestAlertPermission: true,
+  //     requestBadgePermission: true,
+  //     requestSoundPermission: true,
+  //     onDidReceiveLocalNotification: (int id, String? title, String? body, String? payload) async {});
+  // var initializationSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+  // await flutterLocalNotificationsPlugin.initialize(
+  //     initializationSettings,
+  //     onDidReceiveNotificationResponse: (payload) async {
+  //   if (payload != null) {
+  //     debugPrint('notification payload: ' + payload.toString());
+  //   }
+  // });
   runApp(const MyApp());
 }
 

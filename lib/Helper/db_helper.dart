@@ -4,6 +4,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
+  DatabaseHelper();
   static const _databaseName = "FitnessApp.db";
   static const _databaseVersion = 1;
 
@@ -13,6 +14,7 @@ class DatabaseHelper {
   // static const tableUserData = 'AddUserData';
 
   static const columnId = 'id';
+  // static const columnIndex = 'index';
 
   ///Exercises variables
   static const dayTitle = 'dayTitle';
@@ -80,7 +82,7 @@ class DatabaseHelper {
   Future _onCreate(Database db, int version) async {
     await db.execute('''
           CREATE TABLE $tableExercises (
-            $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
+            $columnId INTEGER PRIMARY KEY AUTOINCREMENT,    
             $dayTitle TEXT,
             $exercise_id INTEGER,
             $raps INTEGER,
@@ -88,6 +90,7 @@ class DatabaseHelper {
             $completeStatus TEXT
           )
           ''');
+        // $columnIndex INTEGER,
         // $kneeIssue TEXT,
         // $planLevel TEXT,
         // $inPushUpCat TEXT,
@@ -241,6 +244,112 @@ class DatabaseHelper {
     Database db = await instance.database;
     int id = row[columnId];
     return await db.update(tableExercises, {'position': newIndex}, where: 'id = ?', whereArgs: [id]);
+  }
+
+  // Future<void> updateItemIndex(Map<String, dynamic> row, int newIndex) async {
+  //   final db = await database;
+  //   await db.transaction((txn) async {
+  //     const updateIndex = '''
+  //       UPDATE $tableExercises
+  //       SET $columnIndex = ?
+  //       WHERE $columnId = ?
+  //     ''';
+  //     await txn.rawUpdate(updateIndex, [newIndex, row.id]);
+  //
+  //     if (newIndex > row.index) {
+  //       const shiftIndex = '''
+  //         UPDATE $tableExercises
+  //         SET $columnIndex = $columnIndex - 1
+  //         WHERE $columnIndex <= ? AND $columnIndex > ? AND $columnId != ?
+  //       ''';
+  //       await txn.rawUpdate(shiftIndex, [newIndex, row.index, row.id]);
+  //     } else if (newIndex < row.index) {
+  //       const shiftIndex = '''
+  //         UPDATE $tableExercises
+  //         SET $columnIndex = $columnIndex + 1
+  //         WHERE $columnIndex >= ? AND $columnIndex < ? AND $columnId != ?
+  //       ''';
+  //       await txn.rawUpdate(shiftIndex, [newIndex, row.index, row.id]);
+  //     }
+  //   });
+  // }
+
+  // Future<void> swapRows(int id1, int id2) async {
+  //   Database db = await instance.database;
+  //   await db.transaction((txn) async {
+  //     var row1 = await txn.rawQuery('SELECT * FROM $tableExercises WHERE id = ?', [id1]);
+  //     var row2 = await txn.rawQuery('SELECT * FROM $tableExercises WHERE id = ?', [id2]);
+  //
+  //     print("Row 1: $row1");
+  //     // get the index values of the rows to swap
+  //     Object? index1 = row1[0]['index'];
+  //     Object? index2 = row2[0]['index'];
+  //
+  //     // update the index values of the rows to swap
+  //     await txn.rawUpdate('UPDATE $tableExercises SET index = ? WHERE id = ?', [index2, id1]);
+  //     await txn.rawUpdate('UPDATE $tableExercises SET index = ? WHERE id = ?', [index1, id2]);
+  //   });
+  // }
+
+  Future<void> swapRows(int id1, int id2) async {
+
+    Database db = await instance.database;
+    await db.transaction((txn) async {
+      var row1 = await txn.rawQuery('SELECT * FROM $tableExercises WHERE id = ?', [id1]);
+      var row2 = await txn.rawQuery('SELECT * FROM $tableExercises WHERE id = ?', [id2]);
+
+      print("Row 1: $row1");
+      print("Row 2: $row2");
+
+      // await txn.rawUpdate('UPDATE $tableExercises SET id = ?, id = ? WHERE id = ?',
+      //     [row2[0]['id'], row2[0]['id'], id1]);
+      //
+      // await txn.rawUpdate('UPDATE $tableExercises SET id = ?, id = ? WHERE id = ?',
+      //     [row1[0]['id'], row1[0]['id'], id2]);
+
+      await txn.rawUpdate('UPDATE $tableExercises SET exerciseId = ?, raps = ?, time = ? WHERE id = ?',
+          [row2[0]['exerciseId'], row2[0]['raps'], row2[0]['time'], id1]);
+      await txn.rawUpdate('UPDATE $tableExercises SET exerciseId = ?, raps = ?, time = ? WHERE id = ?',
+          [row1[0]['exerciseId'], row1[0]['raps'], row1[0]['time'], id2]);
+    });
+  }
+
+  Future swapRows1(int originalIndex, int newIndex) async {
+    final db = await instance.database;
+    //update the id of the moved row
+    await db.update(tableExercises, {columnId: newIndex}, where: '$columnId = ?', whereArgs: [originalIndex]);
+    //loop through all the rows in the table
+    final List<Map<String, dynamic>> rows = await db.query(tableExercises);
+    for(int i = 0; i < rows.length; i++) {
+      if(i != newIndex) {
+        final int currentId = rows[i][columnId];
+        //update the id of the row if it's affected by the move
+        if(currentId == originalIndex || currentId == newIndex) {
+          await db.update(tableExercises, {columnId: i}, where: '$columnId = ?', whereArgs: [currentId], conflictAlgorithm: ConflictAlgorithm.replace);
+        }
+      }
+    }
+  }
+
+  Future<void> swapRows2(int originalIndex, int newIndex) async {
+    final db = await instance.database;
+    final batch = db.batch();
+
+    // Update the ID of the moved row
+    batch.update(tableExercises, {columnId: newIndex}, where: '$columnId = ?', whereArgs: [originalIndex]);
+
+    // Update the IDs of the affected rows
+    if (originalIndex < newIndex) {
+      for (int i = originalIndex + 1; i <= newIndex; i++) {
+        batch.update(tableExercises, {columnId: i - 1}, where: '$columnId = ?', whereArgs: [i]);
+      }
+    } else {
+      for (int i = originalIndex - 1; i >= newIndex; i--) {
+        batch.update(tableExercises, {columnId: i + 1}, where: '$columnId = ?', whereArgs: [i]);
+      }
+    }
+
+    await batch.commit();
   }
 
   Future<int> resetExerciseStatus() async {

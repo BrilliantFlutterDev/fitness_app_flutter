@@ -6,8 +6,6 @@ import 'package:fitness_app/screens/account_screen/GeneralSettings/health_data.d
 import 'package:fitness_app/screens/account_screen/GeneralSettings/metric_imperial_units.dart';
 import 'package:fitness_app/screens/account_screen/InAppPurchase/in_app_purchase.dart';
 import 'package:fitness_app/screens/account_screen/Workout/training_rest_popup.dart';
-import 'package:fitness_app/screens/reminder_screen/alarm_screen.dart';
-import 'package:fitness_app/screens/reminder_screen/notification_service.dart';
 import 'package:fitness_app/widgets/coming_soon_popup.dart';
 import 'package:fitness_app/widgets/reset_popup.dart';
 import 'package:fitness_app/widgets/switch_button.dart';
@@ -25,6 +23,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../Utils/modal_progress_hud.dart';
 import '../../constants/colors.dart';
 
+import '../reminder_screen/reminder_screen1.dart';
 import 'AccountScreenBloc/account_screen_bloc.dart';
 import 'Workout/countdown_time_popup.dart';
 import 'package:share_plus/share_plus.dart';
@@ -47,7 +46,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
 
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
-  NotificationServices notificationServices = NotificationServices();
+  // NotificationServices notificationServices = NotificationServices();
 
   final InAppReview _inAppReview = InAppReview.instance;
 
@@ -105,7 +104,7 @@ class _AccountScreen1State extends State<AccountScreen1> {
 
     _accountScreenBloc = BlocProvider.of<AccountScreenBloc>(context);
 
-    notificationServices.initialiseNotifications();
+    // notificationServices.initialiseNotifications();
 
     (<T>(T? o) => o!)(WidgetsBinding.instance).addPostFrameCallback((_) async {
       try {

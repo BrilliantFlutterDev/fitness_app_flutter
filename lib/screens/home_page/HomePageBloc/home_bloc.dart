@@ -258,21 +258,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       }
     }
     else if (event is SwapAExerciseOfDayEvent) {
-    yield LoadingState();
+      try {
+        await dbHelper.swapRows2(event.oldIndex, event.newIndex);
 
-    try {
-      var data = await dbHelper.queryAllExerciseOfDay(event.day);
-      RequestExerciseData exerciseData = RequestExerciseData.fromJson(data);
-      for(int i=0; i< exerciseData.exerciseList!.length; i++){
-
-        var mExercise = await dbHelper.queryASpecificExercise(exerciseData.exerciseList![i].exerciseID);
-        exerciseData.exerciseList![event.oldIndex].exercise = ExerciseDetailModel.fromJson(mExercise[0]);
-        exerciseData.exerciseList![event.oldIndex].exercise = exerciseData.exerciseList![event.newIndex].exercise;
-        print(exerciseData);
-    }
-    yield GetAllExerciseState(exerciseData: exerciseData);
+        // yield SwapAExerciseOfDayState.success();
       } catch (e) {
-        yield ErrorState(error: 'No Exercise found!');
+        print("Exception $e");
+        // yield SwapAExerciseOfDayState.error('Error swapping exercises!');
+        yield ErrorState(error: 'Error swapping exercises!');
       }
     }
     else if (event is GetAllDaysEvent) {

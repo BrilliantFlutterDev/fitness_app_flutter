@@ -23,6 +23,21 @@ class GetAllExerciseState extends HomeState {
   GetAllExerciseState({required this.exerciseData, this.calories, this.totalTime});       // this.calories
 }
 
+class SwapAExerciseOfDayState extends HomeState{
+  final bool isSuccess;
+  final String? error;
+
+  SwapAExerciseOfDayState({required this.isSuccess, this.error});
+
+  factory SwapAExerciseOfDayState.success() {
+    return SwapAExerciseOfDayState(isSuccess: true);
+  }
+
+  factory SwapAExerciseOfDayState.error(String error) {
+    return SwapAExerciseOfDayState(isSuccess: false, error: error);
+  }
+}
+
 class UpdateAllExerciseState extends HomeState {
   final ExerciseModelLocalDB exerciseModelLocalDB;
   UpdateAllExerciseState({required this.exerciseModelLocalDB});

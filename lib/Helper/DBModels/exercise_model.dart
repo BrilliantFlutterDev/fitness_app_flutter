@@ -104,6 +104,8 @@ class ExerciseModelLocalDB {
       completeStatus = json['completeStatus'];
   }
 
+  set index(int index) {}
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = columnsId;

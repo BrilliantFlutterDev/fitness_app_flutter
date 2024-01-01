@@ -12,10 +12,9 @@ class GetAllExerciseOfDayEvent extends HomeEvent {
 }
 
 class SwapAExerciseOfDayEvent extends HomeEvent {
-  final String day;
   int oldIndex;
   int newIndex;
-  SwapAExerciseOfDayEvent({required this.day, required this.oldIndex, required this.newIndex});
+  SwapAExerciseOfDayEvent({required this.oldIndex, required this.newIndex});
 }
 
 class RapsIncrementDecrementEvent extends HomeEvent {

@@ -112,45 +112,45 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     });
     try {
       Dio dio = Dio();
-      String bucketUrl = 'https://fitness-bucket.s3.amazonaws.com/Gifs/';
+      // String bucketUrl = 'https://fitness-bucket.s3.amazonaws.com/Gifs/';
 
       List<String> gifs = [
-        'abdominalCrunch.gif'
-        'backwardLunge.gif'
-        'bicyclesCrunches.gif'
-        'burpee.gif'
-        'buttBridge.gif'
-        'clapPushUp.gif'
-        'cobraStretch.gif'
-        'crunchWithLegRaise.gif'
-        'declinePushUp.gif'
-        'flutterKicks.gif'
-        'gluteKickBack.gif'
-        'heelTouch.gif'
-        'highStepping.gif'
-        'inchworm.gif'
-        'jumpingJack.gif'
-        'kneeToElbow.gif'
-        'legRaises.gif'
-        'longArmCrunches.gif'
-        'lunge.gif'
-        'mountainClimber.gif'
-        'plank.gif'
-        'plankJacks.gif'
-        'pushUp.gif'
-        'reclinedObliqueTwist.gif'
-        'reverseCrunch.gif'
-        'reverseCrunch.gif'
-        'scissors.gif'
-        'skippingWithoutRope.gif'
-        'squatPulses.gif'
-        'squatReachUp.gif'
-        'squats.gif'
-        'standingBicycleCrunch.gif'
-        'stepUpOnChair.gif'
-        'toySoldiers.gif'
-        'tricepsDips.gif'
-        'vUp.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/abdominalCrunch.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/backwardLunge.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/bicyclesCrunches.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/burpee.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/buttBridge.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/clapPushUp.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/cobraStretch.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/crunchWithLegRaise.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/declinePushUp.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/flutterKicks.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/gluteKickBack.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/heelTouch.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/highStepping.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/inchworm.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/jumpingJack.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/kneeToElbow.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/legRaises.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/longArmCrunches.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/lunge.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/mountainClimber.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/plank.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/plankJacks.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/pushUp.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/reclinedObliqueTwist.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/reverseCrunch.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/reverseCrunch.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/scissors.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/skippingWithoutRope.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/squatPulses.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/squatReachUp.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/squats.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/standingBicycleCrunch.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/stepUpOnChair.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/toySoldiers.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/tricepsDips.gif'
+        'https://fitness-bucket.s3.amazonaws.com/Gifs/vUp.gif'
       ];
       // Get app's documents directory
       Directory appDocDir = await getApplicationDocumentsDirectory();
@@ -162,7 +162,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       //   await file.writeAsBytes(response.bodyBytes);
       // }
       for (int i = 0; i < gifs.length; i++) {
-        String gifUrl = bucketUrl + gifs[i];
+        String gifUrl = gifs[i];//bucketUrl +
         String gifFileName = gifs[i];
         String gifPath = '${appDocDir.path}/images/$gifFileName';
         print("Gif Path>>>>>> $gifPath");
